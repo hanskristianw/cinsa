@@ -2,7 +2,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('Home') ?>">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -12,6 +12,20 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
+    <!-- QUERY MENU -->
+    <?php
+      // $role_id = $this->session->userdata('role_id');
+
+      // $queryMenu = "SELECT u_id, u_menu
+      //               FROM u
+      //               JOIN u_access
+      //               ON u_id = u_sub_u_id
+      //               WHERE u_access_u_id = $role_id
+      //               ORDER BY u_access_u_sub_id ASC";
+
+      // $menu = $this->db->query->result
+    ?>
+
       <!-- Heading -->
       <div class="sidebar-heading">
         Administrator
@@ -19,7 +33,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="<?= base_url('Home') ?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>

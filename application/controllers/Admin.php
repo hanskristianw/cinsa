@@ -3,8 +3,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
+  public function __construct()
+  {
+    parent::__construct();
+    
+    //jika belum login
+    if(!$this->session->userdata('kr_jabatan_id')){
+      redirect('auth');
+    }
+
+    //jika bukan admin dan sudah login redirect ke home
+    if($this->session->userdata('kr_jabatan_id')!=1 && $this->session->userdata('kr_jabatan_id')){
+      redirect('Home');
+    }
+  }
+
   public function index(){
-    $data['title'] = 'Dashboard';
+    $data['title'] = 'Admin';
     $data['kr'] = $this->db->get_where('kr', ['kr_username'=>$this->session->userdata('kr_username')])->row_array();
     
     

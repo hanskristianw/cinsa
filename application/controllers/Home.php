@@ -1,32 +1,26 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Karyawan extends CI_Controller
+class Home extends CI_Controller
 {
   public function __construct()
   {
     parent::__construct();
-    
-    //jika belum login
+    //jika tidak ada jabatan di session
     if(!$this->session->userdata('kr_jabatan_id')){
       redirect('auth');
-    }
-
-    //jika bukan karyawan dan sudah login redirect ke home
-    if($this->session->userdata('kr_jabatan_id')!=2 && $this->session->userdata('kr_jabatan_id')){
-      redirect('Home');
     }
   }
 
   public function index(){
-    $data['title'] = 'My Profile';
+    $data['title'] = 'Homepage';
     $data['kr'] = $this->db->get_where('kr', ['kr_username'=>$this->session->userdata('kr_username')])->row_array();
     
     
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);
     $this->load->view('templates/topbar',$data);
-    $this->load->view('karyawan/index',$data);
+    $this->load->view('home/index',$data);
     $this->load->view('templates/footer');
   }
 }
