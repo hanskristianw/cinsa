@@ -12,7 +12,7 @@
               <div class="col-lg">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Nation Star Academy Login Page</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Sistem Informasi Administrasi</h1>
                     <hr>
                     <img src="<?= base_url('assets/img/profile/nsalogokotak.jpg'); ?>" class="mb-4 rounded-circle">
                   </div>
