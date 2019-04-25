@@ -36,21 +36,43 @@
             </li>
 
             <hr class="sidebar-divider">';
-      }else{
+      }elseif($this->session->userdata('kr_jabatan_id')==2 && $this->session->userdata('kr_jabatan_id')){
+        //jika dia karyawan
         echo'<div class="sidebar-heading">
-              Karyawan
+              Employee
             </div>
 
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Components</span>
+                <span>Master</span>
               </a>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Custom Components:</h6>
-                  <a class="collapse-item" href="buttons.html">Buttons</a>
-                  <a class="collapse-item" href="cards.html">Cards</a>
+                  <h6 class="collapse-header">Master</h6>
+                  <a class="collapse-item" href="buttons.html">Topik</a>
+                  <a class="collapse-item" href="cards.html">Nilai</a>
+                </div>
+              </div>
+            </li>
+
+            <hr class="sidebar-divider d-none d-md-block">';
+      }elseif($this->session->userdata('kr_jabatan_id')==3 && $this->session->userdata('kr_jabatan_id')){
+        //jika dia HRD
+        echo'<div class="sidebar-heading">
+              HRD
+            </div>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Master</span>
+              </a>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Master</h6>
+                  <a class="collapse-item" href='.base_url('karyawan_crud').'>Employee</a>
+                  <a class="collapse-item" href="cards.html">Absensi</a>
                 </div>
               </div>
             </li>

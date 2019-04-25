@@ -40,7 +40,11 @@ class Auth extends CI_Controller
 				$this->session->set_userdata($data);
 				if($user['kr_jabatan_id'] == 1){
 					redirect('Admin');
-				}else{
+				}
+				elseif($user['kr_jabatan_id'] == 3){
+					redirect('HRD');
+				}
+				else{
 					redirect('Karyawan');
 				}
 			}else{
