@@ -11,6 +11,11 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
+
+		if($this->session->userdata('kr_jabatan_id')){
+			redirect('Profile');
+    }
+
 		$this->form_validation->set_rules('kr_username', 'Username', 'required|trim');
 		$this->form_validation->set_rules('kr_password', 'Password', 'required|trim');
 		if($this->form_validation->run() == false){
@@ -25,6 +30,7 @@ class Auth extends CI_Controller
 	}
 
 	private function _login(){
+
 		$kr_username = $this->input->post('kr_username');
 		$kr_password = $this->input->post('kr_password');
 
@@ -37,15 +43,7 @@ class Auth extends CI_Controller
 					'kr_jabatan_id' => $user['kr_jabatan_id']
 				];
 				$this->session->set_userdata($data);
-				if($user['kr_jabatan_id'] == 1){
-					redirect('Admin');
-				}
-				elseif($user['kr_jabatan_id'] == 3){
-					redirect('HRD');
-				}
-				else{
-					redirect('Karyawan');
-				}
+				redirect('Profile');
 			}else{
 				$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Wrong password</div>');
 				redirect('auth');

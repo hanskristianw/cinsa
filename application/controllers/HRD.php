@@ -12,9 +12,9 @@ class HRD extends CI_Controller
       redirect('auth');
     }
 
-    //jika bukan HRD dan sudah login redirect ke home
+    //jika bukan HRD dan sudah login redirect ke profile
     if($this->session->userdata('kr_jabatan_id')!=3 && $this->session->userdata('kr_jabatan_id')){
-      redirect('Home');
+      redirect('Profile');
     }
   }
 

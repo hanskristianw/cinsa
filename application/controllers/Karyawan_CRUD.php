@@ -15,7 +15,7 @@ class Karyawan_CRUD extends CI_Controller
 
     //jika bukan HRD dan sudah login redirect ke home
     if($this->session->userdata('kr_jabatan_id')!=3 && $this->session->userdata('kr_jabatan_id')){
-      redirect('Home');
+      redirect('Profile');
     }
   }
 

@@ -12,9 +12,9 @@ class Admin extends CI_Controller
       redirect('auth');
     }
 
-    //jika bukan admin dan sudah login redirect ke home
+    //jika bukan admin dan sudah login redirect ke profile
     if($this->session->userdata('kr_jabatan_id')!=1 && $this->session->userdata('kr_jabatan_id')){
-      redirect('Home');
+      redirect('Profile');
     }
   }
 
