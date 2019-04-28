@@ -11,8 +11,20 @@
                 </div>
                 <div class="col-md-8 p-3">
                   <div >
-                    <h5><b>Full name &nbsp: </b><?= $kr['kr_nama_depan'].' '.$kr['kr_nama_belakang'] ?></h5>
-                    <h5><b>User since : </b> <?= date('d F Y', $kr['kr_date_created']); ?></h5>
+                    <table>
+                      <tr>
+                        <td><h5><b>Full name</b></h5></td>
+                        <td><h5>:&nbsp<?= $kr['kr_nama_depan'].' '.$kr['kr_nama_belakang'] ?></h5></td>
+                      </tr>
+                      <tr>
+                        <td><h5><b>Department</b></h5></td>
+                        <td><h5>:&nbsp<?= $jabatan['jabatan_nama']?></h5></td>
+                      </tr>
+                      <tr>
+                        <td><h5><b>User since</b></h5></td>
+                        <td><h5>:&nbsp<?= date('d F Y', $kr['kr_date_created']); ?></h5></td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
               </div>
