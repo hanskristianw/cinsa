@@ -71,8 +71,8 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master</h6>
-                  <a class="collapse-item" href='.base_url('karyawan_crud').'>Employee</a>
-                  <a class="collapse-item" href="cards.html">Absensi</a>
+                  <a class="collapse-item" href='.base_url('Karyawan_CRUD').'>Employee</a>
+                  <a class="collapse-item" href="cards.html">Attendance</a>
                 </div>
               </div>
             </li>
