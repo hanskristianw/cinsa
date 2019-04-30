@@ -46,8 +46,17 @@
   <script src="<?= base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
   <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 
 </body>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('.dt').DataTable({
+        "ordering": false
+      });
+  });
+</script>
 
 </html>

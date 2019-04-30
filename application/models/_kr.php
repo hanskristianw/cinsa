@@ -7,7 +7,7 @@ class _kr extends CI_Model {
   }
 
   public function return_all(){
-    return $this->db->get('kr')->result_array();
+    return $this->db->join('jabatan','kr_jabatan_id=jabatan_id','Left')->order_by("kr_nama_depan", "ASC")->get('kr')->result_array();
   }
 
   public function find_by_username($kr_username){

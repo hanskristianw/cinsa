@@ -9,7 +9,7 @@
                 <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Insert Employee</h1>
                 </div>
-                
+
                 <?= $this->session->flashdata('message'); ?>
 
                 <form class="user" method="post" action="<?= base_url('Karyawan_CRUD/add'); ?>">
@@ -38,12 +38,12 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            
+
                             <select name="kr_jabatan" id="kr_jabatan" class="form-control">
-                                <?php 
+                                <?php
                                     $_selected = set_value('kr_jabatan');
-                                    echo "<option value = 0>Employee Role </option>";
-                                    foreach($jabatan_all as $m) : 
+                                    echo "<option value = 0>Select Role </option>";
+                                    foreach($jabatan_all as $m) :
                                         if($_selected == $m['jabatan_id']){
                                             $s = "selected";
                                         }
@@ -53,10 +53,20 @@
                                         if($m['jabatan_id']!=1){
                                             echo "<option value=".$m['jabatan_id']." ".$s.">".$m['jabatan_nama']."</option>";
                                         }
-                                    endforeach 
+                                    endforeach
                                 ?>
                             </select>
                             <?= form_error('kr_jabatan','<small class="text-danger pl-3">','</small>'); ?>
+                        </div>
+                        <div class="col-sm-6">
+                          <select name="kr_status" id="kr_status" class="form-control">
+                              <option value="0">Select Status</option>
+                              <option value="1">GTY</option>
+                              <option value="2">GTT-PT</option>
+                              <option value="3">GTT-FT</option>
+                              <option value="4">Other</option>
+                          </select>
+                          <?= form_error('kr_status','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">

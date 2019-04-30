@@ -30,19 +30,21 @@ class Karyawan_CRUD extends CI_Controller
     //data karyawan untuk konten
     $data['kr_all'] = $this->_kr->return_all();
 
+    //$data['tes'] = var_dump($this->db->last_query());
+
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);
     $this->load->view('templates/topbar',$data);
     $this->load->view('karyawan_crud/index',$data);
     $this->load->view('templates/footer');
-    
+
   }
-  
+
   public function check_default($post_string)
   {
     return $post_string == '0' ? FALSE : TRUE;
   }
-  
+
   public function add(){
 
     $this->form_validation->set_rules('kr_nama_depan', 'First Name', 'required|trim');
@@ -51,6 +53,8 @@ class Karyawan_CRUD extends CI_Controller
 		$this->form_validation->set_rules('kr_password1', 'Password', 'required|trim|min_length[3]|matches[kr_password2]',['matches' => 'Password not match', 'min_length' => 'Password too short']);
 		$this->form_validation->set_rules('kr_password2', 'Password', 'required|trim|matches[kr_password1]');
     $this->form_validation->set_rules('kr_jabatan','Employee Role','required|callback_check_default');
+    $this->form_validation->set_message('check_default', 'You need to select something other than the default');
+    $this->form_validation->set_rules('kr_status','Employee Status','required|callback_check_default');
     $this->form_validation->set_message('check_default', 'You need to select something other than the default');
 
 		if($this->form_validation->run() == false){
@@ -73,6 +77,7 @@ class Karyawan_CRUD extends CI_Controller
 				'kr_username' => $this->input->post('kr_username'),
 				'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT),
 				'kr_jabatan_id' => $this->input->post('kr_jabatan'),
+				'kr_status' => $this->input->post('kr_status'),
 				'kr_date_created' => time()
 			];
 
@@ -80,7 +85,7 @@ class Karyawan_CRUD extends CI_Controller
 			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Employee Created!</div>');
 			redirect('karyawan_crud/add');
 		}
-    
+
   }
 
 }
