@@ -7,19 +7,19 @@
             <div class="col-lg">
             <div class="p-5">
                 <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Insert Employee</h1>
+                    <h1 class="h4 text-gray-900 mb-4"><?= $title ?></h1>
                 </div>
 
                 <?= $this->session->flashdata('message'); ?>
-
+                
                 <form class="user" method="post" action="<?= base_url('Karyawan_CRUD/add'); ?>">
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name" value="<?= set_value('kr_nama_depan') ?>">
+                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name" value="<?php if ($ftype==2) { echo $kr_update['kr_nama_depan']; } echo set_value('kr_nama_depan') ?>">
                             <?= form_error('kr_nama_depan','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="kr_nama_belakang" name="kr_nama_belakang" placeholder="Last Name" value="<?= set_value('kr_nama_belakang') ?>">
+                            <input type="text" class="form-control" id="kr_nama_belakang" name="kr_nama_belakang" placeholder="Last Name" value="<?php if ($ftype==2) { echo $kr_update['kr_nama_belakang']; } echo set_value('kr_nama_belakang') ?>">
                             <?= form_error('kr_nama_belakang','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                        Insert
+                        <?php if ($ftype==1){ echo "Insert"; } elseif ($ftype==2) { echo "Update"; } ?>
                     </button>
                 </form>
                 <hr>

@@ -31,14 +31,14 @@
                           <td><?= $m['jabatan_nama'] ?></td>
                           <td>
                             <div class="form-group row">
-                              <form class="" action="" method="post">
-                                <input type="hidden" name="" value="">
+                              <form class="" action="<?= base_url('Karyawan_CRUD/update') ?>" method="get">
+                                <input type="hidden" name="_id" value=<?= $m['kr_id'] ?>>
                                 <button type="submit" class="badge badge-warning">
                                     Edit
                                 </button>
                               </form>
-                              <form class="" action="" method="post">
-                                <input type="hidden" name="" value="">
+                              <form class="" action="" method="get">
+                                <input type="hidden" name="" value=<?= $m['kr_id'] ?>>
                                 <button type="submit" class="badge badge-danger">
                                     Delete
                                 </button>
