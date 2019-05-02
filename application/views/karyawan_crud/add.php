@@ -13,6 +13,11 @@
                 <?= $this->session->flashdata('message'); ?>
                 
                 <form class="user" method="post" action="<?= base_url('Karyawan_CRUD/add'); ?>">
+                    <?php if ($ftype==2) { 
+                            echo '<input type="hidden" name="is_update" value="1">';
+                        } 
+                    ?>
+
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name" value="<?php if ($ftype==2) { echo $kr_update['kr_nama_depan']; } echo set_value('kr_nama_depan') ?>">
