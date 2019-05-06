@@ -9,28 +9,30 @@
                 <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4"><?= $title ?></h1>
                 </div>
-
-                <?= $this->session->flashdata('message'); ?>
                 
-                <form class="user" method="post" action="<?php echo base_url('Karyawan_CRUD/add'); ?>">
+                <form class="user" method="post" action="<?php echo base_url('Karyawan_CRUD/update'); ?>">
+                    
+                    <input type="hidden" name="_id" value="<?= set_value('_id',$kr_update['kr_id']); ?>">
+                    
+                    <input type="hidden" name="is_update" value="1">
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name" value="<?php echo set_value('kr_nama_depan'); ?>">
-                            <?= form_error('kr_nama_depan','<small class="text-danger pl-3">','</small>'); ?>
+                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name" value="<?= set_value('kr_nama_depan',$kr_update['kr_nama_depan']); ?>">
+                            <?php echo form_error('kr_nama_depan','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="kr_nama_belakang" name="kr_nama_belakang" placeholder="Last Name" value="<?php echo set_value('kr_nama_belakang'); ?>">
-                            <?= form_error('kr_nama_belakang','<small class="text-danger pl-3">','</small>'); ?>
+                            <input type="text" class="form-control" id="kr_nama_belakang" name="kr_nama_belakang" placeholder="Last Name" value="<?= set_value('kr_nama_belakang',$kr_update['kr_nama_belakang']); ?>">
+                            <?php echo form_error('kr_nama_belakang','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="kr_username" name="kr_username" placeholder="Username" value="<?php echo set_value('kr_username'); ?>">
-                        <?= form_error('kr_username','<small class="text-danger pl-3">','</small>'); ?>
+                        <input type="text" class="form-control" id="kr_username" name="kr_username" placeholder="Username" value="<?= set_value('kr_username',$kr_update['kr_username']); ?>">
+                        <?php echo form_error('kr_username','<small class="text-danger pl-3">','</small>'); ?>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="password" class="form-control" id="kr_password1" name="kr_password1" placeholder="Password">
-                            <?= form_error('kr_password1','<small class="text-danger pl-3">','</small>'); ?>
+                            <?php echo form_error('kr_password1','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                         <div class="col-sm-6">
                             <input type="password" class="form-control" id="kr_password2" name="kr_password2" placeholder="Repeat Password">
@@ -39,10 +41,10 @@
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
 
-                            <select name="kr_jabatan" id="kr_jabatan" class="form-control">
+                            <select name="kr_jabatan_id" id="kr_jabatan_id" class="form-control">
                                 <?php
-                                    $_selected = set_value('kr_jabatan');
-
+                                    $_selected = set_value('kr_jabatan_id',$kr_update['kr_jabatan_id']);
+                                    
                                     foreach($jabatan_all as $m) :
                                         if($_selected == $m['jabatan_id']){
                                             $s = "selected";
@@ -58,9 +60,9 @@
                             </select>
                         </div>
                         <div class="col-sm-6">
-                          <select name="st" id="st" class="form-control">
+                            <select name="st" id="st" class="form-control">
                                 <?php
-                                    $_selected = set_value('st');
+                                    $_selected = set_value('st',$kr_update['kr_st_id']);
 
                                     foreach($st_all as $m) :
                                         if($_selected == $m['st_id']){
@@ -73,11 +75,11 @@
                                         echo "<option value=".$m['st_id']." ".$s.">".$m['st_nama']."</option>";
                                     endforeach
                                 ?>
-                          </select>
+                            </select>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                        Insert
+                        Update
                     </button>
                 </form>
                 <hr>

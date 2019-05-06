@@ -9,6 +9,8 @@
                   <div class="text-center">
                       <h1 class="h4 text-gray-900 mb-4">Employee List</h1>
                   </div>
+                  
+                  <?= $this->session->flashdata('message'); ?>
 
                   <a href="<?= base_url('karyawan_crud/add') ?>" class="btn btn-primary mb-3">Add New Employee</a>
 
@@ -19,6 +21,7 @@
                         <th>Last Name</th>
                         <th>Username</th>
                         <th>Jabatan</th>
+                        <th>Status</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -29,16 +32,17 @@
                           <td><?= $m['kr_nama_belakang'] ?></td>
                           <td><?= $m['kr_username'] ?></td>
                           <td><?= $m['jabatan_nama'] ?></td>
+                          <td><?= $m['st_nama'] ?></td>
                           <td>
                             <div class="form-group row">
-                              <form class="" action="<?= base_url('Karyawan_CRUD/update') ?>" method="post">
+                              <form class="" action="<?= base_url('Karyawan_CRUD/update') ?>" method="get">
                                 <input type="hidden" name="_id" value=<?= $m['kr_id'] ?>>
                                 <button type="submit" class="badge badge-warning">
                                     Edit
                                 </button>
                               </form>
                               <form class="" action="" method="post">
-                                <input type="hidden" name="" value=<?= $m['kr_id'] ?>>
+                                <input type="hidden" name="" value=<?= $m['kr_id'] ?> method="get">
                                 <button type="submit" class="badge badge-danger">
                                     Delete
                                 </button>

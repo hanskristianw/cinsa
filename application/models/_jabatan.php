@@ -6,6 +6,7 @@ class _jabatan extends CI_Model {
     parent::__construct();
   }
 
+  //return semua jabatan selain admin
   public function return_all(){
     return $this->db->get('jabatan')->result_array();
   }
