@@ -23,25 +23,41 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name" value="<?php echo set_value('kr_nama_depan', $kr['kr_nama_depan']); ?>">
+                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name (Required)" value="<?php echo set_value('kr_nama_depan', $kr['kr_nama_depan']); ?>">
                             <?= form_error('kr_nama_depan','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="kr_nama_belakang" name="kr_nama_belakang" placeholder="Last Name" value="<?php echo set_value('kr_nama_belakang', $kr['kr_nama_belakang']); ?>">
+                            <input type="text" class="form-control" id="kr_nama_belakang" name="kr_nama_belakang" placeholder="Last Name (Required)" value="<?php echo set_value('kr_nama_belakang', $kr['kr_nama_belakang']); ?>">
                             <?= form_error('kr_nama_belakang','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="kr_username" name="kr_username" placeholder="Username" value="<?php echo set_value('kr_username', $kr['kr_username']); ?>">
+                        <input type="text" class="form-control" id="kr_username" name="kr_username" placeholder="Username (Required)" value="<?php echo set_value('kr_username', $kr['kr_username']); ?>">
                         <?= form_error('kr_username','<small class="text-danger pl-3">','</small>'); ?>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="password" class="form-control" id="kr_password1" name="kr_password1" placeholder="Password">
+                            <input type="password" class="form-control" id="kr_password1" name="kr_password1" placeholder="Password (Required)">
                             <?= form_error('kr_password1','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                         <div class="col-sm-6">
-                            <input type="password" class="form-control" id="kr_password2" name="kr_password2" placeholder="Repeat Password">
+                            <input type="password" class="form-control" id="kr_password2" name="kr_password2" placeholder="Repeat Password (Required)">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <img height="300px" width="300px" src="<?= base_url('assets/img/profile/') .$kr['kr_pp'];?> "class="img-thumbnail">
+                            <div class="custom-file mt-2">
+                                <input type="file" class="custom-file-input" id="image"name="image">
+                                <label class="custom-file-label" for="image">Choose Profile Picture</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mt-2">
+                            <input type="text" class="form-control mb-2" id="kr_alamat_ktp" name="kr_alamat_ktp" placeholder="ID Address" value="<?php echo set_value('kr_alamat_ktp', $kr['kr_alamat_ktp']); ?>">
+                            <input type="text" class="form-control mb-2" id="kr_alamat_tinggal" name="kr_alamat_tinggal" placeholder="Home Address" value="<?php echo set_value('kr_alamat_tinggal', $kr['kr_alamat_tinggal']); ?>">
+                            <input type="text" class="form-control mb-2" id="kr_ktp" name="kr_ktp" placeholder="ID number" value="<?php echo set_value('kr_ktp', $kr['kr_ktp']); ?>">
+                            <input type="text" class="form-control mb-2" id="kr_npwp" name="kr_npwp" placeholder="NPWP number" value="<?php echo set_value('kr_npwp', $kr['kr_npwp']); ?>">
+                            <input type="text" class="form-control mb-2" id="kr_bca" name="kr_bca" placeholder="BCA Account Number" value="<?php echo set_value('kr_bca', $kr['kr_bca']); ?>">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
