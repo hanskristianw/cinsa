@@ -12,7 +12,8 @@
 
                 <?= $this->session->flashdata('message'); ?>
                 
-                <form class="user" method="post" action="<?php echo base_url('profile/update'); ?>">
+                <?= form_open_multipart('Profile/update'); ?>
+                    <input type="hidden" name="kr_pp" value="<?php echo set_value('kr_pp', $kr['kr_pp']); ?>">
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="text" class="form-control" id="kr_gelar_depan" name="kr_gelar_depan" placeholder="First Name Title (Dr, Prof)" value="<?php echo set_value('kr_gelar_depan'); ?>">

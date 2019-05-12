@@ -47,6 +47,47 @@ class Profile extends CI_Controller
       $this->load->view('templates/topbar',$data);
       $this->load->view('profile/update',$data);
       $this->load->view('templates/footer');
+    }else{
+      $data = [
+        'kr_nama_depan' => htmlspecialchars($this->input->post('kr_nama_depan', true)),
+        'kr_nama_belakang' => htmlspecialchars($this->input->post('kr_nama_belakang', true)),
+        'kr_username' => $this->input->post('kr_username'),
+        'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT)
+        
+      ];
+
+      //cek image
+      $upload_image = $_FILES['image']['name'];
+
+      if($upload_image){
+          $config['allowed_types'] = 'gif|png|jpg';
+          $config['max_size']     = '2048';
+          $config['upload_path'] = './assets/img/profile/';
+          $this->load->library('upload', $config);
+          if ($this->upload->do_upload('image'))
+          {
+            $old_image=$this->input->post('kr_pp');
+
+            if($old_image!='default.jpg'){
+                unlink(FCPATH.'assets/img/profile/'.$old_image);
+            }
+            $new_image=$this->upload->data('file_name');
+            $this->db->set('kr_pp',$new_image);
+          }
+          else
+          {
+            echo  $this->upload->display_errors();    
+          }
+      }
+
+      $this->db->where('kr_id', $this->session->userdata('kr_id'));
+      $this->db->update('kr', $data); 
+
+      $this->session->unset_userdata('kr_username');
+      $this->session->unset_userdata('kr_id');
+      $this->session->unset_userdata('kr_jabatan_id');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">'.$old_image.'</div>');
+      redirect('Auth');
     }
   }
 }

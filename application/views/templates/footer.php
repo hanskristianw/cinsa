@@ -53,9 +53,14 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-      $('.dt').DataTable({
-        "ordering": false
-      });
+    $('.custom-file-input').on('change',function(){
+      let fileName = $(this).val().split('\\').pop();
+      $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+
+    $('.dt').DataTable({
+      "ordering": false
+    });
   });
 </script>
 

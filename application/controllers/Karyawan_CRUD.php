@@ -141,10 +141,10 @@ class Karyawan_CRUD extends CI_Controller
         'kr_st_id' => $this->input->post('st')
       ];
 
-      //simpan ke db
-
       $this->db->where('kr_id', $this->input->post('_id'));
       $this->db->update('kr', $data); 
+      
+      //simpan ke db
       
       $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Employee Updated!</div>');
       redirect('karyawan_crud');
