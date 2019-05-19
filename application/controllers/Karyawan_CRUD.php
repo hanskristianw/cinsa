@@ -9,6 +9,7 @@ class Karyawan_CRUD extends CI_Controller
     $this->load->model('_kr');
     $this->load->model('_jabatan');
     $this->load->model('_st');
+    $this->load->model('_sk');
 
     //jika belum login
     if(!$this->session->userdata('kr_jabatan_id')){
@@ -50,12 +51,21 @@ class Karyawan_CRUD extends CI_Controller
 		$this->form_validation->set_rules('kr_password2', 'Password', 'required|trim|matches[kr_password1]');
 
 		if($this->form_validation->run() == false){
+      
+      $sk_count = $this->db->count_all('sk');
+
+      if($sk_count == 0){
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Please inform ADMIN to add school first!</div>');
+        redirect('Karyawan_CRUD');
+      }
+
       $data['title'] = 'Create Employee';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['jabatan_all'] = $this->_jabatan->return_all();
       $data['st_all'] = $this->_st->return_all();
+      $data['sk_all'] = $this->_sk->return_all();
 
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
@@ -71,6 +81,7 @@ class Karyawan_CRUD extends CI_Controller
 				'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT),
 				'kr_jabatan_id' => $this->input->post('kr_jabatan'),
 				'kr_st_id' => $this->input->post('st'),
+				'kr_sk_id' => $this->input->post('sk'),
 				'kr_date_created' => time()
 			];
 
@@ -105,7 +116,6 @@ class Karyawan_CRUD extends CI_Controller
     
     $this->form_validation->set_rules('kr_nama_depan', 'First Name', 'required|trim');
     $this->form_validation->set_rules('kr_nama_belakang', 'Last Name', 'required|trim');
-    $this->form_validation->set_rules('kr_username', 'Username', 'required|trim|is_unique[kr.kr_username]',['is_unique' => 'This username already exist!']);
     $this->form_validation->set_rules('kr_password1', 'Password', 'required|trim|min_length[3]|matches[kr_password2]',['matches' => 'Password not match', 'min_length' => 'Password too short']);
     $this->form_validation->set_rules('kr_password2', 'Password', 'required|trim|matches[kr_password1]');
 
@@ -117,6 +127,7 @@ class Karyawan_CRUD extends CI_Controller
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['jabatan_all'] = $this->_jabatan->return_all();
       $data['st_all'] = $this->_st->return_all();
+      $data['sk_all'] = $this->_sk->return_all();
 
       //simpan data primary key
       $kr_id = $this->input->get('_id', true);
@@ -135,9 +146,9 @@ class Karyawan_CRUD extends CI_Controller
       $data = [
         'kr_nama_depan' => htmlspecialchars($this->input->post('kr_nama_depan', true)),
         'kr_nama_belakang' => htmlspecialchars($this->input->post('kr_nama_belakang', true)),
-        'kr_username' => $this->input->post('kr_username'),
         'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT),
         'kr_jabatan_id' => $this->input->post('kr_jabatan_id'),
+        'kr_sk_id' => $this->input->post('kr_sk_id'),
         'kr_st_id' => $this->input->post('st')
       ];
 

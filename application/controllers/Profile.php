@@ -31,7 +31,6 @@ class Profile extends CI_Controller
 
     $this->form_validation->set_rules('kr_nama_depan', 'First Name', 'required|trim');
 		$this->form_validation->set_rules('kr_nama_belakang', 'Last Name', 'required|trim');
-		$this->form_validation->set_rules('kr_username', 'Username', 'required|trim|is_unique[kr.kr_username]',['is_unique' => 'This username already exist!']);
 		$this->form_validation->set_rules('kr_password1', 'Password', 'required|trim|min_length[3]|matches[kr_password2]',['matches' => 'Password not match', 'min_length' => 'Password too short']);
 		$this->form_validation->set_rules('kr_password2', 'Password', 'required|trim|matches[kr_password1]');
 
@@ -51,8 +50,14 @@ class Profile extends CI_Controller
       $data = [
         'kr_nama_depan' => htmlspecialchars($this->input->post('kr_nama_depan', true)),
         'kr_nama_belakang' => htmlspecialchars($this->input->post('kr_nama_belakang', true)),
-        'kr_username' => $this->input->post('kr_username'),
-        'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT)
+        'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT),
+        'kr_gelar_depan' => htmlspecialchars($this->input->post('kr_gelar_depan', true)),
+        'kr_gelar_belakang' => htmlspecialchars($this->input->post('kr_gelar_belakang', true)),
+        'kr_alamat_ktp' => htmlspecialchars($this->input->post('kr_alamat_ktp', true)),
+        'kr_alamat_tinggal' => htmlspecialchars($this->input->post('kr_alamat_tinggal', true)),
+        'kr_ktp' => htmlspecialchars($this->input->post('kr_ktp', true)),
+        'kr_npwp' => htmlspecialchars($this->input->post('kr_npwp', true)),
+        'kr_bca' => htmlspecialchars($this->input->post('kr_bca', true))
         
       ];
 
@@ -86,7 +91,7 @@ class Profile extends CI_Controller
       $this->session->unset_userdata('kr_username');
       $this->session->unset_userdata('kr_id');
       $this->session->unset_userdata('kr_jabatan_id');
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">'.$old_image.'</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Profile Updated, please re-login</div>');
       redirect('Auth');
     }
   }

@@ -25,10 +25,6 @@
                             <?php echo form_error('kr_nama_belakang','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="kr_username" name="kr_username" placeholder="Username" value="<?= set_value('kr_username',$kr_update['kr_username']); ?>">
-                        <?php echo form_error('kr_username','<small class="text-danger pl-3">','</small>'); ?>
-                    </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="password" class="form-control" id="kr_password1" name="kr_password1" placeholder="Password">
@@ -73,6 +69,26 @@
                                         }
 
                                         echo "<option value=".$m['st_id']." ".$s.">".$m['st_nama']."</option>";
+                                    endforeach
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+
+                            <select name="kr_sk_id" id="kr_sk_id" class="form-control">
+                                <?php
+                                    $_selected = set_value('kr_sk_id',$kr_update['kr_sk_id']);
+                                    
+                                    foreach($sk_all as $m) :
+                                        if($_selected == $m['sk_id']){
+                                            $s = "selected";
+                                        }
+                                        else{
+                                            $s = "";
+                                        }
+                                        echo "<option value=".$m['sk_id']." ".$s.">".$m['sk_nama']."</option>";
                                     endforeach
                                 ?>
                             </select>

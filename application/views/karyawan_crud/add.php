@@ -9,7 +9,7 @@
                 <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4"><?= $title ?></h1>
                 </div>
-
+                
                 <?= $this->session->flashdata('message'); ?>
                 
                 <form class="user" method="post" action="<?php echo base_url('Karyawan_CRUD/add'); ?>">
@@ -74,6 +74,26 @@
                                     endforeach
                                 ?>
                           </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+
+                            <select name="sk" id="sk" class="form-control">
+                                <?php
+                                    $_selected = set_value('sk');
+
+                                    foreach($sk_all as $m) :
+                                        if($_selected == $m['sk_id']){
+                                            $s = "selected";
+                                        }
+                                        else{
+                                            $s = "";
+                                        }
+                                        echo "<option value=".$m['sk_id']." ".$s.">".$m['sk_nama']."</option>";
+                                    endforeach
+                                ?>
+                            </select>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">

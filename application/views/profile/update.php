@@ -11,17 +11,14 @@
                 </div>
 
                 <?= $this->session->flashdata('message'); ?>
-                
+
                 <?= form_open_multipart('Profile/update'); ?>
+                    
+                    <h4 class="text-muted mb-3"><u>REQUIRED FIELD</u></h4>
+
                     <input type="hidden" name="kr_pp" value="<?php echo set_value('kr_pp', $kr['kr_pp']); ?>">
-                    <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control" id="kr_gelar_depan" name="kr_gelar_depan" placeholder="First Name Title (Dr, Prof)" value="<?php echo set_value('kr_gelar_depan'); ?>">
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="kr_gelar_belakang" name="kr_gelar_belakang" placeholder="Last Name Title (S.kom, M.M)" value="<?php echo set_value('kr_gelar_belakang'); ?>">
-                        </div>
-                    </div>
+                    
+                    <!-- NAMA DEPAN dan BELAKANG -->
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name (Required)" value="<?php echo set_value('kr_nama_depan', $kr['kr_nama_depan']); ?>">
@@ -32,10 +29,7 @@
                             <?= form_error('kr_nama_belakang','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="kr_username" name="kr_username" placeholder="Username (Required)" value="<?php echo set_value('kr_username', $kr['kr_username']); ?>">
-                        <?= form_error('kr_username','<small class="text-danger pl-3">','</small>'); ?>
-                    </div>
+                    
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="password" class="form-control" id="kr_password1" name="kr_password1" placeholder="Password (Required)">
@@ -45,6 +39,19 @@
                             <input type="password" class="form-control" id="kr_password2" name="kr_password2" placeholder="Repeat Password (Required)">
                         </div>
                     </div>
+                    
+                    <h4 class="text-muted mb-3 mt-5"><u>OPTIONAL FIELD</u></h4>
+                    
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control" id="kr_gelar_depan" name="kr_gelar_depan" placeholder="First Name Title (Dr, Prof)" value="<?php echo set_value('kr_gelar_depan', $kr['kr_gelar_depan']); ?>">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="kr_gelar_belakang" name="kr_gelar_belakang" placeholder="Last Name Title (S.kom, M.M)" value="<?php echo set_value('kr_gelar_belakang', $kr['kr_gelar_belakang']); ?>">
+                        </div>
+                    </div>
+
+                    
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <img height="300px" width="300px" src="<?= base_url('assets/img/profile/') .$kr['kr_pp'];?> "class="img-thumbnail">
