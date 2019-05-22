@@ -26,7 +26,8 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master:</h6>
-                  <a class="collapse-item" href='.base_url('Sekolah_CRUD').'>Sekolah</a>
+                  <a class="collapse-item" href='.base_url('Sekolah_CRUD').'>School</a>
+                  <a class="collapse-item" href='.base_url('Tahun_CRUD').'>Year</a>
                 </div>
               </div>
             </li>
@@ -46,8 +47,8 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master</h6>
-                  <a class="collapse-item" href="buttons.html">Topik</a>
-                  <a class="collapse-item" href="cards.html">Nilai</a>
+                  <a class="collapse-item" href=""></a>
+                  <a class="collapse-item" href=""></a>
                 </div>
               </div>
             </li>
@@ -68,7 +69,47 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master</h6>
                   <a class="collapse-item" href='.base_url('Karyawan_CRUD').'>Employee</a>
-                  <a class="collapse-item" href="cards.html">Attendance</a>
+                </div>
+              </div>
+            </li>
+
+            <hr class="sidebar-divider d-none d-md-block">';
+      }elseif($this->session->userdata('kr_jabatan_id')==4 && $this->session->userdata('kr_jabatan_id')){
+        //jika dia wakakur
+        echo'<div class="sidebar-heading">
+              Curriculum
+            </div>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Master</span>
+              </a>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Master</h6>
+                  <a class="collapse-item" href='.base_url('Kelas_CRUD').'>Class</a>
+                  <a class="collapse-item" href='.base_url('Mapel_CRUD').'>Subject</a>
+                </div>
+              </div>
+            </li>
+
+            <hr class="sidebar-divider d-none d-md-block">';
+      }elseif($this->session->userdata('kr_jabatan_id')==5 && $this->session->userdata('kr_jabatan_id')){
+        //jika dia Kadiv
+        echo'<div class="sidebar-heading">
+              Head of Education Department
+            </div>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Report</span>
+              </a>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Master</h6>
+                  <a class="collapse-item" href='.base_url('Karyawan_CRUD').'>Teacher Distribution</a>
                 </div>
               </div>
             </li>
