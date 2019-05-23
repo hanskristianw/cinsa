@@ -7,11 +7,9 @@ class Siswa_CRUD extends CI_Controller
   {
     parent::__construct();
     $this->load->model('_kr');
-    $this->load->model('_jabatan');
     $this->load->model('_kelas');
     $this->load->model('_t');
-    $this->load->model('_sk');
-    $this->load->model('_st');
+    $this->load->model('_agama');
     $this->load->model('_siswa');
 
 
@@ -30,13 +28,13 @@ class Siswa_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'List Students';
+    $data['title'] = 'Students List';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     //data karyawan untuk konten
-    $data['sis_all'] = $this->_siswa->return_all();
+    $data['sis_all'] = $this->_siswa->return_all_by_sk($this->session->userdata('kr_sk_id'));
 
     //$data['tes'] = var_dump($this->db->last_query());
 
@@ -52,63 +50,45 @@ class Siswa_CRUD extends CI_Controller
 
     $this->form_validation->set_rules('sis_nama_depan', 'First Name', 'required|trim');
     $this->form_validation->set_rules('sis_nama_bel', 'Last Name', 'required|trim');
-    $this->form_validation->set_rules('sis_t_id', 'Tahun Ajaran Siswa', 'required');
-    $this->form_validation->set_rules('sis_no_induk', 'No Induk Siswa', 'required|trim|is_unique[sis.sis_no_induk]', ['is_unique' => 'This NIK already exist!']);
+    $this->form_validation->set_rules('sis_no_induk', 'Registration number', 'required|trim|is_unique[sis.sis_no_induk]', ['is_unique' => 'This registration number already exist!']);
 
 
     if ($this->form_validation->run() == false) {
-      $data['title'] = 'Create Student';
+      //jika belum ada tahun ajaran sama sekali
+      $t_count = $this->db->count_all('t');
+
+      if($t_count == 0){
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Please inform ADMIN to year first!</div>');
+        redirect('Kelas_CRUD');
+      }
+
+      $data['title'] = 'Insert Student';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['kelas_all'] = $this->_kelas->return_all();
-      $data['tahun_all'] = $this->_tahun->return_all();
-      $data['sk_all'] = $this->_sk->return_all();
-      $data['sis_all'] = $this->_siswa->return_all();
-
+      $data['tahun_all'] = $this->_t->return_all();
+      $data['agama_all'] = $this->_agama->return_all();
 
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('templates/topbar', $data);
       $this->load->view('siswa_crud/add', $data);
       $this->load->view('templates/footer');
-    } elseif ($this->input->post('sis_no_induk') != null) {
-      $sis_nama_depan = $this->input->post('sis_nama_depan');
-      $sis_nama_bel = $this->input->post('sis_nama_bel');
-      $sis_no_induk = $this->input->post('sis_no_induk');
-      $sis_t_id = $this->input->post('sis_t_id');
-      $cek1 = $this->db->get_where('sis', array('sis_no_induk' => $sis_no_induk))->row_array();
-      if ($cek1 != null) {
-        $data['title'] = 'Create Student';
+    } 
+    else {
+      $data = [
+        'sis_nama_depan' => $this->input->post('sis_nama_depan'),
+        'sis_nama_bel' => $this->input->post('sis_nama_bel'),
+        'sis_no_induk' => $this->input->post('sis_no_induk'),
+        'sis_sk_id' => $this->session->userdata('kr_sk_id'),
+        'sis_jk' => $this->input->post('sis_jk'),
+        'sis_agama_id' => $this->input->post('sis_agama_id'),
+        'sis_t_id' => $this->input->post('sis_t_id')
+      ];
 
-        //data karyawan yang sedang login untuk topbar
-        $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-        $data['kelas_all'] = $this->_kelas->return_all();
-        $data['tahun_all'] = $this->_tahun->return_all();
-        $data['sk_all'] = $this->_sk->return_all();
-        $data['sis_all'] = $this->_siswa->return_all();
-
-        $this->session->set_flashdata('warning', '<small class="text-danger pl-3">No Induk sudah pernah terisi!</small>');
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('siswa_crud/add', $data);
-        $this->load->view('templates/footer');
-      } else {
-
-        $data = [
-          'sis_nama_depan' => $this->input->post('sis_nama_depan'),
-          'sis_nama_bel' => $this->input->post('sis_nama_bel'),
-          'sis_no_induk' => $this->input->post('sis_no_induk'),
-          'sis_t_id' => $this->input->post('sis_t_id')
-        ];
-
-
-        $this->db->insert('sis', $data);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">List Students Created!</div>');
-        redirect('siswa_crud/add');
-      }
+      $this->db->insert('sis', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Student Created!</div>');
+      redirect('siswa_crud/add');
     }
   }
 
@@ -116,21 +96,27 @@ class Siswa_CRUD extends CI_Controller
   {
 
     //dari method post
-    $sis_post = $this->input->get('_id', true);
+    $sis_post = $this->input->post('_id', true);
 
     //jika bukan dari form update sendiri
     if (!$sis_post) {
       //ambil id dari method get
-      $sis_get = $this->_siswa->find_by_id($this->input->post('_id', true));
+      $sis_get = $this->_siswa->find_by_id($this->input->get('_id', true));
 
       //jika langsung akses halaman update atau jabatan yang akan diedit admin
-      if ($sis_get['sis_id'] == 0 || !$sis_get['sis_id']) {
+      if (!$sis_get['sis_id']) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly, please use edit button instead!</div>');
         redirect('Siswa_CRUD');
       }
     }
 
-    $this->form_validation->set_rules('sis_nama_depan', 'Frist Name', 'required|trim');
+    if($this->input->post('_sis_no_induk') == $this->input->post('sis_no_induk')){
+      $this->form_validation->set_rules('sis_no_induk', 'Registration number', 'required|trim');
+    }else{
+      $this->form_validation->set_rules('sis_no_induk', 'Registration number', 'required|trim|is_unique[sis.sis_no_induk]', ['is_unique' => 'This registration number already exist!']);
+    }
+
+    $this->form_validation->set_rules('sis_nama_depan', 'First Name', 'required|trim');
     $this->form_validation->set_rules('sis_nama_bel', 'Last Name', 'required|trim');
     $this->form_validation->set_rules('sis_t_id', 'Tahun Ajaran Siswa', 'required');
 
@@ -140,11 +126,8 @@ class Siswa_CRUD extends CI_Controller
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['jabatan_all'] = $this->_jabatan->return_all();
-      $data['st_all'] = $this->_st->return_all();
-      $data['sk_all'] = $this->_sk->return_all();
-      $data['tahun_all'] = $this->_tahun->return_all();
-      $data['sis_all'] = $this->_siswa->return_all();
+      $data['tahun_all'] = $this->_t->return_all();
+      $data['agama_all'] = $this->_agama->return_all();
 
       //simpan data primary key
       $sis_id = $this->input->get('_id', true);
@@ -162,6 +145,9 @@ class Siswa_CRUD extends CI_Controller
       $data = [
         'sis_nama_depan' => $this->input->post('sis_nama_depan'),
         'sis_nama_bel' => $this->input->post('sis_nama_bel'),
+        'sis_no_induk' => $this->input->post('sis_no_induk'),
+        'sis_jk' => $this->input->post('sis_jk'),
+        'sis_agama_id' => $this->input->post('sis_agama_id'),
         'sis_t_id' => $this->input->post('sis_t_id')
       ];
 
@@ -170,7 +156,7 @@ class Siswa_CRUD extends CI_Controller
       $this->db->where('sis_id', $this->input->post('_id'));
       $this->db->update('sis', $data);
 
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Students Data Updated!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Student Data Updated!</div>');
       redirect('Siswa_CRUD');
     }
   }

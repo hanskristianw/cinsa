@@ -8,9 +8,9 @@ class _siswa extends CI_Model
     parent::__construct();
   }
 
-  public function return_all()
+  public function return_all_by_sk($sk_id)
   {
-    return $this->db->join('t', 'sis_t_id=t_id', 'Left')->order_by("sis_nama_depan", "ASC")->get('sis')->result_array();
+    return $this->db->join('agama', 'sis_agama_id=agama_id', 'Left')->join('t', 'sis_t_id=t_id', 'Left')->join('sk', 'sis_sk_id=sk_id', 'Left')->where('sis_sk_id', $sk_id)->order_by("t_id", "DESC")->order_by("sis_nama_depan", "ASC")->get('sis')->result_array();
   }
 
   public function find_sis_nama($sis_id)

@@ -9,15 +9,19 @@
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">List Students Name</h1>
             </div>
-
-            <a href="<?= base_url('siswa_crud/add') ?>" class="btn btn-primary mb-3">Add New Students</a>
+            
+            <?= $this->session->flashdata('message'); ?>
+            
+            <a href="<?= base_url('siswa_crud/add') ?>" class="btn btn-primary mb-3">Add New Student</a>
 
             <table class="table display compact table-hover dt">
               <thead>
                 <tr>
-                  <th>Students Name</th>
-                  <th>NIK</th>
-                  <th>Angkatan</th>
+                  <th>Student Name</th>
+                  <th>Reg Number</th>
+                  <th>Gender</th>
+                  <th>Religion</th>
+                  <th>Year</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -26,7 +30,9 @@
                   <tr>
                     <td><?= $m['sis_nama_depan'] ?> <?= $m['sis_nama_bel'] ?></td>
                     <td><?= $m['sis_no_induk'] ?></td>
-                    <td><?= $m['tahun_nama'] ?></td>
+                    <td><?= $m['sis_jk'] ?></td>
+                    <td><?= $m['agama_nama'] ?></td>
+                    <td><?= $m['t_nama'] ?></td>
                     <td>
                       <div class="form-group row">
                         <form class="" action="<?= base_url('Siswa_CRUD/update') ?>" method="get">
