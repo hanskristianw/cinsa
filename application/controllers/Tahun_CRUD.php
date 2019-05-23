@@ -80,15 +80,15 @@ class Tahun_CRUD extends CI_Controller
   {
 
     //dari method post
-    $tahun_post = $this->input->get('_id', true);
+    $tahun_post = $this->input->post('_id', true);
 
     //jika bukan dari form update sendiri
     if (!$tahun_post) {
       //ambil id dari method get
-      $tahun_get = $this->_t->find_by_id($this->input->post('_id', true));
+      $tahun_get = $this->_t->find_by_id($this->input->get('_id', true));
 
       //jika langsung akses halaman update atau jabatan yang akan diedit admin
-      if ($tahun_get['t_id'] == 0 || !$tahun_get['t_id']) {
+      if (!$tahun_get['t_id']) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly, please use edit button instead!</div>');
         redirect('Tahun_CRUD');
       }
@@ -102,8 +102,6 @@ class Tahun_CRUD extends CI_Controller
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['jabatan_all'] = $this->_jabatan->return_all();
-      $data['st_all'] = $this->_st->return_all();
 
       //simpan data primary key
       $tahun_id = $this->input->get('_id', true);
@@ -119,8 +117,7 @@ class Tahun_CRUD extends CI_Controller
     } else {
       //fetch data hasil inputan
       $data = [
-        't_nama' => $this->input->post('tahun_nama'),
-
+        't_nama' => $this->input->post('tahun_nama')
       ];
 
       //simpan ke db

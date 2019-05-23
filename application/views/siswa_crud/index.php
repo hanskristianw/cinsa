@@ -7,34 +7,36 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4">School Year List</h1>
+              <h1 class="h4 text-gray-900 mb-4">List Students Name</h1>
             </div>
 
-            <?= $this->session->flashdata('message'); ?>
-
-            <a href="<?= base_url('tahun_crud/add') ?>" class="btn btn-primary mb-3">Add New School Year</a>
+            <a href="<?= base_url('siswa_crud/add') ?>" class="btn btn-primary mb-3">Add New Students</a>
 
             <table class="table display compact table-hover dt">
               <thead>
                 <tr>
-                  <th>School Year</th>
+                  <th>Students Name</th>
+                  <th>NIK</th>
+                  <th>Angkatan</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($tahun_all as $m) : ?>
+                <?php foreach ($sis_all as $m) : ?>
                   <tr>
-                    <td><?= $m['t_nama'] ?></td>
+                    <td><?= $m['sis_nama_depan'] ?> <?= $m['sis_nama_bel'] ?></td>
+                    <td><?= $m['sis_no_induk'] ?></td>
+                    <td><?= $m['tahun_nama'] ?></td>
                     <td>
                       <div class="form-group row">
-                        <form class="" action="<?= base_url('Tahun_CRUD/update') ?>" method="get">
-                          <input type="hidden" name="_id" value=<?= $m['t_id'] ?>>
+                        <form class="" action="<?= base_url('Siswa_CRUD/update') ?>" method="get">
+                          <input type="hidden" name="_id" value=<?= $m['sis_id'] ?>>
                           <button type="submit" class="badge badge-warning">
                             Edit
                           </button>
                         </form>
-                        <form class="" action="" method="get">
-                          <input type="hidden" name="" value=<?= $m['t_id'] ?> >
+                        <form class="" action="" method="post">
+                          <input type="hidden" name="" method="get" value=<?= $m['sis_id'] ?>>
                           <button type="submit" class="badge badge-danger">
                             Delete
                           </button>

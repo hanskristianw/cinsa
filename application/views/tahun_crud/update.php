@@ -14,7 +14,6 @@
 
               <input type="hidden" name="_id" value="<?= set_value('_id', $tahun_update['t_id']); ?>">
 
-              <input type="hidden" name="is_update" value="1">
               <div class="form-group row">
                 <div class="col-sm mb-3 mb-sm-0">
                   <input type="text" class="form-control" id="tahun_nama" name="tahun_nama" placeholder="Tahun Ajaran" value="<?= set_value('tahun_nama',$tahun_update['t_nama']); ?>">
