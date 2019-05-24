@@ -9,10 +9,10 @@
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">List of Class</h1>
             </div>
-            
+
 
             <?= $this->session->flashdata('message'); ?>
-            
+
             <a href="<?= base_url('kelas_crud/add') ?>" class="btn btn-primary mb-3">Add New Class</a>
 
             <table class="table display compact table-hover dt">
@@ -34,6 +34,12 @@
                           <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
                           <button type="submit" class="badge badge-warning">
                             Edit
+                          </button>
+                        </form>
+                        <form class="" action="<?= base_url('Kelas_CRUD/edit_student') ?>" method="get">
+                          <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
+                          <button type="submit" class="badge badge-success">
+                            Edit Students
                           </button>
                         </form>
                         <form class="" action="" method="post">

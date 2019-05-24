@@ -16,7 +16,7 @@
 
               <div class="form-group row">
                 <div class="col-sm mb-3 mb-sm-0">
-                  <input type="text" class="form-control" id="tahun_nama" name="tahun_nama" placeholder="Tahun Ajaran" value="<?= set_value('tahun_nama',$tahun_update['t_nama']); ?>">
+                  <input type="text" class="form-control" id="tahun_nama" name="tahun_nama" placeholder="School Year (ex: 2019/2020)" value="<?= set_value('tahun_nama',$tahun_update['t_nama']); ?>">
                   <?php echo form_error('tahun_nama','<small class="text-danger pl-3">','</small>'); ?>
                 </div>
               </div>

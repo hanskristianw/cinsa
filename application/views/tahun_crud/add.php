@@ -15,7 +15,7 @@
                         <form class="user" method="post" action="<?= base_url('Tahun_CRUD/add'); ?>">
                             <div class="form-group row">
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <input type="text" class="form-control" id="tahun_id" name="tahun_nama" placeholder="Tahun Ajaran" value="<?= set_value('tahun_nama') ?>">
+                                    <input type="text" class="form-control" id="tahun_id" name="tahun_nama" placeholder="School Year (ex: 2019/2020)" value="<?= set_value('tahun_nama') ?>">
                                     <?= form_error('tahun_nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>
