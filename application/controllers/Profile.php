@@ -28,7 +28,12 @@ class Profile extends CI_Controller
   }
 
   public function update(){
-
+    
+    if($this->input->post('_kr_username') == $this->input->post('kr_username')){
+      $this->form_validation->set_rules('kr_username', 'Username', 'required|trim');
+    }else{
+      $this->form_validation->set_rules('kr_username', 'Username', 'required|trim|is_unique[kr.kr_username]', ['is_unique' => 'This Username already exist!']);
+    }
     $this->form_validation->set_rules('kr_nama_depan', 'First Name', 'required|trim');
 		$this->form_validation->set_rules('kr_nama_belakang', 'Last Name', 'required|trim');
 		$this->form_validation->set_rules('kr_password1', 'Password', 'required|trim|min_length[3]|matches[kr_password2]',['matches' => 'Password not match', 'min_length' => 'Password too short']);
@@ -49,6 +54,7 @@ class Profile extends CI_Controller
     }else{
       $data = [
         'kr_nama_depan' => htmlspecialchars($this->input->post('kr_nama_depan', true)),
+        'kr_username' => htmlspecialchars($this->input->post('kr_username', true)),
         'kr_nama_belakang' => htmlspecialchars($this->input->post('kr_nama_belakang', true)),
         'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT),
         'kr_gelar_depan' => htmlspecialchars($this->input->post('kr_gelar_depan', true)),
@@ -91,6 +97,7 @@ class Profile extends CI_Controller
       $this->session->unset_userdata('kr_username');
       $this->session->unset_userdata('kr_id');
       $this->session->unset_userdata('kr_jabatan_id');
+      $this->session->unset_userdata('kr_sk_id');
       $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Profile Updated, please re-login</div>');
       redirect('Auth');
     }

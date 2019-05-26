@@ -82,6 +82,13 @@ class Karyawan_CRUD extends CI_Controller
 				'kr_jabatan_id' => $this->input->post('kr_jabatan'),
 				'kr_st_id' => $this->input->post('st'),
 				'kr_sk_id' => $this->input->post('sk'),
+        'kr_gelar_depan' => htmlspecialchars($this->input->post('kr_gelar_depan', true)),
+        'kr_gelar_belakang' => htmlspecialchars($this->input->post('kr_gelar_belakang', true)),
+        'kr_alamat_ktp' => htmlspecialchars($this->input->post('kr_alamat_ktp', true)),
+        'kr_alamat_tinggal' => htmlspecialchars($this->input->post('kr_alamat_tinggal', true)),
+        'kr_ktp' => htmlspecialchars($this->input->post('kr_ktp', true)),
+        'kr_npwp' => htmlspecialchars($this->input->post('kr_npwp', true)),
+        'kr_bca' => htmlspecialchars($this->input->post('kr_bca', true)),
 				'kr_date_created' => time()
 			];
 
@@ -149,6 +156,13 @@ class Karyawan_CRUD extends CI_Controller
         'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT),
         'kr_jabatan_id' => $this->input->post('kr_jabatan_id'),
         'kr_sk_id' => $this->input->post('kr_sk_id'),
+        'kr_gelar_depan' => htmlspecialchars($this->input->post('kr_gelar_depan', true)),
+        'kr_gelar_belakang' => htmlspecialchars($this->input->post('kr_gelar_belakang', true)),
+        'kr_alamat_ktp' => htmlspecialchars($this->input->post('kr_alamat_ktp', true)),
+        'kr_alamat_tinggal' => htmlspecialchars($this->input->post('kr_alamat_tinggal', true)),
+        'kr_ktp' => htmlspecialchars($this->input->post('kr_ktp', true)),
+        'kr_npwp' => htmlspecialchars($this->input->post('kr_npwp', true)),
+        'kr_bca' => htmlspecialchars($this->input->post('kr_bca', true)),
         'kr_st_id' => $this->input->post('st')
       ];
 

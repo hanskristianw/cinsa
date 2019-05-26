@@ -13,6 +13,8 @@
                 <?= $this->session->flashdata('message'); ?>
                 
                 <form class="user" method="post" action="<?php echo base_url('Karyawan_CRUD/add'); ?>">
+                
+                <h4 class="text-muted mb-3"><u>REQUIRED FIELD</u></h4>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name" value="<?php echo set_value('kr_nama_depan'); ?>">
@@ -96,6 +98,23 @@
                             </select>
                         </div>
                     </div>
+
+                    <h4 class="text-muted mb-3"><u>OPTIONAL FIELD</u></h4>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control mb-2" id="kr_gelar_depan" name="kr_gelar_depan" placeholder="First Name Title (Dr, Prof)" value="<?php echo set_value('kr_gelar_depan'); ?>">
+                            <input type="text" class="form-control mb-2" id="kr_ktp" name="kr_ktp" placeholder="ID number" value="<?php echo set_value('kr_ktp'); ?>">
+                            <input type="text" class="form-control mb-2" id="kr_alamat_ktp" name="kr_alamat_ktp" placeholder="ID Address" value="<?php echo set_value('kr_alamat_ktp'); ?>">
+                            <input type="text" class="form-control mb-2" id="kr_alamat_tinggal" name="kr_alamat_tinggal" placeholder="Home Address" value="<?php echo set_value('kr_alamat_tinggal'); ?>">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control mb-2" id="kr_gelar_belakang" name="kr_gelar_belakang" placeholder="Last Name Title (S.kom, M.M)" value="<?php echo set_value('kr_gelar_belakang'); ?>">
+                            <input type="text" class="form-control mb-2" id="kr_npwp" name="kr_npwp" placeholder="NPWP number" value="<?php echo set_value('kr_npwp'); ?>">
+                            <input type="text" class="form-control mb-2" id="kr_bca" name="kr_bca" placeholder="BCA Account Number" value="<?php echo set_value('kr_bca'); ?>">
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn btn-primary btn-user btn-block">
                         Insert
                     </button>

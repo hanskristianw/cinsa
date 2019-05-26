@@ -17,26 +17,33 @@
                     <h4 class="text-muted mb-3"><u>REQUIRED FIELD</u></h4>
 
                     <input type="hidden" name="kr_pp" value="<?php echo set_value('kr_pp', $kr['kr_pp']); ?>">
-                    
+                    <input type="hidden" name="_kr_username" value="<?php echo set_value('_kr_username', $kr['kr_username']); ?>">
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control" id="kr_username" name="kr_username" placeholder="Username" value="<?php echo set_value('kr_username', $kr['kr_username']); ?>">
+                            <?= form_error('kr_username','<small class="text-danger pl-3">','</small>'); ?>
+                        </div>
+                    </div>
+
                     <!-- NAMA DEPAN dan BELAKANG -->
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name (Required)" value="<?php echo set_value('kr_nama_depan', $kr['kr_nama_depan']); ?>">
+                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name" value="<?php echo set_value('kr_nama_depan', $kr['kr_nama_depan']); ?>">
                             <?= form_error('kr_nama_depan','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="kr_nama_belakang" name="kr_nama_belakang" placeholder="Last Name (Required)" value="<?php echo set_value('kr_nama_belakang', $kr['kr_nama_belakang']); ?>">
+                            <input type="text" class="form-control" id="kr_nama_belakang" name="kr_nama_belakang" placeholder="Last Name" value="<?php echo set_value('kr_nama_belakang', $kr['kr_nama_belakang']); ?>">
                             <?= form_error('kr_nama_belakang','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
                     
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="password" class="form-control" id="kr_password1" name="kr_password1" placeholder="Password (Required)">
+                            <input type="password" class="form-control" id="kr_password1" name="kr_password1" placeholder="Password">
                             <?= form_error('kr_password1','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                         <div class="col-sm-6">
-                            <input type="password" class="form-control" id="kr_password2" name="kr_password2" placeholder="Repeat Password (Required)">
+                            <input type="password" class="form-control" id="kr_password2" name="kr_password2" placeholder="Repeat Password">
                         </div>
                     </div>
                     

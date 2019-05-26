@@ -10,7 +10,7 @@ class _kelas extends CI_Model
 
   public function return_all_by_sk($kelas_sk_id)
   {
-    return $this->db->join('t', 'kelas_t_id=t_id', 'left')->join('sk', 'kelas_sk_id=sk_id', 'left')->order_by("sk_nama", "ASC")->where('kelas_sk_id', $kelas_sk_id)->order_by("t_nama", "DESC")->get('kelas')->result_array();
+    return $this->db->join('t', 'kelas_t_id=t_id', 'left')->join('sk', 'kelas_sk_id=sk_id', 'left')->where('kelas_sk_id', $kelas_sk_id)->order_by("t_nama", "DESC")->order_by("kelas_nama", "ASC")->get('kelas')->result_array();
   }
 
   public function return_all()

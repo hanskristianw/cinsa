@@ -37,6 +37,12 @@
                                     Edit
                                 </button>
                               </form>
+                              <form class="" action="<?= base_url('Mapel_CRUD/edit_teacher') ?>" method="get">
+                                <input type="hidden" name="_id" value=<?= $m['mapel_id'] ?>>
+                                <button type="submit" class="badge badge-success">
+                                    Edit Teacher
+                                </button>
+                              </form>
                               <form class="" action="" method="get">
                                 <input type="hidden" name="" value=<?= $m['mapel_id'] ?>>
                                 <button type="submit" class="badge badge-danger">

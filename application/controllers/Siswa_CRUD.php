@@ -19,7 +19,7 @@ class Siswa_CRUD extends CI_Controller
       redirect('Auth');
     }
 
-    //jika bukan HRD dan sudah login redirect ke home
+    //jika bukan TU dan sudah login redirect ke home
     if ($this->session->userdata('kr_jabatan_id') != 6 && $this->session->userdata('kr_jabatan_id')) {
       redirect('Profile');
     }
