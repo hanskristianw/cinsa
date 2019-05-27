@@ -8,7 +8,6 @@ class Mapel_CRUD extends CI_Controller
     parent::__construct();
     $this->load->model('_mapel');
     $this->load->model('_kr');
-    $this->load->model('_t');
     $this->load->model('_sk');
     $this->load->model('_st');
     $this->load->model('_jabatan');
@@ -55,7 +54,6 @@ class Mapel_CRUD extends CI_Controller
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['mapel_all'] = $this->_mapel->return_all();
-      $data['tahun_all'] = $this->_t->return_all();
       $data['sk_all'] = $this->_sk->return_all();
 
       $this->load->view('templates/header',$data);
@@ -68,7 +66,6 @@ class Mapel_CRUD extends CI_Controller
 			$data = [
 				'mapel_nama' => $this->input->post('mapel_nama'),
         'mapel_kkm' => $this->input->post('mapel_kkm'),
-        'mapel_t_id' => $this->input->post('mapel_t_id'),
         'mapel_sk_id' => $this->session->userdata('kr_sk_id')
 			];
 
@@ -188,8 +185,6 @@ class Mapel_CRUD extends CI_Controller
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['jabatan_all'] = $this->_jabatan->return_all();
-      
-      $data['tahun_all'] = $this->_t->return_all();
 
       //simpan data primary key
       $mapel_id = $this->input->get('_id', true);
@@ -207,7 +202,6 @@ class Mapel_CRUD extends CI_Controller
       //fetch data hasil inputan
       $data = [
         'mapel_nama' => $this->input->post('mapel_nama'),
-        'mapel_t_id' => $this->input->post('mapel_t_id'),
         'mapel_kkm' => $this->input->post('mapel_kkm')
       ];
 

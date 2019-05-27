@@ -22,24 +22,6 @@
                             <?= form_error('mapel_kkm','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
-                            <select name="mapel_t_id" id="mapel_t_id" class="form-control">
-                                <?php
-                                    $_selected = set_value('mapel_t_id',$mapel_update['mapel_t_id']);
-                                    foreach($tahun_all as $m) :
-                                        if($_selected == $m['t_id']){
-                                            $s = "selected";
-                                        }
-                                        else{
-                                            $s = "";
-                                        }
-                                        echo "<option value=".$m['t_id']." ".$s.">".$m['t_nama']."</option>";
-                                    endforeach
-                                ?>
-                            </select>
-                        </div>
-                    </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
                         Update
                     </button>

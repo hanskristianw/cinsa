@@ -19,7 +19,6 @@
                       <tr>
                         <th>Subject Name</th>
                         <th>Passing Grade</th>
-                        <th>Year</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -28,7 +27,6 @@
                         <tr>
                           <td><?= $m['mapel_nama'] ?></td>
                           <td><?= $m['mapel_kkm'] ?></td>
-                          <td><?= $m['t_nama'] ?></td>
                           <td>
                             <div class="form-group row">
                               <form class="" action="<?= base_url('Mapel_CRUD/update') ?>" method="get">
