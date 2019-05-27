@@ -11,6 +11,7 @@ class Kelas_CRUD extends CI_Controller
     $this->load->model('_kelas');
     $this->load->model('_t');
     $this->load->model('_siswa');
+    $this->load->model('_jenj');
     $this->load->model('_sk');
     $this->load->model('_st');
     $this->load->model('_d_s');
@@ -61,12 +62,20 @@ class Kelas_CRUD extends CI_Controller
         redirect('Kelas_CRUD');
       }
 
+      $jenjang_count = $this->db->where('jenj_sk_id',$this->session->userdata('kr_sk_id'))->from("jenj")->count_all_results();
+
+      if ($jenjang_count == 0) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Please add level first!</div>');
+        redirect('Kelas_CRUD');
+      }
+
       $data['title'] = 'Create Class';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['kelas_all'] = $this->_kelas->return_all();
       $data['tahun_all'] = $this->_t->return_all();
+      $data['jenj_all'] = $this->_jenj->return_all_by_sk($this->session->userdata('kr_sk_id'));
       $data['sk_all'] = $this->_sk->return_all();
 
       $this->load->view('templates/header', $data);
@@ -79,6 +88,7 @@ class Kelas_CRUD extends CI_Controller
       $data = [
         'kelas_nama' => $this->input->post('kelas_nama'),
         'kelas_sk_id' => $this->input->post('kelas_sk_id'),
+        'kelas_jenj_id' => $this->input->post('jenj_id'),
         'kelas_t_id' => $this->input->post('kelas_t_id')
       ];
 
@@ -197,6 +207,7 @@ class Kelas_CRUD extends CI_Controller
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $data['jenj_all'] = $this->_jenj->return_all_by_sk($this->session->userdata('kr_sk_id'));
 
       $data['tahun_all'] = $this->_t->return_all();
 
@@ -215,6 +226,7 @@ class Kelas_CRUD extends CI_Controller
       //fetch data hasil inputan
       $data = [
         'kelas_nama' => $this->input->post('kelas_nama'),
+        'kelas_jenj_id' => $this->input->post('jenj_id'),
         'kelas_t_id' => $this->input->post('kelas_t_id')
       ];
 

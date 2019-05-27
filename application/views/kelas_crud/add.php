@@ -41,7 +41,25 @@
                   <?= form_error('kelas_nama', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
               </div>
-              <?= $this->session->flashdata('warning'); ?>
+              <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+
+                  <select name="jenj_id" id="jenj_id" class="form-control">
+                    <?php
+                    $_selected = set_value('jenj_id');
+
+                    foreach ($jenj_all as $m) :
+                      if ($_selected == $m['jenj_id']) {
+                        $s = "selected";
+                      } else {
+                        $s = "";
+                      }
+                      echo "<option value=" . $m['jenj_id'] . " " . $s . ">" . $m['jenj_nama'] . "</option>";
+                    endforeach
+                    ?>
+                  </select>
+                </div>
+              </div>
               <button type="submit" class="btn btn-primary btn-user btn-block">
                 Insert
               </button>
