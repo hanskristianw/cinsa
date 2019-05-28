@@ -56,36 +56,6 @@ class Auth extends CI_Controller
 		}
 	}
 
-	public function registration()
-	{
-		$this->form_validation->set_rules('kr_nama_depan', 'First Name', 'required|trim');
-		$this->form_validation->set_rules('kr_nama_belakang', 'Last Name', 'required|trim');
-		$this->form_validation->set_rules('kr_username', 'Username', 'required|trim|is_unique[kr.kr_username]',['is_unique' => 'This username already exist!']);
-		$this->form_validation->set_rules('kr_password1', 'Password', 'required|trim|min_length[3]|matches[kr_password2]',['matches' => 'Password not match', 'min_length' => 'Password too short']);
-		$this->form_validation->set_rules('kr_password2', 'Password', 'required|trim|matches[kr_password1]');
-
-		if($this->form_validation->run() == false){
-			$data['title'] = 'EMPLOYEE REGISTRATION';
-			$this->load->view('templates/auth_header', $data);
-			$this->load->view('auth/registration');
-			$this->load->view('templates/auth_footer');
-		}
-		else{
-			$data = [
-				'kr_nama_depan' => htmlspecialchars($this->input->post('kr_nama_depan', true)),
-				'kr_nama_belakang' => htmlspecialchars($this->input->post('kr_nama_belakang', true)),
-				'kr_username' => $this->input->post('kr_username'),
-				'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT),
-				'kr_jabatan_id' => 2,
-				'kr_date_created' => time()
-			];
-
-			$this->db->insert('kr', $data);
-			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">User Created!</div>');
-			redirect('Auth');
-		}
-	}
-
 	public function logout(){
 		$this->session->unset_userdata('kr_username');
 		$this->session->unset_userdata('kr_jabatan_id');

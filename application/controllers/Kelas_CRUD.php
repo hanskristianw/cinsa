@@ -15,6 +15,8 @@ class Kelas_CRUD extends CI_Controller
     $this->load->model('_sk');
     $this->load->model('_st');
     $this->load->model('_d_s');
+    $this->load->model('_mapel');
+    $this->load->model('_d_mpl');
 
 
     //jika belum login
@@ -109,6 +111,107 @@ class Kelas_CRUD extends CI_Controller
         redirect('Kelas_CRUD');
       }
     }
+
+    $this->form_validation->set_rules('mapel_id', 'Siswa Nama', 'required|trim');
+    $this->form_validation->set_rules('kelas_id', 'Kelas Nama', 'required|trim');
+
+    if ($this->form_validation->run() == false) {
+
+      $sk_id = $this->session->userdata('kr_sk_id');
+
+      //jika belum ada murid sama sekali
+
+      $mapel_count = $this->db->where('mapel_sk_id',$sk_id)->from("mapel")->count_all_results();
+
+      if ($mapel_count == 0) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Please add subject first!</div>');
+        redirect('Kelas_CRUD');
+      }
+
+      //jika belum ada guru sama sekali
+      $guru_count = $this->db->where('kr_sk_id',$sk_id)->where('kr_jabatan_id','7')->from("kr")->count_all_results();
+
+      if ($guru_count == 0) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Please inform HR to add teacher first!</div>');
+        redirect('Kelas_CRUD');
+      }
+
+      $data['title'] = 'Subjects';
+
+      //data karyawan yang sedang login untuk topbar
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $data['kelas_all'] = $this->_kelas->find_by_id($this->input->get('_id', true));
+      $data['mapel_all'] = $this->_mapel->return_all_by_sk_id($sk_id);
+      $data['guru_all'] = $this->_kr->return_all_by_sk_id($sk_id);
+
+      //var_dump($data['kelas_all']);
+
+      //return siswa yang belum mempunyai kelas pada kelas dengan tahun ajaran
+      $data['mapel_in_class'] = $this->_d_mpl->return_all_by_kelas_id($this->input->get('_id', true));
+
+      //var_dump($data['kelas_all']['kelas_t_id']);
+
+      // $data['sis_all'] = $this->db->query(
+      //   "SELECT * FROM sis
+      //   LEFT JOIN agama ON sis_agama_id = agama_id
+      //   LEFT JOIN t ON sis_t_id = t_id
+      //   LEFT JOIN sk ON sis_sk_id = sk_id
+      //   WHERE sis_sk_id = $sk_id
+      //   AND sis_id NOT IN (SELECT d_s_sis_id FROM d_s
+      //                       LEFT JOIN sis ON d_s_sis_id = sis_id
+      //                       LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+      //                       WHERE sis_sk_id = $sk_id AND kelas_t_id = ".$data['kelas_all']['kelas_t_id'].")
+      //   ORDER BY sis_t_id DESC, sis_nama_depan ASC")->result_array();
+
+
+      //var_dump($this->db->last_query());
+
+      $data['d_mpl_all'] = $this->_d_mpl->return_all_by_kelas_id($this->input->get('_id', true));
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('kelas_crud/edit_subject', $data);
+      $this->load->view('templates/footer');
+    }
+    else {
+
+      $sis = $this->_siswa->find_by_id($this->input->post('sis_id'));
+
+      //var_dump($sis);
+      $data = [
+        'd_mpl_mapel_id' => $this->input->post('mapel_id'),
+        'd_mpl_kelas_id' => $this->input->post('kelas_id')
+      ];
+
+      $data = array(
+        array(
+          'd_mpl_mapel_id' => $this->input->post('mapel_id'),
+          'd_mpl_kelas_id' => $this->input->post('kelas_id')
+        ),
+        array(
+          'd_mpl_mapel_id' => $this->input->post('mapel_id'),
+          'd_mpl_kelas_id' => $this->input->post('kelas_id')
+        ),
+        array(
+          'd_mpl_mapel_id' => $this->input->post('mapel_id'),
+          'd_mpl_kelas_id' => $this->input->post('kelas_id')
+        ),
+        array(
+          'd_mpl_mapel_id' => $this->input->post('mapel_id'),
+          'd_mpl_kelas_id' => $this->input->post('kelas_id')
+        ),
+        array(
+          'd_mpl_mapel_id' => $this->input->post('mapel_id'),
+          'd_mpl_kelas_id' => $this->input->post('kelas_id')
+        )
+     );
+
+      $this->db->insert_batch('d_mpl', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success!</div>');
+      redirect('kelas_crud/edit_subject?_id='.$this->input->post('kelas_id'));
+    }
+
   }
 
   public function edit_student()

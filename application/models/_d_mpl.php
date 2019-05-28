@@ -8,8 +8,8 @@ class _d_mpl extends CI_Model
     parent::__construct();
   }
 
-  public function return_all()
+  public function return_all_by_kelas_id($kelas_id)
   {
-    return $this->db->get('d_mpl')->result_array();
+    return $this->db->join('mapel', 'd_mpl_mapel_id=mapel_id', 'left')->where('d_mpl_kelas_id', $kelas_id)->get('d_mpl')->result_array();
   }
 }
