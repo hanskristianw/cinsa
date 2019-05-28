@@ -31,7 +31,7 @@
                     <td><?= $m['jenj_nama'] ?></td>
                     <td><?= $m['t_nama'] ?></td>
                     <td>
-                      <div class="form-group row">
+                      <div class="form-group row ml-2">
                         <form class="" action="<?= base_url('Kelas_CRUD/update') ?>" method="get">
                           <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
                           <button type="submit" class="badge badge-warning">
@@ -42,6 +42,12 @@
                           <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
                           <button type="submit" class="badge badge-success">
                             Edit Students
+                          </button>
+                        </form>
+                        <form class="" action="<?= base_url('Kelas_CRUD/edit_subject') ?>" method="get">
+                          <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
+                          <button type="submit" class="badge badge-primary">
+                            Edit Subjects
                           </button>
                         </form>
                         <form class="" action="" method="post">

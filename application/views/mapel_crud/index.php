@@ -9,7 +9,7 @@
                   <div class="text-center">
                       <h1 class="h4 text-gray-900 mb-4">Subject List</h1>
                   </div>
-                  
+
                   <?= $this->session->flashdata('message'); ?>
 
                   <a href="<?= base_url('mapel_crud/add') ?>" class="btn btn-primary mb-3">Add New Subject</a>
@@ -19,6 +19,8 @@
                       <tr>
                         <th>Subject Name</th>
                         <th>Passing Grade</th>
+                        <th>Abbreviation</th>
+                        <th>Order</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -27,18 +29,14 @@
                         <tr>
                           <td><?= $m['mapel_nama'] ?></td>
                           <td><?= $m['mapel_kkm'] ?></td>
+                          <td><?= $m['mapel_sing'] ?></td>
+                          <td><?= $m['mapel_urutan'] ?></td>
                           <td>
                             <div class="form-group row">
                               <form class="" action="<?= base_url('Mapel_CRUD/update') ?>" method="get">
                                 <input type="hidden" name="_id" value=<?= $m['mapel_id'] ?>>
                                 <button type="submit" class="badge badge-warning">
                                     Edit
-                                </button>
-                              </form>
-                              <form class="" action="<?= base_url('Mapel_CRUD/edit_teacher') ?>" method="get">
-                                <input type="hidden" name="_id" value=<?= $m['mapel_id'] ?>>
-                                <button type="submit" class="badge badge-success">
-                                    Edit Teacher
                                 </button>
                               </form>
                               <form class="" action="" method="get">

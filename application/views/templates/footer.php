@@ -2,7 +2,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Nation Star Academy 2019</span>
+            <span>Copyright &copy; Yayasan Pendidikan dan Pengajaran Indonesia</span>
           </div>
         </div>
       </footer>

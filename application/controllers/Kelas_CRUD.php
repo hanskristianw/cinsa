@@ -98,6 +98,19 @@ class Kelas_CRUD extends CI_Controller
     }
   }
 
+  public function edit_subject(){
+    $kelas_id_post = $this->input->post('kelas_id', true);
+    if(!$kelas_id_post){
+      $kelas_get = $this->_kelas->find_by_id($this->input->get('_id', true));
+
+      //jika langsung akses halaman update
+      if (!$kelas_get['kelas_id']) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly, please use edit button instead!</div>');
+        redirect('Kelas_CRUD');
+      }
+    }
+  }
+
   public function edit_student()
   {
 
@@ -116,11 +129,11 @@ class Kelas_CRUD extends CI_Controller
     $this->form_validation->set_rules('kelas_id', 'Kelas Nama', 'required|trim');
 
     if ($this->form_validation->run() == false) {
-      
+
       $sk_id = $this->session->userdata('kr_sk_id');
 
       //jika belum ada murid sama sekali
-      
+
       $sis_count = $this->db->where('sis_sk_id',$sk_id)->from("sis")->count_all_results();
 
       if ($sis_count == 0) {
@@ -142,16 +155,16 @@ class Kelas_CRUD extends CI_Controller
       //var_dump($data['kelas_all']['kelas_t_id']);
 
       $data['sis_all'] = $this->db->query(
-        "SELECT * FROM sis 
-        LEFT JOIN agama ON sis_agama_id = agama_id 
-        LEFT JOIN t ON sis_t_id = t_id 
-        LEFT JOIN sk ON sis_sk_id = sk_id 
+        "SELECT * FROM sis
+        LEFT JOIN agama ON sis_agama_id = agama_id
+        LEFT JOIN t ON sis_t_id = t_id
+        LEFT JOIN sk ON sis_sk_id = sk_id
         WHERE sis_sk_id = $sk_id
-        AND sis_id NOT IN (SELECT d_s_sis_id FROM d_s 
+        AND sis_id NOT IN (SELECT d_s_sis_id FROM d_s
                             LEFT JOIN sis ON d_s_sis_id = sis_id
                             LEFT JOIN kelas ON d_s_kelas_id = kelas_id
                             WHERE sis_sk_id = $sk_id AND kelas_t_id = ".$data['kelas_all']['kelas_t_id'].")
-        ORDER BY sis_t_id DESC, sis_nama_depan ASC")->result_array(); 
+        ORDER BY sis_t_id DESC, sis_nama_depan ASC")->result_array();
 
 
       //var_dump($this->db->last_query());
@@ -163,9 +176,9 @@ class Kelas_CRUD extends CI_Controller
       $this->load->view('templates/topbar', $data);
       $this->load->view('kelas_crud/edit_student', $data);
       $this->load->view('templates/footer');
-    } 
+    }
     else {
-      
+
       $sis = $this->_siswa->find_by_id($this->input->post('sis_id'));
 
       //var_dump($sis);

@@ -14,7 +14,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Sistem Informasi Administrasi</h1>
                     <hr>
-                    <img src="<?= base_url('assets/img/profile/nsalogokotak.jpg'); ?>" class="mb-4 rounded-circle">
+                    <img src="<?= base_url('assets/img/profile/yppi.png'); ?>" class="mb-4 rounded-circle">
                   </div>
 
                   <?= $this->session->flashdata('message'); ?>
@@ -34,7 +34,7 @@
                   </form>
                   <hr>
                     <div class="text-center">
-                      &copy; 2018<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Nation Star Academy.
+                      &copy; 2018<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Yayasan Pendidikan dan Pengajaran Indonesia.
                     </div>
                   <hr>
                 </div>
