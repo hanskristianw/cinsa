@@ -54,17 +54,17 @@
                       $_selected = set_value('sis_jk', $siswa_update['sis_jk']);
                       
                       if($_selected == "Male"){
-                        echo "<option value='Male' selected>Male</option>";
+                        echo "<option value='1' selected>Male</option>";
                       }
                       else{
-                        echo "<option value='Male'>Male</option>";
+                        echo "<option value='1'>Male</option>";
                       }
 
                       if($_selected == "Female"){
-                        echo "<option value='Female' selected>Female</option>";
+                        echo "<option value='2' selected>Female</option>";
                       }
                       else{
-                        echo "<option value='Female'>Female</option>";
+                        echo "<option value='2'>Female</option>";
                       }
                     ?>
                   </select>

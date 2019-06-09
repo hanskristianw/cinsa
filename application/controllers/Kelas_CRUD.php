@@ -33,13 +33,36 @@ class Kelas_CRUD extends CI_Controller
   public function index()
   {
 
+    $guru_count = $this->db->where('kr_jabatan_id','7')->from("kr")->count_all_results();
+
+    if ($guru_count == 0) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Please inform HR to add teacher first!</div>');
+      redirect('Profile');
+    }
+
+
     $data['title'] = 'List of Class';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     //data karyawan untuk konten
-    $data['kelas_all'] = $this->_kelas->return_all_by_sk($this->session->userdata('kr_sk_id'));
+    //$data['kelas_all'] = $this->_kelas->return_all_by_sk($this->session->userdata('kr_sk_id'));
+
+    $sk_id = $this->session->userdata('kr_sk_id');
+
+    $data['kelas_all'] = $this->db->query(
+      "SELECT kelas_nama, t_nama, jenj_nama, kelas_id, kelas_kr_id, count(d_s_kelas_id) as jum_siswa
+      FROM kelas
+      LEFT JOIN t ON kelas_t_id = t_id
+      LEFT JOIN jenj ON kelas_jenj_id = jenj_id
+      LEFT JOIN sk ON kelas_sk_id = sk_id
+      LEFT JOIN d_s ON kelas_id = d_s_kelas_id
+      WHERE kelas_sk_id = $sk_id
+      GROUP BY kelas_id
+      ORDER BY t_id DESC, jenj_nama, kelas_nama")->result_array();
+
+    $data['guru_all'] = $this->_kr->return_all_teacher();
 
     //$data['tes'] = var_dump($this->db->last_query());
 
@@ -99,6 +122,75 @@ class Kelas_CRUD extends CI_Controller
       redirect('kelas_crud/add');
     }
   }
+  public function save_homeroom(){
+    $kelas_post = $this->_kelas->find_by_id($this->input->post('kelas_id', true));
+
+    if (!$kelas_post['kelas_id']) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly, please use edit button instead!</div>');
+      redirect('Kelas_CRUD');
+    }
+
+    $data = [
+      'kelas_id' => $this->input->post('kelas_id'),
+      'kelas_kr_id' => $this->input->post('kelas_kr_id')
+    ];
+
+    $this->db->where('kelas_id', $this->input->post('kelas_id', true));
+    $this->db->update('kelas', $data);
+
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Class Homeroom Teacher Updated!</div>');
+    redirect('Kelas_CRUD');
+
+  }
+  public function save_teacher(){
+
+    $kr_id = $this->input->post('kr_id', true);
+    $mapel_id = $this->input->post('mapel_id', true);
+    $kelas_id = $this->input->post('kelas_id', true);
+    $d_mpl_id = explode(",",$this->input->post('d_mpl_id', true));
+    $beban = $this->input->post('beban', true);
+
+    if(!$kr_id || !$mapel_id || !$kelas_id){
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly!</div>');
+      redirect('kelas_crud');
+    }
+
+    //var_dump($d_mpl_id);
+
+    $data = array();
+
+    for($i=0;$i<count($kr_id);$i++){
+      $data[$i] = [
+        'd_mpl_id' => $d_mpl_id[$i],
+        'd_mpl_kr_id' => $kr_id[$i],
+        'd_mpl_beban' => $beban[$i]
+      ];
+    }
+
+    $this->db->update_batch('d_mpl',$data, 'd_mpl_id'); 
+    var_dump($this->db->last_query());
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Teacher(s) Updated!</div>');
+    redirect('kelas_crud/edit_subject?_id='.$kelas_id);
+    // var_dump($kr_id[0]);
+    // var_dump($kr_id[1]);
+    // var_dump($kr_id[2]);
+    // var_dump($mapel_id);
+    // var_dump($kelas_id);
+  }
+
+  public function delete_subject(){
+    $d_mpl_id = explode(",",$this->input->post('d_mpl_id_delete', true));
+    $kelas_id = $this->input->post('kelas_id', true);
+
+    if(!$d_mpl_id || !$kelas_id){
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly!</div>');
+      redirect('kelas_crud');
+    }
+
+    $this->db->where_in('d_mpl_id', $d_mpl_id)->delete('d_mpl');
+    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Subject Deleted</div>');
+    redirect('kelas_crud/edit_subject?_id='.$kelas_id);
+  }
 
   public function edit_subject(){
     $kelas_id_post = $this->input->post('kelas_id', true);
@@ -129,7 +221,7 @@ class Kelas_CRUD extends CI_Controller
       }
 
       //jika belum ada guru sama sekali
-      $guru_count = $this->db->where('kr_sk_id',$sk_id)->where('kr_jabatan_id','7')->from("kr")->count_all_results();
+      $guru_count = $this->db->where('kr_jabatan_id','7')->from("kr")->count_all_results();
 
       if ($guru_count == 0) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Please inform HR to add teacher first!</div>');
@@ -141,8 +233,15 @@ class Kelas_CRUD extends CI_Controller
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['kelas_all'] = $this->_kelas->find_by_id($this->input->get('_id', true));
-      $data['mapel_all'] = $this->_mapel->return_all_by_sk_id($sk_id);
-      $data['guru_all'] = $this->_kr->return_all_by_sk_id($sk_id);
+
+      $data['mapel_all'] = $this->db->query(
+        "SELECT *
+        FROM mapel
+        WHERE mapel_sk_id = $sk_id AND
+        mapel_id NOT IN (SELECT d_mpl_mapel_id FROM d_mpl WHERE d_mpl_kelas_id = ".$kelas_get['kelas_id'].")
+        ORDER BY mapel_urutan")->result_array();
+      
+      $data['guru_all'] = $this->_kr->return_all_teacher();
 
       //var_dump($data['kelas_all']);
 
@@ -151,22 +250,18 @@ class Kelas_CRUD extends CI_Controller
 
       //var_dump($data['kelas_all']['kelas_t_id']);
 
-      // $data['sis_all'] = $this->db->query(
-      //   "SELECT * FROM sis
-      //   LEFT JOIN agama ON sis_agama_id = agama_id
-      //   LEFT JOIN t ON sis_t_id = t_id
-      //   LEFT JOIN sk ON sis_sk_id = sk_id
-      //   WHERE sis_sk_id = $sk_id
-      //   AND sis_id NOT IN (SELECT d_s_sis_id FROM d_s
-      //                       LEFT JOIN sis ON d_s_sis_id = sis_id
-      //                       LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-      //                       WHERE sis_sk_id = $sk_id AND kelas_t_id = ".$data['kelas_all']['kelas_t_id'].")
-      //   ORDER BY sis_t_id DESC, sis_nama_depan ASC")->result_array();
+      $data['d_mpl_all'] = $this->db->query(
+        "SELECT mapel_id, mapel_sing, mapel_nama, mapel_urutan, GROUP_CONCAT(d_mpl_id ORDER BY d_mpl_id) as d_mpl_id, GROUP_CONCAT(d_mpl_beban ORDER BY d_mpl_id) as d_mpl_beban, COUNT(d_mpl_kr_id) as jum_guru, GROUP_CONCAT(d_mpl_kr_id ORDER BY d_mpl_id) as d_mpl_kr_id
+        FROM d_mpl
+        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+        WHERE d_mpl_kelas_id = ".$kelas_get['kelas_id']."
+        GROUP BY mapel_id
+        ORDER BY mapel_urutan")->result_array();
 
 
       //var_dump($this->db->last_query());
 
-      $data['d_mpl_all'] = $this->_d_mpl->return_all_by_kelas_id($this->input->get('_id', true));
+      //$data['d_mpl_all'] = $this->_d_mpl->return_all_by_kelas_id($this->input->get('_id', true));
 
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
@@ -178,34 +273,19 @@ class Kelas_CRUD extends CI_Controller
 
       $sis = $this->_siswa->find_by_id($this->input->post('sis_id'));
 
-      //var_dump($sis);
-      $data = [
-        'd_mpl_mapel_id' => $this->input->post('mapel_id'),
-        'd_mpl_kelas_id' => $this->input->post('kelas_id')
-      ];
+      
+      $jum_guru = $this->input->post('jum_guru');
 
-      $data = array(
-        array(
-          'd_mpl_mapel_id' => $this->input->post('mapel_id'),
-          'd_mpl_kelas_id' => $this->input->post('kelas_id')
-        ),
-        array(
-          'd_mpl_mapel_id' => $this->input->post('mapel_id'),
-          'd_mpl_kelas_id' => $this->input->post('kelas_id')
-        ),
-        array(
-          'd_mpl_mapel_id' => $this->input->post('mapel_id'),
-          'd_mpl_kelas_id' => $this->input->post('kelas_id')
-        ),
-        array(
-          'd_mpl_mapel_id' => $this->input->post('mapel_id'),
-          'd_mpl_kelas_id' => $this->input->post('kelas_id')
-        ),
-        array(
-          'd_mpl_mapel_id' => $this->input->post('mapel_id'),
-          'd_mpl_kelas_id' => $this->input->post('kelas_id')
-        )
-     );
+      //var_dump($sis);
+
+      $data = array();
+
+      for($i=0;$i<$jum_guru;$i++){
+          $data[$i] = [
+            'd_mpl_mapel_id' => $this->input->post('mapel_id'),
+            'd_mpl_kelas_id' => $this->input->post('kelas_id')
+          ];
+      }
 
       $this->db->insert_batch('d_mpl', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success!</div>');
@@ -263,6 +343,7 @@ class Kelas_CRUD extends CI_Controller
         LEFT JOIN t ON sis_t_id = t_id
         LEFT JOIN sk ON sis_sk_id = sk_id
         WHERE sis_sk_id = $sk_id
+        AND sis_alumni = 0
         AND sis_id NOT IN (SELECT d_s_sis_id FROM d_s
                             LEFT JOIN sis ON d_s_sis_id = sis_id
                             LEFT JOIN kelas ON d_s_kelas_id = kelas_id

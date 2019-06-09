@@ -20,22 +20,46 @@
                 <tr>
                   <th>List of Class</th>
                   <th>Level</th>
-                  <th>Year</th>
+                  <th>&Sigma; Students</th>
+                  <th>Homeroom Teacher</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php foreach ($kelas_all as $m) : ?>
                   <tr>
-                    <td><?= $m['kelas_nama'] ?></td>
+                    <td><?= "<b>".$m['kelas_nama'] ."</b> (". $m['t_nama'] . ")" ?></td>
                     <td><?= $m['jenj_nama'] ?></td>
-                    <td><?= $m['t_nama'] ?></td>
+                    <td><?= $m['jum_siswa'] ?></td>
+                    <td>
+                    
+                        <form class="" action="<?= base_url('Kelas_CRUD/save_homeroom') ?>" method="post">
+                          <select name="kelas_kr_id" id="kelas_kr_id" class="form-control mb-2">
+                            <?php
+                              $_selected = $m['kelas_kr_id'];
+                              echo "<option value= '0'>No HR Teacher</option>";
+                              foreach ($guru_all as $n) :
+                                  if ($_selected == $n['kr_id']) {
+                                      $s = "selected";
+                                  } else {
+                                      $s = "";
+                                  }
+                                  echo "<option value=" . $n['kr_id'] . " " . $s . ">" . $n['kr_nama_depan'] ." ". $n['kr_nama_belakang'][0]. "</option>";
+                              endforeach
+                            ?>
+                          </select>
+                    </td>
                     <td>
                       <div class="form-group row ml-2">
+                          <input type="hidden" name="kelas_id" value=<?= $m['kelas_id'] ?>>
+                          <button type="submit" class="badge badge-dark">
+                            Save HR Teacher
+                          </button>
+                        </form>
                         <form class="" action="<?= base_url('Kelas_CRUD/update') ?>" method="get">
                           <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
                           <button type="submit" class="badge badge-warning">
-                            Edit
+                            Edit Class
                           </button>
                         </form>
                         <form class="" action="<?= base_url('Kelas_CRUD/edit_student') ?>" method="get">
@@ -51,7 +75,7 @@
                           </button>
                         </form>
                         <form class="" action="" method="post">
-                          <input type="hidden" name="" value="">
+                          <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
                           <button type="submit" class="badge badge-danger">
                             Delete
                           </button>

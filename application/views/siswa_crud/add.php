@@ -47,8 +47,8 @@
               <div class="form-group row">
                 <div class="col-sm mb-3 mb-sm-0">
                   <select class="form-control" name="sis_jk" id="sis_jk">
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
                   </select>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0">

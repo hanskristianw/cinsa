@@ -30,7 +30,17 @@
                   <tr>
                     <td><?= $m['sis_nama_depan'] ?> <?= $m['sis_nama_bel'] ?></td>
                     <td><?= $m['sis_no_induk'] ?></td>
-                    <td><?= $m['sis_jk'] ?></td>
+                    <td>
+                      <?php 
+                        if($m['sis_jk'] == "1"){
+                          echo "Male";
+                        }else{
+                          echo "Female";
+                        }
+                      
+                      ?>
+                    
+                    </td>
                     <td><?= $m['agama_nama'] ?></td>
                     <td><?= $m['t_nama'] ?></td>
                     <td>

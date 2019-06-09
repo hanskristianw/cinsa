@@ -15,6 +15,10 @@ class _kr extends CI_Model {
     return $this->db->where('kr_jabatan_id', '7')->where('kr_sk_id', $sk_id)->order_by("kr_nama_depan", "ASC")->get('kr')->result_array();
   }
 
+  public function return_all_teacher(){
+    return $this->db->where('kr_jabatan_id', '7')->order_by("kr_nama_depan", "ASC")->get('kr')->result_array();
+  }
+
   public function find_by_username($kr_username){
     return $this->db->where('kr_username', $kr_username)->get('kr')->row_array();
   }

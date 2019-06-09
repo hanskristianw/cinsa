@@ -75,7 +75,7 @@ class Mapel_CRUD extends CI_Controller
 			];
 
 			$this->db->insert('mapel', $data);
-			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Lesson Created!</div>');
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Subject Created!</div>');
 			redirect('mapel_crud/add');
 		}
 
@@ -141,7 +141,7 @@ class Mapel_CRUD extends CI_Controller
       $this->db->where('mapel_id', $this->input->post('_id'));
       $this->db->update('mapel', $data);
 
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Lesson Data Updated!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Subject Updated!</div>');
       redirect('Mapel_CRUD');
     }
 
