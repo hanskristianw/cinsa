@@ -40,7 +40,7 @@ class Uj_CRUD extends CI_Controller
 
     $data['mapel_all'] = $this->db->query(
       "SELECT t_nama, sk_nama, d_mpl_mapel_id, mapel_nama, kelas_id, kelas_nama
-      FROM d_mpl 
+      FROM d_mpl
       LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
       LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
       LEFT JOIN t ON kelas_t_id = t_id
@@ -67,11 +67,27 @@ class Uj_CRUD extends CI_Controller
     $arr = explode("|",$this->input->post('arr'));
     $mapel_id = $arr[0];
     $kelas_id = $arr[1];
-    
+
+    $data['title'] = 'Mid and Final';
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+    $data['siswa_all'] = $this->db->query(
+      "SELECT sis_nama_depan, sis_nama_bel, sis_no_induk
+      FROM d_s
+      LEFT JOIN sis ON d_s_sis_id = sis_id
+      WHERE d_s_kelas_id = $kelas_id
+      ORDER BY sis_nama_depan")->result_array();
+
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('uj_crud/input',$data);
+    $this->load->view('templates/footer');
+
   }
 
   public function update(){
-    
+
     //dari method post
     $sk_post = $this->input->get('_id', true);
 
@@ -86,7 +102,7 @@ class Uj_CRUD extends CI_Controller
         redirect('Sekolah_CRUD');
       }
     }
-    
+
     $this->form_validation->set_rules('sk_nama', 'School Name', 'required|trim');
 
     if($this->form_validation->run() == false){
@@ -100,9 +116,9 @@ class Uj_CRUD extends CI_Controller
 
       //simpan data primary key
       $sk_id = $this->input->get('_id', true);
-      
+
       $data['sk_update'] = $this->_sk->find_by_id($sk_id);
-      
+
       //load view dengan data query
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
@@ -119,8 +135,8 @@ class Uj_CRUD extends CI_Controller
       //simpan ke db
 
       $this->db->where('sk_id', $this->input->post('_id'));
-      $this->db->update('sk', $data); 
-      
+      $this->db->update('sk', $data);
+
       $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">School Name Updated!</div>');
       redirect('Sekolah_CRUD');
     }
