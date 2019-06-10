@@ -61,6 +61,88 @@
     $('.dt').DataTable({
       "ordering": false
     });
+
+    $('.dtinput').DataTable({
+      ordering: false,
+      paging: false,
+      submitOnReturn: false
+    });
+
+    $(window).keydown(function(event){
+      if((event.keyCode == 13) && ($(event.target)[0]!=$("number")[0])) {
+          event.preventDefault();
+          return false;
+      }
+    });
+
+    $('.kin').keydown(function (e) {
+      if (e.which === 13) {
+          var index = $('.kin').index(this) + 1;
+          $('.kin').eq(index).focus();
+      }
+    });
+
+    $('.kin2').keydown(function (e) {
+      if (e.which === 13) {
+          var index = $('.kin2').index(this) + 1;
+          $('.kin2').eq(index).focus();
+      }
+    });
+
+    $('.kin3').keydown(function (e) {
+      if (e.which === 13) {
+          var index = $('.kin3').index(this) + 1;
+          $('.kin3').eq(index).focus();
+      }
+    });
+
+    $('.kin4').keydown(function (e) {
+      if (e.which === 13) {
+          var index = $('.kin4').index(this) + 1;
+          $('.kin4').eq(index).focus();
+      }
+    });
+
+    $('.kin5').keydown(function (e) {
+      if (e.which === 13) {
+          var index = $('.kin5').index(this) + 1;
+          $('.kin5').eq(index).focus();
+      }
+    });
+
+    $('.kin6').keydown(function (e) {
+      if (e.which === 13) {
+          var index = $('.kin6').index(this) + 1;
+          $('.kin6').eq(index).focus();
+      }
+    });
+
+    $('.kin7').keydown(function (e) {
+      if (e.which === 13) {
+          var index = $('.kin7').index(this) + 1;
+          $('.kin7').eq(index).focus();
+      }
+    });
+
+    $('.kin8').keydown(function (e) {
+      if (e.which === 13) {
+          var index = $('.kin8').index(this) + 1;
+          $('.kin8').eq(index).focus();
+      }
+    });
+    /////////////////////////////
+    //////UJIAN - INPUT//////////
+    /////////////////////////////
+    $("#sub_uj").submit(function(evt){
+      evt.preventDefault();
+      alert("hai");
+    });
+    /////////////////////////////
+    //////END////////////////////
+    /////////////////////////////
+
+    
+
   });
 </script>
 

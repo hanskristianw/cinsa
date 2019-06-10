@@ -10,6 +10,7 @@ class Uj_CRUD extends CI_Controller
     $this->load->model('_kr');
     $this->load->model('_jabatan');
     $this->load->model('_st');
+    $this->load->model('_kelas');
 
 
     //jika belum login
@@ -70,6 +71,7 @@ class Uj_CRUD extends CI_Controller
 
     $data['title'] = 'Mid and Final';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['kelas'] = $this->_kelas->find_kelas_nama($kelas_id);
 
     $data['siswa_all'] = $this->db->query(
       "SELECT sis_nama_depan, sis_nama_bel, sis_no_induk
