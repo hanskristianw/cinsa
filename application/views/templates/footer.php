@@ -65,7 +65,8 @@
     $('.dtinput').DataTable({
       ordering: false,
       paging: false,
-      submitOnReturn: false
+      submitOnReturn: false,
+      searching: false
     });
 
     $(window).keydown(function(event){
@@ -74,6 +75,91 @@
           return false;
       }
     });
+
+    $('input[type=number]').each(function(){
+      $(this).keydown(function(e)
+      {
+          var key = e.charCode || e.keyCode || 0;
+          // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
+          // home, end, period, and numpad decimal
+          return (
+              // numbers   
+                  key >= 48 && key <= 57 ||
+              // Numeric keypad
+                  key >= 96 && key <= 105 ||
+              // Backspace and Tab and Enter
+                  key == 8 || key == 9 || key == 13 ||
+              // Home and End
+                  key == 35 || key == 36 ||
+              // left and right arrows
+                  key == 37 || key == 39 ||
+              // Del and Ins
+                  key == 46 || key == 45);
+      });
+      
+      $(this).change(function () {
+          var max = parseInt($(this).attr('max'));
+          var min = parseInt($(this).attr('min'));
+          if ($(this).val() > max)
+          {
+              $(this).val(max);
+          }
+          else if ($(this).val() < min)
+          {
+              $(this).val(min);
+          }
+          
+          if( !$(this).val() ) { 
+              $(this).val(0);    
+          }
+      });
+    });
+
+    
+    ////////////////////////////////////
+    //////UJIAN - INPUT/UPDATE//////////
+    ////////////////////////////////////
+    
+    $('#uj_mid1_kog_persen').on('change', function() {
+      var pasangan = 100-$(this).val();
+      $("#uj_mid1_psi_persen").val(pasangan).change();
+    });
+
+    $('#uj_mid1_psi_persen').on('change', function() {
+      var pasangan = 100-$(this).val();
+      $("#uj_mid1_kog_persen").val(pasangan).change();
+    });
+
+    $('#uj_fin1_kog_persen').on('change', function() {
+      var pasangan = 100-$(this).val();
+      $("#uj_fin1_psi_persen").val(pasangan).change();
+    });
+
+    $('#uj_fin1_psi_persen').on('change', function() {
+      var pasangan = 100-$(this).val();
+      $("#uj_fin1_kog_persen").val(pasangan).change();
+    });
+
+    $('#uj_mid2_kog_persen').on('change', function() {
+      var pasangan = 100-$(this).val();
+      $("#uj_mid2_psi_persen").val(pasangan).change();
+    });
+
+    $('#uj_mid2_psi_persen').on('change', function() {
+      var pasangan = 100-$(this).val();
+      $("#uj_mid2_kog_persen").val(pasangan).change();
+    });
+
+    $('#uj_fin2_kog_persen').on('change', function() {
+      var pasangan = 100-$(this).val();
+      $("#uj_fin2_psi_persen").val(pasangan).change();
+    });
+
+    $('#uj_fin2_psi_persen').on('change', function() {
+      var pasangan = 100-$(this).val();
+      $("#uj_fin2_kog_persen").val(pasangan).change();
+    });
+
 
     $('.kin').keydown(function (e) {
       if (e.which === 13) {
@@ -129,13 +215,6 @@
           var index = $('.kin8').index(this) + 1;
           $('.kin8').eq(index).focus();
       }
-    });
-    /////////////////////////////
-    //////UJIAN - INPUT//////////
-    /////////////////////////////
-    $("#sub_uj").submit(function(evt){
-      evt.preventDefault();
-      alert("hai");
     });
     /////////////////////////////
     //////END////////////////////

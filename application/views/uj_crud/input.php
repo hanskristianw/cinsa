@@ -10,8 +10,17 @@
               <h1 class="h4 text-gray-900 mb-4"><u>Mid and Final Score <?= $kelas['kelas_nama'] ?></u></h1>
             </div>
 
-            <?= $this->session->flashdata('message'); ?>
-            <form class="" action="" method="post" id="sub_uj" >
+            <?php echo '<div class="alert alert-danger alert-dismissible fade show">
+                    <button class="close" data-dismiss="alert" type="button">
+                        <span>&times;</span>
+                    </button>
+                    <strong>ALERT:</strong> No grade found, use SAVE BUTTON below to save grade
+                </div>'; ?>
+            
+
+            <form class="" action="<?= base_url('Uj_CRUD/save_input'); ?>" method="post" id="sub_uj" >
+              <input type="hidden" value="<?= $kelas_id ?>" name="kelas_id">
+              <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
               <table class="table display compact table-hover dtinput">
                 <thead>
                   <tr>
@@ -39,34 +48,43 @@
                   <?php
                     $opt = "";
                     for($i=0;$i<=100;$i++){
-                        $opt .= "<option value='".$i."'>".$i."</option>";
+                        if($i!=50){
+                          $opt .= "<option value='".$i."'>".$i."</option>";
+                        }else{
+                          $opt .= "<option value='".$i."' selected>".$i."</option>";
+                        }
                     }
                   ?>
                   
                   <tr>
-                    <td><select name="" id=""><?= $opt ?></select></td>
-                    <td><select name="" id=""><?= $opt ?></select></td>
-                    <td><select name="" id=""><?= $opt ?></select></td>
-                    <td><select name="" id=""><?= $opt ?></select></td>
-                    <td><select name="" id=""><?= $opt ?></select></td>
-                    <td><select name="" id=""><?= $opt ?></select></td>
-                    <td><select name="" id=""><?= $opt ?></select></td>
-                    <td><select name="" id=""><?= $opt ?></select></td>
+                    <td><select name="uj_mid1_kog_persen" id="uj_mid1_kog_persen"><?= $opt ?></select></td>
+                    <td><select name="uj_mid1_psi_persen" id="uj_mid1_psi_persen"><?= $opt ?></select></td>
+                    <td><select name="uj_fin1_kog_persen" id="uj_fin1_kog_persen"><?= $opt ?></select></td>
+                    <td><select name="uj_fin1_psi_persen" id="uj_fin1_psi_persen"><?= $opt ?></select></td>
+
+                    <td><select name="uj_mid2_kog_persen" id="uj_mid2_kog_persen"><?= $opt ?></select></td>
+                    <td><select name="uj_mid2_psi_persen" id="uj_mid2_psi_persen"><?= $opt ?></select></td>
+                    <td><select name="uj_fin2_kog_persen" id="uj_fin2_kog_persen"><?= $opt ?></select></td>
+                    <td><select name="uj_fin2_psi_persen" id="uj_fin2_psi_persen"><?= $opt ?></select></td>
                   </tr>
                 </thead>
                 <tbody>
                   <?php foreach ($siswa_all as $m) : ?>
                     <tr>
-                      <td><?= $m['sis_no_induk']; ?></td>
+                      <td>
+                        <input type="hidden" value="<?= $m['sis_id']; ?>" name="sis_id[]">
+                        <?= $m['sis_no_induk']; ?>
+                      </td>
                       <td><?= $m['sis_nama_depan']." ".$m['sis_nama_bel'][0] ?></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin' style='width: 47px;' name="" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin2' style='width: 47px;' name="" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin3' style='width: 47px;' name="" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin4' style='width: 47px;' name="" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin5' style='width: 47px;' name="" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin6' style='width: 47px;' name="" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin7' style='width: 47px;' name="" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin8' style='width: 47px;' name="" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin' style='width: 47px;' name="uj_mid1_kog[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin2' style='width: 47px;' name="uj_fin1_kog[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin3' style='width: 47px;' name="uj_mid1_psi[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin4' style='width: 47px;' name="uj_fin1_psi[]" value="0" max="100"></td>
+
+                      <td><input type="number" onfocus='this.select();' required class='kin5' style='width: 47px;' name="uj_mid2_kog[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin6' style='width: 47px;' name="uj_fin2_kog[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin7' style='width: 47px;' name="uj_mid2_psi[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin8' style='width: 47px;' name="uj_fin2_psi[]" value="0" max="100"></td>
                     </tr>
                   <?php endforeach ?>
                 </tbody>

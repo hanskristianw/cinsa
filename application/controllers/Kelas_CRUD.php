@@ -168,7 +168,7 @@ class Kelas_CRUD extends CI_Controller
     }
 
     $this->db->update_batch('d_mpl',$data, 'd_mpl_id'); 
-    var_dump($this->db->last_query());
+    //var_dump($this->db->last_query());
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Teacher(s) Updated!</div>');
     redirect('kelas_crud/edit_subject?_id='.$kelas_id);
     // var_dump($kr_id[0]);

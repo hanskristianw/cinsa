@@ -73,75 +73,134 @@ class Uj_CRUD extends CI_Controller
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
     $data['kelas'] = $this->_kelas->find_kelas_nama($kelas_id);
 
-    $data['siswa_all'] = $this->db->query(
-      "SELECT sis_nama_depan, sis_nama_bel, sis_no_induk
-      FROM d_s
-      LEFT JOIN sis ON d_s_sis_id = sis_id
-      WHERE d_s_kelas_id = $kelas_id
-      ORDER BY sis_nama_depan")->result_array();
+    $data['kelas_id'] = $kelas_id;
+    $data['mapel_id'] = $mapel_id;
+    
+    $uj_count = $this->db->join('d_s', 'uj_d_s_id=d_s_id', 'left')->where('d_s_kelas_id',$kelas_id)->where('uj_mapel_id',$mapel_id)->from("uj")->count_all_results();
+    if($uj_count == 0){
+      $data['siswa_all'] = $this->db->query(
+        "SELECT sis_id, sis_nama_depan, sis_nama_bel, sis_no_induk
+        FROM d_s
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        WHERE d_s_kelas_id = $kelas_id
+        ORDER BY sis_nama_depan")->result_array();
 
-    $this->load->view('templates/header',$data);
-    $this->load->view('templates/sidebar',$data);
-    $this->load->view('templates/topbar',$data);
-    $this->load->view('uj_crud/input',$data);
-    $this->load->view('templates/footer');
-
-  }
-
-  public function update(){
-
-    //dari method post
-    $sk_post = $this->input->get('_id', true);
-
-    //jika bukan dari form update sendiri
-    if(!$sk_post){
-      //ambil id dari method get
-      $sk_get = $this->_sk->find_by_id($this->input->post('_id', true));
-
-      //jika langsung akses halaman update atau jabatan yang akan diedit admin
-      if($sk_get['sk_id'] == 0 || !$sk_get['sk_id']){
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Do not access page directly, please use edit button instead!</div>');
-        redirect('Sekolah_CRUD');
-      }
-    }
-
-    $this->form_validation->set_rules('sk_nama', 'School Name', 'required|trim');
-
-    if($this->form_validation->run() == false){
-      //jika menekan tombol edit
-      $data['title'] = 'Update School Name';
-
-      //data karyawan yang sedang login untuk topbar
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['jabatan_all'] = $this->_jabatan->return_all();
-      $data['st_all'] = $this->_st->return_all();
-
-      //simpan data primary key
-      $sk_id = $this->input->get('_id', true);
-
-      $data['sk_update'] = $this->_sk->find_by_id($sk_id);
-
-      //load view dengan data query
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
       $this->load->view('templates/topbar',$data);
-      $this->load->view('sekolah_crud/update',$data);
+      $this->load->view('uj_crud/input',$data);
+      $this->load->view('templates/footer');
+    }else{
+      $data['siswa_all'] = $this->db->query(
+        "SELECT *
+        FROM uj
+        LEFT JOIN d_s ON uj_d_s_id = d_s_id
+        LEFT JOIN sis ON sis_id = d_s_sis_id
+        WHERE d_s_kelas_id = $kelas_id AND uj_mapel_id = $mapel_id
+        ORDER BY sis_nama_depan")->result_array();
+        
+      $this->load->view('templates/header',$data);
+      $this->load->view('templates/sidebar',$data);
+      $this->load->view('templates/topbar',$data);
+      $this->load->view('uj_crud/update',$data);
       $this->load->view('templates/footer');
     }
-    else{
-      //fetch data hasil inputan
-      $data = [
-        'sk_nama' => $this->input->post('sk_nama'),
-      ];
+    
 
-      //simpan ke db
+  }
 
-      $this->db->where('sk_id', $this->input->post('_id'));
-      $this->db->update('sk', $data);
+  public function save_input(){
+    if($this->input->post('uj_mid1_kog[]')){
 
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">School Name Updated!</div>');
-      redirect('Sekolah_CRUD');
+      $uj_count = $this->db->join('d_s', 'uj_d_s_id=d_s_id', 'left')->where('d_s_kelas_id',$this->input->post('kelas_id'))->where('uj_mapel_id',$this->input->post('mapel_id'))->from("uj")->count_all_results();
+      if($uj_count == 0){
+        //Save input
+        $data = array();
+        $sis_id = $this->input->post('sis_id[]');
+
+        $uj_mid1_kog = $this->input->post('uj_mid1_kog[]');
+        $uj_mid1_psi = $this->input->post('uj_mid1_psi[]');
+        $uj_fin1_kog = $this->input->post('uj_fin1_kog[]');
+        $uj_fin1_psi = $this->input->post('uj_fin1_psi[]');
+
+        $uj_mid2_kog = $this->input->post('uj_mid2_kog[]');
+        $uj_mid2_psi = $this->input->post('uj_mid2_psi[]');
+        $uj_fin2_kog = $this->input->post('uj_fin2_kog[]');
+        $uj_fin2_psi = $this->input->post('uj_fin2_psi[]');
+
+        for($i=0;$i<count($sis_id);$i++){
+            $data[$i] = [
+              'uj_d_s_id' => $sis_id[$i],
+              'uj_mid1_kog' => $uj_mid1_kog[$i],
+              'uj_mid1_kog_persen' => $this->input->post('uj_mid1_kog_persen'),
+              'uj_mid1_psi' => $uj_mid1_psi[$i],
+              'uj_mid1_psi_persen' => $this->input->post('uj_mid1_psi_persen'),
+              'uj_fin1_kog' =>  $uj_fin1_kog[$i],
+              'uj_fin1_kog_persen' => $this->input->post('uj_fin1_kog_persen'),
+              'uj_fin1_psi' =>  $uj_fin1_psi[$i],
+              'uj_fin1_psi_persen' => $this->input->post('uj_fin1_psi_persen'),
+              'uj_mid2_kog' =>  $uj_mid2_kog[$i],
+              'uj_mid2_kog_persen' => $this->input->post('uj_mid2_kog_persen'),
+              'uj_mid2_psi' =>  $uj_mid2_psi[$i],
+              'uj_mid2_psi_persen' => $this->input->post('uj_mid2_psi_persen'),
+              'uj_fin2_kog' =>  $uj_fin2_kog[$i],
+              'uj_fin2_kog_persen' => $this->input->post('uj_fin2_kog_persen'),
+              'uj_fin2_psi' =>  $uj_fin2_psi[$i],
+              'uj_fin2_psi_persen' => $this->input->post('uj_fin2_psi_persen'),
+              'uj_mapel_id' => $this->input->post('mapel_id')
+            ];
+        }
+
+        $this->db->insert_batch('uj', $data);
+        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input Success!</div>');
+        redirect('Uj_CRUD');
+      }else{
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Failed, already have score!</div>');
+        redirect('Uj_CRUD');
+      }
+      
     }
+  }
+  public function save_update(){
 
+    if($this->input->post('uj_mid1_kog[]')){
+      $data = array();
+      $uj_id = $this->input->post('uj_id[]');
+
+      $uj_mid1_kog = $this->input->post('uj_mid1_kog[]');
+      $uj_mid1_psi = $this->input->post('uj_mid1_psi[]');
+      $uj_fin1_kog = $this->input->post('uj_fin1_kog[]');
+      $uj_fin1_psi = $this->input->post('uj_fin1_psi[]');
+
+      $uj_mid2_kog = $this->input->post('uj_mid2_kog[]');
+      $uj_mid2_psi = $this->input->post('uj_mid2_psi[]');
+      $uj_fin2_kog = $this->input->post('uj_fin2_kog[]');
+      $uj_fin2_psi = $this->input->post('uj_fin2_psi[]');
+
+      for($i=0;$i<count($uj_id);$i++){
+        $data[$i] = [
+          'uj_mid1_kog' => $uj_mid1_kog[$i],
+          'uj_mid1_kog_persen' => $this->input->post('uj_mid1_kog_persen'),
+          'uj_mid1_psi' => $uj_mid1_psi[$i],
+          'uj_mid1_psi_persen' => $this->input->post('uj_mid1_psi_persen'),
+          'uj_fin1_kog' =>  $uj_fin1_kog[$i],
+          'uj_fin1_kog_persen' => $this->input->post('uj_fin1_kog_persen'),
+          'uj_fin1_psi' =>  $uj_fin1_psi[$i],
+          'uj_fin1_psi_persen' => $this->input->post('uj_fin1_psi_persen'),
+          'uj_mid2_kog' =>  $uj_mid2_kog[$i],
+          'uj_mid2_kog_persen' => $this->input->post('uj_mid2_kog_persen'),
+          'uj_mid2_psi' =>  $uj_mid2_psi[$i],
+          'uj_mid2_psi_persen' => $this->input->post('uj_mid2_psi_persen'),
+          'uj_fin2_kog' =>  $uj_fin2_kog[$i],
+          'uj_fin2_kog_persen' => $this->input->post('uj_fin2_kog_persen'),
+          'uj_fin2_psi' =>  $uj_fin2_psi[$i],
+          'uj_fin2_psi_persen' => $this->input->post('uj_fin2_psi_persen'),
+          'uj_id' =>  $uj_id[$i]
+        ];
+      }
+      $this->db->update_batch('uj',$data, 'uj_id'); 
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Update Success!</div>');
+      redirect('Uj_CRUD');
+    }
   }
 }
