@@ -7,7 +7,7 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4"><u>Mid and Final Score <?= $kelas['kelas_nama'] ?></u></h1>
+              <h1 class="h4 text-gray-900 mb-4"><u>Mid and Final Score <?= $kelas['kelas_nama'] . $mapel['mapel_nama'] ?></u></h1>
             </div>
 
             <?php echo '<div class="alert alert-danger alert-dismissible fade show">
@@ -21,7 +21,7 @@
             <form class="" action="<?= base_url('Uj_CRUD/save_input'); ?>" method="post" id="sub_uj" >
               <input type="hidden" value="<?= $kelas_id ?>" name="kelas_id">
               <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
-              <table class="table display compact table-hover dtinput">
+              <table class="table table-hover table-sm">
                 <thead>
                   <tr>
                     <th rowspan="4">No</th>

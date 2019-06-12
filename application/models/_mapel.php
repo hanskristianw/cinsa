@@ -15,7 +15,7 @@ class _mapel extends CI_Model {
   }
 
   public function find_mapel_nama($mapel_id){
-    return $this->db->where('mapel_id', $smapel_id)->get('mapel')->row_array();
+    return $this->db->where('mapel_id', $mapel_id)->get('mapel')->row_array();
   }
 
   public function find_by_id($mapel_id)

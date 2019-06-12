@@ -11,6 +11,7 @@ class Uj_CRUD extends CI_Controller
     $this->load->model('_jabatan');
     $this->load->model('_st');
     $this->load->model('_kelas');
+    $this->load->model('_mapel');
 
 
     //jika belum login
@@ -72,6 +73,7 @@ class Uj_CRUD extends CI_Controller
     $data['title'] = 'Mid and Final';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
     $data['kelas'] = $this->_kelas->find_kelas_nama($kelas_id);
+    $data['mapel'] = $this->_mapel->find_mapel_nama($mapel_id);
 
     $data['kelas_id'] = $kelas_id;
     $data['mapel_id'] = $mapel_id;
@@ -108,6 +110,24 @@ class Uj_CRUD extends CI_Controller
         LEFT JOIN agama ON sis_agama_id = agama_id
         WHERE d_s_kelas_id = $kelas_id AND uj_mapel_id = $mapel_id
         ORDER BY $_gb sis_nama_depan")->result_array();
+
+      //cari siswa yang ada di kelas tapi tidak mempunyai nilai
+      $data['siswa_baru'] = $this->db->query(
+        "SELECT sis_agama_id, agama_nama, sis_id, sis_nama_depan, sis_nama_bel, sis_no_induk
+        FROM d_s
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        LEFT JOIN agama ON sis_agama_id = agama_id
+        WHERE d_s_kelas_id = $kelas_id AND d_s_sis_id NOT IN 
+          (SELECT d_s_sis_id
+          FROM uj
+          LEFT JOIN d_s ON uj_d_s_id = d_s_id
+          LEFT JOIN sis ON sis_id = d_s_sis_id
+          LEFT JOIN agama ON sis_agama_id = agama_id
+          WHERE d_s_kelas_id = $kelas_id AND uj_mapel_id = $mapel_id
+          )
+        ORDER BY sis_nama_depan")->result_array();
+
+      //var_dump($this->db->last_query());
 
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
@@ -171,6 +191,57 @@ class Uj_CRUD extends CI_Controller
 
     }
   }
+
+  public function save_new_student(){
+
+
+    $uj_count = $this->db->join('d_s', 'uj_d_s_id=d_s_id', 'left')->where_in('uj_sis_id',$this->input->post('sis_id[]'))->where('uj_mapel_id',$this->input->post('mapel_id'))->from("uj")->count_all_results();
+
+    var_dump($this->db->last_query());
+
+    // if($this->input->post('uj_mid1_kog[]')){
+    //   $data = array();
+    //   $sis_id = $this->input->post('sis_id[]');
+
+    //   $uj_mid1_kog = $this->input->post('uj_mid1_kog[]');
+    //   $uj_mid1_psi = $this->input->post('uj_mid1_psi[]');
+    //   $uj_fin1_kog = $this->input->post('uj_fin1_kog[]');
+    //   $uj_fin1_psi = $this->input->post('uj_fin1_psi[]');
+
+    //   $uj_mid2_kog = $this->input->post('uj_mid2_kog[]');
+    //   $uj_mid2_psi = $this->input->post('uj_mid2_psi[]');
+    //   $uj_fin2_kog = $this->input->post('uj_fin2_kog[]');
+    //   $uj_fin2_psi = $this->input->post('uj_fin2_psi[]');
+
+    //   for($i=0;$i<count($sis_id);$i++){
+    //     $data[$i] = [
+    //       'uj_d_s_id' => $sis_id[$i],
+    //       'uj_mid1_kog' => $uj_mid1_kog[$i],
+    //       'uj_mid1_kog_persen' => $this->input->post('uj_mid1_kog_persen'),
+    //       'uj_mid1_psi' => $uj_mid1_psi[$i],
+    //       'uj_mid1_psi_persen' => $this->input->post('uj_mid1_psi_persen'),
+    //       'uj_fin1_kog' =>  $uj_fin1_kog[$i],
+    //       'uj_fin1_kog_persen' => $this->input->post('uj_fin1_kog_persen'),
+    //       'uj_fin1_psi' =>  $uj_fin1_psi[$i],
+    //       'uj_fin1_psi_persen' => $this->input->post('uj_fin1_psi_persen'),
+    //       'uj_mid2_kog' =>  $uj_mid2_kog[$i],
+    //       'uj_mid2_kog_persen' => $this->input->post('uj_mid2_kog_persen'),
+    //       'uj_mid2_psi' =>  $uj_mid2_psi[$i],
+    //       'uj_mid2_psi_persen' => $this->input->post('uj_mid2_psi_persen'),
+    //       'uj_fin2_kog' =>  $uj_fin2_kog[$i],
+    //       'uj_fin2_kog_persen' => $this->input->post('uj_fin2_kog_persen'),
+    //       'uj_fin2_psi' =>  $uj_fin2_psi[$i],
+    //       'uj_fin2_psi_persen' => $this->input->post('uj_fin2_psi_persen'),
+    //       'uj_mapel_id' => $this->input->post('mapel_id')
+    //     ];
+    //   }
+
+    //   $this->db->insert_batch('uj', $data);
+    //   $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input New Student(s) Success!</div>');
+    //   redirect('Uj_CRUD');
+    // }
+  }
+
   public function save_update(){
 
     if($this->input->post('uj_mid1_kog[]')){
