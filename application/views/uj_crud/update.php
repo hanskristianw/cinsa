@@ -59,9 +59,9 @@
                       return $opt;
                     }
 
-                    
+
                   ?>
-                  
+
                   <tr>
                     <td><select name="uj_mid1_kog_persen" id="uj_mid1_kog_persen"><?= returnSelected($siswa_all[1]['uj_mid1_kog_persen']) ?></select></td>
                     <td><select name="uj_mid1_psi_persen" id="uj_mid1_psi_persen"><?= returnSelected($siswa_all[1]['uj_mid1_psi_persen']) ?></select></td>
@@ -75,14 +75,41 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($siswa_all as $m) : ?>
+                  <?php
+                    $ag_temp = "xxx";
+                    foreach ($siswa_all as $m) :
+                  ?>
+
+                    <?php
+                        if($cek_agama == 1){
+                          $ag = $m['agama_nama'];
+                          if($ag != $ag_temp){
+                            echo '
+                            <tr class="table-warning">
+                              <td colspan="10" align="center">
+                                <b>'.$ag.'</b>
+                              </td>
+                            </tr>';
+                          }
+                          $ag_temp = $ag;
+                        }
+                    ?>
                     <tr>
                       <td>
                         <input type="hidden" value="<?= $m['sis_id']; ?>" name="sis_id[]">
                         <input type="hidden" value="<?= $m['uj_id']; ?>" name="uj_id[]">
                         <?= $m['sis_no_induk']; ?>
                       </td>
-                      <td><?= $m['sis_nama_depan']." ".$m['sis_nama_bel'][0] ?></td>
+                      <td>
+                        <?php
+                          if($m['sis_nama_bel']){
+                            $bel = $m['sis_nama_bel'][0];
+                          }else{
+                            $bel = "";
+                          }
+                          echo $m['sis_nama_depan']." ".$bel;
+                        ?>
+                      </td>
                       <td><input type="number" onfocus='this.select();' required class='kin' style='width: 47px;' name="uj_mid1_kog[]" value="<?= $m['uj_mid1_kog'] ?>" max="100"></td>
                       <td><input type="number" onfocus='this.select();' required class='kin2' style='width: 47px;' name="uj_fin1_kog[]" value="<?= $m['uj_fin1_kog'] ?>" max="100"></td>
                       <td><input type="number" onfocus='this.select();' required class='kin3' style='width: 47px;' name="uj_mid1_psi[]" value="<?= $m['uj_mid1_psi'] ?>" max="100"></td>

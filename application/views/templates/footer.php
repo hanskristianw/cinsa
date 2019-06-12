@@ -83,7 +83,7 @@
           // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
           // home, end, period, and numpad decimal
           return (
-              // numbers   
+              // numbers
                   key >= 48 && key <= 57 ||
               // Numeric keypad
                   key >= 96 && key <= 105 ||
@@ -96,7 +96,7 @@
               // Del and Ins
                   key == 46 || key == 45);
       });
-      
+
       $(this).change(function () {
           var max = parseInt($(this).attr('max'));
           var min = parseInt($(this).attr('min'));
@@ -108,18 +108,18 @@
           {
               $(this).val(min);
           }
-          
-          if( !$(this).val() ) { 
-              $(this).val(0);    
+
+          if( !$(this).val() ) {
+              $(this).val(0);
           }
       });
     });
 
-    
+
     ////////////////////////////////////
     //////UJIAN - INPUT/UPDATE//////////
     ////////////////////////////////////
-    
+
     $('#uj_mid1_kog_persen').on('change', function() {
       var pasangan = 100-$(this).val();
       $("#uj_mid1_psi_persen").val(pasangan).change();
@@ -220,7 +220,7 @@
     //////END////////////////////
     /////////////////////////////
 
-    
+
 
   });
 </script>

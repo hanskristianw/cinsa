@@ -75,15 +75,24 @@ class Uj_CRUD extends CI_Controller
 
     $data['kelas_id'] = $kelas_id;
     $data['mapel_id'] = $mapel_id;
-    
+
+    if($this->input->post('cek_agama') == 1){
+      $_gb = "sis_agama_id,";
+    }else{
+      $_gb = "";
+    }
+
+    $data['cek_agama'] = $this->input->post('cek_agama');
+
     $uj_count = $this->db->join('d_s', 'uj_d_s_id=d_s_id', 'left')->where('d_s_kelas_id',$kelas_id)->where('uj_mapel_id',$mapel_id)->from("uj")->count_all_results();
     if($uj_count == 0){
       $data['siswa_all'] = $this->db->query(
-        "SELECT sis_id, sis_nama_depan, sis_nama_bel, sis_no_induk
+        "SELECT sis_agama_id, agama_nama, sis_id, sis_nama_depan, sis_nama_bel, sis_no_induk
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
+        LEFT JOIN agama ON sis_agama_id = agama_id
         WHERE d_s_kelas_id = $kelas_id
-        ORDER BY sis_nama_depan")->result_array();
+        ORDER BY $_gb sis_nama_depan")->result_array();
 
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
@@ -96,16 +105,17 @@ class Uj_CRUD extends CI_Controller
         FROM uj
         LEFT JOIN d_s ON uj_d_s_id = d_s_id
         LEFT JOIN sis ON sis_id = d_s_sis_id
+        LEFT JOIN agama ON sis_agama_id = agama_id
         WHERE d_s_kelas_id = $kelas_id AND uj_mapel_id = $mapel_id
-        ORDER BY sis_nama_depan")->result_array();
-        
+        ORDER BY $_gb sis_nama_depan")->result_array();
+
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
       $this->load->view('templates/topbar',$data);
       $this->load->view('uj_crud/update',$data);
       $this->load->view('templates/footer');
     }
-    
+
 
   }
 
@@ -158,7 +168,7 @@ class Uj_CRUD extends CI_Controller
         $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Failed, already have score!</div>');
         redirect('Uj_CRUD');
       }
-      
+
     }
   }
   public function save_update(){
@@ -198,7 +208,7 @@ class Uj_CRUD extends CI_Controller
           'uj_id' =>  $uj_id[$i]
         ];
       }
-      $this->db->update_batch('uj',$data, 'uj_id'); 
+      $this->db->update_batch('uj',$data, 'uj_id');
       $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Update Success!</div>');
       redirect('Uj_CRUD');
     }

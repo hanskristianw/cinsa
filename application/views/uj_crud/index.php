@@ -13,18 +13,29 @@
             <?= $this->session->flashdata('message'); ?>
 
             <form class="user" action="Uj_CRUD/input" method="POST">
-              <select name="arr" class="form-control mb-3">
-                <?php foreach ($mapel_all as $m) : ?>
-                  <option value='<?=$m['d_mpl_mapel_id'].'|'.$m['kelas_id']?>'>
-                    <?= "(".$m['t_nama'].") ".$m['kelas_nama']." (".$m['mapel_nama'].")" ?>
-                  </option>
-                <?php endforeach ?>
-              </select>
+
+              <div class="form-group row">
+                <div class="col-sm mb-3 mb-sm-0">
+                  <select name="arr" class="form-control mb-3">
+                    <?php foreach ($mapel_all as $m) : ?>
+                      <option value='<?=$m['d_mpl_mapel_id'].'|'.$m['kelas_id']?>'>
+                        <?= "(".$m['t_nama'].") ".$m['kelas_nama']." (".$m['mapel_nama'].")" ?>
+                      </option>
+                    <?php endforeach ?>
+                  </select>
+                </div>
+                <div class="col-sm mb-3 mb-sm-0">
+                  <select name="cek_agama" class="form-control mb-3">
+                      <option value='0'>Order By Name</option>
+                      <option value='1'>Group By Religion</option>
+                  </select>
+                </div>
+              </div>
               <button type="submit" class="btn btn-primary btn-user btn-block">
                   Insert Mid & Final
               </button>
             </form>
-            
+
           </div>
         </div>
       </div>
