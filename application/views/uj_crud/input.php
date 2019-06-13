@@ -7,7 +7,9 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4"><u>Mid and Final Score <?= $kelas['kelas_nama'] . $mapel['mapel_nama'] ?></u></h1>
+              <h4 class="h4 text-gray-900"><b><u><?= $kelas['sk_nama'] ?></u></b></h4>
+              <h4 class="h4 text-gray-900"><b><u>Mid and Final Score <?= $kelas['kelas_nama'] ?></u></b></h4>
+              <h4 class="h4 text-gray-900 mb-4"><u><?= $mapel['mapel_nama'] ?></u></h4>
             </div>
 
             <?php echo '<div class="alert alert-danger alert-dismissible fade show">
@@ -90,7 +92,7 @@
 
                     <tr>
                       <td>
-                        <input type="hidden" value="<?= $m['sis_id']; ?>" name="sis_id[]">
+                        <input type="hidden" value="<?= $m['d_s_id']; ?>" name="d_s_id[]">
                         <?= $m['sis_no_induk']; ?>
                       </td>
                       <td>

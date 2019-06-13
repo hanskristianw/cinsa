@@ -20,7 +20,7 @@ class _kelas extends CI_Model
 
   public function find_kelas_nama($kelas_id)
   {
-    return $this->db->where('kelas_id', $kelas_id)->get('kelas')->row_array();
+    return $this->db->join('sk', 'kelas_sk_id=sk_id', 'left')->where('kelas_id', $kelas_id)->get('kelas')->row_array();
   }
 
   public function find_by_id($kelas_id)

@@ -89,7 +89,7 @@ class Uj_CRUD extends CI_Controller
     $uj_count = $this->db->join('d_s', 'uj_d_s_id=d_s_id', 'left')->where('d_s_kelas_id',$kelas_id)->where('uj_mapel_id',$mapel_id)->from("uj")->count_all_results();
     if($uj_count == 0){
       $data['siswa_all'] = $this->db->query(
-        "SELECT sis_agama_id, agama_nama, sis_id, sis_nama_depan, sis_nama_bel, sis_no_induk
+        "SELECT d_s_id, sis_agama_id, agama_nama, sis_nama_depan, sis_nama_bel, sis_no_induk
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN agama ON sis_agama_id = agama_id
@@ -113,7 +113,7 @@ class Uj_CRUD extends CI_Controller
 
       //cari siswa yang ada di kelas tapi tidak mempunyai nilai
       $data['siswa_baru'] = $this->db->query(
-        "SELECT sis_agama_id, agama_nama, sis_id, sis_nama_depan, sis_nama_bel, sis_no_induk
+        "SELECT sis_agama_id, agama_nama, d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN agama ON sis_agama_id = agama_id
@@ -146,7 +146,7 @@ class Uj_CRUD extends CI_Controller
       if($uj_count == 0){
         //Save input
         $data = array();
-        $sis_id = $this->input->post('sis_id[]');
+        $d_s_id = $this->input->post('d_s_id[]');
 
         $uj_mid1_kog = $this->input->post('uj_mid1_kog[]');
         $uj_mid1_psi = $this->input->post('uj_mid1_psi[]');
@@ -158,9 +158,9 @@ class Uj_CRUD extends CI_Controller
         $uj_fin2_kog = $this->input->post('uj_fin2_kog[]');
         $uj_fin2_psi = $this->input->post('uj_fin2_psi[]');
 
-        for($i=0;$i<count($sis_id);$i++){
+        for($i=0;$i<count($d_s_id);$i++){
             $data[$i] = [
-              'uj_d_s_id' => $sis_id[$i],
+              'uj_d_s_id' => $d_s_id[$i],
               'uj_mid1_kog' => $uj_mid1_kog[$i],
               'uj_mid1_kog_persen' => $this->input->post('uj_mid1_kog_persen'),
               'uj_mid1_psi' => $uj_mid1_psi[$i],
@@ -195,51 +195,56 @@ class Uj_CRUD extends CI_Controller
   public function save_new_student(){
 
 
-    $uj_count = $this->db->join('d_s', 'uj_d_s_id=d_s_id', 'left')->where_in('uj_sis_id',$this->input->post('sis_id[]'))->where('uj_mapel_id',$this->input->post('mapel_id'))->from("uj")->count_all_results();
+    if($this->input->post('uj_mid1_kog[]')){
+      $uj_count = $this->db->join('d_s', 'uj_d_s_id=d_s_id', 'left')->where_in('d_s_id',$this->input->post('d_s_id[]'))->where('uj_mapel_id',$this->input->post('mapel_id'))->from("uj")->count_all_results();
 
-    var_dump($this->db->last_query());
+      //var_dump($this->db->last_query());
+      if($uj_count == 0){
+        $data = array();
+        $d_s_id = $this->input->post('d_s_id[]');
 
-    // if($this->input->post('uj_mid1_kog[]')){
-    //   $data = array();
-    //   $sis_id = $this->input->post('sis_id[]');
+        $uj_mid1_kog = $this->input->post('uj_mid1_kog[]');
+        $uj_mid1_psi = $this->input->post('uj_mid1_psi[]');
+        $uj_fin1_kog = $this->input->post('uj_fin1_kog[]');
+        $uj_fin1_psi = $this->input->post('uj_fin1_psi[]');
 
-    //   $uj_mid1_kog = $this->input->post('uj_mid1_kog[]');
-    //   $uj_mid1_psi = $this->input->post('uj_mid1_psi[]');
-    //   $uj_fin1_kog = $this->input->post('uj_fin1_kog[]');
-    //   $uj_fin1_psi = $this->input->post('uj_fin1_psi[]');
+        $uj_mid2_kog = $this->input->post('uj_mid2_kog[]');
+        $uj_mid2_psi = $this->input->post('uj_mid2_psi[]');
+        $uj_fin2_kog = $this->input->post('uj_fin2_kog[]');
+        $uj_fin2_psi = $this->input->post('uj_fin2_psi[]');
 
-    //   $uj_mid2_kog = $this->input->post('uj_mid2_kog[]');
-    //   $uj_mid2_psi = $this->input->post('uj_mid2_psi[]');
-    //   $uj_fin2_kog = $this->input->post('uj_fin2_kog[]');
-    //   $uj_fin2_psi = $this->input->post('uj_fin2_psi[]');
+        for($i=0;$i<count($d_s_id);$i++){
+          $data[$i] = [
+            'uj_d_s_id' => $d_s_id[$i],
+            'uj_mid1_kog' => $uj_mid1_kog[$i],
+            'uj_mid1_kog_persen' => $this->input->post('uj_mid1_kog_persen'),
+            'uj_mid1_psi' => $uj_mid1_psi[$i],
+            'uj_mid1_psi_persen' => $this->input->post('uj_mid1_psi_persen'),
+            'uj_fin1_kog' =>  $uj_fin1_kog[$i],
+            'uj_fin1_kog_persen' => $this->input->post('uj_fin1_kog_persen'),
+            'uj_fin1_psi' =>  $uj_fin1_psi[$i],
+            'uj_fin1_psi_persen' => $this->input->post('uj_fin1_psi_persen'),
+            'uj_mid2_kog' =>  $uj_mid2_kog[$i],
+            'uj_mid2_kog_persen' => $this->input->post('uj_mid2_kog_persen'),
+            'uj_mid2_psi' =>  $uj_mid2_psi[$i],
+            'uj_mid2_psi_persen' => $this->input->post('uj_mid2_psi_persen'),
+            'uj_fin2_kog' =>  $uj_fin2_kog[$i],
+            'uj_fin2_kog_persen' => $this->input->post('uj_fin2_kog_persen'),
+            'uj_fin2_psi' =>  $uj_fin2_psi[$i],
+            'uj_fin2_psi_persen' => $this->input->post('uj_fin2_psi_persen'),
+            'uj_mapel_id' => $this->input->post('mapel_id')
+          ];
+        }
 
-    //   for($i=0;$i<count($sis_id);$i++){
-    //     $data[$i] = [
-    //       'uj_d_s_id' => $sis_id[$i],
-    //       'uj_mid1_kog' => $uj_mid1_kog[$i],
-    //       'uj_mid1_kog_persen' => $this->input->post('uj_mid1_kog_persen'),
-    //       'uj_mid1_psi' => $uj_mid1_psi[$i],
-    //       'uj_mid1_psi_persen' => $this->input->post('uj_mid1_psi_persen'),
-    //       'uj_fin1_kog' =>  $uj_fin1_kog[$i],
-    //       'uj_fin1_kog_persen' => $this->input->post('uj_fin1_kog_persen'),
-    //       'uj_fin1_psi' =>  $uj_fin1_psi[$i],
-    //       'uj_fin1_psi_persen' => $this->input->post('uj_fin1_psi_persen'),
-    //       'uj_mid2_kog' =>  $uj_mid2_kog[$i],
-    //       'uj_mid2_kog_persen' => $this->input->post('uj_mid2_kog_persen'),
-    //       'uj_mid2_psi' =>  $uj_mid2_psi[$i],
-    //       'uj_mid2_psi_persen' => $this->input->post('uj_mid2_psi_persen'),
-    //       'uj_fin2_kog' =>  $uj_fin2_kog[$i],
-    //       'uj_fin2_kog_persen' => $this->input->post('uj_fin2_kog_persen'),
-    //       'uj_fin2_psi' =>  $uj_fin2_psi[$i],
-    //       'uj_fin2_psi_persen' => $this->input->post('uj_fin2_psi_persen'),
-    //       'uj_mapel_id' => $this->input->post('mapel_id')
-    //     ];
-    //   }
-
-    //   $this->db->insert_batch('uj', $data);
-    //   $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input New Student(s) Success!</div>');
-    //   redirect('Uj_CRUD');
-    // }
+        $this->db->insert_batch('uj', $data);
+        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input New Student(s) Success!</div>');
+        redirect('Uj_CRUD');
+      }else{
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">New Student(s) Grade Already Exist!</div>');
+        redirect('Uj_CRUD');
+      }
+      
+    }
   }
 
   public function save_update(){

@@ -19,7 +19,7 @@
                   <select name="arr" class="form-control mb-3">
                     <?php foreach ($mapel_all as $m) : ?>
                       <option value='<?=$m['d_mpl_mapel_id'].'|'.$m['kelas_id']?>'>
-                        <?= "(".$m['t_nama'].") ".$m['kelas_nama']." (".$m['mapel_nama'].")" ?>
+                        <?= "(".$m['t_nama']." - ".$m['sk_nama'].") ".$m['kelas_nama']." (".$m['mapel_nama'].")" ?>
                       </option>
                     <?php endforeach ?>
                   </select>
