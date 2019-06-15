@@ -58,6 +58,10 @@
       $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
     
+    $('.dt').DataTable({
+      "ordering": false
+    });
+
     $(window).keydown(function(event){
       if((event.keyCode == 13) && ($(event.target)[0]!=$("number")[0])) {
           event.preventDefault();
@@ -209,7 +213,126 @@
     //////END////////////////////
     /////////////////////////////
 
+    ////////////////////////////////////
+    //////COGNITIVE - PSYSCHOMOTOR//////
+    //////////////INDEX/////////////////
+    $('#kog_quiz_persen').on('change', function() {
+      var total = 100-$(this).val()-$("#kog_test_persen").val()-$("#kog_ass_persen").val();;
+      
+      if(total == 0){
+        $("#btn-save").removeAttr('disabled');
+        $('#notif').html("");
+      }else{
+        $("#btn-save").attr('disabled','disabled');
+        $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
+      }
+      
+    });
 
+    $('#kog_test_persen').on('change', function() {
+      var total = 100-$(this).val()-$("#kog_quiz_persen").val()-$("#kog_ass_persen").val();;
+      
+      if(total == 0){
+        $("#btn-save").removeAttr('disabled');
+        $('#notif').html("");
+      }else{
+        $("#btn-save").attr('disabled','disabled');
+        $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
+      }
+    });
+
+    $('#kog_ass_persen').on('change', function() {
+      var total = 100-$(this).val()-$("#kog_quiz_persen").val()-$("#kog_test_persen").val();;
+      
+      if(total == 0){
+        $("#btn-save").removeAttr('disabled');
+        $('#notif').html("");
+      }else{
+        $("#btn-save").attr('disabled','disabled');
+        $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
+      }
+    });
+
+    $('#psi_quiz_persen').on('change', function() {
+      var total = 100-$(this).val()-$("#psi_test_persen").val()-$("#psi_ass_persen").val();;
+      
+      if(total == 0){
+        $("#btn-save").removeAttr('disabled');
+        $('#notif').html("");
+      }else{
+        $("#btn-save").attr('disabled','disabled');
+        $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
+      }
+      
+    });
+
+    $('#psi_test_persen').on('change', function() {
+      var total = 100-$(this).val()-$("#psi_quiz_persen").val()-$("#psi_ass_persen").val();;
+      
+      if(total == 0){
+        $("#btn-save").removeAttr('disabled');
+        $('#notif').html("");
+      }else{
+        $("#btn-save").attr('disabled','disabled');
+        $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
+      }
+    });
+
+    $('#psi_ass_persen').on('change', function() {
+      var total = 100-$(this).val()-$("#psi_quiz_persen").val()-$("#psi_test_persen").val();;
+      
+      if(total == 0){
+        $("#btn-save").removeAttr('disabled');
+        $('#notif').html("");
+      }else{
+        $("#btn-save").attr('disabled','disabled');
+        $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
+      }
+    });
+    
+
+    $('#arr_cog_psy').change(function(){ 
+        var id=$(this).val();
+        
+        if(id == 0){
+          $('#topik_ajax').html("");
+        }
+
+        $.ajax(
+        {
+            type: "post",
+            url: "<?php echo base_url(); ?>Tes_CRUD/get_topik",
+            data:{
+                'id':id,
+            },
+            async : true,
+            dataType : 'json',
+            success:function(data)
+            {
+              //console.log(data);
+              if(data.length == 0){
+                var html = '<div class="text-center mb-3 text-danger"><b>--No Topic, Please add Topic--</b></div>';
+              }else{
+                var html = '<select name="topik_id" id="topik_id" class="form-control mb-3">';
+                var i;
+                for(i=0; i<data.length; i++){
+                    html += '<option value='+data[i].topik_id+'>'+data[i].topik_nama+'</option>';
+                }
+                html += '</select>';
+
+                html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+                html += 'Insert Cog & Psy';
+                html += '</button>';
+              }
+              
+              $('#topik_ajax').html(html);
+              
+            }
+        });
+    }); 
+    /////////////////////////////
+    //////END////////////////////
+    /////////////////////////////
 
   });
 </script>

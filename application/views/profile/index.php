@@ -2,6 +2,8 @@
   <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
       <!-- Nested Row within Card Body -->
+
+        <div class="p-2 text-center"><b><?= $this->session->flashdata('message'); ?></b></div>
         <div class="row">
           <div class="col-lg">
             <div class="p-5">

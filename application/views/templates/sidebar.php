@@ -169,6 +169,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Grade</h6>
                   <a class="collapse-item" href='.base_url('Uj_CRUD').'>Mid & Final</a>
+                  <a class="collapse-item" href='.base_url('Tes_CRUD').'>Cognitive & Psychomotor</a>
                 </div>
               </div>
             </li>
