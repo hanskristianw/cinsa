@@ -176,6 +176,46 @@
             
             <hr class="sidebar-divider d-none d-md-block">
           ';
+      }elseif($this->session->userdata('kr_jabatan_id')==8 && $this->session->userdata('kr_jabatan_id')){
+        //jika dia BK
+        echo'<div class="sidebar-heading">
+              Master Menu
+            </div>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Master</span>
+              </a>
+              <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Set</h6>
+                  <a class="collapse-item" href='.base_url('K_afek_CRUD').'>Afective Topic</a>
+                </div>
+              </div>
+            </li>
+            
+            <hr class="sidebar-divider d-none d-md-block">
+            
+            <div class="sidebar-heading">
+              Afective Report
+            </div>
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Grade</span>
+              </a>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Grade</h6>
+                  <a class="collapse-item" href='.base_url('').'>Mid & Final</a>
+                  <a class="collapse-item" href='.base_url('').'>Cognitive & Psychomotor</a>
+                </div>
+              </div>
+            </li>
+            
+            <hr class="sidebar-divider d-none d-md-block">
+          ';
       }
     ?>
 
