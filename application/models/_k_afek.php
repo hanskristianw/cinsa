@@ -8,23 +8,8 @@ class _k_afek extends CI_Model
     parent::__construct();
   }
 
-  public function return_all_by_sk($kelas_sk_id)
+  public function return_all_by_sk($sk_id)
   {
-    return $this->db->join('t', 'kelas_t_id=t_id', 'left')->join('jenj', 'kelas_jenj_id=jenj_id', 'left')->join('sk', 'kelas_sk_id=sk_id', 'left')->where('kelas_sk_id', $kelas_sk_id)->order_by("t_nama", "DESC")->order_by("jenj_nama", "ASC")->order_by("kelas_nama", "ASC")->get('kelas')->result_array();
-  }
-
-  public function return_all()
-  {
-    return $this->db->join('t', 'k_afek_t_id=t_id', 'left')->join('sk', 'k_afek_sk_id=sk_id', 'left')->order_by("k_afek_bulan_id", "ASC")->order_by("t_nama", "DESC")->get('k_afek')->result_array();
-  }
-
-  public function find_kelas_nama($kelas_id)
-  {
-    return $this->db->join('sk', 'kelas_sk_id=sk_id', 'left')->where('kelas_id', $kelas_id)->get('kelas')->row_array();
-  }
-
-  public function find_by_id($kelas_id)
-  {
-    return $this->db->join('t', 'kelas_t_id=t_id', 'left')->join('sk', 'kelas_sk_id=sk_id', 'left')->order_by("kelas_nama", "ASC")->where('kelas_id', $kelas_id)->get('kelas')->row_array();
+    return $this->db->join('t', 'k_afek_t_id=t_id', 'left')->join('bulan', 'k_afek_bulan_id=bulan_id', 'left')->join('sk', 'k_afek_sk_id=sk_id', 'left')->where('k_afek_sk_id', $sk_id)->order_by("k_afek_bulan_id", "ASC")->order_by("t_nama", "DESC")->get('k_afek')->result_array();
   }
 }
