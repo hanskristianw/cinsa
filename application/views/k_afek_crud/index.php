@@ -9,13 +9,13 @@
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4"><?= $title ?></h1>
             </div>
-
+            <div class="p-2"><?= $this->session->flashdata('message'); ?></div>
             <a href="<?= base_url('k_afek_crud/add') ?>" class="btn btn-primary mb-3">Add New Criteria</a>
 
             <table class="table display compact table-hover dt">
               <thead>
                 <tr>
-                  <th>Afective Name</th>
+                  <th>Affective Name</th>
                   <th>Criteria 1</th>
                   <th>Criteria 2</th>
                   <th>Criteria 3</th>

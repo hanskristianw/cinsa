@@ -333,6 +333,117 @@
     /////////////////////////////
     //////END////////////////////
     /////////////////////////////
+    ////////////////////////////////////
+    //////COGNITIVE - PSYSCHOMOTOR//////
+    //////////////INDEX/////////////////
+    $('#arr_afek').change(function(){ 
+        var id=$(this).val();
+        
+        if(id == 0){
+          $('#topik_afek_ajax').html("");
+        }
+
+        $.ajax(
+        {
+            type: "post",
+            url: "<?php echo base_url(); ?>Afek_CRUD/get_topik",
+            data:{
+                'id':id,
+            },
+            async : true,
+            dataType : 'json',
+            success:function(data)
+            {
+              //console.log(data);
+              if(data.length == 0){
+                var html = '<div class="text-center mb-3 text-danger"><b>--No Topic, Please add Topic--</b></div>';
+              }else{
+                var html = '<select name="k_afek_id" id="k_afek_id" class="form-control mb-3">';
+                var i;
+                for(i=0; i<data.length; i++){
+                    html += '<option value='+data[i].k_afek_id+'>'+data[i].bulan_nama+' ('+data[i].k_afek_topik_nama+')</option>';
+                }
+                html += '</select>';
+
+                html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+                html += 'Insert Affective';
+                html += '</button>';
+              }
+              
+              $('#topik_afek_ajax').html(html);
+              
+            }
+        });
+    }); 
+
+    $("#option_minggu1").change(function () {
+
+      var aktif1 = $("#option_minggu1").val();
+
+      if(aktif1 == 0){
+          $('input[type=number].minggu1').val('0')
+          $('input[type=number].minggu1').attr("disabled", true);
+
+      }else{
+          $('input[type=number].minggu1').val('3')
+          $('input[type=number].minggu1').attr("disabled", false);
+      } 
+    });
+
+    $("#option_minggu2").change(function () {
+
+      var aktif2 = $("#option_minggu2").val();
+
+      if(aktif2 == 0){
+          $('input[type=number].minggu2').val('0')
+          $('input[type=number].minggu2').attr("disabled", true);
+      }else{
+          $('input[type=number].minggu2').val('3')
+          $('input[type=number].minggu2').attr("disabled", false);
+      } 
+    });
+
+    $("#option_minggu3").change(function () {
+
+      var aktif3 = $("#option_minggu3").val();
+
+      if(aktif3 == 0){
+          $('input[type=number].minggu3').val('0')
+          $('input[type=number].minggu3').attr("disabled", true);
+      }else{
+          $('input[type=number].minggu3').val('3')
+          $('input[type=number].minggu3').attr("disabled", false);
+      } 
+    });
+
+    $("#option_minggu4").change(function () {
+
+      var aktif4 = $("#option_minggu4").val();
+
+      if(aktif4 == 0){
+          $('input[type=number].minggu4').val('0')
+          $('input[type=number].minggu4').attr("disabled", true);
+      }else{
+          $('input[type=number].minggu4').val('3')
+          $('input[type=number].minggu4').attr("disabled", false);
+      } 
+    });
+
+    $("#option_minggu5").change(function () {
+
+      var aktif5 = $("#option_minggu5").val();
+
+      if(aktif5 == 0){
+          $('input[type=number].minggu5').val('0')
+          $('input[type=number].minggu5').attr("disabled", true);
+      }else{
+          $('input[type=number].minggu5').val('3')
+          $('input[type=number].minggu5').attr("disabled", false);
+      } 
+    });
+    /////////////////////////////
+    //////END////////////////////
+    /////////////////////////////
 
   });
 </script>

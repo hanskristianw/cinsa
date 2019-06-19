@@ -170,6 +170,7 @@
                   <h6 class="collapse-header">Grade</h6>
                   <a class="collapse-item" href='.base_url('Uj_CRUD').'>Mid & Final</a>
                   <a class="collapse-item" href='.base_url('Tes_CRUD').'>Cognitive & Psychomotor</a>
+                  <a class="collapse-item" href='.base_url('Afek_CRUD').'>Affective</a>
                 </div>
               </div>
             </li>
@@ -198,7 +199,7 @@
             <hr class="sidebar-divider d-none d-md-block">
             
             <div class="sidebar-heading">
-              Afective Report
+              Grade Menu
             </div>
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -208,8 +209,7 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Grade</h6>
-                  <a class="collapse-item" href='.base_url('').'>Mid & Final</a>
-                  <a class="collapse-item" href='.base_url('').'>Cognitive & Psychomotor</a>
+                  <a class="collapse-item" href='.base_url('').'>CB</a>
                 </div>
               </div>
             </li>

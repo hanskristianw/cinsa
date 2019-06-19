@@ -7,42 +7,46 @@
                 <div class="col-lg">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Insert Topic</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Update Topic</h1>
                         </div>
 
                         <?= $this->session->flashdata('message'); ?>
 
-                        <form class="user" method="post" action="<?= base_url('K_afek_CRUD/add'); ?>">
+                        <form class="user" method="post" action="<?= base_url('K_afek_CRUD/update'); ?>">
+                        
+                            <input type="hidden" name="_id" value="<?= set_value('_id',$k_afek_update['k_afek_id']); ?>">
                             <div class="form-group row">
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <input type="text" class="form-control" id="k_afek_nama" name="k_afek_nama" placeholder="Criteria Name" value="<?= set_value('k_afek_nama') ?>">
+                                    <input type="text" class="form-control" id="k_afek_nama" name="k_afek_nama" placeholder="Criteria Name" value="<?= set_value('k_afek_nama',$k_afek_update['k_afek_topik_nama']) ?>">
                                     <?= form_error('k_afek_nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <textarea class="form-control" rows="4" id="k_afek_1" name="k_afek_1" placeholder="Afektif 1"><?= set_value('k_afek_1') ?></textarea>
+                                    <textarea class="form-control" rows="4" id="k_afek_1" name="k_afek_1" placeholder="Afektif 1"><?= set_value('k_afek_1',$k_afek_update['k_afek_1']) ?></textarea>
                                     <?= form_error('k_afek_1', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <textarea class="form-control" rows="4" id="k_afek_2" name="k_afek_2" placeholder="Afektif 2"><?= set_value('k_afek_2') ?></textarea>
+                                    <textarea class="form-control" rows="4" id="k_afek_2" name="k_afek_2" placeholder="Afektif 2"><?= set_value('k_afek_2',$k_afek_update['k_afek_2']) ?></textarea>
                                     <?= form_error('k_afek_2', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <textarea class="form-control" rows="4" id="k_afek_3" name="k_afek_3" placeholder="Afektif 3"><?= set_value('k_afek_3') ?></textarea>
+                                    <textarea class="form-control" rows="4" id="k_afek_3" name="k_afek_3" placeholder="Afektif 3"><?= set_value('k_afek_3',$k_afek_update['k_afek_3']) ?></textarea>
                                     <?= form_error('k_afek_3', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
+                                    
+                                    <input type="text" name="_k_afek_bulan_id" value="<?= set_value('_k_afek_bulan_id',$k_afek_update['k_afek_bulan_id']); ?>">
 
                                     <select name="k_afek_bulan_id" id="k_afek_bulan_id" class="form-control">
                                         <?php
-                                        $_selected = set_value('k_afek_bulan_id');
+                                        $_selected = set_value('k_afek_bulan_id',$k_afek_update['k_afek_bulan_id']);
 
                                         foreach ($bulan_all as $m) :
                                             if ($_selected == $m['bulan_id']) {
@@ -56,10 +60,11 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-
+                                            
+                                    <input type="text" name="_k_afek_t_id" value="<?= set_value('_k_afek_t_id',$k_afek_update['k_afek_t_id']); ?>">
                                     <select name="k_afek_t_id" id="k_afek_t_id" class="form-control">
                                         <?php
-                                        $_selected = set_value('k_afek_t_id');
+                                        $_selected = set_value('k_afek_t_id',$k_afek_update['k_afek_t_id']);
 
                                         foreach ($tahun_all as $m) :
                                             if ($_selected == $m['t_id']) {
@@ -74,7 +79,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-user btn-block">
-                                Insert
+                                Update
                             </button>
                         </form>
                         <hr>
