@@ -55,12 +55,14 @@
                                                 <option value="0">Not Active</option>
                                             </select>
                     </th>
+                    <th style="vertical-align:top">Result</th>
                   </tr>
                 </thead>
                 <tbody>
 
                   <?php
                     $ag_temp = "xxx";
+                    $i = 1;
                     foreach ($siswa_all as $m) :
 
                       if($cek_agama == 1){
@@ -94,28 +96,34 @@
                       </td>
                       <?php
                         //minggu 1
-                        for($a=1; $a<=3; $a++){
-                          echo "<td><input type = 'number' required style='width: 32px;' class='minggu1' name='minggu1[]' value='3' min='1' max='3'></td>";
-                        }
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1' name='minggu1a1[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1' name='minggu1a2[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1' name='minggu1a3[]' value='3' min='1' max='3'></td>";
+
                         //minggu 2
-                        for($a=1; $a<=3; $a++){
-                            echo "<td><input type = 'number' required style='width: 32px;' class='minggu2' name='minggu2[]' value='3' min='1' max='3'></td>";
-                        }
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2' name='minggu2a1[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2' name='minggu2a2[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2' name='minggu2a3[]' value='3' min='1' max='3'></td>";
+
                         //minggu 3
-                        for($a=1; $a<=3; $a++){
-                            echo "<td><input type = 'number' required style='width: 32px;' class='minggu3' name='minggu3[]' value='3' min='1' max='3'></td>";
-                        }
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3' name='minggu3a1[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3' name='minggu3a2[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3' name='minggu3a3[]' value='3' min='1' max='3'></td>";
+
                         //minggu 4
-                        for($a=1; $a<=3; $a++){
-                            echo "<td><input type = 'number' required style='width: 32px;' class='minggu4' name='minggu4[]' value='3' min='1' max='3'></td>";
-                        }
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4' name='minggu4a1[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4' name='minggu4a2[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4' name='minggu4a3[]' value='3' min='1' max='3'></td>";
+
                         //minggu 5
-                        for($a=1; $a<=3; $a++){
-                            echo "<td><input type = 'number' required style='width: 32px;' class='minggu5' name='minggu5[]' value='3' min='1' max='3'></td>";
-                        }
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5' name='minggu5a1[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5' name='minggu5a2[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5' name='minggu5a3[]' value='3' min='1' max='3'></td>";
+
                       ?>
+                      <td class="text-center"><div id=""><?= $i ?></div></td>
                     </tr>
-                  <?php endforeach ?>
+                  <?php $i++; endforeach ?>
                 </tbody>
               </table>
               <button type="submit" class="btn btn-success mt-2" id="btn-save">

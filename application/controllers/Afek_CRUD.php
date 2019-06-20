@@ -129,7 +129,7 @@ class Afek_CRUD extends CI_Controller
 
     $data['cek_agama'] = $this->input->post('cek_agama');
 
-    $afekcount = $this->db->join('d_s', 'afektif_d_s_id=d_s_id', 'left')->where('d_s_kelas_id',$kelas_id)->where('afektif_k_afek_id',$k_afek_id)->from("afektif")->count_all_results();
+    $afekcount = $this->db->join('d_s', 'afektif_d_s_id=d_s_id', 'left')->where('d_s_kelas_id',$kelas_id)->where('afektif_mapel_id',$mapel_id)->where('afektif_k_afek_id',$k_afek_id)->from("afektif")->count_all_results();
     if($afekcount == 0){
       $data['siswa_all'] = $this->db->query(
         "SELECT d_s_id, sis_agama_id, agama_nama, sis_nama_depan, sis_nama_bel, sis_no_induk
@@ -183,46 +183,63 @@ class Afek_CRUD extends CI_Controller
   }
 
   public function save_input(){
-    if($this->input->post('kog_quiz[]')){
+    if($this->input->post('minggu1a1[]')){
 
-      $tes_count = $this->db->join('d_s', 'tes_d_s_id=d_s_id', 'left')->where('d_s_kelas_id',$this->input->post('kelas_id'))->where('tes_topik_id',$this->input->post('topik_id'))->from("tes")->count_all_results();
-      if($tes_count == 0){
+      $afekcount = $this->db->join('d_s', 'afektif_d_s_id=d_s_id', 'left')->where('afektif_mapel_id',$this->input->post('mapel_id'))->where('d_s_kelas_id',$this->input->post('kelas_id'))->where('afektif_k_afek_id',$this->input->post('k_afek_id'))->from("afektif")->count_all_results();
+      if($afekcount == 0){
         //Save input
         $data = array();
         $d_s_id = $this->input->post('d_s_id[]');
 
-        $kog_quiz = $this->input->post('kog_quiz[]');
-        $kog_test = $this->input->post('kog_test[]');
-        $kog_ass = $this->input->post('kog_ass[]');
-        $psi_quiz = $this->input->post('psi_quiz[]');
-        $psi_test = $this->input->post('psi_test[]');
-        $psi_ass = $this->input->post('psi_ass[]');
+        $minggu1a1 = $this->input->post('minggu1a1[]');
+        $minggu1a2 = $this->input->post('minggu1a2[]');
+        $minggu1a3 = $this->input->post('minggu1a3[]');
+
+        $minggu2a1 = $this->input->post('minggu2a1[]');
+        $minggu2a2 = $this->input->post('minggu2a2[]');
+        $minggu2a3 = $this->input->post('minggu2a3[]');
+
+        $minggu3a1 = $this->input->post('minggu3a1[]');
+        $minggu3a2 = $this->input->post('minggu3a2[]');
+        $minggu3a3 = $this->input->post('minggu3a3[]');
+
+        $minggu4a1 = $this->input->post('minggu4a1[]');
+        $minggu4a2 = $this->input->post('minggu4a2[]');
+        $minggu4a3 = $this->input->post('minggu4a3[]');
+
+        $minggu5a1 = $this->input->post('minggu5a1[]');
+        $minggu5a2 = $this->input->post('minggu5a2[]');
+        $minggu5a3 = $this->input->post('minggu5a3[]');
 
         for($i=0;$i<count($d_s_id);$i++){
-            $data[$i] = [
-              'tes_d_s_id' => $d_s_id[$i],
-              'kog_quiz' => $kog_quiz[$i],
-              'kog_quiz_persen' => $this->input->post('kog_quiz_persen'),
-              'kog_test' =>  $kog_test[$i],
-              'kog_test_persen' => $this->input->post('kog_test_persen'),
-              'kog_ass' => $kog_ass[$i],
-              'kog_ass_persen' => $this->input->post('kog_ass_persen'),
-              'psi_quiz' =>  $psi_quiz[$i],
-              'psi_quiz_persen' => $this->input->post('psi_quiz_persen'),
-              'psi_test' =>  $psi_test[$i],
-              'psi_test_persen' => $this->input->post('psi_test_persen'),
-              'psi_ass' =>  $psi_ass[$i],
-              'psi_ass_persen' => $this->input->post('psi_ass_persen'),
-              'tes_topik_id' => $this->input->post('topik_id')
-            ];
+          $data[$i] = [
+            'afektif_d_s_id' => $d_s_id[$i],
+            'afektif_minggu1a1' => $minggu1a1[$i],
+            'afektif_minggu1a2' => $minggu1a2[$i],
+            'afektif_minggu1a3' => $minggu1a3[$i],
+            'afektif_minggu2a1' => $minggu2a1[$i],
+            'afektif_minggu2a2' => $minggu2a2[$i],
+            'afektif_minggu2a3' => $minggu2a3[$i],
+            'afektif_minggu3a1' => $minggu3a1[$i],
+            'afektif_minggu3a2' => $minggu3a2[$i],
+            'afektif_minggu3a3' => $minggu3a3[$i],
+            'afektif_minggu4a1' => $minggu4a1[$i],
+            'afektif_minggu4a2' => $minggu4a2[$i],
+            'afektif_minggu4a3' => $minggu4a3[$i],
+            'afektif_minggu5a1' => $minggu5a1[$i],
+            'afektif_minggu5a2' => $minggu5a2[$i],
+            'afektif_minggu5a3' => $minggu5a3[$i],
+            'afektif_mapel_id' => $this->input->post('mapel_id'),
+            'afektif_k_afek_id' => $this->input->post('k_afek_id')
+          ];
         }
 
-        $this->db->insert_batch('tes', $data);
+        $this->db->insert_batch('afektif', $data);
         $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input Success!</div>');
-        redirect('Tes_CRUD');
+        redirect('Afek_CRUD');
       }else{
         $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Failed, already have score!</div>');
-        redirect('Tes_CRUD');
+        redirect('Afek_CRUD');
       }
 
     }
