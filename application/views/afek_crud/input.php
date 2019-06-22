@@ -10,8 +10,14 @@
               <h4 class="h4 text-gray-900"><b><u><?= $kelas['sk_nama'] ?></u></b></h4>
               <h4 class="h4 text-gray-900"><b><u>Affective <?= $kelas['kelas_nama'] ?></u></b></h4>
               <h4 class="h4 text-gray-900 mb-4"><i><?= $mapel['mapel_nama']." ".$k_afek['k_afek_topik_nama'] ?></i></h4>
+              
             </div>
-
+            <?php echo '<div class="alert alert-info alert-dismissible fade show">
+                    <button class="close" data-dismiss="alert" type="button">
+                        <span>&times;</span>
+                    </button>
+                    <strong>Info:</strong> A>=7.65 B>=6.3 C>=4.95 D<4.95
+                </div>'; ?>
             <?php echo '<div class="alert alert-danger alert-dismissible fade show">
                     <button class="close" data-dismiss="alert" type="button">
                         <span>&times;</span>
@@ -30,27 +36,27 @@
                   <tr>
                     <th></th>
                     <th></th>
-                    <th colspan="3">Week 1 <select class="form-control form-control-sm mb-2" name="option_minggu1" id="option_minggu1">
+                    <th colspan="3">Week 1 <select class="form-control form-control-sm mb-2 option_minggu1" name="option_minggu1" id="option_minggu1">
                                                 <option value="1">Active</option>
                                                 <option value="0">Not Active</option>
                                             </select>
                     </th>
-                    <th colspan="3">Week 2<select class="form-control form-control-sm mb-2" name="option_minggu2" id="option_minggu2">
+                    <th colspan="3">Week 2<select class="form-control form-control-sm mb-2 option_minggu2" name="option_minggu2" id="option_minggu2">
                                                 <option value="1">Active</option>
                                                 <option value="0">Not Active</option>
                                             </select>
                     </th>
-                    <th colspan="3">Week 3<select class="form-control form-control-sm mb-2" name="option_minggu3" id="option_minggu3">
+                    <th colspan="3">Week 3<select class="form-control form-control-sm mb-2 option_minggu3" name="option_minggu3" id="option_minggu3">
                                                 <option value="1">Active</option>
                                                 <option value="0">Not Active</option>
                                             </select>
                     </th>
-                    <th colspan="3">Week 4<select class="form-control form-control-sm mb-2" name="option_minggu4" id="option_minggu4">
+                    <th colspan="3">Week 4<select class="form-control form-control-sm mb-2 option_minggu4" name="option_minggu4" id="option_minggu4">
                                                 <option value="1">Active</option>
                                                 <option value="0">Not Active</option>
                                             </select>
                     </th>
-                    <th colspan="3">Week 5<select class="form-control form-control-sm mb-2" name="option_minggu5" id="option_minggu5">
+                    <th colspan="3">Week 5<select class="form-control form-control-sm mb-2 option_minggu5" name="option_minggu5" id="option_minggu5">
                                                 <option value="1">Active</option>
                                                 <option value="0">Not Active</option>
                                             </select>
@@ -96,32 +102,36 @@
                       </td>
                       <?php
                         //minggu 1
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1' name='minggu1a1[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1' name='minggu1a2[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1' name='minggu1a3[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1 minggu1a1 $i' name='minggu1a1[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1 minggu1a2 $i' name='minggu1a2[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1 minggu1a3 $i' name='minggu1a3[]' value='3' min='1' max='3'></td>";
 
                         //minggu 2
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2' name='minggu2a1[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2' name='minggu2a2[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2' name='minggu2a3[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2 minggu2a1 $i' name='minggu2a1[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2 minggu2a2 $i' name='minggu2a2[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2 minggu2a3 $i' name='minggu2a3[]' value='3' min='1' max='3'></td>";
 
                         //minggu 3
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3' name='minggu3a1[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3' name='minggu3a2[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3' name='minggu3a3[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3 minggu3a1 $i' name='minggu3a1[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3 minggu3a2 $i' name='minggu3a2[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3 minggu3a3 $i' name='minggu3a3[]' value='3' min='1' max='3'></td>";
 
                         //minggu 4
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4' name='minggu4a1[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4' name='minggu4a2[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4' name='minggu4a3[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4 minggu4a1 $i' name='minggu4a1[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4 minggu4a2 $i' name='minggu4a2[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4 minggu4a3 $i' name='minggu4a3[]' value='3' min='1' max='3'></td>";
 
                         //minggu 5
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5' name='minggu5a1[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5' name='minggu5a2[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5' name='minggu5a3[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5 minggu5a1 $i' name='minggu5a1[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5 minggu5a2 $i' name='minggu5a2[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5 minggu5a3 $i' name='minggu5a3[]' value='3' min='1' max='3'></td>";
 
                       ?>
-                      <td class="text-center"><div id=""><?= $i ?></div></td>
+                      <td class="text-center">
+                        <div class='t<?=$i?>'>
+
+                        </div>
+                      </td>
                     </tr>
                   <?php $i++; endforeach ?>
                 </tbody>

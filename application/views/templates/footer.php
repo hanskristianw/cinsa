@@ -336,6 +336,8 @@
     ////////////////////////////////////
     //////COGNITIVE - PSYSCHOMOTOR//////
     //////////////INDEX/////////////////
+    refreshHasil();
+    
     $('#arr_afek').change(function(){ 
         var id=$(this).val();
         
@@ -388,6 +390,7 @@
           $('input[type=number].minggu1').val('3')
           $('input[type=number].minggu1').attr("disabled", false);
       } 
+      refreshHasil();
     });
 
     $("#option_minggu2").change(function () {
@@ -401,6 +404,7 @@
           $('input[type=number].minggu2').val('3')
           $('input[type=number].minggu2').attr("disabled", false);
       } 
+      refreshHasil();
     });
 
     $("#option_minggu3").change(function () {
@@ -414,6 +418,7 @@
           $('input[type=number].minggu3').val('3')
           $('input[type=number].minggu3').attr("disabled", false);
       } 
+      refreshHasil();
     });
 
     $("#option_minggu4").change(function () {
@@ -427,6 +432,7 @@
           $('input[type=number].minggu4').val('3')
           $('input[type=number].minggu4').attr("disabled", false);
       } 
+      refreshHasil();
     });
 
     $("#option_minggu5").change(function () {
@@ -440,7 +446,60 @@
           $('input[type=number].minggu5').val('3')
           $('input[type=number].minggu5').attr("disabled", false);
       } 
+      refreshHasil();
     });
+
+    function refreshHasil() {
+
+      pembagi = 0;
+      if($('.option_minggu1').val() == 1){
+        pembagi++;
+      }
+      if($('.option_minggu2').val() == 1){
+        pembagi++;
+      }
+      if($('.option_minggu3').val() == 1){
+        pembagi++;
+      }
+      if($('.option_minggu4').val() == 1){
+        pembagi++;
+      }
+      if($('.option_minggu5').val() == 1){
+        pembagi++;
+      }
+      
+
+      var total = $('.minggu1a1').length;
+      
+      for (var i = 1; i <= total; i++) {
+        var total_minggu = 0;
+        $('.' + i).each(function () {
+          total_minggu += parseInt($(this).val());
+        })
+        
+        if(pembagi!=0){
+          total_minggu /= pembagi;
+          if(total_minggu >=7.65){
+            $('.t' + i).html("A ("+ total_minggu +")");
+          }else if(total_minggu >=6.3){
+            $('.t' + i).html("B ("+ total_minggu +")");
+          }else if(total_minggu >=4.95){
+            $('.t' + i).html("<div class='text-danger'><b>C ("+ total_minggu +")</b></div>");
+          }else{
+            $('.t' + i).html("<div class='text-danger'><b>D ("+ total_minggu +")</b></div>");
+          }
+        }else{
+          $('.t' + i).html("-");
+        }
+        
+      }
+    }
+    
+    $("input[type=number]").change(function () {
+      refreshHasil();
+    });
+
+
     /////////////////////////////
     //////END////////////////////
     /////////////////////////////
