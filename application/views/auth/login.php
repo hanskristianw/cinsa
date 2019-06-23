@@ -6,13 +6,13 @@
       <div class="col-lg-7">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
-          <div class="card-body p-0">
+          <div class="card-body p-2">
             <!-- Nested Row within Card Body -->
             <div class="row">
               <div class="col-lg">
-                <div class="p-5">
+                <div class="p-4">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Sistem Administrasi Sekolah</h1>
+                    <h1 class="h4 text-gray-900 mb-3">Sistem Administrasi Sekolah</h1>
                     <hr>
                     <img src="<?= base_url('assets/img/profile/yppi.png'); ?>" class="mb-4 rounded-circle">
                   </div>

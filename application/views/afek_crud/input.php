@@ -76,7 +76,7 @@
                         if($ag != $ag_temp ){
                           echo '
                           <tr class="table-warning">
-                            <td colspan="8" align="center">
+                            <td colspan="18" align="center">
                               <b>'.$ag.'</b>
                             </td>
                           </tr>';

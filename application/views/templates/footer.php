@@ -384,11 +384,11 @@
 
       if(aktif1 == 0){
           $('input[type=number].minggu1').val('0')
-          $('input[type=number].minggu1').attr("disabled", true);
+          $('input[type=number].minggu1').attr("readonly", true);
 
       }else{
           $('input[type=number].minggu1').val('3')
-          $('input[type=number].minggu1').attr("disabled", false);
+          $('input[type=number].minggu1').attr("readonly", false);
       } 
       refreshHasil();
     });
@@ -399,10 +399,10 @@
 
       if(aktif2 == 0){
           $('input[type=number].minggu2').val('0')
-          $('input[type=number].minggu2').attr("disabled", true);
+          $('input[type=number].minggu2').attr("readonly", true);
       }else{
           $('input[type=number].minggu2').val('3')
-          $('input[type=number].minggu2').attr("disabled", false);
+          $('input[type=number].minggu2').attr("readonly", false);
       } 
       refreshHasil();
     });
@@ -413,10 +413,10 @@
 
       if(aktif3 == 0){
           $('input[type=number].minggu3').val('0')
-          $('input[type=number].minggu3').attr("disabled", true);
+          $('input[type=number].minggu3').attr("readonly", true);
       }else{
           $('input[type=number].minggu3').val('3')
-          $('input[type=number].minggu3').attr("disabled", false);
+          $('input[type=number].minggu3').attr("readonly", false);
       } 
       refreshHasil();
     });
@@ -427,10 +427,10 @@
 
       if(aktif4 == 0){
           $('input[type=number].minggu4').val('0')
-          $('input[type=number].minggu4').attr("disabled", true);
+          $('input[type=number].minggu4').attr("readonly", true);
       }else{
           $('input[type=number].minggu4').val('3')
-          $('input[type=number].minggu4').attr("disabled", false);
+          $('input[type=number].minggu4').attr("readonly", false);
       } 
       refreshHasil();
     });
@@ -441,10 +441,10 @@
 
       if(aktif5 == 0){
           $('input[type=number].minggu5').val('0')
-          $('input[type=number].minggu5').attr("disabled", true);
+          $('input[type=number].minggu5').attr("readonly", true);
       }else{
           $('input[type=number].minggu5').val('3')
-          $('input[type=number].minggu5').attr("disabled", false);
+          $('input[type=number].minggu5').attr("readonly", false);
       } 
       refreshHasil();
     });
@@ -479,14 +479,14 @@
         
         if(pembagi!=0){
           total_minggu /= pembagi;
-          if(total_minggu >=7.65){
-            $('.t' + i).html("A ("+ total_minggu +")");
-          }else if(total_minggu >=6.3){
-            $('.t' + i).html("B ("+ total_minggu +")");
-          }else if(total_minggu >=4.95){
-            $('.t' + i).html("<div class='text-danger'><b>C ("+ total_minggu +")</b></div>");
+          if(total_minggu.toFixed(2) >=7.65){
+            $('.t' + i).html("A ("+ total_minggu.toFixed(2) +")");
+          }else if(total_minggu.toFixed(2) >=6.3){
+            $('.t' + i).html("B ("+ total_minggu.toFixed(2) +")");
+          }else if(total_minggu.toFixed(2) >=4.95){
+            $('.t' + i).html("<div class='text-danger'><b>C ("+ total_minggu.toFixed(2) +")</b></div>");
           }else{
-            $('.t' + i).html("<div class='text-danger'><b>D ("+ total_minggu +")</b></div>");
+            $('.t' + i).html("<div class='text-danger'><b>D ("+ total_minggu.toFixed(2) +")</b></div>");
           }
         }else{
           $('.t' + i).html("-");
