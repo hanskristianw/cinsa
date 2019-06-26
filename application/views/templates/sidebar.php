@@ -15,6 +15,10 @@
     <!-- MANAJEMEN MENU -->
     <?php
 
+      //echo $this->Menu->show_hello_world();
+
+      //var_dump(cetak());
+
       if($this->session->userdata('kr_jabatan_id')==1 && $this->session->userdata('kr_jabatan_id')){
         //Administrator atau Super Admin
         echo'<div class="sidebar-heading">Administrator</div>
