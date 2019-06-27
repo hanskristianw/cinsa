@@ -504,6 +504,112 @@
     //////END////////////////////
     /////////////////////////////
 
+    ////////////////////////////////////
+    //////////////KOMEN////////////////
+    //////////////INDEX/////////////////
+
+    $('#kelas_komen').change(function(){ 
+        var id=$(this).val();
+        
+        if(id == 0){
+          $('#siswa_ajax').html("");
+          $('#komen_ajax').html("");
+        }
+
+        $.ajax(
+        {
+            type: "post",
+            url: "<?php echo base_url(); ?>Komen_CRUD/get_siswa",
+            data:{
+                'id':id,
+            },
+            async : true,
+            dataType : 'json',
+            success:function(data)
+            {
+              //console.log(data);
+              if(data.length == 0){
+                var html = '<div class="text-center mb-3 text-danger"><b>--No Student, Contact School Administrative Officer--</b></div>';
+              }else{
+                var html = '<select name="d_s_id" id="komen_sis_id" class="form-control mb-3 komen_sis_id">';
+                html += '<option value="0">Select Student</option>';
+                var i;
+                for(i=0; i<data.length; i++){
+                    html += '<option value='+data[i].d_s_id+'>'+data[i].sis_nama_depan+'</option>';
+                }
+                html += '</select>';
+              }
+              
+              $('#siswa_ajax').html(html);
+              refreshEvent();
+            }
+        });
+    }); 
+    function refreshEvent() {
+      $('.komen_sis_id').change(function(){ 
+        var id=$(this).val();
+        //alert(id);
+        if(id == 0){
+          $('#komen_ajax').html("");
+        }
+
+        $.ajax(
+        {
+            type: "post",
+            url: "<?php echo base_url(); ?>Komen_CRUD/get_komen",
+            data:{
+                'id':id,
+            },
+            async : true,
+            dataType : 'json',
+            success:function(data)
+            {
+              if(data.length == 0){
+                var html = '<div class="text-center mb-3 text-danger"><b>--Something wrong, contact admin/developer--</b></div>';
+              }else{
+                console.log(data);
+                var html = '<textarea rows="4" name="d_s_komen_sis" class="form-control mb-2" placeholder="Mid SEMESTER 1 comment">';
+                if(data[0].d_s_komen_sis){
+                  html += data[0].d_s_komen_sis;
+                }
+                html += '</textarea>';
+
+                html += '<textarea rows="4" name="d_s_komen_sem" class="form-control mb-2" placeholder="Final SEMESTER 1 comment">';
+                if(data[0].d_s_komen_sem){
+                  html += data[0].d_s_komen_sem;
+                }
+                html += '</textarea>';
+
+                html += '<textarea rows="4" name="d_s_komen_sis2" class="form-control mb-2" placeholder="Mid SEMESTER 2 comment">';
+                if(data[0].d_s_komen_sis2){
+                  html += data[0].d_s_komen_sis2;
+                }
+                html += '</textarea>';
+
+                html += '<textarea rows="4" name="d_s_komen_sem2" class="form-control mb-2" placeholder="Final SEMESTER 2 comment">';
+                if(data[0].d_s_komen_sem2){
+                  html += data[0].d_s_komen_sem2;
+                }
+                html += '</textarea>';
+
+                html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+                html += 'Insert Comment';
+                html += '</button>';
+                
+              }
+              
+              $('#komen_ajax').html(html);
+              
+            }
+        });
+      }); 
+    }
+    
+
+    /////////////////////////////
+    //////END////////////////////
+    /////////////////////////////
+
   });
 </script>
 

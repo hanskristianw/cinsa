@@ -23,6 +23,11 @@ class _kelas extends CI_Model
     return $this->db->join('sk', 'kelas_sk_id=sk_id', 'left')->where('kelas_id', $kelas_id)->get('kelas')->row_array();
   }
 
+  public function find_by_walkel($kr_id)
+  {
+    return $this->db->join('t', 'kelas_t_id=t_id', 'left')->join('sk', 'kelas_sk_id=sk_id', 'left')->where('kelas_kr_id', $kr_id)->order_by("kelas_t_id", "DESC")->order_by("kelas_nama", "ASC")->get('kelas')->result_array();
+  }
+
   public function find_by_id($kelas_id)
   {
     return $this->db->join('t', 'kelas_t_id=t_id', 'left')->join('sk', 'kelas_sk_id=sk_id', 'left')->order_by("kelas_nama", "ASC")->where('kelas_id', $kelas_id)->get('kelas')->row_array();

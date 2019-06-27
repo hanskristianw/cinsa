@@ -17,8 +17,6 @@
 
       //echo $this->Menu->show_hello_world();
 
-      //var_dump(cetak());
-
       if($this->session->userdata('kr_jabatan_id')==1 && $this->session->userdata('kr_jabatan_id')){
         //Administrator atau Super Admin
         echo'<div class="sidebar-heading">Administrator</div>
@@ -178,9 +176,27 @@
                 </div>
               </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">';
             
-            <hr class="sidebar-divider d-none d-md-block">
-          ';
+          if (walkel_menu()>=1){
+            echo ' <div class="sidebar-heading">
+                    Homeroom Menu
+                  </div>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseTwo">
+                      <i class="fas fa-fw fa-comment"></i>
+                      <span>Homeroom</span>
+                    </a>
+                    <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Master</h6>
+                        <a class="collapse-item" href='.base_url('Komen_CRUD').'>Comment</a>
+                      </div>
+                    </div>
+                  </li>
+                  <hr class="sidebar-divider d-none d-md-block">
+            ';
+          }
       }elseif($this->session->userdata('kr_jabatan_id')==8 && $this->session->userdata('kr_jabatan_id')){
         //jika dia BK
         echo'<div class="sidebar-heading">
