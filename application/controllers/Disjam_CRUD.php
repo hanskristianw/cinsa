@@ -60,20 +60,37 @@ class Disjam_CRUD extends CI_Controller
       $data['title'] = 'Hour Distribution';
 
       $data['kr_all'] = $this->db->query(
-        "SELECT kr_all.kr_id as kr_id, kr_nama_depan, kr_nama_belakang, mapel_id, beban_jam, kelas_id, kr_st_id FROM
-        (
-          SELECT kr_id, kr_nama_depan, kr_nama_belakang, kr_st_id
-          FROM kr
-          WHERE kr_sk_id = $sk_id) AS kr_all
-        JOIN(
-          SELECT kr_id, GROUP_CONCAT(mapel_id ORDER BY mapel_id) as mapel_id, GROUP_CONCAT(d_mpl_beban ORDER BY mapel_id) as beban_jam, GROUP_CONCAT(kelas_id ORDER BY mapel_id) as kelas_id
-            FROM kr
-            LEFT JOIN d_mpl ON d_mpl_kr_id = kr_id
-            LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
-            LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
-            WHERE kr_sk_id = $sk_id AND kelas_t_id = $t_id
-            GROUP BY kr_id) as disjam ON kr_all.kr_id = disjam.kr_id
-        ORDER BY kr_nama_depan")->result_array();
+        "SELECT kr_id, kr_nama_depan, kr_nama_belakang, mapel_id, mapel_nama, GROUP_CONCAT(d_mpl_beban ORDER BY mapel_id) as beban_jam, GROUP_CONCAT(kelas_id ORDER BY mapel_id) as kelas_id, st_nama
+        FROM kr
+        LEFT JOIN d_mpl ON d_mpl_kr_id = kr_id
+        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN st ON kr_st_id = st_id
+        WHERE kr_sk_id = $sk_id AND kelas_t_id = $t_id
+        GROUP BY kr_id, mapel_id")->result_array();
+
+
+      // $data['kr_all'] = $this->db->query(
+      //   "SELECT kr_all.kr_id as kr_id, kr_nama_depan, kr_nama_belakang, mapel_id, mapel_id_dis, jum_mapel, mapel_nama, mapel_nama_all, beban_jam, kelas_id, st_nama FROM
+      //   (
+      //     SELECT kr_id, kr_nama_depan, kr_nama_belakang, st_nama
+      //     FROM kr
+      //     LEFT JOIN st ON kr_st_id = st_id
+      //     WHERE kr_sk_id = $sk_id) AS kr_all
+      //   JOIN(
+      //     SELECT kr_id, COUNT(DISTINCT mapel_id) as jum_mapel, GROUP_CONCAT(DISTINCT mapel_nama ORDER BY mapel_id SEPARATOR ';') as mapel_nama,
+      //     GROUP_CONCAT(DISTINCT mapel_id ORDER BY mapel_id) as mapel_id_dis, 
+      //     GROUP_CONCAT(mapel_id ORDER BY mapel_id) as mapel_id, GROUP_CONCAT(mapel_nama ORDER BY mapel_id) as mapel_nama_all, GROUP_CONCAT(d_mpl_beban ORDER BY mapel_id) as beban_jam, GROUP_CONCAT(kelas_id ORDER BY mapel_id) as kelas_id
+      //       FROM kr
+      //       LEFT JOIN d_mpl ON d_mpl_kr_id = kr_id
+      //       LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+      //       LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+      //       WHERE kr_sk_id = $sk_id AND kelas_t_id = $t_id
+      //       GROUP BY kr_id) as disjam ON kr_all.kr_id = disjam.kr_id
+      //   ORDER BY kr_nama_depan")->result_array();
+
+      $data['kelas_all'] = $this->db->query(
+        "SELECT kelas_id, kelas_nama FROM kelas WHERE kelas_t_id = $t_id AND kelas_sk_id = $sk_id")->result_array();
 
 
       //$data['kr_all'] = $this->_kr->return_all_by_sk_id($sk_id);
