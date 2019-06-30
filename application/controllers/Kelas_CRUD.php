@@ -52,7 +52,7 @@ class Kelas_CRUD extends CI_Controller
     $sk_id = $this->session->userdata('kr_sk_id');
 
     $data['kelas_all'] = $this->db->query(
-      "SELECT kelas_nama, t_nama, jenj_nama, kelas_id, kelas_kr_id, count(d_s_kelas_id) as jum_siswa
+      "SELECT kelas_nama, kelas_nama_singkat, t_nama, jenj_nama, kelas_id, kelas_kr_id, count(d_s_kelas_id) as jum_siswa
       FROM kelas
       LEFT JOIN t ON kelas_t_id = t_id
       LEFT JOIN jenj ON kelas_jenj_id = jenj_id
@@ -77,7 +77,8 @@ class Kelas_CRUD extends CI_Controller
   public function add()
   {
 
-    $this->form_validation->set_rules('kelas_nama', 'Kelas Nama', 'required|trim');
+    $this->form_validation->set_rules('kelas_nama', 'Class name', 'required|trim');
+    $this->form_validation->set_rules('kelas_nama_singkat', 'Class abbreviation', 'required|trim');
 
     if ($this->form_validation->run() == false) {
       //jika belum ada tahun ajaran sama sekali
@@ -115,6 +116,7 @@ class Kelas_CRUD extends CI_Controller
         'kelas_nama' => $this->input->post('kelas_nama'),
         'kelas_sk_id' => $this->input->post('kelas_sk_id'),
         'kelas_jenj_id' => $this->input->post('jenj_id'),
+        'kelas_nama_singkat' => $this->input->post('kelas_nama_singkat'),
         'kelas_t_id' => $this->input->post('kelas_t_id')
       ];
 
@@ -399,8 +401,9 @@ class Kelas_CRUD extends CI_Controller
       }
     }
 
-    $this->form_validation->set_rules('kelas_nama', 'Kelas Nama', 'required|trim');
+    $this->form_validation->set_rules('kelas_nama', 'Class Name', 'required|trim');
     $this->form_validation->set_rules('kelas_t_id', 'Kelas Tahun', 'required');
+    $this->form_validation->set_rules('kelas_nama_singkat', 'Class Abbr', 'required');
 
     if ($this->form_validation->run() == false) {
       //jika menekan tombol edit
@@ -427,6 +430,7 @@ class Kelas_CRUD extends CI_Controller
       //fetch data hasil inputan
       $data = [
         'kelas_nama' => $this->input->post('kelas_nama'),
+        'kelas_nama_singkat' => $this->input->post('kelas_nama_singkat'),
         'kelas_jenj_id' => $this->input->post('jenj_id'),
         'kelas_t_id' => $this->input->post('kelas_t_id')
       ];

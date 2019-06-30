@@ -52,21 +52,22 @@ class Disjam_CRUD extends CI_Controller
   {
 
     if($this->input->post('t_id', true)){
-      $t_id = $this->input->post('sk_id', true);
-      $sk_id = $this->input->post('t_id', true);
+      $t_id = $this->input->post('t_id', true);
+      $sk_id = $this->input->post('sk_id', true);
+
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['title'] = 'Hour Distribution';
 
       $data['kr_all'] = $this->db->query(
-        "SELECT kr_id, kr_nama_depan, kr_nama_belakang, mapel_id, mapel_nama, GROUP_CONCAT(d_mpl_beban ORDER BY mapel_id) as beban_jam, GROUP_CONCAT(kelas_id ORDER BY mapel_id) as kelas_id, st_nama
+        "SELECT kr_id, kr_nama_depan, kr_nama_belakang, mapel_id, mapel_nama, GROUP_CONCAT(d_mpl_beban ORDER BY mapel_id) as beban_jam, GROUP_CONCAT(kelas_id ORDER BY mapel_id) as kelas_id, st_nama, kelas_t_id, kelas_sk_id
         FROM kr
         LEFT JOIN d_mpl ON d_mpl_kr_id = kr_id
         LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
         LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
         LEFT JOIN st ON kr_st_id = st_id
-        WHERE kr_sk_id = $sk_id AND kelas_t_id = $t_id
+        WHERE kr_sk_id = $sk_id AND kelas_t_id = $t_id  AND mapel_sk_id = $sk_id
         GROUP BY kr_id, mapel_id")->result_array();
 
 
@@ -90,7 +91,7 @@ class Disjam_CRUD extends CI_Controller
       //   ORDER BY kr_nama_depan")->result_array();
 
       $data['kelas_all'] = $this->db->query(
-        "SELECT kelas_id, kelas_nama FROM kelas WHERE kelas_t_id = $t_id AND kelas_sk_id = $sk_id")->result_array();
+        "SELECT kelas_id, kelas_nama, kelas_nama_singkat FROM kelas WHERE kelas_t_id = $t_id AND kelas_sk_id = $sk_id")->result_array();
 
 
       //$data['kr_all'] = $this->_kr->return_all_by_sk_id($sk_id);

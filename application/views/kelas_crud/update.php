@@ -59,6 +59,10 @@
                     ?>
                   </select>
                 </div>
+                <div class="col-sm mb-3 mb-sm-0 cek">
+                  <input type="text" class="form-control" id="kelas_nama_singkat" name="kelas_nama_singkat" placeholder="Class Abbreviation (Ex: Xsc1)" value="<?= set_value('kelas_nama_singkat', $kelas_update['kelas_nama_singkat']) ?>">
+                  <?= form_error('kelas_nama_singkat', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
               </div>
               <button type="submit" class="btn btn-primary btn-user btn-block">
                 Update

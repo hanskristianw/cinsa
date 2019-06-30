@@ -610,6 +610,13 @@
     //////END////////////////////
     /////////////////////////////
 
+    ///////print area////////////
+    $("#export_excel").click(function (e) {
+        //alert("hai");
+        window.open('data:application/vnd.ms-excel,' +  encodeURIComponent($('#print_area').html()));
+        e.preventDefault();
+    });
+
   });
 </script>
 

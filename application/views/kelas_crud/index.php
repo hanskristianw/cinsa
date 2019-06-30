@@ -19,6 +19,7 @@
               <thead>
                 <tr>
                   <th>List of Class</th>
+                  <th>Abbr</th>
                   <th>Level</th>
                   <th>&Sigma; Students</th>
                   <th>Homeroom Teacher</th>
@@ -29,6 +30,7 @@
                 <?php foreach ($kelas_all as $m) : ?>
                   <tr>
                     <td><?= "<b>".$m['kelas_nama'] ."</b> (". $m['t_nama'] . ")" ?></td>
+                    <td><?= "<b>".$m['kelas_nama_singkat'] ."</b>" ?></td>
                     <td><?= $m['jenj_nama'] ?></td>
                     <td><?= $m['jum_siswa'] ?></td>
                     <td>

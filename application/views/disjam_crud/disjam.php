@@ -10,7 +10,7 @@
               <h1 class="h4 text-gray-900 mb-4"><?= $title ?></h1>
             </div>
             <div class="p-2"><?= $this->session->flashdata('message'); ?></div>
-
+            <div id="print_area">
             <table class="table table-hover table-bordered table-sm">
               <thead>
                 <tr>
@@ -22,10 +22,11 @@
                     $kelas_id = array();
                   foreach ($kelas_all as $m) : 
                     array_push($kelas_id, $m['kelas_id']);
-                    echo "<th style='width: 5%'>".ucfirst(strtolower ($m['kelas_nama']))."</th>";
+                    echo "<th style='width: 5%'>".ucfirst(strtolower ($m['kelas_nama_singkat']))."</th>";
                   ?>
                   <?php endforeach ?>
-                  <th style='width: 5%' >Tot</th>
+                  <th style='width: 5%' >&Sigma; Unit Lain</th>
+                  <th style='width: 5%' >&Sigma; Tot</th>
                 </tr>
               </thead>
               <tbody>
@@ -37,20 +38,26 @@
                   <tr>
                   <?php 
                     $initial = $m['kr_id'];
-                    if ($temp == $initial): ?>
+                    if ($temp == $initial): 
+                      $sekolah_lain = NULL;
+                  ?>
                       <td></td>
                       <td></td>
                       <td></td>
                   <?php 
                     else: ?>
-                      <td><?php echo $no; $no++; ?></td>
+                      <td>
+                        <?php 
+                          echo $no; $no++; $total=0; 
+                          $sekolah_lain = disjam_sekolah_lain($m['kr_id'],$m['kelas_t_id'],$m['kelas_sk_id']);
+                        ?>
+                      </td>
                       <td><?= $m['kr_nama_depan'] ." ".$m['kr_nama_belakang'] ?></td>
                       <td><?= $m['st_nama'] ?></td>
                   <?php 
                     endif; 
                     
-                    $next = $m['kr_id'];
-                    $temp = $next;
+                    
                   ?>
 
                     <td><?= $m['mapel_nama'] ?></td>
@@ -65,11 +72,33 @@
                         echo "</td>";
                       }
                     ?>
-                    <td><?= array_sum($beban_jam) ?></td>
+                    <td>
+                      <?php 
+                        $total_sl = 0;
+                        if($sekolah_lain){
+                          foreach ($sekolah_lain as $sl){
+                            $total_sl += $sl['beban'];
+                            echo $sl['beban'];
+                          }
+                        }
+                      ?>
+                    </td>
+                    <td><?php 
+                        $total += $total_sl + array_sum($beban_jam); 
+                        echo $total; 
+                          
+                        $next = $m['kr_id'];
+                        $temp = $next;
+                      ?>
+                    </td>
                   </tr>
                 <?php endforeach ?>
               </tbody>
             </table>
+            </div>
+            <button type="submit" class="btn btn-success btn-user btn-block" id="export_excel">
+                Export To Excel
+            </button>
             <hr>
           </div>
         </div>

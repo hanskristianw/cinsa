@@ -47,8 +47,9 @@ class Mapel_CRUD extends CI_Controller
 
 		$this->form_validation->set_rules('mapel_nama', 'Subject Name', 'required|trim');
     $this->form_validation->set_rules('mapel_kkm', 'Passing Grade', 'required|trim|greater_than[0]|less_than[101])');
-		$this->form_validation->set_rules('mapel_sing', 'Abbreviation', 'required|trim');
-    $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim|is_unique[mapel.mapel_urutan]', ['is_unique' => 'This order number already exist!']);
+    $this->form_validation->set_rules('mapel_sing', 'Abbreviation', 'required|trim');
+    $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim');
+    //$this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim|is_unique[mapel.mapel_urutan]', ['is_unique' => 'This order number already exist!']);
 
 
 		if($this->form_validation->run() == false){
@@ -101,12 +102,12 @@ class Mapel_CRUD extends CI_Controller
     $this->form_validation->set_rules('mapel_nama', 'Subject Name', 'required|trim');
 		$this->form_validation->set_rules('mapel_sing', 'Abbreviation', 'required|trim');
     $this->form_validation->set_rules('mapel_kkm', 'Passing Grade', 'required|trim|greater_than[0]|less_than[101])');
-
-    if($this->input->post('_mapel_urutan') == $this->input->post('mapel_urutan')){
-      $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim');
-    }else{
-      $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim|is_unique[mapel.mapel_urutan]', ['is_unique' => 'This order number already exist!']);
-    }
+    $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim');
+    // if($this->input->post('_mapel_urutan') == $this->input->post('mapel_urutan')){
+    //   $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim');
+    // }else{
+    //   $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim|is_unique[mapel.mapel_urutan]', ['is_unique' => 'This order number already exist!']);
+    // }
 
     if($this->form_validation->run() == false){
       //jika menekan tombol edit
