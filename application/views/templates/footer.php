@@ -617,6 +617,90 @@
         e.preventDefault();
     });
 
+    /////////////////////////////
+    ///////Report Print//////////
+    /////////////////////////////
+    $('#t').change(function(){ 
+        var id=$(this).val();
+        
+        $('#kelas_ajax').html("");
+        $('#siswa_ajax').html("");
+
+        $.ajax(
+        {
+            type: "post",
+            url: "<?php echo base_url(); ?>Mid_Report_CRUD/get_kelas",
+            data:{
+                'id':id,
+            },
+            async : true,
+            dataType : 'json',
+            success:function(data)
+            {
+              //console.log(data);
+              if(data.length == 0){
+                var html = '<div class="text-center mb-3 text-danger"><b>--No Class, Add Class First--</b></div>';
+              }else{
+                var html = '<select name="kelas_id" id="kelas_id" class="form-control mb-3 kelas_id">';
+                html += '<option value="0">Select Class</option>';
+                var i;
+                for(i=0; i<data.length; i++){
+                    html += '<option value='+data[i].kelas_id+'>'+data[i].kelas_nama+'</option>';
+                }
+                html += '</select>';
+              }
+              
+              $('#kelas_ajax').html(html);
+              refreshEventKelas();
+            }
+        });
+    }); 
+
+    function refreshEventKelas() {
+      $('.kelas_id').change(function(){ 
+        var id=$(this).val();
+        //alert(id);
+        if(id == 0){
+          $('#siswa_ajax').html("");
+        }
+
+        $.ajax(
+        {
+            type: "post",
+            url: "<?php echo base_url(); ?>Mid_Report_CRUD/get_siswa",
+            data:{
+                'id':id,
+            },
+            async : true,
+            dataType : 'json',
+            success:function(data)
+            {
+              if(data.length == 0){
+                var html = '<div class="text-center mb-3 text-danger"><b>--No Student(s), please add 1 or more student--</b></div>';
+              }else{
+                var i;
+                html ="";
+                for(i=0; i<data.length; i++){
+                  html += '<div class="checkbox ml-2" name="siswa_check[]">';
+                  html += '<label><input type="checkbox" value="'+data[i].sis_id+'"> '+data[i].sis_nama_depan+' '+data[i].sis_nama_bel+'</label>';
+                  html += '</div>';
+                }
+
+                html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+                html += 'Show Report';
+                html += '</button>';
+                
+              }
+              
+              $('#siswa_ajax').html(html);
+              
+            }
+        });
+      }); 
+    }
+    /////////////////////////////
+    /////////////////////////////
+
   });
 </script>
 
