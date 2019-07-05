@@ -43,8 +43,8 @@ class Topik_CRUD extends CI_Controller
 
     $data['mapel_all'] = $this->db->query(
       "SELECT DISTINCT mapel_id, mapel_nama, sk_nama, 
-      GROUP_CONCAT(DISTINCT topik_id ORDER BY topik_nama) as topik_id, 
-      GROUP_CONCAT(DISTINCT topik_nama ORDER BY topik_nama) as topik_nama
+      GROUP_CONCAT(DISTINCT topik_id ORDER BY topik_jenj_id, topik_urutan, topik_id) as topik_id, 
+      GROUP_CONCAT(DISTINCT topik_nama ORDER BY topik_jenj_id, topik_urutan, topik_id) as topik_nama
       FROM d_mpl 
       LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
       LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
@@ -107,6 +107,7 @@ class Topik_CRUD extends CI_Controller
     }
 
 		$this->form_validation->set_rules('topik_nama', 'Topic Name', 'required|trim');
+		$this->form_validation->set_rules('topik_urutan', 'Topic Order', 'required|trim');
 
 		if($this->form_validation->run() == false){
 			$data['title'] = 'Create Topic';
@@ -126,6 +127,7 @@ class Topik_CRUD extends CI_Controller
 			$data = [
 				'topik_nama' => $this->input->post('topik_nama'),
 				'topik_semester' => $this->input->post('topik_semester'),
+				'topik_urutan' => $this->input->post('topik_urutan'),
 				'topik_jenj_id' => $this->input->post('jenj_id'),
 				'topik_mapel_id' => $this->input->post('_id')
 			];
@@ -182,6 +184,7 @@ class Topik_CRUD extends CI_Controller
     }
     
     $this->form_validation->set_rules('topik_nama', 'Topic Name', 'required|trim');
+    $this->form_validation->set_rules('topik_urutan', 'Topic Order', 'required|trim');
 
 		if($this->form_validation->run() == false){
 			$data['title'] = 'Edit Topic';
@@ -205,6 +208,7 @@ class Topik_CRUD extends CI_Controller
       $data = [
         'topik_nama' => $this->input->post('topik_nama'),
 				'topik_semester' => $this->input->post('topik_semester'),
+				'topik_urutan' => $this->input->post('topik_urutan'),
 				'topik_jenj_id' => $this->input->post('jenj_id')
       ];
 

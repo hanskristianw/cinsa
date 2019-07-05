@@ -20,25 +20,10 @@
                                     <?= form_error('topik_nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <select name="topik_semester" class="form-control">
-                                        <?php
-                                            $_selected = set_value('topik_semester');
-
-                                            if ($_selected == 1) {
-                                                echo '<option value="1" selected>Semester 1</option>
-                                                <option value="2">Semester 2</option>';
-                                            } elseif ($_selected == 2) {
-                                                echo '<option value="1">Semester 1</option>
-                                                <option value="2" selected>Semester 2</option>';
-                                            }
-                                            else{
-                                                echo '<option value="1">Semester 1</option>
-                                                <option value="2">Semester 2</option>';
-                                            }
-                                        ?>
-                                        
-                                    </select>
+                                    <input type="number" class="form-control" id="topik_urutan" name="topik_urutan" placeholder="Topic Order" value="<?= set_value('topik_urutan') ?>">
+                                    <?= form_error('topik_urutan', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
+                                
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -56,6 +41,26 @@
                                         echo "<option value=" . $m['jenj_id'] . " " . $s . ">" . $m['jenj_nama'] . "</option>";
                                         endforeach
                                         ?>
+                                    </select>
+                                </div>
+                                <div class="col-sm mb-3 mb-sm-0">
+                                    <select name="topik_semester" class="form-control">
+                                        <?php
+                                            $_selected = set_value('topik_semester');
+
+                                            if ($_selected == 1) {
+                                                echo '<option value="1" selected>Semester 1</option>
+                                                <option value="2">Semester 2</option>';
+                                            } elseif ($_selected == 2) {
+                                                echo '<option value="1">Semester 1</option>
+                                                <option value="2" selected>Semester 2</option>';
+                                            }
+                                            else{
+                                                echo '<option value="1">Semester 1</option>
+                                                <option value="2">Semester 2</option>';
+                                            }
+                                        ?>
+                                        
                                     </select>
                                 </div>
                             </div>

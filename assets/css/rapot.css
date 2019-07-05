@@ -1,0 +1,178 @@
+
+table.rapot{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:12px;
+}
+
+table.rapot {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.rapot th{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:12px;
+    height: 10px;
+    font-weight:550;
+    text-align:center;
+}
+.rapot td{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:12px;
+    height: 25px;
+}
+
+.alignleft {
+    font-weight:bold;
+    font-family:Cambria, sans-serif;
+    font-size:13px;
+    float: left;
+}
+
+.alignleft_induk {
+    font-weight:bold;
+    font-family:Cambria, sans-serif;
+    font-size:13px;
+    float: left;
+    padding: 0px 0px 0px 5px;
+}
+.alignright {
+    font-weight:bold;
+    font-family:Cambria, sans-serif;
+    font-size:13px;
+    float: right;
+}
+
+.alignleft_bawah {
+    font-family:Cambria, sans-serif;
+    font-size:13px;
+    float: left;
+    text-align:center;
+}
+
+.alignleft_bawah_induk {
+    font-family:Cambria, sans-serif;
+    font-size:13px;
+    float: left;
+    text-align:center;
+    padding: 0px 0px 0px 5px;
+}
+
+.alignright_bawah {
+    font-family:Cambria, sans-serif;
+    font-size:13px;
+    float: right;
+    text-align:center;
+}
+
+.aligncenter_bawah {
+    font-family:Cambria, sans-serif;
+    font-size:13px;
+    text-align:center;
+}
+.judul {
+    text-align:center;
+    font-weight:bold;
+    font-family:Cambria, sans-serif;
+    font-size:23px;
+}
+
+.sub_judul {
+    text-align:center;
+    font-weight:bold;
+    font-family:Cambria, sans-serif;
+    font-size:11px;
+}
+
+.kkm {
+    text-align:center;
+    font-weight:bold;
+}
+.biasa {
+    text-align:center;
+}
+
+.nomor {
+    text-align:center;
+}
+.grading {
+    text-align:center;
+    font-size:11px;
+}
+
+.judul_ssp {
+    text-align:center;
+    font-weight:bold;
+    font-family:Calibri, sans-serif;
+    font-size:28px;
+}
+
+.alignleft_ssp {
+    font-weight:bold;
+    font-family:Cambria, sans-serif;
+    font-size:16px;
+    float: left;
+}
+.alignright_ssp {
+    font-weight:bold;
+    font-family:Calibri, sans-serif;
+    font-size:16px;
+    float: right;
+}
+
+
+table.rapot_rangkuman{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:10px;
+}
+
+table.rapot_rangkuman {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.rapot_rangkuman th{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:10px;
+    height: 10px;
+    font-weight:550;
+    text-align:center;
+}
+.rapot_rangkuman td{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:10px;
+    height: 15px;
+}
+
+table.induk{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:12px;
+}
+
+table.induk {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.induk th{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:12px;
+    height: 10px;
+    font-weight:550;
+    text-align:center;
+}
+.induk td{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:10px;
+    height: 5px;
+    padding: 0px 0px 0px 5px;
+}

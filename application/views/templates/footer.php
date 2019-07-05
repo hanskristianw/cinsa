@@ -316,7 +316,7 @@
                 var html = '<select name="topik_id" id="topik_id" class="form-control mb-3">';
                 var i;
                 for(i=0; i<data.length; i++){
-                    html += '<option value='+data[i].topik_id+'>'+data[i].topik_nama+'</option>';
+                    html += '<option value='+data[i].topik_id+'>'+data[i].topik_nama+' (Sem: '+data[i].topik_semester+')</option>';
                 }
                 html += '</select>';
 
@@ -334,7 +334,7 @@
     //////END////////////////////
     /////////////////////////////
     ////////////////////////////////////
-    //////COGNITIVE - PSYSCHOMOTOR//////
+    //////AFEKTIF///////////////////////
     //////////////INDEX/////////////////
     refreshHasil();
     
@@ -629,7 +629,7 @@
         $.ajax(
         {
             type: "post",
-            url: "<?php echo base_url(); ?>Mid_Report_CRUD/get_kelas",
+            url: "<?php echo base_url(); ?>Report_CRUD/get_kelas",
             data:{
                 'id':id,
             },
@@ -667,7 +667,7 @@
         $.ajax(
         {
             type: "post",
-            url: "<?php echo base_url(); ?>Mid_Report_CRUD/get_siswa",
+            url: "<?php echo base_url(); ?>Report_CRUD/get_siswa",
             data:{
                 'id':id,
             },
@@ -680,9 +680,13 @@
               }else{
                 var i;
                 html ="";
+
+                html += '<hr><div class="form-group d-flex justify-content-center"><label class="checkbox-inline mr-2"><input class="checkAll" type="checkbox"> <b><u>CHECK ALL</u></b></label><label class="checkbox-inline mr-2"><input class="checkSsp" checked type="checkbox"> <b><u>SHOW SSP</u></b></label><label class="checkbox-inline "><input class="checkSsp" checked type="checkbox"> <b><u>SHOW SCOUT</u></b></label></div><hr>';
+
+
                 for(i=0; i<data.length; i++){
-                  html += '<div class="checkbox ml-2" name="siswa_check[]">';
-                  html += '<label><input type="checkbox" value="'+data[i].sis_id+'"> '+data[i].sis_nama_depan+' '+data[i].sis_nama_bel+'</label>';
+                  html += '<div class="checkbox ml-2">';
+                  html += '<label><input type="checkbox" name="siswa_check[]" class="sisC" value="'+data[i].d_s_id+'"> '+data[i].sis_nama_depan+' '+data[i].sis_nama_bel+'</label>';
                   html += '</div>';
                 }
 
@@ -693,10 +697,17 @@
               }
               
               $('#siswa_ajax').html(html);
+              refreshCheck();
               
             }
         });
       }); 
+    }
+    
+    function refreshCheck(){
+      $(".checkAll").click(function () {
+        $('input.sisC:checkbox').not(this).prop('checked', this.checked);
+      });
     }
     /////////////////////////////
     /////////////////////////////

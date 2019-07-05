@@ -79,7 +79,7 @@ class Tes_CRUD extends CI_Controller
   
       $jenj_id = $jenjang['jenj_id'];
       $data = $this->db->query(
-        "SELECT topik_id, topik_nama
+        "SELECT topik_id, topik_nama, topik_semester
         FROM topik
         LEFT JOIN jenj ON topik_jenj_id = jenj_id
         LEFT JOIN mapel ON topik_mapel_id = mapel_id

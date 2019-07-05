@@ -12,7 +12,7 @@
 
             <?= $this->session->flashdata('message'); ?>
 
-            <form class="user" action="Komen_CRUD/input" method="POST">
+            <form class="user" action="Report_CRUD/show" method="POST">
 
               <div class="form-group row">
                 <div class="col-sm mb-sm-0">
@@ -23,6 +23,12 @@
                         <?= $m['t_nama']; ?>
                       </option>
                     <?php endforeach ?>
+                  </select>
+                </div>
+                <div class="col-sm mb-sm-0">
+                  <select name="pJenis" id="pJenis" class="form-control">
+                    <option value="0">Report Mid</option>
+                    <option value="1">Report Final</option>
                   </select>
                 </div>
               </div>

@@ -105,8 +105,7 @@
               <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Print</h6>
-                  <a class="collapse-item" href='.base_url('Mid_Report_CRUD').'>Mid</a>
-                  <a class="collapse-item" href='.base_url('Final_Report_CRUD').'>Final</a>
+                  <a class="collapse-item" href='.base_url('Report_CRUD').'>Report</a>
                 </div>
               </div>
             </li>
