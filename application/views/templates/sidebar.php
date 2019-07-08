@@ -12,14 +12,14 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-    <!-- MANAJEMEN MENU -->
-    <?php
+      <!-- MANAJEMEN MENU -->
+      <?php
 
       //echo $this->Menu->show_hello_world();
 
-      if($this->session->userdata('kr_jabatan_id')==1 && $this->session->userdata('kr_jabatan_id')){
+      if ($this->session->userdata('kr_jabatan_id') == 1 && $this->session->userdata('kr_jabatan_id')) {
         //Administrator atau Super Admin
-        echo'<div class="sidebar-heading">Administrator</div>
+        echo '<div class="sidebar-heading">Administrator</div>
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
@@ -28,16 +28,16 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master:</h6>
-                  <a class="collapse-item" href='.base_url('Sekolah_CRUD').'>School</a>
-                  <a class="collapse-item" href='.base_url('Tahun_CRUD').'>Year</a>
+                  <a class="collapse-item" href=' . base_url('Sekolah_CRUD') . '>School</a>
+                  <a class="collapse-item" href=' . base_url('Tahun_CRUD') . '>Year</a>
                 </div>
               </div>
             </li>
 
             <hr class="sidebar-divider">';
-      }elseif($this->session->userdata('kr_jabatan_id')==2 && $this->session->userdata('kr_jabatan_id')){
+      } elseif ($this->session->userdata('kr_jabatan_id') == 2 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia karyawan
-        echo'<div class="sidebar-heading">
+        echo '<div class="sidebar-heading">
               Employee
             </div>
 
@@ -56,9 +56,9 @@
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">';
-      }elseif($this->session->userdata('kr_jabatan_id')==3 && $this->session->userdata('kr_jabatan_id')){
+      } elseif ($this->session->userdata('kr_jabatan_id') == 3 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia HRD
-        echo'<div class="sidebar-heading">
+        echo '<div class="sidebar-heading">
               HRD
             </div>
 
@@ -70,15 +70,15 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master</h6>
-                  <a class="collapse-item" href='.base_url('Karyawan_CRUD').'>Employee</a>
+                  <a class="collapse-item" href=' . base_url('Karyawan_CRUD') . '>Employee</a>
                 </div>
               </div>
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">';
-      }elseif($this->session->userdata('kr_jabatan_id')==4 && $this->session->userdata('kr_jabatan_id')){
+      } elseif ($this->session->userdata('kr_jabatan_id') == 4 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia wakakur
-        echo'<div class="sidebar-heading">
+        echo '<div class="sidebar-heading">
               Curriculum
             </div>
 
@@ -90,9 +90,9 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master</h6>
-                  <a class="collapse-item" href='.base_url('Jenjang_CRUD').'>Level</a>
-                  <a class="collapse-item" href='.base_url('Mapel_CRUD').'>Subject</a>
-                  <a class="collapse-item" href='.base_url('Kelas_CRUD').'>Class</a>
+                  <a class="collapse-item" href=' . base_url('Jenjang_CRUD') . '>Level</a>
+                  <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>Subject</a>
+                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>Class</a>
                 </div>
               </div>
             </li>
@@ -105,35 +105,35 @@
               <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Print</h6>
-                  <a class="collapse-item" href='.base_url('Report_CRUD').'>Report</a>
+                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>Report</a>
                 </div>
               </div>
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">';
-      }elseif($this->session->userdata('kr_jabatan_id')==5 && $this->session->userdata('kr_jabatan_id')){
+      } elseif ($this->session->userdata('kr_jabatan_id') == 5 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia Kadiv
-        echo'<div class="sidebar-heading">
+        echo '<div class="sidebar-heading">
               Head of Education Department
             </div>
 
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Report</span>
+                <span>Education Department</span>
               </a>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Master</h6>
-                  <a class="collapse-item" href='.base_url('Disjam_CRUD').'>Hours Distribution</a>
+                  <h6 class="collapse-header">Menu</h6>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>Hours Distribution</a>
                 </div>
               </div>
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">';
-      }elseif($this->session->userdata('kr_jabatan_id')==6 && $this->session->userdata('kr_jabatan_id')){
+      } elseif ($this->session->userdata('kr_jabatan_id') == 6 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia TU
-        echo'<div class="sidebar-heading">
+        echo '<div class="sidebar-heading">
               School Administrative
             </div>
 
@@ -145,15 +145,15 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master</h6>
-                  <a class="collapse-item" href='.base_url('Siswa_CRUD').'>Student</a>
+                  <a class="collapse-item" href=' . base_url('Siswa_CRUD') . '>Student</a>
                 </div>
               </div>
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">';
-      }elseif($this->session->userdata('kr_jabatan_id')==7 && $this->session->userdata('kr_jabatan_id')){
+      } elseif ($this->session->userdata('kr_jabatan_id') == 7 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia Guru
-        echo'<div class="sidebar-heading">
+        echo '<div class="sidebar-heading">
               Master Menu
             </div>
 
@@ -165,7 +165,7 @@
               <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
-                  <a class="collapse-item" href='.base_url('Topik_CRUD').'>Topic</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>Topic</a>
                 </div>
               </div>
             </li>
@@ -183,16 +183,16 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Grade</h6>
-                  <a class="collapse-item" href='.base_url('Uj_CRUD').'>Mid & Final</a>
-                  <a class="collapse-item" href='.base_url('Tes_CRUD').'>Cognitive & Psychomotor</a>
-                  <a class="collapse-item" href='.base_url('Afek_CRUD').'>Affective</a>
+                  <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>Mid & Final</a>
+                  <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>Cognitive & Psychomotor</a>
+                  <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>Affective</a>
                 </div>
               </div>
             </li>
             <hr class="sidebar-divider d-none d-md-block">';
-            
-          if (walkel_menu()>=1){
-            echo ' <div class="sidebar-heading">
+
+        if (walkel_menu() >= 1) {
+          echo ' <div class="sidebar-heading">
                     Homeroom Menu
                   </div>
                   <li class="nav-item">
@@ -203,16 +203,16 @@
                     <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Master</h6>
-                        <a class="collapse-item" href='.base_url('Komen_CRUD').'>Comment</a>
+                        <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>Comment</a>
                       </div>
                     </div>
                   </li>
                   <hr class="sidebar-divider d-none d-md-block">
             ';
-          }
-      }elseif($this->session->userdata('kr_jabatan_id')==8 && $this->session->userdata('kr_jabatan_id')){
+        }
+      } elseif ($this->session->userdata('kr_jabatan_id') == 8 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia BK
-        echo'<div class="sidebar-heading">
+        echo '<div class="sidebar-heading">
               Master Menu
             </div>
 
@@ -224,7 +224,7 @@
               <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
-                  <a class="collapse-item" href='.base_url('K_afek_CRUD').'>Afective Topic</a>
+                  <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>Afective Topic</a>
                 </div>
               </div>
             </li>
@@ -242,7 +242,7 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Grade</h6>
-                  <a class="collapse-item" href='.base_url('').'>CB</a>
+                  <a class="collapse-item" href=' . base_url('') . '>CB</a>
                 </div>
               </div>
             </li>
@@ -250,7 +250,7 @@
             <hr class="sidebar-divider d-none d-md-block">
           ';
       }
-    ?>
+      ?>
 
 
 
