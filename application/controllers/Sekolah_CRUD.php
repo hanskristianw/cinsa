@@ -69,9 +69,18 @@ class Sekolah_CRUD extends CI_Controller
       $this->load->view('sekolah_crud/add', $data);
       $this->load->view('templates/footer');
     } else {
+      $rawdate = htmlentities($this->input->post('sk_mid'));
+      $sk_mid = date('Y-m-d', strtotime($rawdate));
+      
+      $rawdate = htmlentities($this->input->post('sk_fin'));
+      $sk_fin = date('Y-m-d', strtotime($rawdate));
+
       $data = [
         'sk_nama' => $this->input->post('sk_nama'),
-        'sk_nickname' => $this->input->post('sk_nickname')
+        'sk_nickname' => $this->input->post('sk_nickname'),
+        'sk_mid' => $sk_mid,
+        'sk_kepsek' => $this->input->post('kr_id'),
+        'sk_fin' => $sk_fin
       ];
 
       $this->db->insert('sk', $data);
@@ -109,6 +118,7 @@ class Sekolah_CRUD extends CI_Controller
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['jabatan_all'] = $this->_jabatan->return_all();
       $data['st_all'] = $this->_st->return_all();
+      $data['guru_all'] = $this->_kr->return_all_teacher();
 
       //simpan data primary key
       $sk_id = $this->input->get('_id', true);
@@ -123,9 +133,17 @@ class Sekolah_CRUD extends CI_Controller
       $this->load->view('templates/footer');
     } else {
       //fetch data hasil inputan
+      $rawdate = htmlentities($this->input->post('sk_mid'));
+      $sk_mid = date('Y-m-d', strtotime($rawdate));
+      
+      $rawdate = htmlentities($this->input->post('sk_fin'));
+      $sk_fin = date('Y-m-d', strtotime($rawdate));
       $data = [
         'sk_nama' => $this->input->post('sk_nama'),
-        'sk_nickname' => $this->input->post('sk_nickname')
+        'sk_nickname' => $this->input->post('sk_nickname'),
+        'sk_mid' => $sk_mid,
+        'sk_kepsek' => $this->input->post('kr_id'),
+        'sk_fin' => $sk_fin
       ];
 
       //simpan ke db

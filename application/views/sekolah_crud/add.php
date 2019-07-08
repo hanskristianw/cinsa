@@ -40,6 +40,16 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <div class="col-sm mb-3 mb-sm-0">
+                                    <label for="sk_mid"><b><u>Report Mid Date</u>:</b></label>
+                                    <input type="date" name="sk_mid" class="form-control form-control-sm" value="<?= set_value('sk_mid'); ?>">
+                                </div>
+                                <div class="col-sm mb-3 mb-sm-0">
+                                    <label for="sk_mid"><b><u>Report Final Date</u>:</b></label>
+                                    <input type="date" name="sk_fin" class="form-control form-control-sm" value="<?= set_value('sk_fin'); ?>">
+                                </div>
+                            </div>
                             <button type="submit" class="btn btn-primary btn-user btn-block">
                                 Insert
                             </button>

@@ -102,8 +102,10 @@ class Report_CRUD extends CI_Controller
   
       $data['sis_arr'] = $this->input->post('siswa_check[]',TRUE);
       $data['semester'] = $this->input->post('semester',TRUE);
-        
-  
+
+      $data['kepsek'] = $this->_sk->find_by_id($this->session->userdata('kr_sk_id'));
+      $data['walkel'] = $this->_kelas->find_walkel_by_kelas_id($this->input->post('kelas_id',TRUE));
+
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
       $this->load->view('templates/topbar',$data);

@@ -14,6 +14,11 @@
                 $nomor = 1;
                 $siswa = return_raport_mid($sis_arr[$i], $semester);
 
+                $tanggal_arr = explode('-', $kepsek['sk_mid']);
+                $tahun = $tanggal_arr[0];
+                $bulan = return_nama_bulan($tanggal_arr[1]);
+                $tanggal = $tanggal_arr[2];
+
                 if(isset($siswa[0]['sis_nama_depan'])):
             ?>
               <hr style="height:5px; visibility:hidden;" />
@@ -68,7 +73,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                  <?php foreach($siswa as $m) : ?>
+                  <?php foreach($siswa as $m) : 
+                      if($semester==1)$komen_mid=$m['d_s_komen_sis'];else $komen_mid=$m['d_s_komen_sis2'];
+                  ?>
                     <tr>
                       <td class='nomor'><?= $nomor ?></td>
                       <td style='padding: 0px 0px 0px 5px; margin: 0px;'><?= $m['mapel_nama'] ?></td>
@@ -76,6 +83,10 @@
                       <?= returnQATastd($m['kq'],$m['ka'],$m['kt'],$m['pq'],$m['pa'],$m['pt'],$m['minggu1'],$m['minggu2'],$m['minggu3'],$m['minggu4'],$m['minggu5'],$m['uj_mid1_kog'],$m['uj_mid1_psi']); ?>
                     </tr>
                   <?php endforeach;?>
+                  <tr>
+                    <td class='kkm' colspan='2'>Homeroom Teacher's Comment</td>
+                    <td colspan='16' cellpadding='20' style='padding: 0px 0px 0px 5px;'> <?= $komen_mid ?></td>
+                  </tr>
                 </tbody>
               </table>
               
@@ -86,15 +97,15 @@
                 ............................................
                 </p>
                 <p class='alignright_bawah'>
-                <br>Surabaya, ,<br>
+                <br>Surabaya, <?= $bulan.' '.$tanggal.', '.$tahun ?><br>
                 Homeroom Teacher<br><br><br>
-                <b></b><br>
+                <b><?= $walkel['kr_nama_depan'].' '.$walkel['kr_nama_belakang']; ?></b><br>
                 </p>
             </div>
 
             <div style='clear: both;'></div>
 
-            <p class='aligncenter_bawah'>Acknowledged by<br>Principal<br><br><br><b></b></p>
+            <p class='aligncenter_bawah'>Acknowledged by<br>Principal<br><br><br><b></b><?= $kepsek['kr_nama_depan'].' '.$kepsek['kr_nama_belakang']; ?></p>
             
             <p style="page-break-after: always;">&nbsp;</p>
 

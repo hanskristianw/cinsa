@@ -25,6 +25,33 @@
                             <input type="text" class="form-control" id="sk_nickname" name="sk_nickname" placeholder="School Nickname (Ex: Highschool, Elementary)" value="<?= set_value('sk_nickname',$sk_update['sk_nickname']); ?>">
                             <?php echo form_error('sk_nickname','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
+                        <div class="col-sm mb-3 mb-sm-0">
+                            <select name="kr_id" id="kr_id" class="form-control mb-2">
+                                <?php
+                                $_selected = set_value(kr_id,$sk_update['sk_kepsek']);
+
+                                echo "<option value= '0'> Select Principal</option>";
+                                foreach ($guru_all as $n) :
+                                    if ($_selected == $n['kr_id']) {
+                                        $s = "selected";
+                                    } else {
+                                        $s = "";
+                                    }
+                                    echo "<option value=" . $n['kr_id'] . " " . $s . ">" . $n['kr_nama_depan'] . " " . $n['kr_nama_belakang'][0] . "</option>";
+                                endforeach
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm mb-3 mb-sm-0">
+                            <label for="sk_mid"><b><u>Report Mid Date</u>:</b></label>
+                            <input type="date" name="sk_mid" class="form-control form-control-sm" value="<?= set_value('sk_mid',$sk_update['sk_mid']); ?>">
+                        </div>
+                        <div class="col-sm mb-3 mb-sm-0">
+                            <label for="sk_mid"><b><u>Report Final Date</u>:</b></label>
+                            <input type="date" name="sk_fin" class="form-control form-control-sm" value="<?= set_value('sk_fin',$sk_update['sk_fin']); ?>">
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
                         Update

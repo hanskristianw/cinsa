@@ -28,7 +28,7 @@
                   <tr>
                     <td><?= $m['sk_nama'] ?></td>
                     <td><?= $m['sk_nickname'] ?></td>
-                    <td><?= $m['sk_kepsek'] ?></td>
+                    <td><?= $m['kr_nama_depan'].' '.$m['kr_nama_belakang'] ?></td>
                     <td><?= $m['sk_mid'] ?></td>
                     <td><?= $m['sk_fin'] ?></td>
                     <td>

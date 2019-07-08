@@ -47,7 +47,7 @@ function return_raport_mid($d_s_id, $semester){
       ORDER BY mapel_urutan)as formative
       LEFT JOIN
       (
-        SELECT sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama, mapel_id, uj_mid1_kog, uj_mid1_psi
+        SELECT sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama, mapel_id, uj_mid1_kog, uj_mid1_psi, d_s_komen_sis, d_s_komen_sis2
         FROM uj
         LEFT JOIN mapel
         ON uj_mapel_id = mapel_id
@@ -189,4 +189,36 @@ function return_abjad_afek($nilai){
   }else{
       return "D";
   }
+}
+
+function return_nama_bulan($bulan_angka){
+  if($bulan_angka == '1'){
+    $bulan = 'January';
+  }elseif($bulan_angka == '2'){
+    $bulan = 'February';
+  }elseif($bulan_angka == '3'){
+    $bulan = 'March';
+  }elseif($bulan_angka == '4'){
+    $bulan = 'April';
+  }elseif($bulan_angka == '5'){
+    $bulan = 'May';
+  }elseif($bulan_angka == '6'){
+    $bulan = 'June';
+  }elseif($bulan_angka == '7'){
+    $bulan = 'July';
+  }elseif($bulan_angka == '8'){
+    $bulan = 'August';
+  }elseif($bulan_angka == '9'){
+    $bulan = 'September';
+  }elseif($bulan_angka == '10'){
+    $bulan = 'October';
+  }elseif($bulan_angka == '11'){
+    $bulan = 'November';
+  }elseif($bulan_angka == '12'){
+    $bulan = 'December';
+  }else{
+    $bulan = '';
+  }
+
+  return $bulan;
 }
