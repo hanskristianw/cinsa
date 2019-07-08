@@ -18,6 +18,10 @@
                             <input type="text" class="form-control" id="sk_nama" name="sk_nama" placeholder="School Name" value="<?= set_value('sk_nama') ?>">
                             <?= form_error('sk_nama','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
+                        <div class="col-sm mb-3 mb-sm-0">
+                            <input type="text" class="form-control" id="sk_nickname" name="sk_nickname" placeholder="School Nickname (Ex: Highschool, Elementary)" value="<?= set_value('sk_nickname'); ?>">
+                            <?php echo form_error('sk_nickname','<small class="text-danger pl-3">','</small>'); ?>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
                         Insert

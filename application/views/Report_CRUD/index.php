@@ -26,6 +26,12 @@
                   </select>
                 </div>
                 <div class="col-sm mb-sm-0">
+                  <select name="semester" id="semester" class="form-control">
+                    <option value="1">Odd Semester</option>
+                    <option value="2">Even Semester</option>
+                  </select>
+                </div>
+                <div class="col-sm mb-sm-0">
                   <select name="pJenis" id="pJenis" class="form-control">
                     <option value="0">Report Mid</option>
                     <option value="1">Report Final</option>

@@ -50,10 +50,11 @@ class Sekolah_CRUD extends CI_Controller
 
   public function add(){
 
-		$this->form_validation->set_rules('sk_nama', 'Nama Sekolah', 'required|trim|is_unique[sk.sk_nama]',['is_unique' => 'This School name already exist!']);
+		$this->form_validation->set_rules('sk_nama', 'School Name', 'required|trim');
+		$this->form_validation->set_rules('sk_nickname', 'School Nickname', 'required|trim');
 
 		if($this->form_validation->run() == false){
-			$data['title'] = 'Create School Name';
+			$data['title'] = 'Create School';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -67,11 +68,12 @@ class Sekolah_CRUD extends CI_Controller
 		}
 		else{
 			$data = [
-				'sk_nama' => $this->input->post('sk_nama')
+				'sk_nama' => $this->input->post('sk_nama'),
+				'sk_nickname' => $this->input->post('sk_nickname')
 			];
 
 			$this->db->insert('sk', $data);
-			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">School Name Created!</div>');
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">School Created!</div>');
 			redirect('sekolah_crud/add');
 		}
 
@@ -95,10 +97,11 @@ class Sekolah_CRUD extends CI_Controller
     }
     
     $this->form_validation->set_rules('sk_nama', 'School Name', 'required|trim');
+    $this->form_validation->set_rules('sk_nickname', 'School Nickname', 'required|trim');
 
     if($this->form_validation->run() == false){
       //jika menekan tombol edit
-      $data['title'] = 'Update School Name';
+      $data['title'] = 'Update School';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -121,6 +124,7 @@ class Sekolah_CRUD extends CI_Controller
       //fetch data hasil inputan
       $data = [
         'sk_nama' => $this->input->post('sk_nama'),
+        'sk_nickname' => $this->input->post('sk_nickname')
       ];
 
       //simpan ke db
@@ -128,7 +132,7 @@ class Sekolah_CRUD extends CI_Controller
       $this->db->where('sk_id', $this->input->post('_id'));
       $this->db->update('sk', $data); 
       
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">School Name Updated!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">School Updated!</div>');
       redirect('Sekolah_CRUD');
     }
 

@@ -88,7 +88,12 @@ class Report_CRUD extends CI_Controller
 
   public function show(){
 
-    if($this->input->post('siswa_check[]',TRUE)){
+    if($this->input->post('siswa_check[]',TRUE) || $this->input->post('semester',TRUE)){
+
+      if(count($this->input->post('siswa_check[]',TRUE))==0){
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Select one or more student!</div>');
+        redirect('Report_CRUD');
+      }
 
       $data['title'] = 'Class List';
 
@@ -96,6 +101,7 @@ class Report_CRUD extends CI_Controller
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
   
       $data['sis_arr'] = $this->input->post('siswa_check[]',TRUE);
+      $data['semester'] = $this->input->post('semester',TRUE);
         
   
       $this->load->view('templates/header',$data);
@@ -105,7 +111,7 @@ class Report_CRUD extends CI_Controller
       $this->load->view('templates/footer');
 
     }else{
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Whoopsie doopsie, what are you doing there!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Do not access page directly!</div>');
       redirect('Profile');
     }
   }

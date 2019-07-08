@@ -16,6 +16,7 @@
                     <thead>
                       <tr>
                         <th>School Name</th>
+                        <th>School Nickname</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -23,6 +24,7 @@
                       <?php foreach($sk_all as $m) : ?>
                         <tr>
                           <td><?= $m['sk_nama'] ?></td>
+                          <td><?= $m['sk_nickname'] ?></td>
                           <td>
                             <div class="form-group row">
                               <form class="" action="<?= base_url('Sekolah_CRUD/update') ?>" method="get">

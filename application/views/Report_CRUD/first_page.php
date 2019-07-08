@@ -12,9 +12,27 @@
             <?php
               for($i=0;$i<count($sis_arr);$i++):
                 $nomor = 1;
-                $siswa = return_raport_mid($sis_arr[$i]);
+                $siswa = return_raport_mid($sis_arr[$i], $semester);
+
+                if(isset($siswa[0]['sis_nama_depan'])):
             ?>
-                
+              <hr style="height:5px; visibility:hidden;" />
+
+              
+
+              <br><br><br>
+              <div id='textbox'>
+                <p class='alignleft'>
+                  STUDENT'S NAME &nbsp&nbsp&nbsp&nbsp&nbsp&emsp;&emsp;&emsp;:&nbsp<?= $siswa[0]['sis_nama_depan'].' '.$siswa[0]['sis_nama_bel'] ?><br>
+                  STUDENT ID &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&emsp;&emsp;&emsp;:&nbsp<?= $siswa[0]['sis_no_induk'] ?><br>
+                </p>
+                <p class='alignright'>
+                  GRADE &nbsp&nbsp&nbsp&nbsp&emsp;&emsp;&emsp;&thinsp;:&nbsp<?= $siswa[0]['kelas_nama'] ?><br>
+                  SEMESTER &nbsp&emsp;&thinsp;&emsp;: <?php if($semester==1)echo "Odd";else echo "Even"; ?><br>
+                </p>
+              </div>
+
+              <div style='clear: both;'></div>
               <table style='margin-top: 5px;' class='rapot'>
                 <thead>
                     <tr>
@@ -55,14 +73,34 @@
                       <td class='nomor'><?= $nomor ?></td>
                       <td style='padding: 0px 0px 0px 5px; margin: 0px;'><?= $m['mapel_nama'] ?></td>
                       <td class='kkm' style='padding: 0px 0px 0px 5px; margin: 0px;'><?= $m['mapel_kkm'] ?></td>
-                      <?= returnQATastd($m['kq'],$m['ka'],$m['kt'],$m['pq'],$m['pa'],$m['pt'],$m['uj_mid1_kog'],$m['uj_mid1_psi']); ?>
+                      <?= returnQATastd($m['kq'],$m['ka'],$m['kt'],$m['pq'],$m['pa'],$m['pt'],$m['minggu1'],$m['minggu2'],$m['minggu3'],$m['minggu4'],$m['minggu5'],$m['uj_mid1_kog'],$m['uj_mid1_psi']); ?>
                     </tr>
                   <?php endforeach;?>
                 </tbody>
               </table>
               
+              <div id='textbox'>
+                <p class='alignleft_bawah'>
+                <br>Acknowledged by<br>
+                Parents / Guardian<br><br><br>
+                ............................................
+                </p>
+                <p class='alignright_bawah'>
+                <br>Surabaya, ,<br>
+                Homeroom Teacher<br><br><br>
+                <b></b><br>
+                </p>
+            </div>
+
+            <div style='clear: both;'></div>
+
+            <p class='aligncenter_bawah'>Acknowledged by<br>Principal<br><br><br><b></b></p>
+            
+            <p style="page-break-after: always;">&nbsp;</p>
+
             <?php 
-              $nomor++;
+                $nomor++;
+                endif;
               endfor;
             ?>
             
