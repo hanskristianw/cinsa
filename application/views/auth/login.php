@@ -14,7 +14,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-3">Sistem Administrasi Sekolah</h1>
                     <hr>
-                    <img src="<?= base_url('assets/img/profile/yppi.png'); ?>" class="mb-4 rounded-circle">
+                    <img src="<?= base_url('assets/img/profile/yppi.png'); ?>" class="mb-4 img-fluid rounded-circle">
                   </div>
 
                   <?= $this->session->flashdata('message'); ?>

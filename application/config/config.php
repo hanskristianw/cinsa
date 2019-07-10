@@ -1,7 +1,34 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$config['base_url'] = 'http://localhost/cinsa';
+function get_client_ip() {
+  $ipaddress = '';
+  if (getenv('HTTP_CLIENT_IP'))
+      $ipaddress = getenv('HTTP_CLIENT_IP');
+  else if(getenv('HTTP_X_FORWARDED_FOR'))
+      $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+  else if(getenv('HTTP_X_FORWARDED'))
+      $ipaddress = getenv('HTTP_X_FORWARDED');
+  else if(getenv('HTTP_FORWARDED_FOR'))
+      $ipaddress = getenv('HTTP_FORWARDED_FOR');
+  else if(getenv('HTTP_FORWARDED'))
+     $ipaddress = getenv('HTTP_FORWARDED');
+  else if(getenv('REMOTE_ADDR'))
+      $ipaddress = getenv('REMOTE_ADDR');
+  else
+      $ipaddress = 'UNKNOWN';
+  return $ipaddress;
+}
+
+$ip = explode(".",get_client_ip());
+
+if($ip[0]=="182" || $ip[0]=="192" || $ip[0]=="::1"){
+  $config['base_url'] = 'http://localhost/cinsa';
+}else{
+  $config['base_url'] = 'http://182.30.24.21/cinsa';
+}
+
+
 
 $config['index_page'] = '';
 
