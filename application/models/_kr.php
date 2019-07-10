@@ -20,7 +20,7 @@ class _kr extends CI_Model {
   }
 
   public function find_by_username($kr_username){
-    return $this->db->where('kr_username', $kr_username)->get('kr')->row_array();
+    return $this->db->join('sk','kr_sk_id=sk_id','Left')->where('kr_username', $kr_username)->get('kr')->row_array();
   }
 
   public function find_by_id($kr_id){

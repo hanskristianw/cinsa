@@ -8,7 +8,7 @@ class _jabatan extends CI_Model {
 
   //return semua jabatan selain admin
   public function return_all(){
-    return $this->db->get('jabatan')->result_array();
+    return $this->db->order_by("jabatan_nama", "ASC")->get('jabatan')->result_array();
   }
 
   public function find_jabatan_nama($jabatan_id){

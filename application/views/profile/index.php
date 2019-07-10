@@ -16,15 +16,23 @@
                     <table>
                       <tr>
                         <td><h5><b>Full name</b></h5></td>
-                        <td><h5>:&nbsp<?= $kr['kr_nama_depan'].' '.$kr['kr_nama_belakang'] ?></h5></td>
+                        <td><h5><b>&nbsp:&nbsp</b></h5></td>
+                        <td class="p-1"><h5><?= $kr['kr_nama_depan'].' '.$kr['kr_nama_belakang'] ?></h5></td>
+                      </tr>
+                      <tr>
+                        <td><h5><b>Unit</b></h5></td>
+                        <td><h5><b>&nbsp:&nbsp</b></h5></td>
+                        <td class="p-1"><h5><?= $kr['sk_nama'] ?></h5></td>
                       </tr>
                       <tr>
                         <td><h5><b>Department</b></h5></td>
-                        <td><h5>:&nbsp<?= $jabatan['jabatan_nama']?></h5></td>
+                        <td><h5><b>&nbsp:&nbsp</b></h5></td>
+                        <td class="p-1"><h5><?= $jabatan['jabatan_nama']?></h5></td>
                       </tr>
                       <tr>
                         <td><h5><b>User since</b></h5></td>
-                        <td><h5>:&nbsp<?= date('d F Y', $kr['kr_date_created']); ?></h5></td>
+                        <td><h5><b>&nbsp:&nbsp</b></h5></td>
+                        <td class="p-1"><h5><?= date('d F Y', $kr['kr_date_created']); ?></h5></td>
                       </tr>
                     </table>
                   </div>

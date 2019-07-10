@@ -93,6 +93,7 @@
                   <a class="collapse-item" href=' . base_url('Jenjang_CRUD') . '>Level</a>
                   <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>Subject</a>
                   <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>Class</a>
+                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>SSP</a>
                 </div>
               </div>
             </li>
