@@ -38,6 +38,8 @@
     </div>
   </div>
 
+ 
+
   <!-- Bootstrap core JavaScript-->
   <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
   <script src="<?= base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -47,7 +49,9 @@
 
   <!-- Custom scripts for all pages-->
   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
   <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
+  <script src="<?= base_url('assets/'); ?>js/ssp_topik_crud.js"></script>
 
 </body>
 
@@ -217,7 +221,7 @@
     //////COGNITIVE - PSYSCHOMOTOR//////
     //////////////INDEX/////////////////
     $('#kog_quiz_persen').on('change', function() {
-      var total = 100-$(this).val()-$("#kog_test_persen").val()-$("#kog_ass_persen").val();;
+      var total = 100-$(this).val()-$("#kog_test_persen").val()-$("#kog_ass_persen").val();
       
       if(total == 0){
         $("#btn-save").removeAttr('disabled');
@@ -230,7 +234,7 @@
     });
 
     $('#kog_test_persen').on('change', function() {
-      var total = 100-$(this).val()-$("#kog_quiz_persen").val()-$("#kog_ass_persen").val();;
+      var total = 100-$(this).val()-$("#kog_quiz_persen").val()-$("#kog_ass_persen").val();
       
       if(total == 0){
         $("#btn-save").removeAttr('disabled');
@@ -242,7 +246,7 @@
     });
 
     $('#kog_ass_persen').on('change', function() {
-      var total = 100-$(this).val()-$("#kog_quiz_persen").val()-$("#kog_test_persen").val();;
+      var total = 100-$(this).val()-$("#kog_quiz_persen").val()-$("#kog_test_persen").val();
       
       if(total == 0){
         $("#btn-save").removeAttr('disabled');
@@ -254,7 +258,7 @@
     });
 
     $('#psi_quiz_persen').on('change', function() {
-      var total = 100-$(this).val()-$("#psi_test_persen").val()-$("#psi_ass_persen").val();;
+      var total = 100-$(this).val()-$("#psi_test_persen").val()-$("#psi_ass_persen").val();
       
       if(total == 0){
         $("#btn-save").removeAttr('disabled');
@@ -267,7 +271,7 @@
     });
 
     $('#psi_test_persen').on('change', function() {
-      var total = 100-$(this).val()-$("#psi_quiz_persen").val()-$("#psi_ass_persen").val();;
+      var total = 100-$(this).val()-$("#psi_quiz_persen").val()-$("#psi_ass_persen").val();
       
       if(total == 0){
         $("#btn-save").removeAttr('disabled');
@@ -279,7 +283,7 @@
     });
 
     $('#psi_ass_persen').on('change', function() {
-      var total = 100-$(this).val()-$("#psi_quiz_persen").val()-$("#psi_test_persen").val();;
+      var total = 100-$(this).val()-$("#psi_quiz_persen").val()-$("#psi_test_persen").val();
       
       if(total == 0){
         $("#btn-save").removeAttr('disabled');
@@ -711,6 +715,75 @@
     }
     /////////////////////////////
     /////////////////////////////
+    ////////SSP TOPIK CRUD//////
+    $('.ssp_topik_ssp_id').on('change', function () {
+      var ssp_id = $(this).val();
+
+      if (ssp_id != 0) {
+        $.ajax(
+          {
+            type: "post",
+            url: "<?php echo base_url(); ?>SSP_topik_CRUD/get_topik",
+            data: {
+              'ssp_id': ssp_id,
+            },
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+              console.log(data);
+              if (data.length == 0) {
+                htmlStr = '<table class="table table-bordered"><thead class="thead-dark"><tr><th>Topic Name</th><th>Semester</th><th>Desc A</th><th>Desc B</th><th>Desc C</th><th>Action</th></tr></thead><tbody>';
+                htmlStr += '<td colspan="6" class="text-center">No Data</td>';
+                htmlStr += '</tr></tbody></table>';
+                $('#sspTabel').html(htmlStr);
+              } else {
+                htmlStr = '<table class="table table-bordered"><thead class="thead-dark"><tr><th>Topic Name</th><th>Semester</th><th>Desc A</th><th>Desc B</th><th>Desc C</th><th>Action</th></tr></thead><tbody>';
+
+                var i;
+                for (i = 0; i < data.length; i++) {
+
+                  semester = "";
+                  if(data[i].ssp_topik_semester == 1){
+                    semester = "Odd";
+                  }else{
+                    semester = "Even";
+                  }
+
+                  htmlStr += '<tr>';
+                  htmlStr += '<td>' + data[i].ssp_topik_nama + '</td>';
+                  htmlStr += '<td>' + semester + '</td>';
+                  htmlStr += '<td>' + data[i].ssp_topik_a + '</td>';
+                  htmlStr += '<td>' + data[i].ssp_topik_b + '</td>';
+                  htmlStr += '<td>' + data[i].ssp_topik_c + '</td>';
+
+                  htmlStr += '<td><div class="form-group row p-2"><form action="ssp_topik_crud/edit_page" method="POST">';
+                  htmlStr += '<input type="hidden" name="_id" value=' + data[i].ssp_topik_id + '>';
+                  htmlStr += '<button type="submit" class="badge badge-success">';
+                  htmlStr += '<i class="fa fa-edit"></i>';
+                  htmlStr += 'Edit Topic';
+                  htmlStr += '</button></form></div></td>';
+                  
+                  htmlStr += '</tr>';
+                }
+
+                htmlStr += '</tbody></table>';
+              }
+
+              $('#sspTabel').html(htmlStr);
+
+            }
+          });
+      } else {
+        htmlStr = '<table class="table table-bordered"><thead class="thead-dark"><tr><th>Topic Name</th><th>Semester</th><th>Desc A</th><th>Desc B</th><th>Desc C</th><th>Action</th></tr></thead><tbody>';
+        htmlStr += '<td colspan="6" class="text-center">No Data</td>';
+        htmlStr += '</tr></tbody></table>';
+        $('#sspTabel').html(htmlStr);
+      }
+
+    }).change();
+
+    ///////////////////////////
+    //////////////////////////
 
   });
 </script>

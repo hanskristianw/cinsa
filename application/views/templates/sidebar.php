@@ -155,13 +155,13 @@
       } elseif ($this->session->userdata('kr_jabatan_id') == 7 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia Guru
         echo '<div class="sidebar-heading">
-              Master Menu
+            Subject Menu
             </div>
 
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Master</span>
+                <span>Subject</span>
               </a>
               <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -205,6 +205,27 @@
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Master</h6>
                         <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>Comment</a>
+                      </div>
+                    </div>
+                  </li>
+                  <hr class="sidebar-divider d-none d-md-block">
+            ';
+        }
+
+        if (ssp_menu() >= 1) {
+          echo ' <div class="sidebar-heading">
+                    SSP Menu
+                  </div>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapseTwo">
+                      <i class="fas fa-fw fa-basketball-ball"></i>
+                      <span>SSP</span>
+                    </a>
+                    <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Input</h6>
+                        <a class="collapse-item" href=' . base_url('SSP_topik_CRUD') . '>Topic</a>
+                        <a class="collapse-item" href=' . base_url('SSP_grade_CRUD') . '>Grade</a>
                       </div>
                     </div>
                   </li>

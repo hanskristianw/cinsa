@@ -10,6 +10,14 @@ function walkel_menu(){
   return $count_walkel;
 }
 
+function ssp_menu(){
+  $ci =& get_instance();
+
+  $count_walkel = $ci->db->where('ssp_kr_id',$ci->session->userdata('kr_id'))->from("ssp")->count_all_results();
+  
+  return $count_walkel;
+}
+
 function disjam_sekolah_lain($kr_id, $t_id, $sk_id){
   $ci =& get_instance();
 

@@ -24,7 +24,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php foreach($ssp_all as $m) : ?>
+                      <?php 
+                      foreach($ssp_all as $m) : ?>
                         <tr>
                           <td><?= $m['ssp_nama'] ?></td>
                           <td><?= $m['t_nama'] ?></td>
@@ -35,6 +36,12 @@
                                 <input type="hidden" name="_id" value=<?= $m['ssp_id'] ?>>
                                 <button type="submit" class="badge badge-warning">
                                     Edit
+                                </button>
+                              </form>
+                              <form class="" action="<?= base_url('SSP_CRUD/edit_student') ?>" method="get">
+                                <input type="hidden" name="ssp_id" value=<?= $m['ssp_id'] ?>>
+                                <button type="submit" class="badge badge-success">
+                                    Edit Students
                                 </button>
                               </form>
                               <form class="" action="" method="get">
