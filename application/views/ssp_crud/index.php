@@ -38,7 +38,7 @@
                                     Edit
                                 </button>
                               </form>
-                              <form class="" action="<?= base_url('SSP_CRUD/edit_student') ?>" method="get">
+                              <form class="" action="<?= base_url('SSP_CRUD/edit_student') ?>" method="post">
                                 <input type="hidden" name="ssp_id" value=<?= $m['ssp_id'] ?>>
                                 <button type="submit" class="badge badge-success">
                                     Edit Students

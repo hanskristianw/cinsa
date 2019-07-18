@@ -7,7 +7,7 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4">List of SSP</h1>
+              <h1 class="h4 text-gray-900 mb-4">Select SSP</h1>
             </div>
 
             <?= $this->session->flashdata('message'); ?>
@@ -18,17 +18,16 @@
                 <div class="col-sm mb-sm-0">
                   <select name="arr_ssp" id="arr_ssp" class="form-control">
                     <?php foreach ($ssp_all as $m) : ?>
-                      <option value='<?= $m['ssp_id'] ?>'>
+                      <option value='<?= $m['ssp_id']."|".$m['t_id'] ?>'>
                         <?= "(".$m['t_nama'].") ".$m['ssp_nama'] ?>
                       </option>
                     <?php endforeach ?>
                   </select>
                 </div>
               </div>
-
-              <button type="submit" class="btn btn-primary btn-user btn-block">
-                  Insert Grade
-              </button>
+              <div id="topikSsp_ajax">
+              
+              </div>
             </form>
 
           </div>

@@ -103,14 +103,7 @@ class SSP_CRUD extends CI_Controller
     }
 
     $this->form_validation->set_rules('ssp_nama', 'SSP Name', 'required|trim');
-		// $this->form_validation->set_rules('mapel_sing', 'Abbreviation', 'required|trim');
-  //   $this->form_validation->set_rules('mapel_kkm', 'Passing Grade', 'required|trim|greater_than[0]|less_than[101])');
-  //   $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim');
-    // if($this->input->post('_mapel_urutan') == $this->input->post('mapel_urutan')){
-    //   $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim');
-    // }else{
-    //   $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim|is_unique[mapel.mapel_urutan]', ['is_unique' => 'This order number already exist!']);
-    // }
+    
 
     if($this->form_validation->run() == false){
       //jika menekan tombol edit
@@ -152,95 +145,79 @@ class SSP_CRUD extends CI_Controller
 
   }
 
+  public function get_siswaKelas(){
+    if($this->input->post('id',TRUE)){
+      $kelas_id = $this->input->post('id',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel
+        FROM d_s
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        WHERE d_s_kelas_id = $kelas_id")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Whoopsie doopsie, what are you doing there!</div>');
+      redirect('Profile');
+    }
+  }
+
+  public function get_siswaSSP(){
+    if($this->input->post('sspId',TRUE)){
+      $sspId = $this->input->post('sspId',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, kelas_nama, ssp_peserta_ssp_id
+        FROM ssp_peserta
+        LEFT JOIN d_s ON ssp_peserta_d_s_id = d_s_id
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+        WHERE ssp_peserta_ssp_id = $sspId")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Whoopsie doopsie, what are you doing there!</div>');
+      redirect('Profile');
+    }
+  }
+
   public function edit_student()
   {
 
     $ssp_id_post = $this->input->post('ssp_id', true);
     if (!$ssp_id_post) {
-      $ssp_get = $this->_ssp->find_by_id($this->input->get('ssp_id', true));
-      if (!$ssp_get['ssp_id']) {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
-        redirect('SSP_CRUD');
-      }
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('SSP_CRUD');
     }
+
+    $data['title'] = 'Student List';
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     $sk_id = $this->session->userdata('kr_sk_id');
     $ssp_id = $this->input->post('ssp_id', true);
-    //jika belum ada murid sama sekali
-    $sis_count = $this->db->where('sis_sk_id', $sk_id)->from("sis")->count_all_results();
+    //cari tahun ssp
+    $ssp = $this->db->query(
+      "SELECT ssp_nama, ssp_t_id
+      FROM ssp
+      WHERE ssp_id = $ssp_id")->row_array();
 
-    if ($sis_count == 0) {
-      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Please inform school administrative to add student first!</div>');
-      redirect('Profile');
-    }
+    $ssp_t_id = $ssp['ssp_t_id'];
+    $data['ssp_nama'] = $ssp['ssp_nama'];
+    $data['ssp_id'] = $ssp_id;
 
-    $this->form_validation->set_rules('ssp_id', 'ssp id', 'required|trim');
-    $this->form_validation->set_rules('sis_id', 'sis_id', 'required|trim');
-
-    if ($this->form_validation->run() == false) {
-      $data['title'] = 'All Students';
-    
-      //data karyawan yang sedang login untuk topbar
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['ssp_nama'] = $this->_ssp->find_by_id($this->input->get('ssp_id', true));
+    //cari kelas pada tahun ajaran itu
+    $data['kelas_all'] = $this->db->query(
+      "SELECT kelas_id, kelas_nama
+      FROM kelas
+      WHERE kelas_t_id = $ssp_t_id AND kelas_sk_id = $sk_id")->result_array();
       
-      // $data['sis_all'] = $this->db->query(
-      //   "SELECT * FROM sis
-      //   LEFT JOIN agama ON sis_agama_id = agama_id
-      //   LEFT JOIN t ON sis_t_id = t_id
-      //   LEFT JOIN sk ON sis_sk_id = sk_id
-      //   WHERE sis_sk_id = $sk_id
-      //   AND sis_alumni = 0
-      //   AND sis_id NOT IN (SELECT d_s_sis_id FROM d_s
-      //                       LEFT JOIN sis ON d_s_sis_id = sis_id
-      //                       LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-      //                       WHERE sis_sk_id = $sk_id AND kelas_t_id = " . $data['kelas_all']['kelas_t_id'] . ")
-      //   ORDER BY sis_t_id DESC, sis_nama_depan ASC"
-      // )->result_array();
-
-      $data['sis_all'] = $this->db->query(
-        "SELECT * FROM sis
-        LEFT JOIN agama ON sis_agama_id = agama_id
-        LEFT JOIN t ON sis_t_id = t_id
-        LEFT JOIN sk ON sis_sk_id = sk_id
-        WHERE sis_sk_id = $sk_id
-        AND sis_alumni = 0
-        AND sis_id NOT IN (SELECT ssp_peserta_sis_id FROM ssp_peserta
-                            LEFT JOIN sis ON ssp_peserta_sis_id = sis_id
-                            LEFT JOIN ssp ON ssp_peserta_ssp_id = ssp_id
-                            WHERE sis_sk_id = $sk_id AND sis_t_id = " . $data['ssp_nama']['ssp_t_id'] . ")
-        ORDER BY sis_t_id DESC, sis_nama_depan ASC"
-      )->result_array();
-
-      $data['ssp_peserta'] = $this->db->query(
-        "SELECT * FROM ssp_peserta
-        LEFT JOIN sis ON ssp_peserta_sis_id = sis_id
-        LEFT JOIN t ON sis_t_id = t_id
-        WHERE ssp_peserta_ssp_id = " . $data['ssp_nama']['ssp_id'] . "
-        AND sis_alumni = 0
-        ORDER BY sis_t_id DESC, sis_nama_depan ASC"
-      )->result_array();
-
-
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('ssp_crud/edit_student', $data);
-      $this->load->view('templates/footer');
-    }else{
-      $sis = $this->_siswa->find_by_id($this->input->post('sis_id'));
-
-      //var_dump($sis);
-      $data = [
-        'ssp_peserta_sis_id' => $this->input->post('sis_id'),
-        'ssp_peserta_ssp_id' => $this->input->post('ssp_id')
-      ];
-
-      $this->db->insert('ssp_peserta', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Successfully add ' . $sis['sis_nama_depan'] . '!</div>');
-      redirect('ssp_crud/edit_student?ssp_id=' . $this->input->post('ssp_id'));
-    }
-    
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('ssp_crud/edit_student',$data);
+    $this->load->view('templates/footer');
     
   }
 

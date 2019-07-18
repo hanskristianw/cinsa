@@ -5,86 +5,43 @@
             <!-- Nested Row within Card Body -->
             <div class="row">
                 
-                <div class="col-lg-6">
+                <div class="col-lg-6 p-5">
                     <div class="text-center">
                         <h1 class="h4 text-gray-900 mt-4 mb-4"><?= $title ?></h1>
                     </div>
 
-                    <div class="col-sm mb-3 mb-sm-0 table-responsive">
-                        <table class="table display compact table-hover dt">
-                            <thead>
-                                <tr>
-                                    <th>Student Name</th>
-                                    <th>Reg Number</th>
-                                    <th>Year</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($sis_all as $m) : ?>
-                                    <tr>
-                                        <td><?= $m['sis_nama_depan'] ?> <?= $m['sis_nama_bel'] ?></td>
-                                        <td><?= $m['sis_no_induk'] ?></td>
-                                        <td><?= $m['t_nama'] ?></td>
-                                        <td>
-                                            <div class="form-group row">
-                                                <form class="" action="<?= base_url('SSP_CRUD/edit_student') ?>" method="post">
-                                                    <input type="hidden" name="sis_id" value=<?= $m['sis_id'] ?>>
-                                                    <input type="hidden" name="ssp_id" value=<?= $ssp_nama['ssp_id'] ?>>
-                                                    <button type="submit" class="ml-2 badge badge-success">
-                                                        Add to <?= $ssp_nama['ssp_nama'] ?>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php endforeach ?>
-                            </tbody>
-                        </table>
-
-                        <hr>
-                    </div>
+                    <form class="user" action="SSP_CRUD/input" method="POST">
+                    
+                        <div class="form-group row">
+                            <div class="col-sm mb-sm-0">
+                                <select name="kelas_ssp" id="kelas_ssp" class="form-control">
+                                    <option value="0">Select Class</option>
+                                    <?php foreach ($kelas_all as $m) : ?>
+                                    <option value='<?=$m['kelas_id']?>'>
+                                        <?= $m['kelas_nama'] ?>
+                                    </option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="siswaKelasAjax">
+                        
+                        </div>
+                    </form>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-lg-6 p-5">
                 
                 <div class="text-center">
-                    <h1 class="h4 text-gray-900 mt-4 mb-4">Student in <?= $ssp_nama['ssp_nama'] ?></h1>
+                    <h1 class="h4 text-gray-900 mt-4 mb-4">Student in <?= $ssp_nama ?></h1>
                 </div>
                 <div class="mb-3 pr-3 pl-3"><?= $this->session->flashdata('message'); ?></div>
+                <input type="hidden" value = <?= $ssp_id ?> id="sspInputId">
                 <div class="col-sm mb-3 mb-sm-0 table-responsive">
-                    <table class="table display compact table-hover dt">
-                        <thead>
-                            <tr>
-                                <th>Student Name</th>
-                                <th>Reg Number</th>
-                                <th>Year</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($ssp_peserta as $m) : ?>
-                                <tr>
-                                    <td><?= $m['sis_nama_depan'] ?> <?= $m['sis_nama_bel'] ?></td>
-                                    <td><?= $m['sis_no_induk'] ?></td>
-                                    <td><?= $m['t_nama'] ?></td>
-                                    <td>
-                                        <div class="form-group row">
-                                            <form class="" action="<?= base_url('Siswa_CRUD/update') ?>" method="post">
-                                                <input type="hidden" name="sis_id" value=<?= $m['ssp_peserta_sis_id'] ?>>
-                                                
-                                                <button type="submit" class="ml-2 badge badge-danger">
-                                                    Remove
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-
-                    <hr>
+                    
+                    <div id="siswaSSPAjax">
+                    
+                    </div>
                 </div>
             </div>
                 

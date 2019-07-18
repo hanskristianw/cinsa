@@ -13,6 +13,7 @@ class SSP_topik_CRUD extends CI_Controller
     $this->load->model('_mapel');
     $this->load->model('_jenj');
     $this->load->model('_topik');
+    $this->load->model('_ssp');
 
 
     //jika belum login
@@ -42,12 +43,7 @@ class SSP_topik_CRUD extends CI_Controller
 
     $kr_id = $data['kr']['kr_id'];
 
-    $data['ssp_all'] = $this->db->query(
-      "SELECT ssp_id, ssp_nama, t_nama
-      FROM ssp
-      LEFT JOIN t ON ssp_t_id = t_id
-      WHERE ssp_kr_id = $kr_id
-      ORDER BY t_id DESC, ssp_nama")->result_array();
+    $data['ssp_all'] = $this->_ssp->return_all_by_kr_id($kr_id);
 
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);

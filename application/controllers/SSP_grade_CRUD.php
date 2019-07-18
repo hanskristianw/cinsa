@@ -42,7 +42,7 @@ class SSP_grade_CRUD extends CI_Controller
     //SELECT * from d_mpl WHERE d_mpl_kr_id = $data['kr']['kr_id']
 
     $data['ssp_all'] = $this->db->query(
-      "SELECT ssp_id, ssp_nama, t_nama
+      "SELECT ssp_id, ssp_nama, t_nama, t_id
       FROM ssp
       LEFT JOIN t ON ssp_t_id = t_id
       WHERE ssp_kr_id = $kr_id
@@ -62,15 +62,17 @@ class SSP_grade_CRUD extends CI_Controller
     if($this->input->post('id',TRUE)){
       $id = explode("|",$this->input->post('id',TRUE));
     
-      $mapel_id = $id[0];
-      $kelas_id = $id[1];
+      $ssp_id = $id[0];
+      $t_id = $id[1];
       
-      //temukan jenjang id pada kelas itu
-      $jenjang = $this->db->query(
-        "SELECT jenj_id
-        FROM kelas
-        LEFT JOIN jenj ON kelas_jenj_id = jenj_id
-        WHERE kelas_id = $kelas_id")->row_array();
+      //temukan d_sis pada tahun ajaran itu dari sis id
+      $siswa = $this->db->query(
+        "SELECT *
+        FROM ssp_peserta
+        LEFT JOIN d_s ON ssp_peserta_sis_id = d_s_sis_id
+        LEFT JOIN sis ON ssp_peserta_sis_id = sis_id
+        LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+        WHERE ssp_peserta_ssp_id = $ssp_id AND kelas_t_id = $t_id")->row_array();
   
       //print_r($jenjang['jenj_id']);
   

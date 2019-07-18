@@ -716,6 +716,17 @@
     /////////////////////////////
     /////////////////////////////
     ////////SSP TOPIK CRUD//////
+    $(".page_tambah_topik_ssp").hide();
+    $(".tambah_topik_ssp").click(function () {
+      $(".page_tambah_topik_ssp").show();
+      $('html, body').animate({
+        scrollTop: $("#myDiv").offset().top
+    }, 2000);
+    });
+    $(".close_page_tambah_topik_ssp").click(function () {
+      $(".page_tambah_topik_ssp").hide();
+    });
+    
     $('.ssp_topik_ssp_id').on('change', function () {
       var ssp_id = $(this).val();
 
@@ -781,9 +792,155 @@
       }
 
     }).change();
+    /////////////////////////////
+    /////////////////////////////
+    ////////SSP EDIT STUDENT//////
 
-    ///////////////////////////
-    //////////////////////////
+    var sspId = $("#sspInputId").val();
+    if(sspId){
+      setInterval(function(){
+        refreshSspList();
+      },3000);
+    }
+    
+    function refreshSspList(){
+      var sspId = $("#sspInputId").val();
+     
+      
+      $.ajax({
+          url: '<?php echo base_url(); ?>SSP_CRUD/get_siswaSSP',
+          data:{
+              'sspId':sspId,
+          },
+          type: 'POST',
+          async : true,
+          dataType : 'json',
+          success: function(data){
+            console.log(data);
+            if(data.length == 0){
+              var html = '<div class="text-center mb-3 text-danger"><b>--No Student(s), Inform School Administrative--</b></div>';
+            }else{
+              var i;
+              //alert(data.length);
+              html = "";
+              html += '<table class="table table-sm">';
+              html += '<thead>';
+              html += '<tr>';
+              html += '<th class="w-50">Student Name</th>';
+              html += '<th>Class</th>';
+              html += '<th>Action</th>';
+              html += '</tr>';
+              html += '</thead>';
+              html += '<tbody>';
+              for(i=0; i<data.length; i++){
+                html += '<tr>';
+                html += '<td>' + data[i].sis_nama_depan + ' '+data[i].sis_nama_bel+'</td>';
+                html += '<td>' + data[i].kelas_nama +'</td>';
+                html += '<td>';
+                html += '<form method="post" action="<?= base_url('SSP_CRUD/deleteSiswaSSP') ?>">';
+                html += '<input type="hidden" name="d_s_id" value= '+data[i].d_s_id+'>';
+                html += '<input type="hidden" name="ssp_id" value= '+ sspId +'>';
+                html += '<button type="submit" class="ml-2 btn btn-danger">';
+                html += '<i class="fa fa-trash-alt"></i>';
+                html += '</button>';
+                html += '</form>';
+                html += '</td>';
+                html += '</tr>';
+              }
+              html += '</tbody>';
+              html += '</table><hr>';
+              
+            }
+            
+            $('#siswaSSPAjax').html(html);
+          }
+      });
+    }
+
+    $('#kelas_ssp').change(function(){ 
+        var id=$(this).val();
+        
+        if(id == 0){
+          $('#topikSsp_ajax').html("");
+        }
+
+        $.ajax(
+        {
+            type: "post",
+            url: "<?php echo base_url(); ?>SSP_CRUD/get_siswaKelas",
+            data:{
+                'id':id,
+            },
+            async : true,
+            dataType : 'json',
+            success:function(data)
+            {
+              //console.log(data);
+              html = "";
+              if(data.length == 0){
+                var html = '<div class="text-center mb-3 text-danger"><b>--No Student(s), Inform School Administrative--</b></div>';
+              }else{
+                var i;
+                for(i=0; i<data.length; i++){
+                  html += '<div class="checkbox ml-2">';
+                  html += '<label><input type="checkbox" name="siswa_check[]" class="sisC" value="'+data[i].d_s_id+'"> '+data[i].sis_nama_depan+' '+data[i].sis_nama_bel+'</label>';
+                  html += '</div>';
+                }
+
+                html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+                html += 'Insert to SSP';
+                html += '</button>';
+              }
+              
+              $('#siswaKelasAjax').html(html);
+              
+            }
+        });
+    }); 
+
+    //////////////////////////////
+    /////////////////////////////
+    ////////SSP GRADE INDEX//////
+    /////////////////////////////
+    $('#arr_ssp').change(function(){ 
+        var id=$(this).val();
+        
+        if(id == 0){
+          $('#topikSsp_ajax').html("");
+        }
+
+        $.ajax(
+        {
+            type: "post",
+            url: "<?php echo base_url(); ?>SSP_grade_CRUD/get_topik",
+            data:{
+                'id':id,
+            },
+            async : true,
+            dataType : 'json',
+            success:function(data)
+            {
+              //console.log(data);
+              if(data.length == 0){
+                var html = '<div class="text-center mb-3 text-danger"><b>--No Topic, Please add Topic--</b></div>';
+              }else{
+                var html = '<select name="ssp_topik_id" id="ssp_topik_id" class="form-control mb-3">';
+                var i;
+                for(i=0; i<data.length; i++){
+                    html += '<option value='+data[i].ssp_topik_ssp_id+'>'+data[i].ssp_topik_nama+' (Sem: '+data[i].ssp_topik_semester+')</option>';
+                }
+                html += '</select>';
+
+                html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+                html += 'Insert SSP Grade';
+                html += '</button>';
+              }
+              
+              $('#topikSsp_ajax').html(html);
+              
+            }
+        });
+    }); 
 
   });
 </script>
