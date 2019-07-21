@@ -10,8 +10,6 @@
                         <h1 class="h4 text-gray-900 mt-4 mb-4"><?= $title ?></h1>
                     </div>
 
-                    <form class="user" action="SSP_CRUD/input" method="POST">
-                    
                         <div class="form-group row">
                             <div class="col-sm mb-sm-0">
                                 <select name="kelas_ssp" id="kelas_ssp" class="form-control">
@@ -27,7 +25,6 @@
                         <div id="siswaKelasAjax">
                         
                         </div>
-                    </form>
                 </div>
 
                 <div class="col-lg-6 p-5">
@@ -35,7 +32,7 @@
                 <div class="text-center">
                     <h1 class="h4 text-gray-900 mt-4 mb-4">Student in <?= $ssp_nama ?></h1>
                 </div>
-                <div class="mb-3 pr-3 pl-3"><?= $this->session->flashdata('message'); ?></div>
+                <div class="mb-3 pr-3 pl-3 sspMsg"><?= $this->session->flashdata('message'); ?></div>
                 <input type="hidden" value = <?= $ssp_id ?> id="sspInputId">
                 <div class="col-sm mb-3 mb-sm-0 table-responsive">
                     

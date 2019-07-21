@@ -17,8 +17,9 @@
               <div class="form-group row">
                 <div class="col-sm mb-sm-0">
                   <select name="arr_ssp" id="arr_ssp" class="form-control">
+                    <option value="0">Select SSP</option>
                     <?php foreach ($ssp_all as $m) : ?>
-                      <option value='<?= $m['ssp_id']."|".$m['t_id'] ?>'>
+                      <option value='<?= $m['ssp_id'] ?>'>
                         <?= "(".$m['t_nama'].") ".$m['ssp_nama'] ?>
                       </option>
                     <?php endforeach ?>

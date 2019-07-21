@@ -145,6 +145,32 @@ class SSP_CRUD extends CI_Controller
 
   }
 
+  public function addStudent(){
+
+    if($this->input->post('siswa_check[]',TRUE)){
+      $d_s_id = $this->input->post('siswa_check[]',TRUE);
+      $ssp_id = $this->input->post('sspId',TRUE);
+    
+      
+      for($i=0;$i<count($d_s_id);$i++){
+        $data[] = array(
+          'ssp_peserta_d_s_id' => $d_s_id[$i],
+				  'ssp_peserta_ssp_id' => $ssp_id
+        );
+      }
+      
+			$this->db->insert_batch('ssp_peserta', $data);
+  
+      $this->db->last_query();
+
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo '<div class="alert alert-success" role="alert">Successfully Added '. count($d_s_id) .' student(s)</div>';
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
   public function get_siswaKelas(){
     if($this->input->post('id',TRUE)){
       $kelas_id = $this->input->post('id',TRUE);
@@ -153,7 +179,9 @@ class SSP_CRUD extends CI_Controller
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
-        WHERE d_s_kelas_id = $kelas_id")->result();
+        WHERE d_s_kelas_id = $kelas_id AND d_s_id NOT IN (
+          SELECT ssp_peserta_d_s_id FROM ssp_peserta
+        )")->result();
   
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
