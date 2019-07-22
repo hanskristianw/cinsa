@@ -95,7 +95,7 @@ class Report_CRUD extends CI_Controller
         redirect('Report_CRUD');
       }
 
-      $data['title'] = 'Class List';
+      $data['title'] = 'Report Page';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));

@@ -244,7 +244,7 @@ $(document).ready(function () {
     $.ajax(
       {
         type: "post",
-        url: base_url + "Tes_CRUD / get_topik",
+        url: base_url + "Tes_CRUD/get_topik",
         data: {
           'id': id,
         },
@@ -504,28 +504,61 @@ $(document).ready(function () {
           dataType: 'json',
           success: function (data) {
             if (data.length == 0) {
-              var html = '<div class="text-center mb-3 text-danger"><b>--Something wrong, contact admin/developer--</b></div>';
+              var html = '<div class="text-center mb-3 text-danger"><b>--Something went wrong, contact admin/developer--</b></div>';
             } else {
-              console.log(data);
-              var html = '<textarea rows="4" name="d_s_komen_sis" class="form-control mb-2" placeholder="Mid SEMESTER 1 comment">';
+              //console.log(data);
+              var html = "";
+              var d_s_sick = "";
+              var d_s_absenin = "";
+              var d_s_absenex = "";
+              var d_s_sick2 = "";
+              var d_s_absenin2 = "";
+              var d_s_absenex2 = "";
+              if (data[0].d_s_sick) {
+                d_s_sick = data[0].d_s_sick;
+              }
+              if (data[0].d_s_absenin) {
+                d_s_absenin = data[0].d_s_absenin;
+              }
+              if (data[0].d_s_absenex) {
+                d_s_absenex = data[0].d_s_absenex;
+              }
+              if (data[0].d_s_sick2) {
+                d_s_sick2 = data[0].d_s_sick2;
+              }
+              if (data[0].d_s_absenin2) {
+                d_s_absenin2 = data[0].d_s_absenin2;
+              }
+              if (data[0].d_s_absenex2) {
+                d_s_absenex2 = data[0].d_s_absenex2;
+              }
+              //SEM 1
+              html += '<h5 class="ml-2 mt-3"><u>Semester 1</u></h5><input type="number" value="' + d_s_sick + '" class="form-control mb-2" placeholder="Sick" required name="d_s_sick">';
+              html += '<input type="number" value="' + d_s_absenin + '"  class="form-control mb-2" placeholder="Absent (Including Excuse)" required name="d_s_absenin">';
+              html += '<input type="number" value="' + d_s_absenex + '" class="form-control mb-2" placeholder="Absent (Excluding Excuse)" required name="d_s_absenex">';
+              html += '<textarea rows="4" name="d_s_komen_sis" class="form-control mb-2" placeholder="Mid comment">';
               if (data[0].d_s_komen_sis) {
                 html += data[0].d_s_komen_sis;
               }
               html += '</textarea>';
 
-              html += '<textarea rows="4" name="d_s_komen_sem" class="form-control mb-2" placeholder="Final SEMESTER 1 comment">';
+              html += '<textarea rows="4" name="d_s_komen_sem" class="form-control mb-2" placeholder="Final comment">';
               if (data[0].d_s_komen_sem) {
                 html += data[0].d_s_komen_sem;
               }
               html += '</textarea>';
 
-              html += '<textarea rows="4" name="d_s_komen_sis2" class="form-control mb-2" placeholder="Mid SEMESTER 2 comment">';
+              //SEM 2
+              html += '<h5 class="ml-2 mt-3"><u>Semester 2</u></h5><input type="number" value="' + d_s_sick2 + '" class="form-control mb-2" placeholder="Sick" required name="d_s_sick2">';
+              html += '<input type="number" value="' + d_s_absenin2 + '" class="form-control mb-2" placeholder="Absent (Including Excuse)" required name="d_s_absenin2">';
+              html += '<input type="number" value="' + d_s_absenex2 + '" class="form-control mb-2" placeholder="Absent (Excluding Excuse)" required name="d_s_absenex2">';
+              html += '<textarea rows="4" name="d_s_komen_sis2" class="form-control mb-2" placeholder="Mid comment">';
               if (data[0].d_s_komen_sis2) {
                 html += data[0].d_s_komen_sis2;
               }
               html += '</textarea>';
 
-              html += '<textarea rows="4" name="d_s_komen_sem2" class="form-control mb-2" placeholder="Final SEMESTER 2 comment">';
+              html += '<textarea rows="4" name="d_s_komen_sem2" class="form-control mb-2" placeholder="Final comment">';
               if (data[0].d_s_komen_sem2) {
                 html += data[0].d_s_komen_sem2;
               }
@@ -903,6 +936,15 @@ $(document).ready(function () {
 
         }
       });
+  });
+
+  ///PRINT
+  $("#print_rekap").click(function () {
+    $('#print_area').printThis({
+      importCSS: false,
+      importStyle: true,//thrown in for extra measure
+      loadCSS: "http://localhost/acpa/CSS/customCSS_preview.css"
+    });
   });
 
 });

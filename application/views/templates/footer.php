@@ -54,7 +54,9 @@
   <script type = "text/javascript">
     var base_url = '<?php echo base_url() ?>';
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.12.3/printThis.js"></script>
   <script src="<?= base_url('assets/'); ?>js/allJs.js"></script>
+  
 
 </body>
 

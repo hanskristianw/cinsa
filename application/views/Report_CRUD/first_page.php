@@ -7,9 +7,10 @@
       <div class="row">
         <div class="col-lg">
           <div class="p-5 overflow-auto">
-            <?= $this->session->flashdata('message'); ?>
-            
+            <div id="print_area">
             <?php
+            
+              //var_dump($sis_arr);
               for($i=0;$i<count($sis_arr);$i++):
                 $nomor = 1;
                 $siswa = return_raport_mid($sis_arr[$i], $semester);
@@ -75,6 +76,9 @@
                 <tbody>
                   <?php foreach($siswa as $m) : 
                       if($semester==1)$komen_mid=$m['d_s_komen_sis'];else $komen_mid=$m['d_s_komen_sis2'];
+                      if($semester==1)$d_s_sick=$m['d_s_sick'];else $d_s_sick=$m['d_s_sick2'];
+                      if($semester==1)$d_s_absenin=$m['d_s_absenin'];else $d_s_absenin=$m['d_s_absenin2'];
+                      if($semester==1)$d_s_absenex=$m['d_s_absenex'];else $d_s_absenin=$m['d_s_absenex2'];
                   ?>
                     <tr>
                       <td class='nomor'><?= $nomor ?></td>
@@ -84,12 +88,28 @@
                     </tr>
                   <?php endforeach;?>
                   <tr>
+                    <td class='nomor'><?= $nomor+1 ?></td>
+                    <?= returnNilaiSspSisipan($sis_arr[$i], $semester) ?>
+                  </tr>
+                  <tr>
                     <td class='kkm' colspan='2'>Homeroom Teacher's Comment</td>
                     <td colspan='16' cellpadding='20' style='padding: 0px 0px 0px 5px;'> <?= $komen_mid ?></td>
                   </tr>
+                  <tr>
+                    <td style='height:0px; padding: 0px 0px 0px 0px;' class='kkm' colspan='18'>ATTENDANCE RECORD</td>
+                  </tr>
+                  <tr>
+                    <td style='height:0px; padding: 0px 0px 0px 5px;' colspan='18'>1. Sick &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp&nbsp&nbsp&thinsp;: <?= $d_s_sick ?> days</td>
+                  </tr>
+                  <tr>
+                    <td style='height:0px; padding: 0px 0px 0px 5px;' colspan='18'>2. Absent (Including Excuse)&nbsp&nbsp&thinsp;: <?= $d_s_absenin ?> days</td>
+                  </tr>
+                  <tr>
+                    <td style='height:0px; padding: 0px 0px 0px 5px;' colspan='18'>3. Absent (Excluding Excuse)&nbsp;&thinsp;: <?= $d_s_absenex ?> days</td>
+                  </tr>
                 </tbody>
               </table>
-              
+              <div style='font-size: 10px !important'>&emsp;&emsp;*)Q = Quiz; &nbsp A = Assignment; &nbsp T=Test;</div>
               <div id='textbox'>
                 <p class='alignleft_bawah'>
                 <br>Acknowledged by<br>
@@ -114,7 +134,8 @@
                 endif;
               endfor;
             ?>
-            
+            </div>
+            <input type="button" name="print_rekap" id="print_rekap" class="btn btn-success" value="Print">
           </div>
         </div>
       </div>

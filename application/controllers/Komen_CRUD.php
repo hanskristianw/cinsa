@@ -53,6 +53,12 @@ class Komen_CRUD extends CI_Controller
     if($this->input->post('kelas_komen',TRUE)){
 
       $data = [
+        'd_s_sick' => $this->input->post('d_s_sick',true),
+        'd_s_absenin' => $this->input->post('d_s_absenin',true),
+        'd_s_absenex' => $this->input->post('d_s_absenex',true),
+        'd_s_sick2' => $this->input->post('d_s_sick2',true),
+        'd_s_absenin2' => $this->input->post('d_s_absenin2',true),
+        'd_s_absenex2' => $this->input->post('d_s_absenex2',true),
         'd_s_komen_sis' => $this->input->post('d_s_komen_sis',true),
         'd_s_komen_sem' => $this->input->post('d_s_komen_sem',true),
         'd_s_komen_sis2' => $this->input->post('d_s_komen_sis2',true),

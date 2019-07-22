@@ -55,7 +55,7 @@ function return_raport_mid($d_s_id, $semester){
       ORDER BY mapel_urutan)as formative
       LEFT JOIN
       (
-        SELECT sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama, mapel_id, uj_mid1_kog, uj_mid1_psi, d_s_komen_sis, d_s_komen_sis2
+        SELECT sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama, mapel_id, uj_mid1_kog, uj_mid1_psi, d_s_komen_sis, d_s_komen_sis2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2
         FROM uj
         LEFT JOIN mapel
         ON uj_mapel_id = mapel_id
@@ -71,7 +71,7 @@ function return_raport_mid($d_s_id, $semester){
       )as summative ON formative.mapel_id = summative.mapel_id
       LEFT JOIN
       (
-        SELECT mapel_id, GROUP_CONCAT(afektif_id) as afektif_id, mapel_nama, COUNT(mapel_id) as jum_bulan, 
+        SELECT mapel_id, GROUP_CONCAT(afektif_id) as afektif_id, COUNT(mapel_id) as jum_bulan, 
         GROUP_CONCAT(bulan_nama ORDER BY afektif_id) as bulan_nama, 
         GROUP_CONCAT(afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3 ORDER BY afektif_id) as minggu1, 
         GROUP_CONCAT(afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3 ORDER BY afektif_id) as minggu2, 
@@ -90,11 +90,32 @@ function return_raport_mid($d_s_id, $semester){
   return $raport_mid;
 }
 
+function returnNilaiSspSisipan($d_s_id, $semester){
+  $ci =& get_instance();
+
+  $ssp_mid = $ci->db->query(
+    'SELECT ssp_nama, SUM(ssp_nilai_angka)/count(ssp_id) as total_nilai FROM ssp_nilai
+    LEFT JOIN ssp_topik ON ssp_nilai_ssp_topik_id = ssp_topik_id
+    LEFT JOIN ssp ON ssp_id = ssp_topik_ssp_id
+    WHERE ssp_nilai_d_s_id = '.$d_s_id.' AND ssp_topik_semester = '.$semester.'
+    GROUP BY ssp_id
+      ')->row_array();
+  
+  $td = "<td style='padding: 0px 0px 0px 5px; margin: 0px;'>".$ssp_mid['ssp_nama']."</td>
+        <td class='biasa' colspan='13'></td>
+        <td class='biasa' colspan='3'>".return_abjad_base4($ssp_mid['total_nilai'])."</td>";
+
+  return $td;
+}
+
 function returnQATmidcek($value){
   $print = "<td class='biasa'>";
   if(isset($value)){
     if($value>0){
       $print .= $value;
+    }
+    elseif($value == -1){
+      $print .= "0";
     }
     elseif($value<0){
       $print .= "-";
@@ -148,9 +169,16 @@ function returnQATastd($kq, $ka, $kt, $pq, $pa, $pt, $minggu1, $minggu2, $minggu
   $td .= returnQATmidcek($ka[0]);
   $td .= returnQATmidcek($kt[0]);
   //quiz, ass, test 2
-  $td .= returnQATmidcek($kq[1]);
-  $td .= returnQATmidcek($ka[1]);
-  $td .= returnQATmidcek($kt[1]);
+
+  if(isset($kq[1])){
+    $td .= returnQATmidcek($kq[1]);
+    $td .= returnQATmidcek($ka[1]);
+    $td .= returnQATmidcek($kt[1]);
+  }
+  else{
+    $td .= "<td class='biasa' colspan='3'>No data</td>";
+  }
+
 
   //PSIKOMOTOR
   //quiz, ass, test 1
@@ -158,9 +186,14 @@ function returnQATastd($kq, $ka, $kt, $pq, $pa, $pt, $minggu1, $minggu2, $minggu
   $td .= returnQATmidcek($pa[0]);
   $td .= returnQATmidcek($pt[0]);
   //quiz, ass, test 2
-  $td .= returnQATmidcek($pq[1]);
-  $td .= returnQATmidcek($pa[1]);
-  $td .= returnQATmidcek($pt[1]);
+  if(isset($kq[1])){
+    $td .= returnQATmidcek($pq[1]);
+    $td .= returnQATmidcek($pa[1]);
+    $td .= returnQATmidcek($pt[1]);
+  }
+  else{
+    $td .= "<td class='biasa' colspan='3'>No data</td>";
+  }
 
   //AFEKTIF
   $minggu1 = explode(",",$minggu1);
@@ -171,14 +204,21 @@ function returnQATastd($kq, $ka, $kt, $pq, $pa, $pt, $minggu1, $minggu2, $minggu
 
   $jumBulan = count($minggu1);
 
-  $total_afek = 0;
-  for($i=0;$i<count($minggu1);$i++){
-    //cek berapa minggu aktif
-    $total_afek += returnNilaiPerBulan($minggu1[$i],$minggu2[$i],$minggu3[$i],$minggu4[$i],$minggu5[$i]);
+  //var_dump($minggu1);
+
+  if($minggu1[0]!=""){
+    $total_afek = 0;
+    for($i=0;$i<count($minggu1);$i++){
+      //cek berapa minggu aktif
+      $total_afek += returnNilaiPerBulan($minggu1[$i],$minggu2[$i],$minggu3[$i],$minggu4[$i],$minggu5[$i]);
+    }
+    
+    $td .= "<td class='biasa'>".return_abjad_afek($total_afek/$jumBulan)."</td>";
+  }else{
+    $td .= "<td class='biasa'>No Data</td>";
   }
 
   
-  $td .= "<td class='biasa'>".return_abjad_afek($total_afek/$jumBulan)."</td>";
   
   //SUMMATIVE
   $td .= returnQATmidcek($uj_mid1_kog);
@@ -193,6 +233,18 @@ function return_abjad_afek($nilai){
   }elseif($nilai >=6.3){
       return "B";
   }elseif($nilai >=4.95){
+      return "C";
+  }else{
+      return "D";
+  }
+}
+
+function return_abjad_base4($nilai){
+  if($nilai >3.25){
+      return "A";
+  }elseif($nilai >2.50){
+      return "B";
+  }elseif($nilai >1.75){
       return "C";
   }else{
       return "D";
