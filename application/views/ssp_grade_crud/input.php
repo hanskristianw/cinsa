@@ -27,6 +27,7 @@
                   <tr>
                     <th>No</th>
                     <th>Name</th>
+                    <th>Class</th>
                     <th>Score</th>
                   </tr>
                 </thead>
@@ -50,6 +51,9 @@
                           }
                           echo $m['sis_nama_depan']." ".$bel;
                         ?>
+                      </td>
+                      <td>
+                        <?= $m['kelas_nama']; ?>
                       </td>
                       <td>
                         <select name="ssp_nilai_angka[]" id="ssp_nilai_angka" class="form-control">

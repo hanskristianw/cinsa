@@ -65,7 +65,8 @@ class SSP_grade_CRUD extends CI_Controller
       $data = $this->db->query(
         "SELECT *
         FROM ssp_topik
-        WHERE ssp_topik_ssp_id = $ssp_id")->result();
+        WHERE ssp_topik_ssp_id = $ssp_id
+        ORDER BY ssp_topik_semester DESC, ssp_topik_nama")->result();
   
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
@@ -101,9 +102,10 @@ class SSP_grade_CRUD extends CI_Controller
     if($gradecount == 0){
       //belum ada nilai
       $data['siswa_all'] = $this->db->query(
-        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
+        LEFT JOIN kelas ON d_s_kelas_id = kelas_id
         LEFT JOIN ssp_peserta ON d_s_id = ssp_peserta_d_s_id
         WHERE ssp_peserta_ssp_id = $ssp_id
         ORDER BY sis_nama_depan")->result_array();
@@ -115,31 +117,33 @@ class SSP_grade_CRUD extends CI_Controller
       $this->load->view('templates/footer');
     }else{
       $data['siswa_all'] = $this->db->query(
-        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, ssp_nilai_ssp_topik_id, ssp_nilai_angka, ssp_nilai_id
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, ssp_nilai_ssp_topik_id, ssp_nilai_angka, ssp_nilai_id, kelas_nama
         FROM ssp_nilai
         LEFT JOIN d_s ON ssp_nilai_d_s_id = d_s_id
         LEFT JOIN sis ON d_s_sis_id = sis_id
+        LEFT JOIN kelas ON d_s_kelas_id = kelas_id
         LEFT JOIN ssp_peserta ON d_s_id = ssp_peserta_d_s_id
         LEFT JOIN ssp ON ssp_peserta_ssp_id = ssp_id
         WHERE ssp_peserta_ssp_id = $ssp_id AND ssp_nilai_ssp_topik_id = $ssp_topik_id
         ORDER BY sis_nama_depan")->result_array();
 
       // //cari siswa yang ada di kelas tapi tidak mempunyai nilai
-      // $data['siswa_baru'] = $this->db->query(
-      //   "SELECT sis_agama_id, agama_nama, d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk
-      //   FROM d_s
-      //   LEFT JOIN sis ON d_s_sis_id = sis_id
-      //   LEFT JOIN agama ON sis_agama_id = agama_id
-      //   WHERE d_s_kelas_id = $kelas_id AND d_s_sis_id NOT IN 
-      //     (SELECT d_s_sis_id
-      //     FROM ssp_nilai
-      //     LEFT JOIN d_s ON ssp_nilai_d_s_id = d_s_id
-      //     LEFT JOIN sis ON d_s_sis_id = sis_id
-      //     LEFT JOIN ssp_peserta ON d_s_id = ssp_peserta_d_s_id
-      //     LEFT JOIN ssp ON ssp_peserta_ssp_id = ssp_id
-      //     WHERE ssp_peserta_ssp_id = $ssp_id AND ssp_nilai_ssp_topik_id = $ssp_topik_id
-      //     )
-      //   ORDER BY sis_nama_depan")->result_array();
+      $data['siswa_baru'] = $this->db->query(
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama
+        FROM d_s
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+        LEFT JOIN ssp_peserta ON d_s_id = ssp_peserta_d_s_id
+        WHERE ssp_peserta_ssp_id = $ssp_id AND d_s_id NOT IN 
+          (SELECT d_s_id
+          FROM ssp_nilai
+          LEFT JOIN d_s ON ssp_nilai_d_s_id = d_s_id
+          LEFT JOIN sis ON d_s_sis_id = sis_id
+          LEFT JOIN ssp_peserta ON d_s_id = ssp_peserta_d_s_id
+          LEFT JOIN ssp ON ssp_peserta_ssp_id = ssp_id
+          WHERE ssp_peserta_ssp_id = $ssp_id AND ssp_nilai_ssp_topik_id = $ssp_topik_id
+          )
+        ORDER BY sis_nama_depan")->result_array();
 
       //var_dump($this->db->last_query());
 
@@ -187,46 +191,30 @@ class SSP_grade_CRUD extends CI_Controller
   public function save_new_student(){
 
 
-    if($this->input->post('kog_quiz[]')){
-      $uj_count = $this->db->join('d_s', 'tes_d_s_id=d_s_id', 'left')->where_in('d_s_id',$this->input->post('d_s_id[]'))->where('tes_topik_id',$this->input->post('topik_id'))->from("tes")->count_all_results();
+    if($this->input->post('ssp_nilai_angka[]', true)){
+      $gradecount = $this->db->where('ssp_nilai_ssp_topik_id',$ssp_topik_id)->from("ssp_nilai")->count_all_results();
 
       //var_dump($this->db->last_query());
-      if($uj_count == 0){
+      if($gradecount == 0){
         $data = array();
         $d_s_id = $this->input->post('d_s_id[]');
 
-        $kog_quiz = $this->input->post('kog_quiz[]');
-        $kog_test = $this->input->post('kog_test[]');
-        $kog_ass = $this->input->post('kog_ass[]');
-        $psi_quiz = $this->input->post('psi_quiz[]');
-        $psi_test = $this->input->post('psi_test[]');
-        $psi_ass = $this->input->post('psi_ass[]');
-
+        $ssp_nilai_angka = $this->input->post('ssp_nilai_angka[]');
+        
         for($i=0;$i<count($d_s_id);$i++){
           $data[$i] = [
-            'tes_d_s_id' => $d_s_id[$i],
-            'kog_quiz' => $kog_quiz[$i],
-            'kog_quiz_persen' => $this->input->post('kog_quiz_persen'),
-            'kog_test' =>  $kog_test[$i],
-            'kog_test_persen' => $this->input->post('kog_test_persen'),
-            'kog_ass' => $kog_ass[$i],
-            'kog_ass_persen' => $this->input->post('kog_ass_persen'),
-            'psi_quiz' =>  $psi_quiz[$i],
-            'psi_quiz_persen' => $this->input->post('psi_quiz_persen'),
-            'psi_test' =>  $psi_test[$i],
-            'psi_test_persen' => $this->input->post('psi_test_persen'),
-            'psi_ass' =>  $psi_ass[$i],
-            'psi_ass_persen' => $this->input->post('psi_ass_persen'),
-            'tes_topik_id' => $this->input->post('topik_id')
+            'ssp_nilai_d_s_id' => $d_s_id[$i],
+            'ssp_nilai_angka' => $ssp_nilai_angka[$i],
+            'ssp_nilai_ssp_topik_id' => $this->input->post('ssp_topik_id')
           ];
         }
 
-        $this->db->insert_batch('tes', $data);
+        $this->db->insert_batch('ssp_nilai', $data);
         $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input New Student(s) Success!</div>');
-        redirect('Tes_CRUD');
+        redirect('SSP_grade_CRUD');
       }else{
         $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">New Student(s) Grade Already Exist!</div>');
-        redirect('Tes_CRUD');
+        redirect('SSP_grade_CRUD');
       }
       
     }

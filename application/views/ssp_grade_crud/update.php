@@ -19,40 +19,19 @@
                           <button class="close" data-dismiss="alert" type="button">
                               <span>&times;</span>
                           </button>
-                          <strong>ALERT:</strong> New student(s) in '.$kelas['kelas_nama'].' found!
+                          <strong>ALERT:</strong> New student(s) found!
                       </div>';
               
             ?>
-              <form class="" action="<?= base_url('Tes_CRUD/save_new_student'); ?>" method="post" id="sub_uj" >
-                <input type="hidden" value="<?= $kelas_id ?>" name="kelas_id">
-                <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
-                <input type="hidden" value="<?= $topik_id ?>" name="topik_id">
+              <form class="" action="<?= base_url('SSP_grade_CRUD/save_new_student'); ?>" method="post" id="sub_uj" >
+                <input type="hidden" value="<?= $ssp_topik_id ?>" name="ssp_topik_id">
                 <table class="table table-hover table-sm">
                   <thead>
                     <tr>
-                      <th rowspan="4">No</th>
-                      <th rowspan="4">Name</th>
-                      <th colspan="3">Cognitive</th>
-                      <th colspan="3">Psychomotor</th>
-                    </tr>
-                    <tr>
-                      <td>Quiz(%)</td>
-                      <td>Test(%)</td>
-                      <td>Ass(%)</td>
-                      <td>Quiz(%)</td>
-                      <td>Test(%)</td>
-                      <td>Ass(%)</td>
-                    </tr>
-
-                    <tr>
-                      <td><input type="hidden" value="<?= $siswa_all[1]['kog_quiz_persen'] ?>" name="kog_quiz_persen"></td>
-                      <td><input type="hidden" value="<?= $siswa_all[1]['kog_test_persen'] ?>" name="kog_test_persen"></td>
-                      <td><input type="hidden" value="<?= $siswa_all[1]['kog_ass_persen'] ?>" name="kog_ass_persen"></td>
-
-                      <td><input type="hidden" value="<?= $siswa_all[1]['psi_quiz_persen'] ?>" name="psi_quiz_persen"></td>
-                      <td><input type="hidden" value="<?= $siswa_all[1]['psi_test_persen'] ?>" name="psi_test_persen"></td>
-                      <td><input type="hidden" value="<?= $siswa_all[1]['psi_ass_persen'] ?>" name="psi_ass_persen"></td>
-
+                      <th>No</th>
+                      <th>Name</th>
+                      <th>Class</th>
+                      <th>Grade</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -76,13 +55,17 @@
                             echo $m['sis_nama_depan']." ".$bel;
                           ?>
                         </td>
-                        <td><input type="number" onfocus='this.select();' required class='kin' style='width: 47px;' name="kog_quiz[]" value="0" max="100"></td>
-                        <td><input type="number" onfocus='this.select();' required class='kin2' style='width: 47px;' name="kog_test[]" value="0" max="100"></td>
-                        <td><input type="number" onfocus='this.select();' required class='kin3' style='width: 47px;' name="kog_ass[]" value="0" max="100"></td>
-
-                        <td><input type="number" onfocus='this.select();' required class='kin4' style='width: 47px;' name="psi_quiz[]" value="0" max="100"></td>
-                        <td><input type="number" onfocus='this.select();' required class='kin5' style='width: 47px;' name="psi_test[]" value="0" max="100"></td>
-                        <td><input type="number" onfocus='this.select();' required class='kin6' style='width: 47px;' name="psi_ass[]" value="0" max="100"></td>
+                        <td>
+                          <?= $m['kelas_nama']; ?>
+                        </td>
+                        <td>
+                        <select name="ssp_nilai_angka[]" id="ssp_nilai_angka" class="form-control">
+                          <option value="4">A</option>
+                          <option value="3">B</option>
+                          <option value="2">C</option>
+                          <option value="1">D</option>
+                        </select>
+                      </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -110,6 +93,7 @@
                   <tr>
                     <th>No</th>
                     <th>Name</th>
+                    <th>Class</th>
                     <th>Grade</th>
                   </tr>
                 </thead>
@@ -131,6 +115,9 @@
                           }
                           echo $m['sis_nama_depan']." ".$bel;
                         ?>
+                      </td>
+                      <td>
+                        <?= $m['kelas_nama']; ?>
                       </td>
                       <td>
                         <select name="ssp_nilai_angka[]" id="ssp_nilai_angka" class="form-control">
