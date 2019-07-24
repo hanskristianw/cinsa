@@ -977,10 +977,9 @@ $(document).ready(function () {
           var html = '<table class="table table-bordered table-sm mt-2">';
           html += '<thead class="thead-dark">';
           html += '<tr>';
-          html += '<th>No</th>';
-          html += '<th>Topic Name</th>';
           html += '<th>Grade</th>';
           html += '<th>Semester</th>';
+          html += '<th>Topic Name</th>';
           html += '<th>Order Number</th>';
           html += '<th>Action</th>';
           html += '</tr>';
@@ -990,10 +989,9 @@ $(document).ready(function () {
           if (data.length != 0) {
             for (var i = 0; i < data.length; i++) {
               html += '<tr>';
-              html += '<td>' + (i + 1) + '</td>';
-              html += '<td>' + data[i].topik_nama + '</td>';
               html += '<td>' + data[i].jenj_nama + '</td>';
               html += '<td>' + data[i].topik_semester + '</td>';
+              html += '<td>' + data[i].topik_nama + '</td>';
               html += '<td>' + data[i].topik_urutan + '</td>';
               html += '<td>';
               html += '<form method="post" action="' + base_url + 'topik_CRUD/edit">';
