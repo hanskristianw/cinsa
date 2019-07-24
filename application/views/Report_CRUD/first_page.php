@@ -125,7 +125,7 @@
 
             <div style='clear: both;'></div>
 
-            <p class='aligncenter_bawah'>Acknowledged by<br>Principal<br><br><br><b></b><?= $kepsek['kr_nama_depan'].' '.$kepsek['kr_nama_belakang']; ?></p>
+            <p class='aligncenter_bawah'>Acknowledged by<br>Principal<br><br><br><b><?= $kepsek['kr_nama_depan'].' '.$kepsek['kr_nama_belakang']; ?></b></p>
             
             <p style="page-break-after: always;">&nbsp;</p>
 

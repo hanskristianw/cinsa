@@ -328,7 +328,7 @@ $(document).ready(function () {
       $('input[type=number].minggu1').attr("readonly", true);
 
     } else {
-      $('input[type=number].minggu1').val('3')
+      $('input[type=number].minggu1').val('1')
       $('input[type=number].minggu1').attr("readonly", false);
     }
     refreshHasil();
@@ -342,7 +342,7 @@ $(document).ready(function () {
       $('input[type=number].minggu2').val('0')
       $('input[type=number].minggu2').attr("readonly", true);
     } else {
-      $('input[type=number].minggu2').val('3')
+      $('input[type=number].minggu2').val('1')
       $('input[type=number].minggu2').attr("readonly", false);
     }
     refreshHasil();
@@ -356,7 +356,7 @@ $(document).ready(function () {
       $('input[type=number].minggu3').val('0')
       $('input[type=number].minggu3').attr("readonly", true);
     } else {
-      $('input[type=number].minggu3').val('3')
+      $('input[type=number].minggu3').val('1')
       $('input[type=number].minggu3').attr("readonly", false);
     }
     refreshHasil();
@@ -370,7 +370,7 @@ $(document).ready(function () {
       $('input[type=number].minggu4').val('0')
       $('input[type=number].minggu4').attr("readonly", true);
     } else {
-      $('input[type=number].minggu4').val('3')
+      $('input[type=number].minggu4').val('1')
       $('input[type=number].minggu4').attr("readonly", false);
     }
     refreshHasil();
@@ -384,7 +384,7 @@ $(document).ready(function () {
       $('input[type=number].minggu5').val('0')
       $('input[type=number].minggu5').attr("readonly", true);
     } else {
-      $('input[type=number].minggu5').val('3')
+      $('input[type=number].minggu5').val('1')
       $('input[type=number].minggu5').attr("readonly", false);
     }
     refreshHasil();
@@ -946,5 +946,82 @@ $(document).ready(function () {
       loadCSS: "http://localhost/acpa/CSS/customCSS_preview.css"
     });
   });
+
+  //////////////////////////////
+  /////////////////////////////
+  ////////TOPIK INDEX//////////
+  /////////////////////////////
+  $('#sub_topik_crud').hide();
+  $('#topik_mapel').change(function () {
+    var id = $(this).val();
+
+    if (id == 0) {
+      $('#topik_mapel_ajax').html("");
+      $('#sub_topik_crud').hide();
+    } else {
+      $('#sub_topik_crud').show();
+    }
+
+    $.ajax(
+      {
+        type: "post",
+        url: base_url + "Topik_CRUD/get_topik_detail",
+        data: {
+          'id': id,
+        },
+        async: true,
+        dataType: 'json',
+        success: function (data) {
+          //console.log(data);
+
+          var html = '<table class="table table-bordered table-sm mt-2">';
+          html += '<thead class="thead-dark">';
+          html += '<tr>';
+          html += '<th>No</th>';
+          html += '<th>Topic Name</th>';
+          html += '<th>Grade</th>';
+          html += '<th>Semester</th>';
+          html += '<th>Order Number</th>';
+          html += '<th>Action</th>';
+          html += '</tr>';
+          html += '</thead>';
+
+          html += '<tbody>';
+          if (data.length != 0) {
+            for (var i = 0; i < data.length; i++) {
+              html += '<tr>';
+              html += '<td>' + (i + 1) + '</td>';
+              html += '<td>' + data[i].topik_nama + '</td>';
+              html += '<td>' + data[i].jenj_nama + '</td>';
+              html += '<td>' + data[i].topik_semester + '</td>';
+              html += '<td>' + data[i].topik_urutan + '</td>';
+              html += '<td>';
+              html += '<form method="post" action="' + base_url + 'topik_CRUD/edit">';
+
+              html += '<input type="hidden" value="' + data[i].topik_id + '" name="topik_id">';
+              html += '<input type="hidden" value="' + data[i].topik_mapel_id + '" name="mapel_id">';
+              html += '<button type="submit" class="badge badge-warning">';
+              html += 'Edit';
+              html += '</button>';
+
+              html += '</form>';
+              html += '</td>';
+              html += '</tr>';
+            }
+          } else {
+            html += '<td colspan="6" class="text-center table-danger"><b>--No Topic(s), please add 1 or more topic--</b></td>';
+          }
+          html += '</tbody>';
+          html += '</table>';
+
+
+          //alert(html);
+
+          $('#topik_mapel_ajax').html(html);
+
+        }
+      });
+  });
+
 
 });

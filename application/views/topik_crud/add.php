@@ -12,18 +12,15 @@
 
                         <?= $this->session->flashdata('message'); ?>
 
-                        <form class="user" method="post" action="<?= base_url('Topik_CRUD/add'); ?>">
-                            <input type="hidden" name="_id" value="<?= set_value('_id',$_id) ?>">
+                        <form class="user" method="post" action="<?= base_url('Topik_CRUD/proses_add'); ?>">
+                            <input type="hidden" name="mapel_id" value="<?= $mapel_id ?>">
                             <div class="form-group row">
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <input type="text" class="form-control" id="topik_nama" name="topik_nama" placeholder="Topic Name" value="<?= set_value('topik_nama') ?>">
-                                    <?= form_error('topik_nama', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    <input type="text" class="form-control" id="topik_nama" name="topik_nama" placeholder="Topic Name" required>
                                 </div>
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <input type="number" class="form-control" id="topik_urutan" name="topik_urutan" placeholder="Topic Order" value="<?= set_value('topik_urutan') ?>">
-                                    <?= form_error('topik_urutan', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    <input type="number" class="form-control" id="topik_urutan" name="topik_urutan" placeholder="Topic Order" required>
                                 </div>
-                                
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -65,7 +62,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-user btn-block">
-                                Insert
+                                Insert Topic
                             </button>
                         </form>
                         <hr>

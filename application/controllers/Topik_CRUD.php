@@ -42,18 +42,12 @@ class Topik_CRUD extends CI_Controller
     //SELECT * from d_mpl WHERE d_mpl_kr_id = $data['kr']['kr_id']
 
     $data['mapel_all'] = $this->db->query(
-      "SELECT DISTINCT mapel_id, mapel_nama, sk_nama, 
-      GROUP_CONCAT(DISTINCT topik_id ORDER BY topik_jenj_id, topik_urutan, topik_id) as topik_id, 
-      GROUP_CONCAT(DISTINCT topik_nama ORDER BY topik_jenj_id, topik_urutan, topik_id) as topik_nama
+      "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
       FROM d_mpl 
       LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
       LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
-      LEFT JOIN t ON kelas_t_id = t_id
       LEFT JOIN sk ON kelas_sk_id = sk_id
-      LEFT JOIN topik ON mapel_id = topik_mapel_id
-      WHERE d_mpl_kr_id = $kr_id
-      GROUP BY mapel_id
-      ORDER BY t_id DESC, sk_nama, kelas_nama")->result_array();
+      WHERE d_mpl_kr_id = $kr_id")->result_array();
 
     //var_dump($this->db->last_query());
     $this->load->view('templates/header',$data);
@@ -64,162 +58,202 @@ class Topik_CRUD extends CI_Controller
 
   }
 
+  public function get_topik_detail(){
+    if($this->input->post('id',TRUE)){
+      
+      $mapel_id = $this->input->post('id',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT *
+        FROM topik
+        LEFT JOIN jenj ON topik_jenj_id = jenj_id
+        WHERE topik_mapel_id = $mapel_id
+        ORDER BY jenj_id, topik_semester, topik_nama")->result();
+  
+      //var_dump($data);
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
+  public function proses_add(){
+
+    $mapel_id = $this->input->post('mapel_id', true);
+
+    if (!$mapel_id) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }else{
+      $data = [
+        'topik_nama' => $this->input->post('topik_nama'),
+        'topik_semester' => $this->input->post('topik_semester'),
+        'topik_urutan' => $this->input->post('topik_urutan'),
+        'topik_jenj_id' => $this->input->post('jenj_id'),
+        'topik_mapel_id' => $this->input->post('mapel_id')
+      ];
+  
+      $this->db->insert('topik', $data);
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Topic Created!</div>');
+      redirect('Topik_CRUD');
+    }
+
+  }
+  
   public function add(){
 
 
-    $mapel_post = $this->input->post('_id', true);
+    $mapel_id = $this->input->post('topik_mapel', true);
 
-    //jika bukan dari form update sendiri
-    if (!$mapel_post) {
-      //ambil id dari method get
-      $mapel_get = $this->_mapel->find_by_id($this->input->get('_id', true));
-      
-      //jika langsung akses halaman update atau jabatan yang akan diedit admin
-      if (!$mapel_get['mapel_id']) {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly, please use +TOPIC button instead!</div>');
-        redirect('Topik_CRUD');
-      }
-      //////////////////////////////////////
-      //jika akses mapel yang tidak diajar//
-      //////////////////////////////////////
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $kr_id = $data['kr']['kr_id'];
-
-      $data['mapel_all'] = $this->db->query(
-        "SELECT GROUP_CONCAT(DISTINCT mapel_id) as mapel_id
-        FROM d_mpl 
-        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
-        WHERE d_mpl_kr_id = $kr_id")->row_array();
-
-      $arr_mapel_id = explode(",",$data['mapel_all']['mapel_id']);
-      $j = $this->input->get('_id', true);
-      $found = 0;
-      for($i=0;$i<count($arr_mapel_id);$i++){
-        if($j == $arr_mapel_id[$i]){
-          $found = 1;
-        }
-      }
-      if($found == 0){
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">You dont teach this subject!</div>');
-        redirect('Topik_CRUD');
-      }
-
+    if (!$mapel_id) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
     }
 
-		$this->form_validation->set_rules('topik_nama', 'Topic Name', 'required|trim');
-		$this->form_validation->set_rules('topik_urutan', 'Topic Order', 'required|trim');
+    $data['sk'] = $this->db->query(
+      "SELECT mapel_sk_id
+      FROM mapel
+      WHERE mapel_id = $mapel_id")->row_array();
 
-		if($this->form_validation->run() == false){
-			$data['title'] = 'Create Topic';
-      $data['_id'] = $this->input->get('_id', true);
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['jenj_all'] = $this->_jenj->return_all_by_sk($data['sk']['mapel_sk_id']);
+    
+    $data['mapel_id'] = $mapel_id;
+    $data['title'] = 'Create Topic';
 
-      //data karyawan yang sedang login untuk topbar
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['jenj_all'] = $this->_jenj->return_all_by_sk($this->session->userdata('kr_sk_id'));
-
-      $this->load->view('templates/header',$data);
-      $this->load->view('templates/sidebar',$data);
-      $this->load->view('templates/topbar',$data);
-      $this->load->view('Topik_CRUD/add',$data);
-      $this->load->view('templates/footer');
-		}
-		else{
-			$data = [
-				'topik_nama' => $this->input->post('topik_nama'),
-				'topik_semester' => $this->input->post('topik_semester'),
-				'topik_urutan' => $this->input->post('topik_urutan'),
-				'topik_jenj_id' => $this->input->post('jenj_id'),
-				'topik_mapel_id' => $this->input->post('_id')
-			];
-
-			$this->db->insert('topik', $data);
-			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Topic Created!</div>');
-			redirect('Topik_CRUD');
-		}
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('Topik_CRUD/add',$data);
+    $this->load->view('templates/footer');
 
   }
 
   public function edit(){
     
-    $topik_post = $this->input->post('_id', true);
+    $topik_id = $this->input->post('topik_id', true);
+    $mapel_id = $this->input->post('mapel_id', true);
 
-    //jika bukan dari form update sendiri
-    if (!$topik_post) {
-      //ambil id dari method get
-      $topik_get = $this->_topik->find_by_id($this->input->get('_id', true));
-
-      //jika langsung akses halaman
-      if (!$topik_get['topik_id']) {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly, please use edit button instead!</div>');
-        redirect('Topik_CRUD');
-      }
-
-      //////////////////////////////////////
-      //jika akses mapel yang tidak diajar//
-      //////////////////////////////////////
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $kr_id = $data['kr']['kr_id'];
-
-      $data['mapel_all'] = $this->db->query(
-        "SELECT GROUP_CONCAT(DISTINCT mapel_id) as mapel_id
-        FROM d_mpl 
-        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
-        WHERE d_mpl_kr_id = $kr_id")->row_array();
-
-      $mapelget = $this->input->get('_mapelid', true);
-
-      $arr_mapel_id = explode(",",$data['mapel_all']['mapel_id']);
-
-      $found = 0;
-      for($i=0;$i<count($arr_mapel_id);$i++){
-        if($mapelget == $arr_mapel_id[$i]){
-          $found = 1;
-        }
-      }
-      if($found == 0){
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">You dont teach this subject!</div>');
-        redirect('Topik_CRUD');
-      }
-
+    if(!$topik_id || !$mapel_id){
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
     }
+
+    $data['sk'] = $this->db->query(
+      "SELECT mapel_sk_id
+      FROM mapel
+      WHERE mapel_id = $mapel_id")->row_array();
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['jenj_all'] = $this->_jenj->return_all_by_sk($data['sk']['mapel_sk_id']);
+    $data['topik_update'] = $this->_topik->find_by_id($topik_id);
+
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('Topik_CRUD/edit',$data);
+    $this->load->view('templates/footer');
+
+    // //jika bukan dari form update sendiri
+    // if (!$topik_post) {
+    //   //ambil id dari method get
+    //   $topik_get = $this->_topik->find_by_id($this->input->get('_id', true));
+
+    //   //jika langsung akses halaman
+    //   if (!$topik_get['topik_id']) {
+    //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly, please use edit button instead!</div>');
+    //     redirect('Topik_CRUD');
+    //   }
+
+    //   //////////////////////////////////////
+    //   //jika akses mapel yang tidak diajar//
+    //   //////////////////////////////////////
+    //   $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    //   $kr_id = $data['kr']['kr_id'];
+
+    //   $data['mapel_all'] = $this->db->query(
+    //     "SELECT GROUP_CONCAT(DISTINCT mapel_id) as mapel_id
+    //     FROM d_mpl 
+    //     LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+    //     WHERE d_mpl_kr_id = $kr_id")->row_array();
+
+    //   $mapelget = $this->input->get('_mapelid', true);
+
+    //   $arr_mapel_id = explode(",",$data['mapel_all']['mapel_id']);
+
+    //   $found = 0;
+    //   for($i=0;$i<count($arr_mapel_id);$i++){
+    //     if($mapelget == $arr_mapel_id[$i]){
+    //       $found = 1;
+    //     }
+    //   }
+    //   if($found == 0){
+    //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">You dont teach this subject!</div>');
+    //     redirect('Topik_CRUD');
+    //   }
+
+    // }
     
-    $this->form_validation->set_rules('topik_nama', 'Topic Name', 'required|trim');
-    $this->form_validation->set_rules('topik_urutan', 'Topic Order', 'required|trim');
+    // $this->form_validation->set_rules('topik_nama', 'Topic Name', 'required|trim');
+    // $this->form_validation->set_rules('topik_urutan', 'Topic Order', 'required|trim');
 
-		if($this->form_validation->run() == false){
-			$data['title'] = 'Edit Topic';
-      $data['_id'] = $this->input->get('_id', true);
+		// if($this->form_validation->run() == false){
+		// 	$data['title'] = 'Edit Topic';
+    //   $data['_id'] = $this->input->get('_id', true);
 
-      $data['topik_update'] = $this->_topik->find_by_id($this->input->get('_id', true));
+    //   $data['topik_update'] = $this->_topik->find_by_id($this->input->get('_id', true));
 
-      //data karyawan yang sedang login untuk topbar
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['jenj_all'] = $this->_jenj->return_all_by_sk($this->session->userdata('kr_sk_id'));
+    //   //data karyawan yang sedang login untuk topbar
+    //   $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    //   $data['jenj_all'] = $this->_jenj->return_all_by_sk($this->session->userdata('kr_sk_id'));
       
 
-      $this->load->view('templates/header',$data);
-      $this->load->view('templates/sidebar',$data);
-      $this->load->view('templates/topbar',$data);
-      $this->load->view('Topik_CRUD/edit',$data);
-      $this->load->view('templates/footer');
-		}
-    else{
-      //fetch data hasil inputan
+    //   $this->load->view('templates/header',$data);
+    //   $this->load->view('templates/sidebar',$data);
+    //   $this->load->view('templates/topbar',$data);
+    //   $this->load->view('Topik_CRUD/edit',$data);
+    //   $this->load->view('templates/footer');
+		// }
+    // else{
+    //   //fetch data hasil inputan
+    //   $data = [
+    //     'topik_nama' => $this->input->post('topik_nama'),
+		// 		'topik_semester' => $this->input->post('topik_semester'),
+		// 		'topik_urutan' => $this->input->post('topik_urutan'),
+		// 		'topik_jenj_id' => $this->input->post('jenj_id')
+    //   ];
+
+    //   //simpan ke db
+
+    //   $this->db->where('topik_id', $this->input->post('_id'));
+    //   $this->db->update('topik', $data); 
+      
+    //   $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Topic Updated!</div>');
+    //   redirect('Topik_CRUD');
+    // }
+
+  }
+
+  public function edit_proses(){
+    if($this->input->post('_id', true)){
       $data = [
         'topik_nama' => $this->input->post('topik_nama'),
-				'topik_semester' => $this->input->post('topik_semester'),
-				'topik_urutan' => $this->input->post('topik_urutan'),
-				'topik_jenj_id' => $this->input->post('jenj_id')
+        'topik_semester' => $this->input->post('topik_semester'),
+        'topik_urutan' => $this->input->post('topik_urutan'),
+        'topik_jenj_id' => $this->input->post('jenj_id')
       ];
 
       //simpan ke db
 
-      $this->db->where('topik_id', $this->input->post('_id'));
+      $this->db->where('topik_id', $this->input->post('_id', true));
       $this->db->update('topik', $data); 
       
       $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Topic Updated!</div>');
       redirect('Topik_CRUD');
     }
-
   }
 }

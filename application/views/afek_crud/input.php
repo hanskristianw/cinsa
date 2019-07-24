@@ -3,6 +3,7 @@
   <div class="card o-hidden border-0 shadow-lg my-5">
     <div class="card-body p-0">
       <!-- Nested Row within Card Body -->
+      
       <div class="row">
         <div class="col-lg">
           <div class="p-5 overflow-auto">
@@ -102,29 +103,29 @@
                       </td>
                       <?php
                         //minggu 1
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1 minggu1a1 $i' name='minggu1a1[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1 minggu1a2 $i' name='minggu1a2[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1 minggu1a3 $i' name='minggu1a3[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1 minggu1a1 $i' name='minggu1a1[]' value='1' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1 minggu1a2 $i' name='minggu1a2[]' value='1' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu1 minggu1a3 $i' name='minggu1a3[]' value='1' min='1' max='3'></td>";
 
                         //minggu 2
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2 minggu2a1 $i' name='minggu2a1[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2 minggu2a2 $i' name='minggu2a2[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2 minggu2a3 $i' name='minggu2a3[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2 minggu2a1 $i' name='minggu2a1[]' value='1' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2 minggu2a2 $i' name='minggu2a2[]' value='1' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu2 minggu2a3 $i' name='minggu2a3[]' value='1' min='1' max='3'></td>";
 
                         //minggu 3
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3 minggu3a1 $i' name='minggu3a1[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3 minggu3a2 $i' name='minggu3a2[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3 minggu3a3 $i' name='minggu3a3[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3 minggu3a1 $i' name='minggu3a1[]' value='1' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3 minggu3a2 $i' name='minggu3a2[]' value='1' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu3 minggu3a3 $i' name='minggu3a3[]' value='1' min='1' max='3'></td>";
 
                         //minggu 4
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4 minggu4a1 $i' name='minggu4a1[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4 minggu4a2 $i' name='minggu4a2[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4 minggu4a3 $i' name='minggu4a3[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4 minggu4a1 $i' name='minggu4a1[]' value='1' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4 minggu4a2 $i' name='minggu4a2[]' value='1' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu4 minggu4a3 $i' name='minggu4a3[]' value='1' min='1' max='3'></td>";
 
                         //minggu 5
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5 minggu5a1 $i' name='minggu5a1[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5 minggu5a2 $i' name='minggu5a2[]' value='3' min='1' max='3'></td>";
-                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5 minggu5a3 $i' name='minggu5a3[]' value='3' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5 minggu5a1 $i' name='minggu5a1[]' value='1' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5 minggu5a2 $i' name='minggu5a2[]' value='1' min='1' max='3'></td>";
+                        echo "<td><input type = 'number' required style='width: 32px;' class='minggu5 minggu5a3 $i' name='minggu5a3[]' value='1' min='1' max='3'></td>";
 
                       ?>
                       <td class="text-center">

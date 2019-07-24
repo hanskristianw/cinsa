@@ -56,6 +56,8 @@
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.12.3/printThis.js"></script>
   <script src="<?= base_url('assets/'); ?>js/allJs.js"></script>
+  <script src="<?= base_url('assets/'); ?>js/jquery.waypoints.min.js"></script>
+  <script src="<?= base_url('assets/'); ?>js/sticky.min.js"></script>
   
 
 </body>

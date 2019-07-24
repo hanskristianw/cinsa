@@ -7,70 +7,29 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4">List of Topic</h1>
+              <h1 class="h4 text-gray-900 mb-4">Select Subject</h1>
             </div>
 
             <?= $this->session->flashdata('message'); ?>
+            <form method="post" action="topik_CRUD/add">
+              <select name="topik_mapel" id="topik_mapel" class="form-control">
+                <option value="0">SELECT SUBJECT</option>
+                <?php
+                  foreach($mapel_all as $m) :
+                    echo "<option value=".$m['mapel_id'].">".$m['mapel_nama']." - ".$m['sk_nama']."</option>";
+                  endforeach
+                ?>
+              </select>
+              <div id="sub_topik_crud">
+                <button type="submit" class="btn btn-primary btn-user mt-4">
+                  Add Topic
+                </button>
+              </div>
+            </form>
 
-            <table class="table display compact table-hover dt">
-              <thead>
-                <tr>
-                  <th>Subject/School</th>
-                  <th>Topic</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($mapel_all as $m) : ?>
-                  <tr>
-                    <td><?= $m['mapel_nama']." (".$m['sk_nama'].")" ?></td>
-                    <td>
-                      <?php
-                        $topik_id = explode(",", $m['topik_id']);
-                        $topik_nama = explode(",", $m['topik_nama']);
-                        if($topik_id[0] != ""){
-                          for ($i=0;$i<count($topik_id);$i++){
-                              echo '<div>'.$topik_nama[$i].
-                                '<div class="form-group row">
-                                  <form action="Topik_CRUD/edit" method="GET">
-                                    <input type="hidden" name="_id" value='.$topik_id[$i].'>
-                                    <input type="hidden" name="_mapelid" value='.$m['mapel_id'].'>
-                                    <button type="submit" class="badge badge-success">
-                                    <i class="fa fa-edit"></i>
-                                      Edit Topic
-                                    </button>
-                                  </form>
-                                  <form action="Topik_CRUD/delete" method="POST">
-                                    <input type="hidden" value='.$topik_id[$i].'>
-                                    <button type="submit" class="badge badge-danger">
-                                    <i class="fa fa-trash-alt"></i>
-                                      Delete Topic
-                                    </button>
-                                  </form>
-                                </div>
-                                <hr>
-                              </div>';
-                          }
-                        }else{
-                          echo '<div class="text-danger"><b>- NO TOPIC -</b></div>';
-                        }
-                      ?>
-                    </td>
-                    <td>
-                      <div class="form-group row">
-                        <form class="" action="Topik_CRUD/add" method="get">
-                          <input type="hidden" name="_id" value=<?= $m['mapel_id'] ?>>
-                          <button type="submit" class="form-control btn-primary mt-2">
-                          <i class="fa fa-plus"></i>
-                            Topic
-                          </button>
-                        </form>
-                      </div>
-                    </td>
-                  </tr>
-                <?php endforeach ?>
-              </tbody>
-            </table>
+            <div id="topik_mapel_ajax">
+            
+            </div>
             <hr>
           </div>
         </div>
