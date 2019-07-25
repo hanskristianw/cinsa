@@ -10,7 +10,7 @@ class _t extends CI_Model
 
   public function return_all()
   {
-    return $this->db->order_by("t_id", "DESC")->get('t')->result_array();
+    return $this->db->order_by("t_nama", "DESC")->get('t')->result_array();
   }
 
   public function find_tahun_nama($tahun_id)
