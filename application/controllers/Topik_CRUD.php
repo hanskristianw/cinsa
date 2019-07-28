@@ -21,7 +21,7 @@ class Topik_CRUD extends CI_Controller
     }
 
     //jika bukan guru dan sudah login redirect ke home
-    if($this->session->userdata('kr_jabatan_id')!=7 && $this->session->userdata('kr_jabatan_id')){
+    if($this->session->userdata('kr_jabatan_id')!=7 && $this->session->userdata('kr_jabatan_id')!=4 && $this->session->userdata('kr_jabatan_id')){
       redirect('Profile');
     }
   }
@@ -48,6 +48,11 @@ class Topik_CRUD extends CI_Controller
       LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
       LEFT JOIN sk ON kelas_sk_id = sk_id
       WHERE d_mpl_kr_id = $kr_id")->result_array();
+
+    if(empty($data['mapel_all'])){
+      $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>You don't teach any class, contact curriculum for more information!</div>");
+      redirect('Profile');
+    }
 
     //var_dump($this->db->last_query());
     $this->load->view('templates/header',$data);

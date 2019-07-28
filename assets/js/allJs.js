@@ -1020,6 +1020,88 @@ $(document).ready(function () {
         }
       });
   });
+  /////////////////////////////
+  ////////////TATIB////////////
+  /////////////////////////////
+  $('#t_tatib').change(function () {
+    var id = $(this).val();
+
+    $('#kelas_tatib_ajax').html("");
+    $('#siswa_tatib_ajax').html("");
+
+    $.ajax(
+      {
+        type: "post",
+        url: base_url + "Tatib_CRUD/get_kelas",
+        data: {
+          'id': id,
+        },
+        async: true,
+        dataType: 'json',
+        success: function (data) {
+          //console.log(data);
+          if (data.length == 0) {
+            var html = '<div class="text-center mb-3 text-danger"><b>--No Class, Add Class First--</b></div>';
+          } else {
+            var html = '<select name="kelas_tatib_id" id="kelas_tatib_id" class="form-control mb-2 kelas_tatib_id">';
+            html += '<option value="0">Select Class</option>';
+            var i;
+            for (i = 0; i < data.length; i++) {
+              html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama + '</option>';
+            }
+            html += '</select>';
+          }
+
+          $('#kelas_tatib_ajax').html(html);
+          refreshEventKelasTatib();
+        }
+      });
+  });
+
+  function refreshEventKelasTatib() {
+    $('.kelas_tatib_id').change(function () {
+      var id = $(this).val();
+      //alert(id);
+      if (id == 0) {
+        $('#siswa_tatib_ajax').html("");
+      }
+
+      $.ajax(
+        {
+          type: "post",
+          url: base_url + "Tatib_CRUD/get_siswa",
+          data: {
+            'id': id,
+          },
+          async: true,
+          dataType: 'json',
+          success: function (data) {
+            if (data.length == 0) {
+              var html = '<div class="text-center mb-3 text-danger"><b>--No Student(s), contact curriculum for more information--</b></div>';
+            } else {
+              var i;
+              html = "";
+
+              html += '<select name="siswa_tatib_id" id="siswa_tatib_id" class="form-control mb-2 siswa_tatib_id">';
+              html += '<option value="0">Select Student</option>';
+              for (i = 0; i < data.length; i++) {
+                html += '<option value=' + data[i].d_s_id + '>' + data[i].sis_nama_depan + ' ' + data[i].sis_nama_bel + '</option>';
+              }
+              html += '</select>';
+
+              // html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+              // html += 'Show Report';
+              // html += '</button>';
+
+            }
+
+            $('#siswa_tatib_ajax').html(html);
+            //refreshCheck();
+
+          }
+        });
+    });
+  }
 
 
 });

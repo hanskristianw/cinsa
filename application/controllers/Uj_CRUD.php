@@ -20,7 +20,7 @@ class Uj_CRUD extends CI_Controller
     }
 
     //jika bukan guru dan sudah login redirect ke home
-    if($this->session->userdata('kr_jabatan_id')!=7 && $this->session->userdata('kr_jabatan_id')){
+    if($this->session->userdata('kr_jabatan_id')!=7 && $this->session->userdata('kr_jabatan_id')!=4 && $this->session->userdata('kr_jabatan_id')){
       redirect('Profile');
     }
   }
@@ -50,6 +50,11 @@ class Uj_CRUD extends CI_Controller
       WHERE d_mpl_kr_id = $kr_id
       ORDER BY t_id DESC, sk_nama, kelas_nama")->result_array();
 
+    if(empty($data['mapel_all'])){
+      $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>You don't teach any class, contact curriculum for more information!</div>");
+      redirect('Profile');
+    }
+
     //var_dump($this->db->last_query());
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);
@@ -69,6 +74,12 @@ class Uj_CRUD extends CI_Controller
     $arr = explode("|",$this->input->post('arr'));
     $mapel_id = $arr[0];
     $kelas_id = $arr[1];
+
+    $siswacount = $this->db->join('kelas', 'd_s_kelas_id = kelas_id', 'left')->where('d_s_kelas_id',$kelas_id)->from("d_s")->count_all_results();
+    if($siswacount == 0){
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">No Student Detected in Class, Please Contact Curriculum!</div>');
+      redirect('Tes_CRUD');
+    }
 
     $data['title'] = 'Mid and Final';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -94,7 +105,7 @@ class Uj_CRUD extends CI_Controller
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN agama ON sis_agama_id = agama_id
         WHERE d_s_kelas_id = $kelas_id
-        ORDER BY $_gb sis_nama_depan")->result_array();
+        ORDER BY $_gb sis_nama_depan, sis_no_induk")->result_array();
 
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
@@ -109,7 +120,7 @@ class Uj_CRUD extends CI_Controller
         LEFT JOIN sis ON sis_id = d_s_sis_id
         LEFT JOIN agama ON sis_agama_id = agama_id
         WHERE d_s_kelas_id = $kelas_id AND uj_mapel_id = $mapel_id
-        ORDER BY $_gb sis_nama_depan")->result_array();
+        ORDER BY $_gb sis_nama_depan, sis_no_induk")->result_array();
 
       //cari siswa yang ada di kelas tapi tidak mempunyai nilai
       $data['siswa_baru'] = $this->db->query(

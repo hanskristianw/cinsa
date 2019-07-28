@@ -15,10 +15,10 @@
 
             <a href="<?= base_url('kelas_crud/add') ?>" class="btn btn-primary mb-3">Add New Class</a>
 
-            <table class="table display compact table-hover dt">
+            <table class="table table-sm display compact table-hover dt">
               <thead>
                 <tr>
-                  <th>List of Class</th>
+                  <th>Name</th>
                   <th>Abbr</th>
                   <th>Level</th>
                   <th>&Sigma; Students</th>
@@ -27,16 +27,34 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($kelas_all as $m) : ?>
+                <?php 
+                  $t_nama_temp = "";
+                  foreach ($kelas_all as $m) : 
+                ?>
+                  <?php 
+                    if($t_nama_temp != $m['t_nama']){
+                      $tahun_fix = "<tr class='bg-dark text-light'>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td class='text-center'><b>".$m['t_nama']."</b></td>
+                                      <td></td>
+                                    </tr>";
+                    }else{
+                      $tahun_fix = "";
+                    }
+                  ?>
+                  <?= $tahun_fix ?>
                   <tr>
-                    <td><?= "<b>".$m['kelas_nama'] ."</b> (". $m['t_nama'] . ")" ?></td>
-                    <td><?= "<b>".$m['kelas_nama_singkat'] ."</b>" ?></td>
+                    <td class='p-2'><?= $m['kelas_nama'] ?></td>
+                    <td><?= $m['kelas_nama_singkat'] ?></td>
                     <td><?= $m['jenj_nama'] ?></td>
                     <td><?= $m['jum_siswa'] ?></td>
                     <td>
                     
                         <form class="" action="<?= base_url('Kelas_CRUD/save_homeroom') ?>" method="post">
-                          <select name="kelas_kr_id" id="kelas_kr_id" class="form-control mb-2">
+                          <select name="kelas_kr_id" id="kelas_kr_id" class="form-control-sm">
                             <?php
                               $_selected = $m['kelas_kr_id'];
                               echo "<option value= '0'>No HR Teacher</option>";
@@ -55,7 +73,7 @@
                       <div class="form-group row ml-2">
                           <input type="hidden" name="kelas_id" value=<?= $m['kelas_id'] ?>>
                           <button type="submit" class="badge badge-dark">
-                            Save HR Teacher
+                            Save HR
                           </button>
                         </form>
                         <form class="" action="<?= base_url('Kelas_CRUD/update') ?>" method="get">
@@ -85,7 +103,10 @@
                       </div>
                     </td>
                   </tr>
-                <?php endforeach ?>
+                <?php 
+                  $t_nama_temp = $m['t_nama'];  
+                  endforeach 
+                ?>
               </tbody>
             </table>
             <hr>

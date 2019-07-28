@@ -22,7 +22,7 @@ class Afek_CRUD extends CI_Controller
     }
 
     //jika bukan guru dan sudah login redirect ke home
-    if($this->session->userdata('kr_jabatan_id')!=7 && $this->session->userdata('kr_jabatan_id')){
+    if($this->session->userdata('kr_jabatan_id')!=7 && $this->session->userdata('kr_jabatan_id')!=4 && $this->session->userdata('kr_jabatan_id')){
       redirect('Profile');
     }
   }
@@ -52,6 +52,10 @@ class Afek_CRUD extends CI_Controller
       WHERE d_mpl_kr_id = $kr_id
       ORDER BY t_id DESC, sk_nama, kelas_nama")->result_array();
 
+    if(empty($data['mapel_all'])){
+      $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>You don't teach any class, contact curriculum for more information!</div>");
+      redirect('Profile');
+    }
     //var_dump($this->db->last_query());
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);
@@ -89,7 +93,7 @@ class Afek_CRUD extends CI_Controller
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }else{
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Whoopsie doopsie, what are you doing there!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
     
@@ -109,6 +113,8 @@ class Afek_CRUD extends CI_Controller
 
     $data['title'] = 'Affective';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    
+    $data['sk'] = $this->_sk->find_sk_nama($this->session->userdata('kr_sk_id'));
 
     //untuk header
     $data['kelas'] = $this->_kelas->find_kelas_nama($kelas_id);
@@ -137,7 +143,7 @@ class Afek_CRUD extends CI_Controller
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN agama ON sis_agama_id = agama_id
         WHERE d_s_kelas_id = $kelas_id
-        ORDER BY $_gb sis_nama_depan")->result_array();
+        ORDER BY $_gb sis_nama_depan, sis_no_induk")->result_array();
 
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
@@ -152,7 +158,7 @@ class Afek_CRUD extends CI_Controller
         LEFT JOIN sis ON sis_id = d_s_sis_id
         LEFT JOIN agama ON sis_agama_id = agama_id
         WHERE d_s_kelas_id = $kelas_id AND afektif_k_afek_id = $k_afek_id AND afektif_mapel_id = $mapel_id
-        ORDER BY $_gb sis_nama_depan")->result_array();
+        ORDER BY $_gb sis_nama_depan, sis_no_induk")->result_array();
 
       //cari siswa yang ada di kelas tapi tidak mempunyai nilai
       $data['siswa_baru'] = $this->db->query(

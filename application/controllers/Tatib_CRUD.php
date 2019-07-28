@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class K_afek_CRUD extends CI_Controller
+class Tatib_CRUD extends CI_Controller
 {
   public function __construct()
   {
@@ -28,31 +28,59 @@ class K_afek_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'Affective Indicator';
+    $data['title'] = 'Violation & Achievement';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
-    //data karyawan untuk konten
-    $data['k_afek_all'] = $this->_k_afek->return_all_by_sk($this->session->userdata('kr_sk_id'));
-
-    //$data['tes'] = var_dump($this->db->last_query());
+    $data['t_all'] = $this->_t->return_all();
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('templates/topbar', $data);
-    $this->load->view('k_afek_crud/index', $data);
+    $this->load->view('tatib_crud/index', $data);
     $this->load->view('templates/footer');
   }
 
-  function check_topik()
-  {
-    $topik_count = $this->db->where('k_afek_t_id', $this->input->post('k_afek_t_id'))->where('k_afek_bulan_id', $this->input->post('k_afek_bulan_id'))->where('k_afek_sk_id', $this->session->userdata('kr_sk_id'))->from("k_afek")->count_all_results();
-    if ($topik_count > 0) {
-      $this->form_validation->set_message('check_topik', 'Indicator with MONTH and YEAR already exist');
-      return FALSE;
-    } else {
-      return TRUE;
+  public function get_kelas(){
+    if($this->input->post('id',TRUE)){
+    
+      $t_id = $this->input->post('id',TRUE);
+      $sk_id = $this->session->userdata('kr_sk_id');
+      
+      //temukan jenjang id pada kelas itu
+      $data = $this->db->query(
+        "SELECT kelas_id, kelas_nama
+        FROM kelas
+        WHERE kelas_t_id = $t_id AND kelas_sk_id = $sk_id
+        ORDER BY kelas_nama")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Whoopsie doopsie, what are you doing there!</div>');
+      redirect('Profile');
+    }
+  }
+
+  public function get_siswa(){
+    if($this->input->post('id',TRUE)){
+    
+      $kelas_id = $this->input->post('id',TRUE);
+      
+      //temukan jenjang id pada kelas itu
+      $data = $this->db->query(
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel
+        FROM d_s
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        WHERE d_s_kelas_id = $kelas_id
+        ORDER BY sis_nama_depan")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Whoopsie doopsie, what are you doing there!</div>');
+      redirect('Profile');
     }
   }
 

@@ -131,19 +131,29 @@
               <hr>
             <?php endif; ?>
 
-            <?php echo '<div class="alert alert-info alert-dismissible fade show">
-                    <button class="close" data-dismiss="alert" type="button">
-                        <span>&times;</span>
-                    </button>
-                    <strong>Info:</strong> A>=7.65 B>=6.3 C>=4.95 D<4.95
-                </div>'; ?>
             <?php echo '<div class="alert alert-success alert-dismissible fade show">
                     <button class="close" data-dismiss="alert" type="button">
                         <span>&times;</span>
                     </button>
                     <strong>ALERT:</strong> Grade found, use UPDATE BUTTON below to save grade
                 </div>'; ?>
-            
+            <?php echo '<div class="alert alert-primary alert-dismissible fade show">
+                    <button class="close" data-dismiss="alert" type="button">
+                        <span>&times;</span>
+                    </button>
+                    <div class="text-center">
+                    <strong>INFO:</strong> <br> A>=7.65 B>=6.3 C>=4.95 D<4.95 <br><br>
+                    <strong>SCORE:</strong> <br>
+                    1: '.$sk['sk_instruksi_afek1'].'<br>
+                    2: '.$sk['sk_instruksi_afek2'].'<br>
+                    3: '.$sk['sk_instruksi_afek3'].'
+
+                    <br></br><strong>INDICATOR:</strong> <br>
+                    1: '.$k_afek['k_afek_1'].'<br>
+                    2: '.$k_afek['k_afek_2'].'<br>
+                    3: '.$k_afek['k_afek_3'].'
+                    </div>
+                </div>'; ?>
             <div id="notif"></div>
 
             <?php
