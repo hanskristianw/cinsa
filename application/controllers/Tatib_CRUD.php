@@ -11,7 +11,7 @@ class Tatib_CRUD extends CI_Controller
     $this->load->model('_jabatan');
     $this->load->model('_st');
     $this->load->model('_sk');
-    $this->load->model('_bulan');
+    $this->load->model('_d_s');
     $this->load->model('_t');
 
     //jika belum login
@@ -28,7 +28,7 @@ class Tatib_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'Violation & Achievement';
+    $data['title'] = 'Infraction & Achievement';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -83,113 +83,136 @@ class Tatib_CRUD extends CI_Controller
       redirect('Profile');
     }
   }
+  public function delete()
+  {
+    if ($this->input->post('tatib_id',TRUE)) {
+      
+      $tatib_id = $this->input->post('tatib_id',TRUE);
 
+      $this->db->where('tatib_id', $tatib_id);
+      $this->db->delete('tatib');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Delete Success!</div>');
+      redirect('Tatib_CRUD');
+    } else {
+
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
   public function add()
   {
 
-    $this->form_validation->set_rules('k_afek_nama', 'Indicator Name', 'required|trim|callback_check_topik');
-    $this->form_validation->set_rules('k_afek_1', 'Indicator 1', 'required|trim');
-    $this->form_validation->set_rules('k_afek_2', 'Indicator 2', 'required|trim');
-    $this->form_validation->set_rules('k_afek_3', 'Indicator 3', 'required|trim');
-
-    if ($this->form_validation->run() == false) {
-      $data['title'] = 'Affective Indicator';
+    if ($this->input->post('siswa_tatib_id',TRUE)) {
+      $data['title'] = 'Add Infraction & Achievement';
 
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['sk_all'] = $this->_sk->return_all();
-      $data['bulan_all'] = $this->_bulan->return_all();
-      $data['tahun_all'] = $this->_t->return_all();
+
+      $data['d_s_id'] = $this->input->post('siswa_tatib_id',TRUE);
+      $data['sis'] = $this->_d_s->return_nama_by_d_s_id($this->input->post('siswa_tatib_id',TRUE));
 
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('templates/topbar', $data);
-      $this->load->view('k_afek_crud/add', $data);
+      $this->load->view('Tatib_CRUD/add', $data);
       $this->load->view('templates/footer');
+      
     } else {
 
-      // jika tidak ada topik dengan, bulan, tahun dan sekolah yang sama
-      $data = [
-        'k_afek_topik_nama' => $this->input->post('k_afek_nama'),
-        'k_afek_1' => $this->input->post('k_afek_1'),
-        'k_afek_2' => $this->input->post('k_afek_2'),
-        'k_afek_3' => $this->input->post('k_afek_3'),
-        'k_afek_t_id' => $this->input->post('k_afek_t_id'),
-        'k_afek_sk_id' => $this->session->userdata('kr_sk_id'),
-        'k_afek_bulan_id' => $this->input->post('k_afek_bulan_id')
-      ];
-
-      $this->db->insert('k_afek', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Indicator Created!</div>');
-      redirect('k_afek_crud/add');
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
     }
   }
 
-  public function update()
-  {
-
-    //dari method post
-    $k_afek_post = $this->input->post('_id', true);
-
-    //jika bukan dari form update sendiri
-    if (!$k_afek_post) {
-      //ambil id dari method get
-      $k_afek_get = $this->_k_afek->find_by_id($this->input->get('_id', true),$this->session->userdata('kr_sk_id'));
-
-      //jika langsung akses halaman update atau jabatan yang akan diedit admin
-      if ($k_afek_get['k_afek_id'] == 0 || !$k_afek_get['k_afek_id']) {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Permission Denied!</div>');
-        redirect('K_afek_CRUD');
-      }
-    }
-
-    if($this->input->post('_k_afek_bulan_id') == $this->input->post('k_afek_bulan_id') && $this->input->post('_k_afek_t_id') == $this->input->post('k_afek_t_id')){
-      $this->form_validation->set_rules('k_afek_nama', 'Indicator Name', 'required|trim');
-    }else{
-      $this->form_validation->set_rules('k_afek_nama', 'Indicator Name', 'required|trim|callback_check_topik');
-    }
-
+  public function get_detail_tatib(){
+    if($this->input->post('id',TRUE)){
     
-    $this->form_validation->set_rules('k_afek_1', 'Indicator 1', 'required|trim');
-    $this->form_validation->set_rules('k_afek_2', 'Indicator 2', 'required|trim');
-    $this->form_validation->set_rules('k_afek_3', 'Indicator 3', 'required|trim');
+      $tatib_d_s_id = $this->input->post('id',TRUE);
+      
+      //temukan jenjang id pada kelas itu
+      $data = $this->db->query(
+        "SELECT *
+        FROM tatib
+        LEFT JOIN d_s ON tatib_d_s_id = d_s_id
+        WHERE d_s_id = $tatib_d_s_id ORDER BY tatib_tanggal DESC, tatib_langgar, tatib_jenis")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Whoopsie doopsie, what are you doing there!</div>');
+      redirect('Profile');
+    }
+  }
 
-    if ($this->form_validation->run() == false) {
-      //jika menekan tombol edit
-      $data['title'] = 'Update Indicator';
+  public function add_proses()
+  {
+    if ($this->input->post('d_s_id',TRUE)) {
+
+      $data = [
+        'tatib_langgar' => $this->input->post('langgar_id'),
+        'tatib_jenis' => $this->input->post('langgar_jenis'),
+        'tatib_tanggal' => $this->input->post('tatib_tgl'),
+        'tatib_notes' => $this->input->post('tatib_notes'),
+        'tatib_d_s_id' => $this->input->post('d_s_id')
+      ];
+      
+      $this->db->insert('tatib', $data);
+
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Input Success!</div>');
+      redirect('Tatib_CRUD');
+      
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+  public function edit_proses()
+  {
+    if ($this->input->post('tatib_id',TRUE)) {
+
+      $data = [
+        'tatib_langgar' => $this->input->post('langgar_id'),
+        'tatib_jenis' => $this->input->post('langgar_jenis'),
+        'tatib_tanggal' => $this->input->post('tatib_tgl'),
+        'tatib_notes' => $this->input->post('tatib_notes')
+      ];
+      
+      $this->db->where('tatib_id', $this->input->post('tatib_id', true));
+      $this->db->update('tatib', $data); 
+
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Edit Success!</div>');
+      redirect('Tatib_CRUD');
+      
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
+  public function edit()
+  {
+    if ($this->input->post('tatib_id',TRUE)) {
+      $data['title'] = 'Update Infraction & Achievement';
 
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['sk_all'] = $this->_sk->return_all();
-      $data['bulan_all'] = $this->_bulan->return_all();
-      $data['tahun_all'] = $this->_t->return_all();
 
-      $k_afek_id = $this->input->get('_id', true);
-      
-      $data['k_afek_update'] = $this->_k_afek->find_by_id($k_afek_id,$this->session->userdata('kr_sk_id'));
+      $tatib_id = $this->input->post('tatib_id',TRUE);
+      $data['sis'] = $this->_d_s->return_nama_by_d_s_id($this->input->post('siswa_tatib_id',TRUE));
+
+      $data['tatib_update'] = $this->db->query(
+        "SELECT *
+        FROM tatib
+        WHERE tatib_id = $tatib_id")->row_array();
 
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('templates/topbar', $data);
-      $this->load->view('k_afek_crud/update', $data);
+      $this->load->view('Tatib_CRUD/edit', $data);
       $this->load->view('templates/footer');
+      
     } else {
-      //fetch data hasil inputan
-      $data = [
-        'k_afek_topik_nama' => $this->input->post('k_afek_nama'),
-        'k_afek_1' => $this->input->post('k_afek_1'),
-        'k_afek_2' => $this->input->post('k_afek_2'),
-        'k_afek_3' => $this->input->post('k_afek_3'),
-        'k_afek_t_id' => $this->input->post('k_afek_t_id'),
-        'k_afek_sk_id' => $this->session->userdata('kr_sk_id'),
-        'k_afek_bulan_id' => $this->input->post('k_afek_bulan_id')
-      ];
 
-      //simpan ke db
-
-      $this->db->where('k_afek_id', $this->input->post('_id'));
-      $this->db->update('k_afek', $data);
-
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Indicator Updated!</div>');
-      redirect('K_afek_CRUD');
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
     }
   }
 }

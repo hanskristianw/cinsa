@@ -12,7 +12,7 @@
 
             <?= $this->session->flashdata('message'); ?>
 
-            <form class="user" action="Report_CRUD/show" method="POST">
+            <form class="user" action="Tatib_CRUD/add" method="POST">
 
               <select name="t_tatib" id="t_tatib" class="form-control mb-2">
                 <option value="0">Select Year</option>
@@ -28,7 +28,15 @@
               <div id="siswa_tatib_ajax">
               
               </div>
+              <div id="btn_tatib">
+              
+              </div>
             </form>
+
+            <div id="detail_tatib">
+            
+            </div> 
+
 
           </div>
         </div>

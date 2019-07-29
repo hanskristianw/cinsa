@@ -1028,6 +1028,8 @@ $(document).ready(function () {
 
     $('#kelas_tatib_ajax').html("");
     $('#siswa_tatib_ajax').html("");
+    $('#btn_tatib').html("");
+    $('#detail_tatib').html("");
 
     $.ajax(
       {
@@ -1064,6 +1066,8 @@ $(document).ready(function () {
       //alert(id);
       if (id == 0) {
         $('#siswa_tatib_ajax').html("");
+        $('#btn_tatib').html("");
+        $('#detail_tatib').html("");
       }
 
       $.ajax(
@@ -1082,24 +1086,128 @@ $(document).ready(function () {
               var i;
               html = "";
 
-              html += '<select name="siswa_tatib_id" id="siswa_tatib_id" class="form-control mb-2 siswa_tatib_id">';
+              html += '<select name="siswa_tatib_id" id="siswa_tatib_id" class="form-control mb-3 siswa_tatib_id">';
               html += '<option value="0">Select Student</option>';
               for (i = 0; i < data.length; i++) {
                 html += '<option value=' + data[i].d_s_id + '>' + data[i].sis_nama_depan + ' ' + data[i].sis_nama_bel + '</option>';
               }
               html += '</select>';
 
-              // html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
-              // html += 'Show Report';
-              // html += '</button>';
 
             }
 
             $('#siswa_tatib_ajax').html(html);
-            //refreshCheck();
+            refreshEventBtnTatib();
 
           }
         });
+    });
+  }
+
+  function refreshEventBtnTatib() {
+    $('.siswa_tatib_id').change(function () {
+      var id = $(this).val();
+
+      var html3 = "";
+      //alert(id);
+      if (id == 0) {
+        $('#btn_tatib').html("");
+        $('#detail_tatib').html("");
+      } else {
+
+
+        html2 = '<div class="text-center mt-5"><h4>Student Detail</h4>';
+        html2 += '<button type="submit" class="btn btn-primary mt-2">';
+        html2 += 'Add Infraction/Achievement';
+        html2 += '</button></div>';
+
+        $.ajax(
+          {
+            type: "post",
+            url: base_url + "Tatib_CRUD/get_detail_tatib",
+            data: {
+              'id': id,
+            },
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+              if (data.length == 0) {
+                html3 += '<div class="text-center mt-3 text-danger"><b>--No data available--</b></div>';
+              } else {
+                html3 += '<table class="table table-bordered table-sm mt-2">';
+                html3 += '<thead class="thead-dark">';
+                html3 += '<tr>';
+                html3 += '<th>Date</th>';
+                html3 += '<th>Notes</th>';
+                html3 += '<th>Type</th>';
+                html3 += '<th>Category</th>';
+                html3 += '<th>Action</th>';
+                html3 += '</tr>';
+                html3 += '</thead>';
+
+                html3 += '<tbody>';
+                //alert(html3);
+                if (data.length != 0) {
+                  var langgar;
+                  var jenis;
+                  for (var i = 0; i < data.length; i++) {
+                    langgar = "";
+
+                    if (data[i].tatib_langgar == 1) {
+                      langgar = "Infraction";
+                    }
+                    else if (data[i].tatib_langgar == 2) {
+                      langgar = "Achievement";
+                    }
+                    else if (data[i].tatib_langgar == 3) {
+                      langgar = "Counseling";
+                    }
+
+                    if (data[i].tatib_jenis == 1) {
+                      jenis = "Private";
+                    }
+                    else if (data[i].tatib_jenis == 2) {
+                      jenis = "Public";
+                    }
+                    html3 += '<tr>';
+                    html3 += '<td>' + data[i].tatib_tanggal + '</td>';
+                    html3 += '<td>' + data[i].tatib_notes + '</td>';
+                    html3 += '<td>' + langgar + '</td>';
+                    html3 += '<td>' + jenis + '</td>';
+                    html3 += '<td>';
+                    html3 += '<form method="post" action="' + base_url + 'Tatib_CRUD/edit">';
+
+                    html3 += '<input type="hidden" value="' + data[i].tatib_id + '" name="tatib_id">';
+                    html3 += '<button type="submit" class="badge badge-warning">';
+                    html3 += 'Edit';
+                    html3 += '</button>';
+
+                    html3 += '</form>';
+
+                    html3 += '<form method="post" action="' + base_url + 'Tatib_CRUD/delete">';
+
+                    html3 += '<input type="hidden" value="' + data[i].tatib_id + '" name="tatib_id">';
+                    html3 += '<button type="submit" class="badge badge-danger">';
+                    html3 += 'Delete';
+                    html3 += '</button>';
+
+                    html3 += '</form>';
+                    html3 += '</td>';
+                    html3 += '</tr>';
+                  }
+                } else {
+                  html3 += '<td colspan="4" class="text-center table-danger"><b>--No Topic(s), please add 1 or more topic--</b></td>';
+                }
+                html3 += '</tbody>';
+                html3 += '</table>';
+              }
+
+              $('#detail_tatib').html(html3);
+            }
+          });
+
+        $('#btn_tatib').html(html2);
+      }
     });
   }
 
