@@ -21,7 +21,7 @@ class Topik_CRUD extends CI_Controller
     }
 
     //jika bukan guru dan sudah login redirect ke home
-    if($this->session->userdata('kr_jabatan_id')!=7 && $this->session->userdata('kr_jabatan_id')!=4 && $this->session->userdata('kr_jabatan_id')){
+    if($this->session->userdata('kr_jabatan_id')!=7 && $this->session->userdata('kr_jabatan_id')!=4 && $this->session->userdata('kr_jabatan_id')!=5 && $this->session->userdata('kr_jabatan_id')){
       redirect('Profile');
     }
   }

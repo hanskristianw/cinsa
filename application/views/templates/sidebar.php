@@ -90,10 +90,10 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master</h6>
-                  <a class="collapse-item" href=' . base_url('Jenjang_CRUD') . '>Level</a>
-                  <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>Subject</a>
-                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>Class</a>
-                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>SSP</a>
+                  <a class="collapse-item" href=' . base_url('Jenjang_CRUD') . '>1. Level</a>
+                  <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>2. Subject</a>
+                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>3. Class</a>
+                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>4. SSP</a>
                 </div>
               </div>
             </li>
@@ -160,6 +160,24 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Menu</h6>
                   <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>Hours Distribution</a>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Subject</span>
+              </a>
+              <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Set</h6>
+                  <a class="collapse-item mb-3" href=' . base_url('Topik_CRUD') . '>Topic</a>
+
+                  <h6 class="collapse-header">Grade</h6>
+                  <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>Mid & Final</a>
+                  <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>Cognitive & Psychomotor</a>
+                  <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>Affective</a>
                 </div>
               </div>
             </li>

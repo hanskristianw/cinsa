@@ -17,7 +17,7 @@ class _kr extends CI_Model {
 
   //guru bisa jabatan wakakur atau hanya guru biasa
   public function return_all_teacher(){
-    return $this->db->where_in('kr_jabatan_id', '7,4')->order_by("kr_nama_depan", "ASC")->get('kr')->result_array();
+    return $this->db->where('kr_jabatan_id', '7')->or_where('kr_jabatan_id', '4')->or_where('kr_jabatan_id', '5')->order_by("kr_nama_depan", "ASC")->get('kr')->result_array();
   }
 
   public function find_by_username($kr_username){

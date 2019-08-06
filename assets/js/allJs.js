@@ -5,7 +5,8 @@ $(document).ready(function () {
   });
 
   $('.dt').DataTable({
-    "ordering": false
+    "ordering": false,
+    "pageLength": 50
   });
 
   $(window).keydown(function (event) {

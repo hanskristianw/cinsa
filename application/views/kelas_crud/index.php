@@ -47,7 +47,7 @@
                   ?>
                   <?= $tahun_fix ?>
                   <tr>
-                    <td class='p-2'><?= $m['kelas_nama'] ?></td>
+                    <td><?= $m['kelas_nama'] ?></td>
                     <td><?= $m['kelas_nama_singkat'] ?></td>
                     <td><?= $m['jenj_nama'] ?></td>
                     <td><?= $m['jum_siswa'] ?></td>
