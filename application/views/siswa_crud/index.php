@@ -19,6 +19,7 @@
                 <tr>
                   <th>Student Name</th>
                   <th>Reg Number</th>
+                  <th>NISN</th>
                   <th>Gender</th>
                   <th>Religion</th>
                   <th>Year</th>
@@ -30,6 +31,7 @@
                   <tr>
                     <td><?= $m['sis_nama_depan'] ?> <?= $m['sis_nama_bel'] ?></td>
                     <td><?= $m['sis_no_induk'] ?></td>
+                    <td><?= $m['sis_nisn'] ?></td>
                     <td>
                       <?php 
                         if($m['sis_jk'] == "1"){

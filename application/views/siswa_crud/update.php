@@ -16,9 +16,13 @@
               <div class="form-group row">
                 <div class="col-sm mb-3 mb-sm-0">
                   <input type="hidden" name="_id" value="<?= set_value('_id', $siswa_update['sis_id']); ?>">
-                  <input type="hidden" name="_sis_no_induk" value="<?= set_value('_sis_no_induk',$siswa_update['sis_no_induk']); ?>">
+                  <input type="hidden" name="_sis_nisn" value="<?= set_value('_sis_nisn',$siswa_update['sis_nisn']); ?>">
                   <input type="text" class="form-control" id="sis_no_induk" name="sis_no_induk" placeholder="NIS" value="<?= set_value('sis_no_induk', $siswa_update['sis_no_induk']) ?>">
                   <?= form_error('sis_no_induk', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+                <div class="col-sm mb-3 mb-sm-0">
+                  <input type="number" class="form-control" id="sis_nisn" name="sis_nisn" placeholder="NISN" min="1" value="<?= set_value('sis_nisn', $siswa_update['sis_nisn']) ?>">
+                  <?= form_error('sis_nisn', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
                 <div class="col-sm-6 mb-3 mb-sm-0">
                   <select name="sis_t_id" id="sis_t_id" class="form-control">

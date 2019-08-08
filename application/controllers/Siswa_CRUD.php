@@ -49,9 +49,9 @@ class Siswa_CRUD extends CI_Controller
   {
 
     $this->form_validation->set_rules('sis_nama_depan', 'First Name', 'required|trim');
-    $this->form_validation->set_rules('sis_nama_bel', 'Last Name', 'required|trim');
-    $this->form_validation->set_rules('sis_no_induk', 'Registration number', 'required|trim|is_unique[sis.sis_no_induk]', ['is_unique' => 'This registration number already exist!']);
-
+    $this->form_validation->set_rules('sis_nama_bel', 'Last Name', 'trim');
+    $this->form_validation->set_rules('sis_no_induk', 'Registration number', 'required|trim');
+    $this->form_validation->set_rules('sis_nisn', 'NISN number', 'trim|is_unique[sis.sis_nisn]', ['is_unique' => 'NISN already exist!']);
 
     if ($this->form_validation->run() == false) {
       //jika belum ada tahun ajaran sama sekali
@@ -79,6 +79,7 @@ class Siswa_CRUD extends CI_Controller
       $data = [
         'sis_nama_depan' => $this->input->post('sis_nama_depan'),
         'sis_nama_bel' => $this->input->post('sis_nama_bel'),
+        'sis_nisn' => $this->input->post('sis_nisn'),
         'sis_no_induk' => $this->input->post('sis_no_induk'),
         'sis_sk_id' => $this->session->userdata('kr_sk_id'),
         'sis_jk' => $this->input->post('sis_jk'),
@@ -110,14 +111,15 @@ class Siswa_CRUD extends CI_Controller
       }
     }
 
-    if($this->input->post('_sis_no_induk') == $this->input->post('sis_no_induk')){
-      $this->form_validation->set_rules('sis_no_induk', 'Registration number', 'required|trim');
+    if($this->input->post('_sis_nisn') == $this->input->post('sis_nisn')){
+      $this->form_validation->set_rules('sis_nisn', 'NISN', 'trim');
     }else{
-      $this->form_validation->set_rules('sis_no_induk', 'Registration number', 'required|trim|is_unique[sis.sis_no_induk]', ['is_unique' => 'This registration number already exist!']);
+      $this->form_validation->set_rules('sis_nisn', 'NISN', 'trim|is_unique[sis.sis_nisn]', ['is_unique' => 'NISN already exist!']);
     }
 
+    $this->form_validation->set_rules('sis_no_induk', 'Registration number', 'required|trim');
     $this->form_validation->set_rules('sis_nama_depan', 'First Name', 'required|trim');
-    $this->form_validation->set_rules('sis_nama_bel', 'Last Name', 'required|trim');
+    $this->form_validation->set_rules('sis_nama_bel', 'Last Name', 'trim');
     $this->form_validation->set_rules('sis_t_id', 'Tahun Ajaran Siswa', 'required');
 
     if ($this->form_validation->run() == false) {
@@ -146,6 +148,7 @@ class Siswa_CRUD extends CI_Controller
         'sis_nama_depan' => $this->input->post('sis_nama_depan'),
         'sis_nama_bel' => $this->input->post('sis_nama_bel'),
         'sis_no_induk' => $this->input->post('sis_no_induk'),
+        'sis_nisn' => $this->input->post('sis_nisn'),
         'sis_jk' => $this->input->post('sis_jk'),
         'sis_agama_id' => $this->input->post('sis_agama_id'),
         'sis_t_id' => $this->input->post('sis_t_id')
