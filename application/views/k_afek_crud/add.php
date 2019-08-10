@@ -21,22 +21,17 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <textarea class="form-control" rows="4" id="k_afek_1" name="k_afek_1" placeholder="Afektif 1"><?= set_value('k_afek_1') ?></textarea>
+                                    <textarea class="form-control" rows="4" id="k_afek_1" name="k_afek_1" placeholder="Indicator 1"><?= set_value('k_afek_1') ?></textarea>
                                     <?= form_error('k_afek_1', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    <textarea class="form-control mt-3" rows="4" id="k_afek_3" name="k_afek_3" placeholder="Indicator 3"><?= set_value('k_afek_3') ?></textarea>
+                                    <?= form_error('k_afek_3', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
-                            </div>
-                            <div class="form-group row">
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <textarea class="form-control" rows="4" id="k_afek_2" name="k_afek_2" placeholder="Afektif 2"><?= set_value('k_afek_2') ?></textarea>
+                                    <textarea class="form-control" rows="4" id="k_afek_2" name="k_afek_2" placeholder="Indicator 2"><?= set_value('k_afek_2') ?></textarea>
                                     <?= form_error('k_afek_2', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm mb-3 mb-sm-0">
-                                    <textarea class="form-control" rows="4" id="k_afek_3" name="k_afek_3" placeholder="Afektif 3"><?= set_value('k_afek_3') ?></textarea>
-                                    <?= form_error('k_afek_3', '<small class="text-danger pl-3">', '</small>'); ?>
-                                </div>
-                            </div>
+                            
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
 
@@ -71,6 +66,17 @@
                                         endforeach
                                         ?>
                                     </select>
+                                </div>
+                                <div class="col-sm-6 mb-3 mt-4 mb-sm-0">
+                                    <textarea rows="4" name="k_afek_instruksi_1" class="form-control" placeholder="Score Instruction 1"><?= set_value('k_afek_instruksi_1') ?></textarea>
+                                    <?= form_error('k_afek_instruksi_1', '<small class="text-danger pl-3">', '</small>'); ?>
+
+                                    <textarea rows="4" name="k_afek_instruksi_3" class="form-control mt-3" placeholder="Score Instruction 3"><?= set_value('k_afek_instruksi_3') ?></textarea>
+                                    <?= form_error('k_afek_instruksi_3', '<small class="text-danger pl-3">', '</small>'); ?>
+                                </div>
+                                <div class="col-sm-6 mt-4 mb-3 mb-sm-0">
+                                    <textarea rows="4" name="k_afek_instruksi_2" class="form-control" placeholder="Score Instruction 2"><?= set_value('k_afek_instruksi_2') ?></textarea>
+                                    <?= form_error('k_afek_instruksi_2', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-user btn-block">

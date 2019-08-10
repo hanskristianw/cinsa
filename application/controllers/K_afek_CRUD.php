@@ -63,6 +63,9 @@ class K_afek_CRUD extends CI_Controller
     $this->form_validation->set_rules('k_afek_1', 'Indicator 1', 'required|trim');
     $this->form_validation->set_rules('k_afek_2', 'Indicator 2', 'required|trim');
     $this->form_validation->set_rules('k_afek_3', 'Indicator 3', 'required|trim');
+    $this->form_validation->set_rules('k_afek_instruksi_1', 'Score Instruction 1', 'required|trim');
+    $this->form_validation->set_rules('k_afek_instruksi_2', 'Score Instruction 2', 'required|trim');
+    $this->form_validation->set_rules('k_afek_instruksi_3', 'Score Instruction 3', 'required|trim');
 
     if ($this->form_validation->run() == false) {
       $data['title'] = 'Affective Indicator';
@@ -85,6 +88,9 @@ class K_afek_CRUD extends CI_Controller
         'k_afek_1' => $this->input->post('k_afek_1'),
         'k_afek_2' => $this->input->post('k_afek_2'),
         'k_afek_3' => $this->input->post('k_afek_3'),
+        'k_afek_instruksi_1' => $this->input->post('k_afek_instruksi_1'),
+        'k_afek_instruksi_2' => $this->input->post('k_afek_instruksi_2'),
+        'k_afek_instruksi_3' => $this->input->post('k_afek_instruksi_3'),
         'k_afek_t_id' => $this->input->post('k_afek_t_id'),
         'k_afek_sk_id' => $this->session->userdata('kr_sk_id'),
         'k_afek_bulan_id' => $this->input->post('k_afek_bulan_id')
@@ -124,6 +130,9 @@ class K_afek_CRUD extends CI_Controller
     $this->form_validation->set_rules('k_afek_1', 'Indicator 1', 'required|trim');
     $this->form_validation->set_rules('k_afek_2', 'Indicator 2', 'required|trim');
     $this->form_validation->set_rules('k_afek_3', 'Indicator 3', 'required|trim');
+    $this->form_validation->set_rules('k_afek_instruksi_1', 'Score Instruction 1', 'required|trim');
+    $this->form_validation->set_rules('k_afek_instruksi_2', 'Score Instruction 2', 'required|trim');
+    $this->form_validation->set_rules('k_afek_instruksi_3', 'Score Instruction 3', 'required|trim');
 
     if ($this->form_validation->run() == false) {
       //jika menekan tombol edit
@@ -150,6 +159,9 @@ class K_afek_CRUD extends CI_Controller
         'k_afek_1' => $this->input->post('k_afek_1'),
         'k_afek_2' => $this->input->post('k_afek_2'),
         'k_afek_3' => $this->input->post('k_afek_3'),
+        'k_afek_instruksi_1' => $this->input->post('k_afek_instruksi_1'),
+        'k_afek_instruksi_2' => $this->input->post('k_afek_instruksi_2'),
+        'k_afek_instruksi_3' => $this->input->post('k_afek_instruksi_3'),
         'k_afek_t_id' => $this->input->post('k_afek_t_id'),
         'k_afek_sk_id' => $this->session->userdata('kr_sk_id'),
         'k_afek_bulan_id' => $this->input->post('k_afek_bulan_id')

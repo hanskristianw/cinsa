@@ -19,6 +19,9 @@
                   <th>Indicator 1</th>
                   <th>Indicator 2</th>
                   <th>Indicator 3</th>
+                  <th>Score 1</th>
+                  <th>Score 2</th>
+                  <th>Score 3</th>
                   <th>Month</th>
                   <th>Year</th>
                   <th>Action</th>
@@ -31,6 +34,9 @@
                     <td><?= $m['k_afek_1'] ?></td>
                     <td><?= $m['k_afek_2'] ?></td>
                     <td><?= $m['k_afek_3'] ?></td>
+                    <td><?= $m['k_afek_instruksi_1'] ?></td>
+                    <td><?= $m['k_afek_instruksi_2'] ?></td>
+                    <td><?= $m['k_afek_instruksi_3'] ?></td>
                     <td><?= $m['bulan_nama'] ?></td>
                     <td><?= $m['t_nama'] ?></td>
                     <td>

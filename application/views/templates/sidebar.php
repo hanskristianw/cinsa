@@ -297,9 +297,8 @@
               <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
-                  <a class="collapse-item" href=' . base_url('Afek_instruksi') . '>Afective Score Instruction</a>
                   <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>Afective Indicator</a>
-                  <a class="collapse-item" href=' . base_url('Tatib_CRUD') . '>Violation & Achievement</a>
+                  <a class="collapse-item" href=' . base_url('Tatib_CRUD') . '>Infraction & Achievement</a>
                 </div>
               </div>
             </li>

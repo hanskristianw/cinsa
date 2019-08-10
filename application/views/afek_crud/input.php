@@ -27,9 +27,9 @@
                     <div class="text-center">
                     <strong>INFO:</strong> <br> A>=7.65 B>=6.3 C>=4.95 D<4.95 <br><br>
                     <strong>SCORE:</strong> <br>
-                    1: '.$sk['sk_instruksi_afek1'].'<br>
-                    2: '.$sk['sk_instruksi_afek2'].'<br>
-                    3: '.$sk['sk_instruksi_afek3'].'
+                    1: '.$k_afek['k_afek_instruksi_1'].'<br>
+                    2: '.$k_afek['k_afek_instruksi_2'].'<br>
+                    3: '.$k_afek['k_afek_instruksi_3'].'
 
                     <br></br><strong>INDICATOR:</strong> <br>
                     1: '.$k_afek['k_afek_1'].'<br>
