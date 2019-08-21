@@ -175,8 +175,8 @@
                   <a class="collapse-item mb-3" href=' . base_url('Topik_CRUD') . '>Topic</a>
 
                   <h6 class="collapse-header">Grade</h6>
-                  <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>Mid & Final</a>
-                  <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>Cognitive & Psychomotor</a>
+                  <a class="collapse-item" href=' . base_url('Kadiv_CRUD/ujian') . '>Mid & Final</a>
+                  <a class="collapse-item" href=' . base_url('Kadiv_CRUD/tes') . '>Cognitive & Psychomotor</a>
                   <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>Affective</a>
                 </div>
               </div>
@@ -297,8 +297,26 @@
               <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
-                  <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>Afective Indicator</a>
+                  <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>Affective Indicator</a>
                   <a class="collapse-item" href=' . base_url('Tatib_CRUD') . '>Infraction & Achievement</a>
+                </div>
+              </div>
+            </li>
+            
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <div class="sidebar-heading">
+              Report
+            </div>
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo2">
+                <i class="fas fa-fw fa-file"></i>
+                <span>Report</span>
+              </a>
+              <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Report</h6>
+                  <a class="collapse-item" href=' . base_url('K_afek_CRUD/Report') . '>Affective Score</a>
                 </div>
               </div>
             </li>
@@ -306,7 +324,7 @@
             <hr class="sidebar-divider d-none d-md-block">
             
             <div class="sidebar-heading">
-              Grade Menu
+              Grade
             </div>
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">

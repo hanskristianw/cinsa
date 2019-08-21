@@ -157,6 +157,200 @@ $(document).ready(function () {
   //////END////////////////////
   /////////////////////////////
 
+  ////////////////////////KADIV//////
+  ///////////////////////UJIAN//////
+  $('#kadiv_uj_sk').change(function () {
+
+    $('#kadiv_uj_mapel').html("");
+    $('#kadiv_tes_topik').html("");
+    var sk_id = $(this).val();
+    var t_id = $('#kadiv_uj_t_id').val();
+    //alert(sk_id);
+    if (sk_id == 0 || t_id == 0) {
+      $('#kadiv_uj_kelas').html("");
+    }
+    else {
+
+      $.ajax(
+        {
+          type: "post",
+          url: base_url + "API/get_kelas_by_year_sk",
+          data: {
+            'sk_id': sk_id,
+            't_id': t_id,
+          },
+          async: true,
+          dataType: 'json',
+          success: function (data) {
+            //alert(data);
+            if (data.length == 0) {
+              var html = '<div class="text-center mb-3 text-danger"><b>--No Class, Please add Class--</b></div>';
+            } else {
+              var html = '<select name="kelas_id" id="kadiv_uj_kelas_id" class="form-control mb-3">';
+              var i;
+              html += '<option value="0">Select Class</option>';
+              for (i = 0; i < data.length; i++) {
+                html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama + '</option>';
+              }
+              html += '</select>';
+            }
+
+            $('#kadiv_uj_kelas').html(html);
+            refreshKadivMapel();
+
+          }
+        });
+    }
+
+  });
+
+  $('#kadiv_uj_t_id').change(function () {
+    $('#kadiv_uj_sk').change();
+  });
+
+  function refreshKadivMapel() {
+    $('#kadiv_uj_kelas_id').change(function () {
+      $('#kadiv_tes_topik').html("");
+      var kelas_id = $(this).val();
+      var tes_flag = $('#tes_flag').val();
+      //alert(sk_id);
+      if (kelas_id == 0) {
+        $('#kadiv_uj_mapel').html("");
+      }
+      else {
+
+        $.ajax(
+          {
+            type: "post",
+            url: base_url + "API/get_mapel_by_kelas",
+            data: {
+              'kelas_id': kelas_id,
+            },
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+              //alert(data);
+              if (data.length == 0) {
+                var html = '<div class="text-center mb-3 text-danger"><b>--No Subject, Please add Subject--</b></div>';
+              } else {
+                var html = '<select name="mapel_id" id="kadiv_uj_mapel_id" class="form-control mb-3">';
+                var i;
+                if (tes_flag == 1) {
+                  html += '<option value= "0">Select Subject</option>';
+                }
+                for (i = 0; i < data.length; i++) {
+                  html += '<option value=' + data[i].mapel_id + '>' + data[i].mapel_nama + '</option>';
+                }
+                html += '</select>';
+                if (tes_flag != 1) {
+                  html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+                  html += 'Input Mid & Final';
+                  html += '</button>';
+                }
+
+              }
+
+              $('#kadiv_uj_mapel').html(html);
+              if (tes_flag == 1) {
+                refreshKadivTopik();
+              }
+            }
+          });
+      }
+    });
+  }
+
+  function refreshKadivTopik() {
+    $('#kadiv_uj_mapel_id').change(function () {
+      var mapel_id = $(this).val();
+      var kelas_id = $('#kadiv_uj_kelas_id').val();
+      //alert(sk_id);
+      if (mapel_id == 0) {
+        $('#kadiv_tes_topik').html("");
+      }
+      else {
+
+        $.ajax(
+          {
+            type: "post",
+            url: base_url + "API/get_topik_by_mapel",
+            data: {
+              'mapel_id': mapel_id,
+              'kelas_id': kelas_id,
+            },
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+              //alert(data);
+              if (data.length == 0) {
+                var html = '<div class="text-center mb-3 text-danger"><b>--No Topic, Please add Topic--</b></div>';
+              } else {
+                var html = '<select name="topik_id" id="kadiv_topik_id" class="form-control mb-3">';
+                var i;
+                for (i = 0; i < data.length; i++) {
+                  html += '<option value=' + data[i].topik_id + '>' + data[i].topik_nama + ' (Sem: ' + data[i].topik_semester + ')</option>';
+                }
+                html += '</select>';
+                html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+                html += 'Input Cognitive and Psychomotor';
+                html += '</button>';
+
+              }
+
+              $('#kadiv_tes_topik').html(html);
+
+            }
+          });
+      }
+    });
+  }
+
+  /////////////////////////////////
+  ////////////////////////////////////
+  //////REPORT AFFECTIVE//////////////
+  //////////////INDEX/////////////////
+  $('#t_id').change(function () {
+    var t_id = $(this).val();
+    //alert(t_id);
+    if (t_id == 0) {
+      $('#report_afek_kelas').html("");
+    }
+
+    $.ajax(
+      {
+        type: "post",
+        url: base_url + "API/get_kelas_by_year",
+        data: {
+          't_id': t_id,
+        },
+        async: true,
+        dataType: 'json',
+        success: function (data) {
+          if (data.length == 0) {
+            var html = '<div class="text-center mb-3 text-danger"><b>--No Class, Please add Class--</b></div>';
+          } else {
+            var html = '<select name="kelas_id" id="kelas_id" class="form-control mb-3">';
+            var i;
+            for (i = 0; i < data.length; i++) {
+              html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama + '</option>';
+            }
+            html += '</select>';
+
+            html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+            html += 'View Report';
+            html += '</button>';
+          }
+
+          $('#report_afek_kelas').html(html);
+
+        }
+      });
+  });
+
+  /////////////////////////////
+  //////END////////////////////
+  /////////////////////////////
+
   ////////////////////////////////////
   //////COGNITIVE - PSYSCHOMOTOR//////
   //////////////INDEX/////////////////
@@ -280,6 +474,13 @@ $(document).ready(function () {
   //////AFEKTIF///////////////////////
   //////////////INDEX/////////////////
   refreshHasil();
+  refreshMingguAktif();
+
+  function refreshMingguAktif() {
+    var total_aktif = parseInt($("#option_minggu1").val()) + parseInt($("#option_minggu2").val()) + parseInt($("#option_minggu3").val()) + parseInt($("#option_minggu4").val()) + parseInt($("#option_minggu5").val());
+
+    $('#afek_minggu_aktif').val(total_aktif);
+  }
 
   $('#arr_afek').change(function () {
     var id = $(this).val();
@@ -333,6 +534,7 @@ $(document).ready(function () {
       $('input[type=number].minggu1').attr("readonly", false);
     }
     refreshHasil();
+    refreshMingguAktif();
   });
 
   $("#option_minggu2").change(function () {
@@ -347,6 +549,7 @@ $(document).ready(function () {
       $('input[type=number].minggu2').attr("readonly", false);
     }
     refreshHasil();
+    refreshMingguAktif();
   });
 
   $("#option_minggu3").change(function () {
@@ -361,6 +564,7 @@ $(document).ready(function () {
       $('input[type=number].minggu3').attr("readonly", false);
     }
     refreshHasil();
+    refreshMingguAktif();
   });
 
   $("#option_minggu4").change(function () {
@@ -375,6 +579,7 @@ $(document).ready(function () {
       $('input[type=number].minggu4').attr("readonly", false);
     }
     refreshHasil();
+    refreshMingguAktif();
   });
 
   $("#option_minggu5").change(function () {
@@ -389,6 +594,7 @@ $(document).ready(function () {
       $('input[type=number].minggu5').attr("readonly", false);
     }
     refreshHasil();
+    refreshMingguAktif();
   });
 
   function refreshHasil() {

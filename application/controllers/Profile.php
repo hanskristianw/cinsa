@@ -62,8 +62,7 @@ class Profile extends CI_Controller
         'kr_alamat_ktp' => htmlspecialchars($this->input->post('kr_alamat_ktp', true)),
         'kr_alamat_tinggal' => htmlspecialchars($this->input->post('kr_alamat_tinggal', true)),
         'kr_ktp' => htmlspecialchars($this->input->post('kr_ktp', true)),
-        'kr_npwp' => htmlspecialchars($this->input->post('kr_npwp', true)),
-        'kr_bca' => htmlspecialchars($this->input->post('kr_bca', true))
+        'kr_npwp' => htmlspecialchars($this->input->post('kr_npwp', true))
         
       ];
 

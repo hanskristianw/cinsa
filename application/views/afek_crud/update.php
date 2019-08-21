@@ -16,8 +16,9 @@
             <div id="notif"></div>
             
             <?php 
-            
+              $dis_op = "";
               if(!empty($siswa_baru)):
+                $dis_op = "disabled";
                 echo '<div class="alert alert-danger alert-dismissible fade show">
                           <button class="close" data-dismiss="alert" type="button">
                               <span>&times;</span>
@@ -30,6 +31,7 @@
                 <input type="hidden" value="<?= $kelas_id ?>" name="kelas_id">
                 <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
                 <input type="hidden" value="<?= $k_afek_id ?>" name="k_afek_id">
+                <input type="hidden" value = 0 id="afek_minggu_aktif" name="afek_minggu_aktif">
                 <table class="table table-hover table-sm">
                   <thead>
                     <tr>
@@ -175,28 +177,29 @@
               <input type="hidden" value="<?= $kelas_id ?>" name="kelas_id">
               <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
               <input type="hidden" value="<?= $k_afek_id ?>" name="k_afek_id">
+              <input type="hidden" value = 0 id="afek_minggu_aktif" name="afek_minggu_aktif">
               <table class="table table-hover table-sm">
                 <thead>
                   <tr>
                     <th></th>
                     <th></th>
-                    <th colspan="3">Week 1  <select class="form-control form-control-sm mb-2 option_minggu1" name="option_minggu1" id="option_minggu1">
+                    <th colspan="3">Week 1  <select class="form-control form-control-sm mb-2 option_minggu1" name="option_minggu1" id="option_minggu1" <?= $dis_op ?>>
                                               <?= returnSelected($siswa_all[1]['afektif_minggu1a1']); ?>
                                             </select>
                     </th>
-                    <th colspan="3">Week 2<select class="form-control form-control-sm mb-2 option_minggu2" name="option_minggu2" id="option_minggu2">
+                    <th colspan="3">Week 2<select class="form-control form-control-sm mb-2 option_minggu2" name="option_minggu2" id="option_minggu2" <?= $dis_op ?>>
                                               <?= returnSelected($siswa_all[1]['afektif_minggu2a1']); ?>
                                           </select>
                     </th>
-                    <th colspan="3">Week 3<select class="form-control form-control-sm mb-2 option_minggu3" name="option_minggu3" id="option_minggu3">
+                    <th colspan="3">Week 3<select class="form-control form-control-sm mb-2 option_minggu3" name="option_minggu3" id="option_minggu3" <?= $dis_op ?>>
                                               <?= returnSelected($siswa_all[1]['afektif_minggu3a1']); ?>
                                           </select>
                     </th>
-                    <th colspan="3">Week 4<select class="form-control form-control-sm mb-2 option_minggu4" name="option_minggu4" id="option_minggu4">
+                    <th colspan="3">Week 4<select class="form-control form-control-sm mb-2 option_minggu4" name="option_minggu4" id="option_minggu4" <?= $dis_op ?>>
                                               <?= returnSelected($siswa_all[1]['afektif_minggu4a1']); ?>
                                           </select>
                     </th>
-                    <th colspan="3">Week 5<select class="form-control form-control-sm mb-2 option_minggu5" name="option_minggu5" id="option_minggu5">
+                    <th colspan="3">Week 5<select class="form-control form-control-sm mb-2 option_minggu5" name="option_minggu5" id="option_minggu5" <?= $dis_op ?>>
                                               <?= returnSelected($siswa_all[1]['afektif_minggu5a1']); ?>
                                           </select>
                     </th>

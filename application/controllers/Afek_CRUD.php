@@ -235,6 +235,7 @@ class Afek_CRUD extends CI_Controller
             'afektif_minggu5a1' => $minggu5a1[$i],
             'afektif_minggu5a2' => $minggu5a2[$i],
             'afektif_minggu5a3' => $minggu5a3[$i],
+            'afektif_minggu_aktif' => $this->input->post('afek_minggu_aktif'),
             'afektif_mapel_id' => $this->input->post('mapel_id'),
             'afektif_k_afek_id' => $this->input->post('k_afek_id')
           ];
@@ -301,6 +302,7 @@ class Afek_CRUD extends CI_Controller
             'afektif_minggu5a1' => $minggu5a1[$i],
             'afektif_minggu5a2' => $minggu5a2[$i],
             'afektif_minggu5a3' => $minggu5a3[$i],
+            'afektif_minggu_aktif' => $this->input->post('afek_minggu_aktif'),
             'afektif_mapel_id' => $this->input->post('mapel_id'),
             'afektif_k_afek_id' => $this->input->post('k_afek_id')
           ];
@@ -361,6 +363,7 @@ class Afek_CRUD extends CI_Controller
           'afektif_minggu5a1' => $minggu5a1[$i],
           'afektif_minggu5a2' => $minggu5a2[$i],
           'afektif_minggu5a3' => $minggu5a3[$i],
+          'afektif_minggu_aktif' => $this->input->post('afek_minggu_aktif'),
           'afektif_id' => $afektif_id[$i]
         ];
       }

@@ -12,7 +12,7 @@
 
             <?= $this->session->flashdata('message'); ?>
 
-            <form class="user" action="Uj_CRUD/input" method="POST">
+            <form class="user" action="<?= base_url('Uj_CRUD/input') ?>" method="POST">
 
               <div class="form-group row">
                 <div class="col-sm mb-3 mb-sm-0">

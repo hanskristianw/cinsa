@@ -6,10 +6,16 @@
       <div class="row">
         <div class="col-lg">
           <div class="p-5 overflow-auto">
+            
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">Select Subject</h1>
             </div>
-
+            <?php echo '<div class="alert alert-danger alert-dismissible fade show">
+                    <button class="close" data-dismiss="alert" type="button">
+                        <span>&times;</span>
+                    </button>
+                    <strong>PERHATIAN:</strong> TIDAK perlu membuat topik baru jika topik sudah ada, topik <b>hanya perlu dibuat 1 kali</b> dan dapat digunakan untuk setiap tahun ajaran
+                </div>'; ?>
             <?= $this->session->flashdata('message'); ?>
             <form method="post" action="topik_CRUD/add">
               <select name="topik_mapel" id="topik_mapel" class="form-control">

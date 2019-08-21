@@ -27,6 +27,11 @@ class Uj_CRUD extends CI_Controller
 
   public function index(){
 
+    if($this->session->userdata('kr_jabatan_id')==5){
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Success!</div>');
+      redirect('Kadiv_CRUD/ujian');
+    }
+
     $data['title'] = 'Mid and Final';
 
     //data karyawan yang sedang login untuk topbar
@@ -66,14 +71,21 @@ class Uj_CRUD extends CI_Controller
 
   public function input(){
 
-    if(!$this->input->post('arr')){
+    if(!$this->input->post('arr') && !$this->input->post('sk_id')){
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Do not access page directly!</div>');
       redirect('Uj_CRUD');
     }
 
-    $arr = explode("|",$this->input->post('arr'));
-    $mapel_id = $arr[0];
-    $kelas_id = $arr[1];
+    if($this->input->post('arr')){
+      $arr = explode("|",$this->input->post('arr'));
+      $mapel_id = $arr[0];
+      $kelas_id = $arr[1];
+    }
+
+    if($this->input->post('sk_id')){
+      $mapel_id = $this->input->post('mapel_id');
+      $kelas_id = $this->input->post('kelas_id');
+    }
 
     $siswacount = $this->db->join('kelas', 'd_s_kelas_id = kelas_id', 'left')->where('d_s_kelas_id',$kelas_id)->from("d_s")->count_all_results();
     if($siswacount == 0){

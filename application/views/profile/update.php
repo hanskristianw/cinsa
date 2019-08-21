@@ -72,7 +72,6 @@
                             <input type="text" class="form-control mb-2" id="kr_alamat_tinggal" name="kr_alamat_tinggal" placeholder="Home Address" value="<?php echo set_value('kr_alamat_tinggal', $kr['kr_alamat_tinggal']); ?>">
                             <input type="text" class="form-control mb-2" id="kr_ktp" name="kr_ktp" placeholder="ID number" value="<?php echo set_value('kr_ktp', $kr['kr_ktp']); ?>">
                             <input type="text" class="form-control mb-2" id="kr_npwp" name="kr_npwp" placeholder="NPWP number" value="<?php echo set_value('kr_npwp', $kr['kr_npwp']); ?>">
-                            <input type="text" class="form-control mb-2" id="kr_bca" name="kr_bca" placeholder="BCA Account Number" value="<?php echo set_value('kr_bca', $kr['kr_bca']); ?>">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">

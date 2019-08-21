@@ -25,8 +25,8 @@
                     echo "<th style='width: 5%'>".ucfirst(strtolower ($m['kelas_nama_singkat']))."</th>";
                   ?>
                   <?php endforeach ?>
-                  <th style='width: 5%' >&Sigma; Unit Lain</th>
-                  <th style='width: 5%' >&Sigma; Tot</th>
+                  <th style='width: 5%' >Jum Unit Lain</th>
+                  <th style='width: 5%' >Tot</th>
                 </tr>
               </thead>
               <tbody>

@@ -44,6 +44,7 @@
               <input type="hidden" value="<?= $kelas_id ?>" name="kelas_id">
               <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
               <input type="hidden" value="<?= $k_afek_id ?>" name="k_afek_id">
+              <input type="hidden" value = 0 id="afek_minggu_aktif" name="afek_minggu_aktif">
               <table class="table table-hover table-sm">
                 <thead>
                   <tr>
@@ -149,6 +150,7 @@
                   <?php $i++; endforeach ?>
                 </tbody>
               </table>
+              
               <button type="submit" class="btn btn-success mt-2" id="btn-save">
                   <i class="fa fa-save"></i>
                   Save All
