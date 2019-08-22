@@ -69,8 +69,8 @@
                                         <td><?= $m['t_nama'] ?></td>
                                         <td>
                                             <div class="form-group row">
-                                                <form class="" action="<?= base_url('Siswa_CRUD/update') ?>" method="post">
-                                                    <input type="hidden" name="sis_id" value=<?= $m['sis_id'] ?>>
+                                                <form class="" action="<?= base_url('Kelas_CRUD/delete_student') ?>" method="post">
+                                                    <input type="hidden" name="d_s_id" value=<?= $m['d_s_id'] ?>>
                                                     <input type="hidden" name="kelas_id" value=<?= $kelas_all['kelas_id']; ?>>
                                                     <button type="submit" class="ml-2 badge badge-danger">
                                                         Remove
