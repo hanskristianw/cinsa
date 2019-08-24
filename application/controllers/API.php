@@ -24,6 +24,72 @@ class API extends CI_Controller
   public function index(){
     redirect('Profile');
   }
+
+  public function get_detail_konseling_by_siswa(){
+    if($this->input->post('d_s_id', true)){
+      $d_s_id = $this->input->post('d_s_id', true);
+
+      $data = $this->db->query(
+        "SELECT *
+        FROM konseling
+        LEFT JOIN konseling_kategori ON konseling_konseling_kategori_id = konseling_kategori_id
+        WHERE konseling_d_s_id = $d_s_id ORDER BY konseling_tanggal DESC, konseling_konseling_kategori_id")->result();
+  
+      echo json_encode($data);
+
+    }
+  }
+
+  public function cek_topik_afektif_exist(){
+    if($this->input->post('k_afek_bulan_id', true)){
+      $bulan_id = $this->input->post('k_afek_bulan_id', true);
+      $t_id = $this->input->post('k_afek_t_id', true);
+      $sk_id = $this->input->post('sk_id', true);
+
+      $data = $this->db->query(
+        "SELECT *
+        FROM k_afek
+        WHERE k_afek_t_id = $t_id AND k_afek_bulan_id = $bulan_id AND k_afek_sk_id = $sk_id")->result();
+  
+      echo json_encode($data);
+    }
+    else{
+      echo "halo";
+    }
+  }
+
+  public function get_siswa_by_kelas(){
+    if($this->input->post('kelas_id',TRUE)){
+    
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+      
+      //temukan jenjang id pada kelas itu
+      $data = $this->db->query(
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel
+        FROM d_s
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        WHERE d_s_kelas_id = $kelas_id
+        ORDER BY sis_nama_depan")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }
+  }
+
+  public function get_konselor_by_sk(){
+    if($this->input->post('sk_id', true)){
+      $sk_id = $this->input->post('sk_id', true);
+
+      $data = $this->db->query(
+        "SELECT *
+        FROM konselor
+        LEFT JOIN kr ON konselor_kr_id = kr_id
+        WHERE konselor_sk_id = $sk_id ORDER BY kr_nama_depan")->result();
+  
+      echo json_encode($data);
+    }
+  }
+
   public function get_kelas_by_year_sk(){
     if($this->input->post('t_id', true)){
 

@@ -16,6 +16,15 @@
 
               <div class="form-group row">
                 <div class="col-sm mb-sm-0">
+                  <select name="sk_id" id="sk_id_report_afek" class="form-control mb-1">
+                    <?php foreach ($sk_all as $m) : ?>
+                      <option value='<?= $m['sk_id'] ?>'>
+                        <?= $m['sk_nama'] ?>
+                      </option>
+                    <?php endforeach ?>
+                  </select>
+                </div>
+                <div class="col-sm mb-sm-0">
                   <select name="t_id" id="t_id" class="form-control">
                     <option value="0">Select Year</option>
                     <?php foreach ($tahun_all as $m) : ?>

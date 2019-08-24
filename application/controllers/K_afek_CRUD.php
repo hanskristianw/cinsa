@@ -19,8 +19,8 @@ class K_afek_CRUD extends CI_Controller
       redirect('Auth');
     }
 
-    //jika bukan HRD dan sudah login redirect ke home
-    if ($this->session->userdata('kr_jabatan_id') != 8 && $this->session->userdata('kr_jabatan_id')) {
+    //jika belum login dan bukan konselor
+    if (konselor_menu() <= 0 && $this->session->userdata('kr_jabatan_id')) {
       redirect('Profile');
     }
   }
@@ -28,61 +28,79 @@ class K_afek_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'Affective Indicator';
+    if($this->input->post('sk_id', true)){
+      $data['title'] = 'Affective Indicator';
 
-    //data karyawan yang sedang login untuk topbar
-    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-
-    //data karyawan untuk konten
-    $data['k_afek_all'] = $this->_k_afek->return_all_by_sk($this->session->userdata('kr_sk_id'));
-
-    //$data['tes'] = var_dump($this->db->last_query());
-
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('k_afek_crud/index', $data);
-    $this->load->view('templates/footer');
-  }
-
-  function check_topik()
-  {
-    $topik_count = $this->db->where('k_afek_t_id', $this->input->post('k_afek_t_id'))->where('k_afek_bulan_id', $this->input->post('k_afek_bulan_id'))->where('k_afek_sk_id', $this->session->userdata('kr_sk_id'))->from("k_afek")->count_all_results();
-    if ($topik_count > 0) {
-      $this->form_validation->set_message('check_topik', 'Indicator with MONTH and YEAR already exist');
-      return FALSE;
-    } else {
-      return TRUE;
+      $sk_id = $this->input->post('sk_id', true);
+      //data karyawan yang sedang login untuk topbar
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+  
+      //data karyawan untuk konten
+      $data['k_afek_all'] = $this->_k_afek->return_all_by_sk($sk_id);
+      $data['sk_id'] = $sk_id;
+  
+      //$data['tes'] = var_dump($this->db->last_query());
+  
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('k_afek_crud/index', $data);
+      $this->load->view('templates/footer');
     }
+    elseif(!$this->input->post('sk_id', true)){
+      $data['title'] = 'Select School';
+
+      //data karyawan yang sedang login untuk topbar
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+  
+      $kr_id = $this->session->userdata('kr_id');
+      //data karyawan untuk konten
+      $data['sk_all'] = $this->db->query("
+                        SELECT sk_id, sk_nama
+                        FROM konselor 
+                        LEFT JOIN sk ON konselor_sk_id = sk_id
+                        WHERE konselor_kr_id = $kr_id")->result_array();
+  
+      //$data['tes'] = var_dump($this->db->last_query());
+  
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('k_afek_crud/index_sekolah', $data);
+      $this->load->view('templates/footer');
+    }
+    
   }
 
   public function add()
   {
 
-    $this->form_validation->set_rules('k_afek_nama', 'Indicator Name', 'required|trim|callback_check_topik');
-    $this->form_validation->set_rules('k_afek_1', 'Indicator 1', 'required|trim');
-    $this->form_validation->set_rules('k_afek_2', 'Indicator 2', 'required|trim');
-    $this->form_validation->set_rules('k_afek_3', 'Indicator 3', 'required|trim');
-    $this->form_validation->set_rules('k_afek_instruksi_1', 'Score Instruction 1', 'required|trim');
-    $this->form_validation->set_rules('k_afek_instruksi_2', 'Score Instruction 2', 'required|trim');
-    $this->form_validation->set_rules('k_afek_instruksi_3', 'Score Instruction 3', 'required|trim');
+    $sk_id = $this->input->post('sk_id');
+    if(!$sk_id){
+      redirect('Profile');
+    }
 
-    if ($this->form_validation->run() == false) {
-      $data['title'] = 'Affective Indicator';
+    $data['title'] = 'Affective Indicator';
 
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['sk_all'] = $this->_sk->return_all();
-      $data['bulan_all'] = $this->_bulan->return_all();
-      $data['tahun_all'] = $this->_t->return_all();
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['sk_all'] = $this->_sk->return_all();
+    $data['bulan_all'] = $this->_bulan->return_all();
+    $data['tahun_all'] = $this->_t->return_all();
+    $data['sk_id'] = $sk_id;
 
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('k_afek_crud/add', $data);
-      $this->load->view('templates/footer');
-    } else {
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('k_afek_crud/add', $data);
+    $this->load->view('templates/footer');
+    
+  }
 
-      // jika tidak ada topik dengan, bulan, tahun dan sekolah yang sama
+  public function add_proses()
+  {
+    $sk_id = $this->input->post('sk_id');
+
+    if($sk_id){
       $data = [
         'k_afek_topik_nama' => $this->input->post('k_afek_nama'),
         'k_afek_1' => $this->input->post('k_afek_1'),
@@ -92,21 +110,29 @@ class K_afek_CRUD extends CI_Controller
         'k_afek_instruksi_2' => $this->input->post('k_afek_instruksi_2'),
         'k_afek_instruksi_3' => $this->input->post('k_afek_instruksi_3'),
         'k_afek_t_id' => $this->input->post('k_afek_t_id'),
-        'k_afek_sk_id' => $this->session->userdata('kr_sk_id'),
+        'k_afek_sk_id' => $sk_id,
         'k_afek_bulan_id' => $this->input->post('k_afek_bulan_id')
       ];
 
       $this->db->insert('k_afek', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Indicator Created!</div>');
-      redirect('k_afek_crud/add');
+      redirect('k_afek_crud');
+    }else{
+      redirect('Profile');
     }
+
+    
   }
 
   public function report(){
     $data['title'] = 'Affective Report';
-
+    $kr_id = $this->session->userdata('kr_id');
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-    $data['sk_all'] = $this->_sk->return_all();
+    $data['sk_all'] = $this->db->query("
+                        SELECT sk_id, sk_nama
+                        FROM konselor 
+                        LEFT JOIN sk ON konselor_sk_id = sk_id
+                        WHERE konselor_kr_id = $kr_id")->result_array();
     $data['bulan_all'] = $this->_bulan->return_all();
     $data['tahun_all'] = $this->_t->return_all();
 
@@ -122,7 +148,7 @@ class K_afek_CRUD extends CI_Controller
       $data['title'] = 'Affective Report';
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
-      $sk_id = $this->session->userdata('kr_sk_id');
+      $sk_id = $this->input->post('sk_id', true);
       $t_id = $this->input->post('t_id', true);
       $bulan_id = $this->input->post('bulan_id', true);
       $kelas_id = $this->input->post('kelas_id', true);
@@ -179,74 +205,60 @@ class K_afek_CRUD extends CI_Controller
   {
 
     //dari method post
-    $k_afek_post = $this->input->post('_id', true);
+    $k_afek_id = $this->input->post('k_afek_id', true);
 
     //jika bukan dari form update sendiri
-    if (!$k_afek_post) {
-      //ambil id dari method get
-      $k_afek_get = $this->_k_afek->find_by_id($this->input->get('_id', true),$this->session->userdata('kr_sk_id'));
-
-      //jika langsung akses halaman update atau jabatan yang akan diedit admin
-      if ($k_afek_get['k_afek_id'] == 0 || !$k_afek_get['k_afek_id']) {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Permission Denied!</div>');
-        redirect('K_afek_CRUD');
-      }
+    if (!$k_afek_id) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
     }
 
-    if($this->input->post('_k_afek_bulan_id') == $this->input->post('k_afek_bulan_id') && $this->input->post('_k_afek_t_id') == $this->input->post('k_afek_t_id')){
-      $this->form_validation->set_rules('k_afek_nama', 'Indicator Name', 'required|trim');
-    }else{
-      $this->form_validation->set_rules('k_afek_nama', 'Indicator Name', 'required|trim|callback_check_topik');
-    }
+    $data['title'] = 'Update Criteria';
+
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['sk_all'] = $this->_sk->return_all();
+    $data['bulan_all'] = $this->_bulan->return_all();
+    $data['tahun_all'] = $this->_t->return_all();
 
     
-    $this->form_validation->set_rules('k_afek_1', 'Indicator 1', 'required|trim');
-    $this->form_validation->set_rules('k_afek_2', 'Indicator 2', 'required|trim');
-    $this->form_validation->set_rules('k_afek_3', 'Indicator 3', 'required|trim');
-    $this->form_validation->set_rules('k_afek_instruksi_1', 'Score Instruction 1', 'required|trim');
-    $this->form_validation->set_rules('k_afek_instruksi_2', 'Score Instruction 2', 'required|trim');
-    $this->form_validation->set_rules('k_afek_instruksi_3', 'Score Instruction 3', 'required|trim');
+    $data['k_afek_update'] = $this->_k_afek->find_by_id($k_afek_id);
 
-    if ($this->form_validation->run() == false) {
-      //jika menekan tombol edit
-      $data['title'] = 'Update Indicator';
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('k_afek_crud/update', $data);
+    $this->load->view('templates/footer');
 
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['sk_all'] = $this->_sk->return_all();
-      $data['bulan_all'] = $this->_bulan->return_all();
-      $data['tahun_all'] = $this->_t->return_all();
+  }
+  public function update_proses()
+  {
+    $k_afek_id = $this->input->post('k_afek_id', true);
 
-      $k_afek_id = $this->input->get('_id', true);
-      
-      $data['k_afek_update'] = $this->_k_afek->find_by_id($k_afek_id,$this->session->userdata('kr_sk_id'));
-
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('k_afek_crud/update', $data);
-      $this->load->view('templates/footer');
-    } else {
-      //fetch data hasil inputan
-      $data = [
-        'k_afek_topik_nama' => $this->input->post('k_afek_nama'),
-        'k_afek_1' => $this->input->post('k_afek_1'),
-        'k_afek_2' => $this->input->post('k_afek_2'),
-        'k_afek_3' => $this->input->post('k_afek_3'),
-        'k_afek_instruksi_1' => $this->input->post('k_afek_instruksi_1'),
-        'k_afek_instruksi_2' => $this->input->post('k_afek_instruksi_2'),
-        'k_afek_instruksi_3' => $this->input->post('k_afek_instruksi_3'),
-        'k_afek_t_id' => $this->input->post('k_afek_t_id'),
-        'k_afek_sk_id' => $this->session->userdata('kr_sk_id'),
-        'k_afek_bulan_id' => $this->input->post('k_afek_bulan_id')
-      ];
-
-      //simpan ke db
-
-      $this->db->where('k_afek_id', $this->input->post('_id'));
-      $this->db->update('k_afek', $data);
-
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Indicator Updated!</div>');
-      redirect('K_afek_CRUD');
+    //jika bukan dari form update sendiri
+    if (!$k_afek_id) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
     }
+
+    $data = [
+      'k_afek_topik_nama' => $this->input->post('k_afek_nama'),
+      'k_afek_1' => $this->input->post('k_afek_1'),
+      'k_afek_2' => $this->input->post('k_afek_2'),
+      'k_afek_3' => $this->input->post('k_afek_3'),
+      'k_afek_instruksi_1' => $this->input->post('k_afek_instruksi_1'),
+      'k_afek_instruksi_2' => $this->input->post('k_afek_instruksi_2'),
+      'k_afek_instruksi_3' => $this->input->post('k_afek_instruksi_3'),
+      'k_afek_t_id' => $this->input->post('k_afek_t_id'),
+      'k_afek_sk_id' => $this->input->post('sk_id'),
+      'k_afek_bulan_id' => $this->input->post('k_afek_bulan_id')
+    ];
+
+    //simpan ke db
+
+    $this->db->where('k_afek_id', $this->input->post('k_afek_id'));
+    $this->db->update('k_afek', $data);
+
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Criteria Updated!</div>');
+    redirect('K_afek_CRUD');
   }
 }

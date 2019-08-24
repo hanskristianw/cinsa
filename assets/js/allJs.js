@@ -311,6 +311,7 @@ $(document).ready(function () {
   //////////////INDEX/////////////////
   $('#t_id').change(function () {
     var t_id = $(this).val();
+    var sk_id = $('#sk_id_report_afek').val();
     //alert(t_id);
     if (t_id == 0) {
       $('#report_afek_kelas').html("");
@@ -319,9 +320,10 @@ $(document).ready(function () {
     $.ajax(
       {
         type: "post",
-        url: base_url + "API/get_kelas_by_year",
+        url: base_url + "API/get_kelas_by_year_sk",
         data: {
           't_id': t_id,
+          'sk_id': sk_id,
         },
         async: true,
         dataType: 'json',
@@ -347,6 +349,9 @@ $(document).ready(function () {
       });
   });
 
+  $('#sk_id_report_afek').change(function () {
+    $('#t_id').change();
+  });
   /////////////////////////////
   //////END////////////////////
   /////////////////////////////

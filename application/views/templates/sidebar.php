@@ -151,28 +151,17 @@
               Head of Education Department
             </div>
 
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Education Department</span>
-              </a>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Menu</h6>
-                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>Hours Distribution</a>
-                </div>
-              </div>
-            </li>
 
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-book"></i>
-                <span>Subject</span>
+                <span>Master</span>
               </a>
               <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
-                  <a class="collapse-item mb-3" href=' . base_url('Topik_CRUD') . '>Topic</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>Topic</a>
+                  <a class="collapse-item mb-3" href=' . base_url('Konselor_CRUD') . '>Counselor</a>
 
                   <h6 class="collapse-header">Grade</h6>
                   <a class="collapse-item" href=' . base_url('Kadiv_CRUD/ujian') . '>Mid & Final</a>
@@ -182,6 +171,19 @@
               </div>
             </li>
 
+            
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Report</span>
+              </a>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Menu</h6>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>Hours Distribution</a>
+                </div>
+              </div>
+            </li>
             <hr class="sidebar-divider d-none d-md-block">';
       } elseif ($this->session->userdata('kr_jabatan_id') == 6 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia TU
@@ -205,6 +207,7 @@
             <hr class="sidebar-divider d-none d-md-block">';
       } elseif ($this->session->userdata('kr_jabatan_id') == 7 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia Guru
+        if (mapel_menu() >= 1) {
         echo '<div class="sidebar-heading">
             Subject Menu
             </div>
@@ -242,6 +245,29 @@
               </div>
             </li>
             <hr class="sidebar-divider d-none d-md-block">';
+        }
+        if (konselor_menu() >= 1) {
+          echo ' <div class="sidebar-heading">
+                    Counselor Menu
+                  </div>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne">
+                      <i class="fas fa-fw fa-handshake"></i>
+                      <span>Counselor</span>
+                    </a>
+                    <div id="collapseOne3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Set</h6>
+                        <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>Affective Indicator</a>
+                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>Counseling Session</a>
+                        <h6 class="collapse-header">Report</h6>
+                        <a class="collapse-item" href=' . base_url('K_afek_CRUD/Report') . '>Affective Score</a>
+                      </div>
+                    </div>
+                  </li>
+                  <hr class="sidebar-divider d-none d-md-block">
+            ';
+        }
 
         if (walkel_menu() >= 1) {
           echo ' <div class="sidebar-heading">
