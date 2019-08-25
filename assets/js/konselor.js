@@ -183,6 +183,7 @@ $(document).ready(function () {
   function refreshKonselingSiswa() {
     $('#konseling_kelas_id_opt').change(function () {
       var kelas_id = $(this).val();
+      var report_konseling_flag = $('#report_konseling_flag').val();
 
       $('#detail_konseling').html("");
       $('#btn_add_konseling').html("");
@@ -205,24 +206,52 @@ $(document).ready(function () {
                 var i;
                 html = "";
 
-                html += '<select name="d_s_id" id="konseling_d_s_id" class="form-control mb-3 siswa_tatib_id">';
-                html += '<option value= "0">Select Student</option>';
-                for (i = 0; i < data.length; i++) {
-                  html += '<option value=' + data[i].d_s_id + '>' + data[i].sis_nama_depan + ' ' + data[i].sis_nama_bel + '</option>';
+                if (report_konseling_flag != 1) {
+                  html += '<select name="d_s_id" id="konseling_d_s_id" class="form-control mb-3 siswa_tatib_id">';
+                  html += '<option value= "0">Select Student</option>';
+                  for (i = 0; i < data.length; i++) {
+                    html += '<option value=' + data[i].d_s_id + '>' + data[i].sis_nama_depan + ' ' + data[i].sis_nama_bel + '</option>';
+                  }
+                  html += '</select>';
                 }
-                html += '</select>';
+                else {
+                  html += '<hr><div class="form-group d-flex justify-content-center"><label class="checkbox-inline mr-2"><input class="checkAll" type="checkbox"> <b><u>CHECK ALL</u></b></label></div><hr>';
 
+                  for (i = 0; i < data.length; i++) {
+                    html += '<div class="checkbox ml-2">';
+                    html += '<label><input type="checkbox" name="siswa_check[]" class="sisC" value="' + data[i].d_s_id + '"> ' + data[i].sis_nama_depan + ' ' + data[i].sis_nama_bel + '</label>';
+                    html += '</div>';
+                  }
+
+                  html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+                  html += 'Show Report';
+                  html += '</button>';
+                }
               }
-
-              $('#konseling_siswa_id').html(html);
-              refreshdetailKonselingSiswa();
+              if (report_konseling_flag != 1) {
+                $('#konseling_siswa_id').html(html);
+                refreshdetailKonselingSiswa();
+              } else {
+                $('#konseling_siswa_check').html(html);
+                refreshCheck();
+              }
             }
           });
 
       } else {
-        $('#konseling_siswa_id').html("");
+        if (report_konseling_flag != 1) {
+          $('#konseling_siswa_id').html("");
+        } else {
+          $('#konseling_siswa_check').html("");
+        }
       }
 
+    });
+  }
+
+  function refreshCheck() {
+    $(".checkAll").click(function () {
+      $('input.sisC:checkbox').not(this).prop('checked', this.checked);
     });
   }
 

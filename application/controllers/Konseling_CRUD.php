@@ -163,4 +163,60 @@ class Konseling_CRUD extends CI_Controller
     }
   }
 
+  public function report(){
+    $data['title'] = 'Select School';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+    $data['t_all'] = $this->_t->return_all();
+    $kr_id = $this->session->userdata('kr_id');
+    //data karyawan untuk konten
+    $data['sk_all'] = $this->db->query("
+                      SELECT sk_id, sk_nama
+                      FROM konselor 
+                      LEFT JOIN sk ON konselor_sk_id = sk_id
+                      WHERE konselor_kr_id = $kr_id")->result_array();
+
+    //$data['tes'] = var_dump($this->db->last_query());
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('konseling_crud/report', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function print_report(){
+
+    if($this->input->post('siswa_check[]',TRUE)){
+
+      if(count($this->input->post('siswa_check[]',TRUE))==0){
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Select one or more student!</div>');
+        redirect('Konseling_CRUD/Report');
+      }
+
+      $data['title'] = 'Report Page';
+
+      //data karyawan yang sedang login untuk topbar
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+  
+      $data['sis_arr'] = $this->input->post('siswa_check[]',TRUE);
+      $data['tanggal'] = $this->input->post('tanggal',TRUE);
+
+      // $data['kepsek'] = $this->_sk->find_by_id($this->session->userdata('kr_sk_id'));
+      // $data['walkel'] = $this->_kelas->find_walkel_by_kelas_id($this->input->post('kelas_id',TRUE));
+
+      $this->load->view('templates/header',$data);
+      $this->load->view('templates/sidebar',$data);
+      $this->load->view('templates/topbar',$data);
+      $this->load->view('Konseling_CRUD/report_page',$data);
+      $this->load->view('templates/footer');
+
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Do not access page directly!</div>');
+      redirect('Profile');
+    }
+  }
+
 }

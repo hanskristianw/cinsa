@@ -535,7 +535,7 @@ $(document).ready(function () {
       $('input[type=number].minggu1').attr("readonly", true);
 
     } else {
-      $('input[type=number].minggu1').val('1')
+      $('input[type=number].minggu1').val('3')
       $('input[type=number].minggu1').attr("readonly", false);
     }
     refreshHasil();
@@ -550,7 +550,7 @@ $(document).ready(function () {
       $('input[type=number].minggu2').val('0')
       $('input[type=number].minggu2').attr("readonly", true);
     } else {
-      $('input[type=number].minggu2').val('1')
+      $('input[type=number].minggu2').val('3')
       $('input[type=number].minggu2').attr("readonly", false);
     }
     refreshHasil();
@@ -565,7 +565,7 @@ $(document).ready(function () {
       $('input[type=number].minggu3').val('0')
       $('input[type=number].minggu3').attr("readonly", true);
     } else {
-      $('input[type=number].minggu3').val('1')
+      $('input[type=number].minggu3').val('3')
       $('input[type=number].minggu3').attr("readonly", false);
     }
     refreshHasil();
@@ -580,7 +580,7 @@ $(document).ready(function () {
       $('input[type=number].minggu4').val('0')
       $('input[type=number].minggu4').attr("readonly", true);
     } else {
-      $('input[type=number].minggu4').val('1')
+      $('input[type=number].minggu4').val('3')
       $('input[type=number].minggu4').attr("readonly", false);
     }
     refreshHasil();
@@ -595,7 +595,7 @@ $(document).ready(function () {
       $('input[type=number].minggu5').val('0')
       $('input[type=number].minggu5').attr("readonly", true);
     } else {
-      $('input[type=number].minggu5').val('1')
+      $('input[type=number].minggu5').val('3')
       $('input[type=number].minggu5').attr("readonly", false);
     }
     refreshHasil();
@@ -1155,8 +1155,9 @@ $(document).ready(function () {
     $('#print_area').printThis({
       importCSS: false,
       importStyle: true,//thrown in for extra measure
-      loadCSS: "http://localhost/acpa/CSS/customCSS_preview.css"
+      loadCSS: base_url + "css/rapot.css"
     });
+    //alert(base_url + "css/rapot.css");
   });
 
   //////////////////////////////

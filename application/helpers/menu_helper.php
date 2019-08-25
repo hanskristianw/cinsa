@@ -49,6 +49,20 @@ function disjam_sekolah_lain($kr_id, $t_id, $sk_id){
   return $sk_lain;
 }
 
+function return_konseling_report($d_s_id){
+  $ci =& get_instance();
+  $raport_konseling = $ci->db->query(
+    'SELECT sis_nama_depan, sis_nama_bel, konseling_alasan, konseling_hasil, konseling_saran, konseling_tanggal, konseling_kategori_nama, kelas_nama
+    FROM konseling 
+    LEFT JOIN d_s ON konseling_d_s_id = d_s_id
+    LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+    LEFT JOIN sis ON sis_id = d_s_sis_id
+    LEFT JOIN konseling_kategori ON konseling_kategori_id = konseling_konseling_kategori_id
+    WHERE konseling_d_s_id = '.$d_s_id.' ORDER BY konseling_tanggal')->result_array();
+  
+  return $raport_konseling;
+}
+
 function return_raport_mid($d_s_id, $semester){
   $ci =& get_instance();
 
