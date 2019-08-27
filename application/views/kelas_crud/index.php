@@ -57,7 +57,7 @@
                           <select name="kelas_kr_id" id="kelas_kr_id" class="form-control-sm">
                             <?php
                               $_selected = $m['kelas_kr_id'];
-                              echo "<option value= '0'>No HR Teacher</option>";
+                              echo "<option value= '4'>No HR Teacher</option>";
                               foreach ($guru_all as $n) :
                                   if ($_selected == $n['kr_id']) {
                                       $s = "selected";
