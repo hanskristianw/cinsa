@@ -57,6 +57,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.12.3/printThis.js"></script>
   <script src="<?= base_url('assets/'); ?>js/allJs.js"></script>
   <script src="<?= base_url('assets/'); ?>js/konselor.js"></script>
+  <script src="<?= base_url('assets/'); ?>js/mapel_khusus.js"></script>
   
 
 </body>

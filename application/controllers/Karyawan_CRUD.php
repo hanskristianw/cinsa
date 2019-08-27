@@ -177,4 +177,30 @@ class Karyawan_CRUD extends CI_Controller
 
   }
 
+  public function delete(){
+    $kr_id = $this->input->post('kr_id', true);
+
+    //jika bukan dari form update sendiri
+    if($kr_id){
+      $this->db->where('kr_id', $kr_id);
+      $this->db->delete('kr');
+      $err = $this->db->error();
+
+      $msg_type = "success";
+      $msg = "Employee Deleted";
+      
+      if($err['code']=="1451"){
+        $msg_type = "danger";
+        $msg = "Cannot Delete Employee if employee have score, is counselor, is homeroom teacher, is ssp teacher or principal";
+      }
+      //var_dump($err);
+      $this->session->set_flashdata('message','<div class="alert alert-'.$msg_type.'" role="alert">'.$msg.'</div>');
+      redirect('karyawan_crud');
+
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('karyawan_crud');
+    }
+  }
+
 }

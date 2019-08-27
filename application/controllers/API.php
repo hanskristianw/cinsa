@@ -58,6 +58,26 @@ class API extends CI_Controller
     }
   }
 
+  public function get_siswaMK(){
+    if($this->input->post('mkId',TRUE)){
+    
+      $mkId = $this->input->post('mkId',TRUE);
+      
+      //temukan jenjang id pada kelas itu
+      $data = $this->db->query(
+        "SELECT kelas_nama, sis_nama_depan, sis_nama_bel, d_s_id, mk_detail_id
+        FROM mk_detail
+        LEFT JOIN d_s ON mk_detail_d_s_id = d_s_id
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+        WHERE mk_detail_mk_id = $mkId
+        ORDER BY sis_nama_depan")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }
+  }
+
   public function get_siswa_by_kelas(){
     if($this->input->post('kelas_id',TRUE)){
     

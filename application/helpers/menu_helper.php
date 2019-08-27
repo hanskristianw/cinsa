@@ -34,6 +34,18 @@ function mapel_menu(){
   return $count_walkel;
 }
 
+function return_mk($mapel_id, $d_s_id){
+  $ci =& get_instance();
+
+  $mapel_lain = $ci->db->query(
+    'SELECT mk_nama
+    FROM mk_detail
+    LEFT JOIN mk ON mk_detail_mk_id = mk_id
+    WHERE mk_detail_d_s_id = '.$d_s_id.' AND mk_mapel_id = '.$mapel_id.'')->row_array();
+  
+  return $mapel_lain;
+}
+
 function disjam_sekolah_lain($kr_id, $t_id, $sk_id){
   $ci =& get_instance();
 
@@ -68,7 +80,7 @@ function return_raport_mid($d_s_id, $semester){
 
   $raport_mid = $ci->db->query(
     'SELECT * FROM
-      (SELECT mapel_id, mapel_urutan, tes_d_s_id, mapel_nama,mapel_kkm, 
+      (SELECT mapel_id, mapel_urutan, tes_d_s_id, mapel_nama,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama,  d_s_komen_sis, d_s_komen_sis2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2,
       GROUP_CONCAT(kog_quiz ORDER BY topik_urutan) as kq, 
       GROUP_CONCAT(kog_ass ORDER BY topik_urutan) as ka, 
       GROUP_CONCAT(kog_test ORDER BY topik_urutan) as kt, 
@@ -78,6 +90,12 @@ function return_raport_mid($d_s_id, $semester){
       FROM tes 
       LEFT JOIN topik
       ON tes_topik_id = topik_id
+      LEFT JOIN d_s
+      ON tes_d_s_id = d_s_id
+      LEFT JOIN sis
+      ON d_s_sis_id = sis_id
+      LEFT JOIN kelas
+      ON d_s_kelas_id = kelas_id
       LEFT JOIN mapel
       ON topik_mapel_id = mapel_id
       WHERE tes_d_s_id = '.$d_s_id.' AND topik_semester = '.$semester.'
@@ -85,16 +103,10 @@ function return_raport_mid($d_s_id, $semester){
       ORDER BY mapel_urutan)as formative
       LEFT JOIN
       (
-        SELECT sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama, mapel_id, uj_mid1_kog, uj_mid1_psi, d_s_komen_sis, d_s_komen_sis2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2
+        SELECT mapel_id, uj_mid1_kog, uj_mid1_psi, uj_mid2_kog, uj_mid2_psi
         FROM uj
         LEFT JOIN mapel
         ON uj_mapel_id = mapel_id
-        LEFT JOIN d_s
-        ON uj_d_s_id = d_s_id
-        LEFT JOIN sis
-        ON d_s_sis_id = sis_id
-        LEFT JOIN kelas
-        ON d_s_kelas_id = kelas_id
         WHERE uj_d_s_id = '.$d_s_id.'
         GROUP BY mapel_id
         ORDER BY mapel_urutan
@@ -115,7 +127,15 @@ function return_raport_mid($d_s_id, $semester){
         WHERE afektif_d_s_id = '.$d_s_id.' AND bulan_semester = '.$semester.'
         GROUP BY mapel_id
         ORDER BY mapel_urutan
-      )as afektif ON formative.mapel_id = afektif.mapel_id')->result_array();
+      )as afektif ON formative.mapel_id = afektif.mapel_id
+      LEFT JOIN
+      (
+        SELECT mk_mapel_id, mk_nama
+        FROM mk
+        LEFT JOIN mk_detail ON mk_detail_mk_id = mk_id
+        LEFT JOIN d_s ON mk_detail_d_s_id = d_s_id
+        WHERE mk_detail_d_s_id = '.$d_s_id.'
+      )as mk_fix ON formative.mapel_id = mk_fix.mk_mapel_id')->result_array();
   
   return $raport_mid;
 }
@@ -131,10 +151,19 @@ function returnNilaiSspSisipan($d_s_id, $semester){
     GROUP BY ssp_id
       ')->row_array();
   
-  $td = "<td style='padding: 0px 0px 0px 5px; margin: 0px;'>".$ssp_mid['ssp_nama']."</td>
-        <td class='biasa' colspan='13'></td>
-        <td class='biasa' colspan='3'>".return_abjad_base4($ssp_mid['total_nilai'])."</td>";
-
+  if($ssp_mid['ssp_nama']){
+    $td = "<td style='padding: 0px 0px 0px 5px; margin: 0px;'>".$ssp_mid['ssp_nama']."</td>
+    <td class='biasa' colspan='13'></td>
+    <td class='biasa' colspan='3'>".return_abjad_base4($ssp_mid['total_nilai'])."</td>";
+  }else{
+    $td = "<td style='padding: 0px 0px 0px 5px; margin: 0px;'>No SSP Data</td>
+    <td class='biasa' colspan='13'></td>
+    <td class='biasa' colspan='3'>No SSP Data</td>";
+  }
+  
+  
+  
+  //var_dump($td);
   return $td;
 }
 
@@ -183,7 +212,7 @@ function returnNilaiPerBulan($minggu1, $minggu2, $minggu3, $minggu4, $minggu5){
   return $nilai_bulan/$jumAktif;
 }
 
-function returnQATastd($kq, $ka, $kt, $pq, $pa, $pt, $minggu1, $minggu2, $minggu3, $minggu4, $minggu5, $uj_mid1_kog, $uj_mid1_psi){
+function returnQATastd($kq, $ka, $kt, $pq, $pa, $pt, $minggu1, $minggu2, $minggu3, $minggu4, $minggu5, $uj_mid1_kog, $uj_mid1_psi, $uj_mid2_kog, $uj_mid2_psi, $semester){
   $kq = explode(",",$kq);
   $ka = explode(",",$ka);
   $kt = explode(",",$kt);
@@ -251,8 +280,14 @@ function returnQATastd($kq, $ka, $kt, $pq, $pa, $pt, $minggu1, $minggu2, $minggu
   
   
   //SUMMATIVE
-  $td .= returnQATmidcek($uj_mid1_kog);
-  $td .= returnQATmidcek($uj_mid1_psi);
+  if($semester == 1){
+    $td .= returnQATmidcek($uj_mid1_kog);
+    $td .= returnQATmidcek($uj_mid1_psi);
+  }
+  elseif($semester == 2){
+    $td .= returnQATmidcek($uj_mid2_kog);
+    $td .= returnQATmidcek($uj_mid2_psi);
+  }
 
   return $td;
 }

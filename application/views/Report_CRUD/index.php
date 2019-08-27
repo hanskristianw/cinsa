@@ -13,8 +13,18 @@
             <?= $this->session->flashdata('message'); ?>
 
             <form class="user" action="Report_CRUD/show" method="POST">
-
+              
               <div class="form-group row">
+                <div class="col-sm mb-sm-0">
+                  <select name="sk" id="sk_id_report" class="form-control">
+                    <option value="0">Select School</option>
+                    <?php foreach ($sk_all as $m) : ?>
+                      <option value='<?= $m['sk_id'] ?>'>
+                        <?= $m['sk_nama']; ?>
+                      </option>
+                    <?php endforeach ?>
+                  </select>
+                </div>
                 <div class="col-sm mb-sm-0">
                   <select name="t" id="t" class="form-control">
                     <option value="0">Select Year</option>
@@ -25,6 +35,8 @@
                     <?php endforeach ?>
                   </select>
                 </div>
+              </div>
+              <div class="form-group row">
                 <div class="col-sm mb-sm-0">
                   <select name="semester" id="semester" class="form-control">
                     <option value="1">Odd Semester</option>

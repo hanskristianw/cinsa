@@ -65,7 +65,7 @@
                 </div>
               </div>
 
-              <input type="text" class="form-control" name="ssp_topik_nama" placeholder="Topic Name" required pattern="\S+" title="No space allowed">
+              <input type="text" class="form-control" name="ssp_topik_nama" placeholder="Topic Name" required>
 
               <textarea rows="4" name="ssp_topik_a" class="form-control mt-2" placeholder="Description if A" required></textarea>
               <textarea rows="4" name="ssp_topik_b" class="form-control mt-2" placeholder="Description if B" required></textarea>

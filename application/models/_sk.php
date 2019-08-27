@@ -18,6 +18,10 @@ class _sk extends CI_Model {
     return $this->db->where('sk_username', $sk_username)->get('sk')->row_array();
   }
 
+  public function find_by_id_arr($sk_id){
+    return $this->db->join('kr', 'sk_kepsek=kr_id', 'Left')->where('sk_id', $sk_id)->get('sk')->result_array();
+  }
+
   public function find_by_id($sk_id){
     return $this->db->join('kr', 'sk_kepsek=kr_id', 'Left')->where('sk_id', $sk_id)->get('sk')->row_array();
   }

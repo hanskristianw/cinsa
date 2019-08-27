@@ -804,8 +804,12 @@ $(document).ready(function () {
   /////////////////////////////
   ///////Report Print//////////
   /////////////////////////////
+  $('#sk_id_report').change(function () {
+    $('#t').change();
+  });
   $('#t').change(function () {
     var id = $(this).val();
+    var sk_id = $('#sk_id_report').val();
 
     $('#kelas_ajax').html("");
     $('#siswa_ajax').html("");
@@ -816,6 +820,7 @@ $(document).ready(function () {
         url: base_url + "Report_CRUD/get_kelas",
         data: {
           'id': id,
+          'sk_id': sk_id,
         },
         async: true,
         dataType: 'json',
@@ -863,7 +868,7 @@ $(document).ready(function () {
               var i;
               html = "";
 
-              html += '<hr><div class="form-group d-flex justify-content-center"><label class="checkbox-inline mr-2"><input class="checkAll" type="checkbox"> <b><u>CHECK ALL</u></b></label><label class="checkbox-inline mr-2"><input class="checkSsp" checked type="checkbox"> <b><u>SHOW SSP</u></b></label><label class="checkbox-inline "><input class="checkSsp" checked type="checkbox"> <b><u>SHOW SCOUT</u></b></label></div><hr>';
+              html += '<hr><div class="form-group d-flex justify-content-center"><label class="checkbox-inline mr-2"><input class="checkAll" type="checkbox"> <b><u>CHECK ALL</u></b></label><label class="checkbox-inline mr-2"><input class="checkSsp" name="checkSsp" checked type="checkbox"> <b><u>SHOW SSP</u></b></label><label class="checkbox-inline "><input class="checkSsp" checked type="checkbox"> <b><u>SHOW SCOUT</u></b></label></div><hr>';
 
 
               for (i = 0; i < data.length; i++) {

@@ -15,12 +15,15 @@
                 $nomor = 1;
                 $siswa = return_raport_mid($sis_arr[$i], $semester);
 
+                //var_dump($sis_arr[$i]);
+
                 $tanggal_arr = explode('-', $kepsek['sk_mid']);
                 $tahun = $tanggal_arr[0];
                 $bulan = return_nama_bulan($tanggal_arr[1]);
                 $tanggal = $tanggal_arr[2];
 
                 if(isset($siswa[0]['sis_nama_depan'])):
+
             ?>
               <hr style="height:5px; visibility:hidden;" />
 
@@ -29,6 +32,7 @@
               <br><br><br>
               <div id='textbox'>
                 <p class='alignleft'>
+                  
                   STUDENT'S NAME &nbsp&nbsp&nbsp&nbsp&nbsp&emsp;&emsp;&emsp;:&nbsp<?= $siswa[0]['sis_nama_depan'].' '.$siswa[0]['sis_nama_bel'] ?><br>
                   STUDENT ID &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&emsp;&emsp;&emsp;:&nbsp<?= $siswa[0]['sis_no_induk'] ?><br>
                 </p>
@@ -78,18 +82,33 @@
                       if($semester==1)$komen_mid=$m['d_s_komen_sis'];else $komen_mid=$m['d_s_komen_sis2'];
                       if($semester==1)$d_s_sick=$m['d_s_sick'];else $d_s_sick=$m['d_s_sick2'];
                       if($semester==1)$d_s_absenin=$m['d_s_absenin'];else $d_s_absenin=$m['d_s_absenin2'];
-                      if($semester==1)$d_s_absenex=$m['d_s_absenex'];else $d_s_absenin=$m['d_s_absenex2'];
+                      if($semester==1)$d_s_absenex=$m['d_s_absenex'];else $d_s_absenex=$m['d_s_absenex2'];
                   ?>
                     <tr>
                       <td class='nomor'><?= $nomor ?></td>
-                      <td style='padding: 0px 0px 0px 5px; margin: 0px;'><?= $m['mapel_nama'] ?></td>
+                      <td style='padding: 0px 0px 0px 5px; margin: 0px;'>
+                        <?php 
+                          if($m['mk_nama']){
+                            echo $m['mk_nama'];
+                          }else{
+                            echo $m['mapel_nama'];
+                          }
+                        ?>
+                      </td>
                       <td class='kkm' style='padding: 0px 0px 0px 5px; margin: 0px;'><?= $m['mapel_kkm'] ?></td>
-                      <?= returnQATastd($m['kq'],$m['ka'],$m['kt'],$m['pq'],$m['pa'],$m['pt'],$m['minggu1'],$m['minggu2'],$m['minggu3'],$m['minggu4'],$m['minggu5'],$m['uj_mid1_kog'],$m['uj_mid1_psi']); ?>
+                      <?= returnQATastd($m['kq'],$m['ka'],$m['kt'],$m['pq'],$m['pa'],$m['pt'],$m['minggu1'],$m['minggu2'],$m['minggu3'],$m['minggu4'],$m['minggu5'],$m['uj_mid1_kog'],$m['uj_mid1_psi'],$m['uj_mid2_kog'],$m['uj_mid2_psi'],$semester); ?>
                     </tr>
-                  <?php endforeach;?>
+                  <?php 
+                    $nomor++;
+                    endforeach;
+                  ?>
                   <tr>
-                    <td class='nomor'><?= $nomor+1 ?></td>
-                    <?= returnNilaiSspSisipan($sis_arr[$i], $semester) ?>
+                    <?php 
+                      if($checkSsp){
+                        echo "<td class='nomor'>".($nomor)."</td>";
+                        echo returnNilaiSspSisipan($sis_arr[$i], $semester);
+                      }
+                    ?>
                   </tr>
                   <tr>
                     <td class='kkm' colspan='2'>Homeroom Teacher's Comment</td>
@@ -130,7 +149,6 @@
             <p style="page-break-after: always;">&nbsp;</p>
 
             <?php 
-                $nomor++;
                 endif;
               endfor;
             ?>

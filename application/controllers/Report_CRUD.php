@@ -19,7 +19,7 @@ class Report_CRUD extends CI_Controller
     }
 
     //jika bukan HRD dan sudah login redirect ke home
-    if($this->session->userdata('kr_jabatan_id')!=4 && $this->session->userdata('kr_jabatan_id')){
+    if($this->session->userdata('kr_jabatan_id')!=4 && $this->session->userdata('kr_jabatan_id')!=5 && $this->session->userdata('kr_jabatan_id')){
       redirect('Profile');
     }
   }
@@ -34,6 +34,15 @@ class Report_CRUD extends CI_Controller
     //data karyawan untuk konten
     $data['t_all'] = $this->_t->return_all();
 
+    if($this->session->userdata('kr_jabatan_id')==5){
+      $data['sk_all'] = $this->_sk->return_all();
+    }
+
+    if($this->session->userdata('kr_jabatan_id')==4){
+      $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
+    }
+
+    //var_dump($data['sk_all']);
     //$data['tes'] = var_dump($this->db->last_query());
 
     $this->load->view('templates/header',$data);
@@ -48,7 +57,7 @@ class Report_CRUD extends CI_Controller
     if($this->input->post('id',TRUE)){
     
       $t_id = $this->input->post('id',TRUE);
-      $sk_id = $this->session->userdata('kr_sk_id');
+      $sk_id = $this->input->post('sk_id',TRUE);
       
       //temukan jenjang id pada kelas itu
       $data = $this->db->query(
@@ -103,14 +112,31 @@ class Report_CRUD extends CI_Controller
       $data['sis_arr'] = $this->input->post('siswa_check[]',TRUE);
       $data['semester'] = $this->input->post('semester',TRUE);
 
+      $jenis = $this->input->post('pJenis',TRUE);
+
+      
+      $data['checkSsp'] = $this->input->post('checkSsp',TRUE);
+
       $data['kepsek'] = $this->_sk->find_by_id($this->session->userdata('kr_sk_id'));
       $data['walkel'] = $this->_kelas->find_walkel_by_kelas_id($this->input->post('kelas_id',TRUE));
 
-      $this->load->view('templates/header',$data);
-      $this->load->view('templates/sidebar',$data);
-      $this->load->view('templates/topbar',$data);
-      $this->load->view('Report_CRUD/first_page',$data);
-      $this->load->view('templates/footer');
+      //var_dump($data['checkSsp']);
+
+      if($jenis==0){
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar',$data);
+        $this->load->view('templates/topbar',$data);
+        $this->load->view('Report_CRUD/sisipan',$data);
+        $this->load->view('templates/footer');
+      }elseif($jenis==1){
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar',$data);
+        $this->load->view('templates/topbar',$data);
+        $this->load->view('Report_CRUD/semester',$data);
+        $this->load->view('templates/footer');
+      }
+
+      
 
     }else{
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Do not access page directly!</div>');

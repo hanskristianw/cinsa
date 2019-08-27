@@ -7,44 +7,45 @@
             <div class="col-lg">
               <div class="p-5 overflow-auto">
                   <div class="text-center">
-                      <h1 class="h4 text-gray-900 mb-4">Employee List</h1>
+                      <h1 class="h4 text-gray-900 mb-4">Special Subject List</h1>
                   </div>
-                  
+
                   <?= $this->session->flashdata('message'); ?>
 
-                  <a href="<?= base_url('karyawan_crud/add') ?>" class="btn btn-primary mb-3">Add New Employee</a>
+                  <a href="<?= base_url('mk_crud/add') ?>" class="btn btn-primary mb-3">Add New</a>
 
                   <table class="table display compact table-hover dt">
                     <thead>
                       <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Department</th>
-                        <th>Status</th>
-                        <th>School</th>
+                        <th>Name</th>
+                        <th>Subject</th>
+                        <th>Year</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php foreach($kr_all as $m) : ?>
+                      <?php 
+                      foreach($mk_all as $m) : ?>
                         <tr>
-                          <td><?= $m['kr_nama_depan'] ?></td>
-                          <td><?= $m['kr_nama_belakang'] ?></td>
-                          <td><?= $m['kr_username'] ?></td>
-                          <td><?= $m['jabatan_nama'] ?></td>
-                          <td><?= $m['st_nama'] ?></td>
-                          <td><?= $m['sk_nama'] ?></td>
+                          <td><?= $m['mk_nama'] ?></td>
+                          <td><?= $m['mapel_nama'] ?></td>
+                          <td><?= $m['t_nama'] ?></td>
                           <td>
                             <div class="form-group row">
-                              <form class="" action="<?= base_url('Karyawan_CRUD/update') ?>" method="get">
-                                <input type="hidden" name="_id" value=<?= $m['kr_id'] ?>>
+                              <form class="" action="<?= base_url('MK_CRUD/update') ?>" method="get">
+                                <input type="hidden" name="mk_id" value=<?= $m['mk_id'] ?>>
                                 <button type="submit" class="badge badge-warning">
                                     Edit
                                 </button>
                               </form>
-                              <form class="" action="<?= base_url('Karyawan_CRUD/delete') ?>" method="post">
-                                <input type="hidden" name="kr_id" value=<?= $m['kr_id'] ?> method="post">
+                              <form class="" action="<?= base_url('MK_CRUD/edit_student') ?>" method="post">
+                                <input type="hidden" name="mk_id" value=<?= $m['mk_id'] ?>>
+                                <button type="submit" class="badge badge-success">
+                                    Edit Student
+                                </button>
+                              </form>
+                              <form class="" action="" method="post">
+                                <input type="hidden" name="" value=<?= $m['mk_id'] ?>>
                                 <button type="submit" class="badge badge-danger">
                                     Delete
                                 </button>

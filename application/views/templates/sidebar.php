@@ -94,6 +94,7 @@
                   <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>2. Subject</a>
                   <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>3. Class</a>
                   <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>4. SSP</a>
+                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>5. Special Subject</a>
                 </div>
               </div>
             </li>
@@ -179,7 +180,8 @@
               </a>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Menu</h6>
+                  <h6 class="collapse-header">Show</h6>
+                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>Student Report</a>
                   <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>Hours Distribution</a>
                 </div>
               </div>
