@@ -162,7 +162,8 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
                   <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>Topic</a>
-                  <a class="collapse-item mb-3" href=' . base_url('Konselor_CRUD') . '>Counselor</a>
+                  <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>Counselor</a>
+                  <a class="collapse-item mb-3" href=' . base_url('Karakter_CRUD') . '>Character</a>
 
                   <h6 class="collapse-header">Grade</h6>
                   <a class="collapse-item" href=' . base_url('Kadiv_CRUD/ujian') . '>Mid & Final</a>

@@ -58,6 +58,7 @@
   <script src="<?= base_url('assets/'); ?>js/allJs.js"></script>
   <script src="<?= base_url('assets/'); ?>js/konselor.js"></script>
   <script src="<?= base_url('assets/'); ?>js/mapel_khusus.js"></script>
+  <script src="<?= base_url('assets/'); ?>js/karakter.js"></script>
   
 
 </body>

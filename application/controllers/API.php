@@ -78,6 +78,33 @@ class API extends CI_Controller
     }
   }
 
+  public function get_subject_by_karakter_and_sk(){
+    if($this->input->post('karakter_id',TRUE)){
+    
+      $karakter_id = $this->input->post('karakter_id',TRUE);
+      $sk_id = $this->input->post('sk_id',TRUE);
+      
+      //temukan jenjang id pada kelas itu
+      $data = $this->db->query(
+        "SELECT * FROM 
+        (
+          SELECT * FROM mapel
+          WHERE mapel_sk_id = $sk_id
+        ) as mapel_awal
+        LEFT JOIN
+        (
+          SELECT karakter_detail_mapel_id FROM karakter_detail
+          LEFT JOIN mapel ON karakter_detail_mapel_id = mapel_id
+          LEFT JOIN karakter ON karakter_detail_karakter_id = karakter_id
+          WHERE mapel_sk_id = $sk_id AND karakter_id = $karakter_id
+        ) as mapel_karakter ON mapel_karakter.karakter_detail_mapel_id = mapel_awal.mapel_id
+        ORDER BY mapel_nama")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }
+  }
+
   public function get_siswa_by_kelas(){
     if($this->input->post('kelas_id',TRUE)){
     
