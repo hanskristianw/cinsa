@@ -13,26 +13,32 @@
             <?= $this->session->flashdata('message'); ?>
 
             <form class="user" action="Tes_CRUD/input" method="POST">
-
+              <input type="hidden" id="flag_uj" value="0">
               <div class="form-group row">
                 <div class="col-sm mb-sm-0">
-                  <select name="arr_cog_psy" id="arr_cog_psy" class="form-control">
-                    <option value="0">Select Class/Subject</option>
-                    <?php foreach ($mapel_all as $m) : ?>
-                      <option value='<?=$m['d_mpl_mapel_id'].'|'.$m['kelas_id']?>'>
-                        <?= "(".$m['t_nama']." - ".$m['sk_nama'].") ".$m['kelas_nama']." (".$m['mapel_nama'].")" ?>
+                  <select name="t_id" id="tes_t_id" class="form-control">
+                    <option value="0">Select Year</option>
+                    <?php foreach ($t_all as $m) : ?>
+                      <option value='<?= $m['t_id'] ?>'>
+                        <?= $m['t_nama'] ?>
                       </option>
                     <?php endforeach ?>
                   </select>
                 </div>
                 <div class="col-sm mb-sm-0">
-                  <select name="cek_agama" class="form-control mb-3">
+                  <select name="cek_agama" class="form-control">
                       <option value='0'>Order By Name</option>
                       <option value='1'>Group By Religion</option>
                   </select>
                 </div>
               </div>
-              <div id="topik_ajax">
+              <div id="kelas_tes_ajax">
+              
+              </div>
+              <div id="mapel_tes_ajax">
+              
+              </div>
+              <div id="topik_tes_ajax">
               
               </div>
             </form>

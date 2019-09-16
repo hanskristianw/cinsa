@@ -40,19 +40,37 @@ class Topik_CRUD extends CI_Controller
     $kr_id = $data['kr']['kr_id'];
 
     //SELECT * from d_mpl WHERE d_mpl_kr_id = $data['kr']['kr_id']
+    $data['jabatan_id'] = $this->session->userdata('kr_jabatan_id');
 
-    $data['mapel_all'] = $this->db->query(
-      "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
-      FROM d_mpl 
-      LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
-      LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
-      LEFT JOIN sk ON kelas_sk_id = sk_id
-      WHERE d_mpl_kr_id = $kr_id")->result_array();
+    if($this->session->userdata('kr_jabatan_id')!=4){
+      $data['mapel_all'] = $this->db->query(
+        "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
+        FROM d_mpl 
+        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN sk ON kelas_sk_id = sk_id
+        WHERE d_mpl_kr_id = $kr_id")->result_array();
+  
+      if(empty($data['mapel_all'])){
+        $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>You don't teach any class, contact curriculum for more information!</div>");
+        redirect('Profile');
+      }
+    }else{
+      $sk_id = $this->session->userdata('kr_sk_id');
+      $data['mapel_all'] = $this->db->query(
+        "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
+        FROM d_mpl 
+        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN sk ON kelas_sk_id = sk_id
+        WHERE sk_id = $sk_id
+        ORDER BY mapel_nama")->result_array();
 
-    if(empty($data['mapel_all'])){
-      $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>You don't teach any class, contact curriculum for more information!</div>");
-      redirect('Profile');
+
     }
+
+    //var_dump($this->session->userdata('kr_jabatan_id'));
+    
 
     //var_dump($this->db->last_query());
     $this->load->view('templates/header',$data);
@@ -69,10 +87,12 @@ class Topik_CRUD extends CI_Controller
       $mapel_id = $this->input->post('id',TRUE);
       
       $data = $this->db->query(
-        "SELECT *
+        "SELECT topik_nama, topik_id, jenj_nama, topik_mapel_id, topik_urutan, topik_semester, count(tes_id) as jum_tes
         FROM topik
         LEFT JOIN jenj ON topik_jenj_id = jenj_id
+        LEFT JOIN tes ON tes_topik_id = topik_id
         WHERE topik_mapel_id = $mapel_id
+        GROUP BY topik_id
         ORDER BY jenj_id, topik_urutan, topik_semester, topik_nama")->result();
   
       //var_dump($data);
@@ -163,85 +183,20 @@ class Topik_CRUD extends CI_Controller
     $this->load->view('Topik_CRUD/edit',$data);
     $this->load->view('templates/footer');
 
-    // //jika bukan dari form update sendiri
-    // if (!$topik_post) {
-    //   //ambil id dari method get
-    //   $topik_get = $this->_topik->find_by_id($this->input->get('_id', true));
-
-    //   //jika langsung akses halaman
-    //   if (!$topik_get['topik_id']) {
-    //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly, please use edit button instead!</div>');
-    //     redirect('Topik_CRUD');
-    //   }
-
-    //   //////////////////////////////////////
-    //   //jika akses mapel yang tidak diajar//
-    //   //////////////////////////////////////
-    //   $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-    //   $kr_id = $data['kr']['kr_id'];
-
-    //   $data['mapel_all'] = $this->db->query(
-    //     "SELECT GROUP_CONCAT(DISTINCT mapel_id) as mapel_id
-    //     FROM d_mpl 
-    //     LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
-    //     WHERE d_mpl_kr_id = $kr_id")->row_array();
-
-    //   $mapelget = $this->input->get('_mapelid', true);
-
-    //   $arr_mapel_id = explode(",",$data['mapel_all']['mapel_id']);
-
-    //   $found = 0;
-    //   for($i=0;$i<count($arr_mapel_id);$i++){
-    //     if($mapelget == $arr_mapel_id[$i]){
-    //       $found = 1;
-    //     }
-    //   }
-    //   if($found == 0){
-    //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">You dont teach this subject!</div>');
-    //     redirect('Topik_CRUD');
-    //   }
-
-    // }
-    
-    // $this->form_validation->set_rules('topik_nama', 'Topic Name', 'required|trim');
-    // $this->form_validation->set_rules('topik_urutan', 'Topic Order', 'required|trim');
-
-		// if($this->form_validation->run() == false){
-		// 	$data['title'] = 'Edit Topic';
-    //   $data['_id'] = $this->input->get('_id', true);
-
-    //   $data['topik_update'] = $this->_topik->find_by_id($this->input->get('_id', true));
-
-    //   //data karyawan yang sedang login untuk topbar
-    //   $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-    //   $data['jenj_all'] = $this->_jenj->return_all_by_sk($this->session->userdata('kr_sk_id'));
-      
-
-    //   $this->load->view('templates/header',$data);
-    //   $this->load->view('templates/sidebar',$data);
-    //   $this->load->view('templates/topbar',$data);
-    //   $this->load->view('Topik_CRUD/edit',$data);
-    //   $this->load->view('templates/footer');
-		// }
-    // else{
-    //   //fetch data hasil inputan
-    //   $data = [
-    //     'topik_nama' => $this->input->post('topik_nama'),
-		// 		'topik_semester' => $this->input->post('topik_semester'),
-		// 		'topik_urutan' => $this->input->post('topik_urutan'),
-		// 		'topik_jenj_id' => $this->input->post('jenj_id')
-    //   ];
-
-    //   //simpan ke db
-
-    //   $this->db->where('topik_id', $this->input->post('_id'));
-    //   $this->db->update('topik', $data); 
-      
-    //   $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Topic Updated!</div>');
-    //   redirect('Topik_CRUD');
-    // }
-
   }
+  
+  public function delete(){
+    if($this->input->post('topik_id', true) || $this->session->userdata('kr_jabatan_id')!=4){
+      $topik_id = $this->input->post('topik_id', true);
+
+      $this->db->where('topik_id', $topik_id);
+      $this->db->delete('topik');
+
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Topic Deleted!</div>');
+      redirect('topik_crud');
+    }
+  }
+
 
   public function edit_proses(){
     if($this->input->post('_id', true)){
@@ -261,4 +216,5 @@ class Topik_CRUD extends CI_Controller
       redirect('Topik_CRUD');
     }
   }
+  
 }

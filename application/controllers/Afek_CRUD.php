@@ -14,6 +14,7 @@ class Afek_CRUD extends CI_Controller
     $this->load->model('_mapel');
     $this->load->model('_topik');
     $this->load->model('_k_afek');
+    $this->load->model('_t');
 
 
     //jika belum login
@@ -39,23 +40,24 @@ class Afek_CRUD extends CI_Controller
     //cari guru mengajar mapel mana saja
 
     $kr_id = $data['kr']['kr_id'];
+    $data['t_all'] = $this->_t->return_all();
 
     //SELECT * from d_mpl WHERE d_mpl_kr_id = $data['kr']['kr_id']
 
-    $data['mapel_all'] = $this->db->query(
-      "SELECT t_nama, sk_nama, d_mpl_mapel_id, mapel_nama, kelas_id, kelas_nama
-      FROM d_mpl
-      LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
-      LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
-      LEFT JOIN t ON kelas_t_id = t_id
-      LEFT JOIN sk ON kelas_sk_id = sk_id
-      WHERE d_mpl_kr_id = $kr_id
-      ORDER BY t_id DESC, sk_nama, kelas_nama")->result_array();
+    // $data['mapel_all'] = $this->db->query(
+    //   "SELECT t_nama, sk_nama, d_mpl_mapel_id, mapel_nama, kelas_id, kelas_nama
+    //   FROM d_mpl
+    //   LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+    //   LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+    //   LEFT JOIN t ON kelas_t_id = t_id
+    //   LEFT JOIN sk ON kelas_sk_id = sk_id
+    //   WHERE d_mpl_kr_id = $kr_id
+    //   ORDER BY t_id DESC, sk_nama, kelas_nama")->result_array();
 
-    if(empty($data['mapel_all'])){
-      $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>You don't teach any class, contact curriculum for more information!</div>");
-      redirect('Profile');
-    }
+    // if(empty($data['mapel_all'])){
+    //   $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>You don't teach any class, contact curriculum for more information!</div>");
+    //   redirect('Profile');
+    // }
     //var_dump($this->db->last_query());
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);
@@ -67,11 +69,10 @@ class Afek_CRUD extends CI_Controller
 
   public function get_topik(){
 
-    if($this->input->post('id',TRUE)){
-      $id = explode("|",$this->input->post('id',TRUE));
+    if($this->input->post('mapel_id',TRUE)){
     
-      $mapel_id = $id[0];
-      $kelas_id = $id[1];
+      $mapel_id = $this->input->post('mapel_id',TRUE);
+      $kelas_id = $this->input->post('kelas_id',TRUE);
       
       //temukan jenjang id pada kelas itu
       $tahun = $this->db->query(
@@ -101,15 +102,14 @@ class Afek_CRUD extends CI_Controller
 
   public function input(){
 
-    if(!$this->input->post('arr_afek')){
+    if(!$this->input->post('mapel_id')){
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Do not access page directly!</div>');
       redirect('Afek_CRUD');
     }
 
-    $arr = explode("|",$this->input->post('arr_afek'));
     $k_afek_id = $this->input->post('k_afek_id');
-    $mapel_id = $arr[0];
-    $kelas_id = $arr[1];
+    $mapel_id = $this->input->post('mapel_id');
+    $kelas_id = $this->input->post('kelas_id');
 
     $data['title'] = 'Affective';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -119,7 +119,7 @@ class Afek_CRUD extends CI_Controller
     //untuk header
     $data['kelas'] = $this->_kelas->find_kelas_nama($kelas_id);
     $data['mapel'] = $this->_mapel->find_mapel_nama($mapel_id);
-    $data['k_afek'] = $this->_k_afek->find_by_id($k_afek_id,$this->session->userdata('kr_sk_id'));
+    $data['k_afek'] = $this->_k_afek->find_by_id($k_afek_id);
 
     //untuk tabel
     $data['kelas_id'] = $kelas_id;

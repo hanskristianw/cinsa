@@ -13,6 +13,7 @@ class Tes_CRUD extends CI_Controller
     $this->load->model('_kelas');
     $this->load->model('_mapel');
     $this->load->model('_topik');
+    $this->load->model('_t');
 
 
     //jika belum login
@@ -43,6 +44,7 @@ class Tes_CRUD extends CI_Controller
     //cari guru mengajar mapel mana saja
 
     $kr_id = $data['kr']['kr_id'];
+    $data['t_all'] = $this->_t->return_all();
 
     //SELECT * from d_mpl WHERE d_mpl_kr_id = $data['kr']['kr_id']
 
@@ -71,59 +73,17 @@ class Tes_CRUD extends CI_Controller
 
   }
 
-  public function get_topik(){
-
-    if($this->input->post('id',TRUE)){
-      $id = explode("|",$this->input->post('id',TRUE));
-    
-      $mapel_id = $id[0];
-      $kelas_id = $id[1];
-      
-      //temukan jenjang id pada kelas itu
-      $jenjang = $this->db->query(
-        "SELECT jenj_id
-        FROM kelas
-        LEFT JOIN jenj ON kelas_jenj_id = jenj_id
-        WHERE kelas_id = $kelas_id")->row_array();
-  
-      //print_r($jenjang['jenj_id']);
-  
-      $jenj_id = $jenjang['jenj_id'];
-      $data = $this->db->query(
-        "SELECT topik_id, topik_nama, topik_semester
-        FROM topik
-        LEFT JOIN jenj ON topik_jenj_id = jenj_id
-        LEFT JOIN mapel ON topik_mapel_id = mapel_id
-        WHERE jenj_id = $jenj_id AND mapel_id = $mapel_id")->result();
-  
-      //$data = $this->product_model->get_sub_category($category_id)->result();
-      echo json_encode($data);
-    }else{
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
-      redirect('Profile');
-    }
-    
-  }
-
   public function input(){
 
-    if(!$this->input->post('arr_cog_psy') && !$this->input->post('sk_id')){
+    if(!$this->input->post('mapel_id')){
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Do not access page directly!</div>');
       redirect('Tes_CRUD');
     }
 
-    if($this->input->post('arr_cog_psy')){
-      $arr = explode("|",$this->input->post('arr_cog_psy'));
-      $topik_id = $this->input->post('topik_id');
-      $mapel_id = $arr[0];
-      $kelas_id = $arr[1];
-    }
     
-    if($this->input->post('sk_id')){
-      $topik_id = $this->input->post('topik_id');
-      $mapel_id = $this->input->post('mapel_id');
-      $kelas_id = $this->input->post('kelas_id');
-    }
+    $topik_id = $this->input->post('topik_id');
+    $mapel_id = $this->input->post('mapel_id');
+    $kelas_id = $this->input->post('kelas_id');
 
     $siswacount = $this->db->join('kelas', 'd_s_kelas_id = kelas_id', 'left')->where('d_s_kelas_id',$kelas_id)->from("d_s")->count_all_results();
     if($siswacount == 0){

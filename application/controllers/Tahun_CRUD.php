@@ -17,7 +17,7 @@ class Tahun_CRUD extends CI_Controller
     }
 
     //jika bukan Admin dan sudah login redirect ke home
-    if ($this->session->userdata('kr_jabatan_id') != 1 && $this->session->userdata('kr_jabatan_id')) {
+    if ($this->session->userdata('kr_jabatan_id') != 5 && $this->session->userdata('kr_jabatan_id')) {
       redirect('Profile');
     }
   }
@@ -25,7 +25,7 @@ class Tahun_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'Tahun Ajaran List';
+    $data['title'] = 'Year List';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));

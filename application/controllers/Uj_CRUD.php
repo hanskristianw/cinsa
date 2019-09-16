@@ -12,6 +12,7 @@ class Uj_CRUD extends CI_Controller
     $this->load->model('_st');
     $this->load->model('_kelas');
     $this->load->model('_mapel');
+    $this->load->model('_t');
 
 
     //jika belum login
@@ -36,6 +37,7 @@ class Uj_CRUD extends CI_Controller
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['t_all'] = $this->_t->return_all();
 
     //$data['tes'] = var_dump($this->db->last_query());
 
@@ -71,18 +73,12 @@ class Uj_CRUD extends CI_Controller
 
   public function input(){
 
-    if(!$this->input->post('arr') && !$this->input->post('sk_id')){
+    if(!$this->input->post('mapel_id')){
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Do not access page directly!</div>');
       redirect('Uj_CRUD');
     }
 
-    if($this->input->post('arr')){
-      $arr = explode("|",$this->input->post('arr'));
-      $mapel_id = $arr[0];
-      $kelas_id = $arr[1];
-    }
-
-    if($this->input->post('sk_id')){
+    if($this->input->post('mapel_id')){
       $mapel_id = $this->input->post('mapel_id');
       $kelas_id = $this->input->post('kelas_id');
     }

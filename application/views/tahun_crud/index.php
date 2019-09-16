@@ -33,12 +33,6 @@
                             Edit
                           </button>
                         </form>
-                        <form class="" action="" method="get">
-                          <input type="hidden" name="" value=<?= $m['t_id'] ?> >
-                          <button type="submit" class="badge badge-danger">
-                            Delete
-                          </button>
-                        </form>
                       </div>
                     </td>
                   </tr>

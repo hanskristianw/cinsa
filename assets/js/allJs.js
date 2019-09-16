@@ -434,44 +434,140 @@ $(document).ready(function () {
   });
 
 
-  $('#arr_cog_psy').change(function () {
-    var id = $(this).val();
+  $('#tes_t_id').change(function () {
 
-    if (id == 0) {
-      $('#topik_ajax').html("");
-    }
+    var t_id = $(this).val();
+    $('#kelas_tes_ajax').html("");
+    $('#mapel_tes_ajax').html("");
+    $('#topik_tes_ajax').html("");
 
     $.ajax(
       {
         type: "post",
-        url: base_url + "Tes_CRUD/get_topik",
+        url: base_url + "API/get_kelas_by_kr",
         data: {
-          'id': id,
+          't_id': t_id,
         },
         async: true,
         dataType: 'json',
         success: function (data) {
           //console.log(data);
           if (data.length == 0) {
-            var html = '<div class="text-center mb-3 text-danger"><b>--No Topic, Please add Topic--</b></div>';
+            var html = '<div class="text-center mb-3 text-danger"><b>--No Class, Please add Class--</b></div>';
           } else {
-            var html = '<select name="topik_id" id="topik_id" class="form-control mb-3">';
+            var html = '<select name="kelas_id" id="kelas_tes_id" class="form-control mb-3">';
             var i;
+            html += '<option value=0>Select Class</option>';
             for (i = 0; i < data.length; i++) {
-              html += '<option value=' + data[i].topik_id + '>' + data[i].topik_nama + ' (Sem: ' + data[i].topik_semester + ')</option>';
+              html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama + '-' + data[i].sk_nama + '</option>';
             }
             html += '</select>';
 
-            html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
-            html += 'Insert Cog & Psy';
-            html += '</button>';
           }
 
-          $('#topik_ajax').html(html);
+          $('#kelas_tes_ajax').html(html);
+          refreshTesKelas();
 
         }
       });
   });
+
+  function refreshTesKelas() {
+    $('#kelas_tes_id').change(function () {
+      var kelas_id = $(this).val();
+      var flag = $('#flag_uj').val();
+      //alert(flag);
+      $('#topik_tes_ajax').html("");
+
+      //alert("hai");
+      if (kelas_id == 0) {
+        $('#mapel_tes_ajax').html("");
+      }
+
+      $.ajax(
+        {
+          type: "post",
+          url: base_url + "API/get_mapel_by_kr_kelas",
+          data: {
+            'kelas_id': kelas_id,
+          },
+          async: true,
+          dataType: 'json',
+          success: function (data) {
+            //console.log(data);
+            if (data.length == 0) {
+              var html = '<div class="text-center mb-3 text-danger"><b>--No Class--</b></div>';
+            } else {
+              var html = '<select name="mapel_id" id="tes_mapel_id" class="form-control mb-3">';
+
+              if (flag != 1) {
+                html += '<option value=0>Select Subject</option>';
+              }
+              var i;
+              for (i = 0; i < data.length; i++) {
+                html += '<option value=' + data[i].mapel_id + '>' + data[i].mapel_nama + '</option>';
+              }
+              html += '</select>';
+
+              if (flag == 1) {
+                html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+                html += 'Input Mid and Final';
+                html += '</button>';
+              }
+
+            }
+
+            $('#mapel_tes_ajax').html(html);
+            if (flag != 1) {
+              refreshTesMapel();
+            }
+          }
+        });
+    });
+  }
+
+  function refreshTesMapel() {
+    $('#tes_mapel_id').change(function () {
+
+      $('#topik_tes_ajax').html("");
+      var mapel_id = $(this).val();
+
+      var kelas_id = $('#kelas_tes_id').val();
+
+      $.ajax(
+        {
+          type: "post",
+          url: base_url + "API/get_topik_by_mapel",
+          data: {
+            'mapel_id': mapel_id,
+            'kelas_id': kelas_id,
+          },
+          async: true,
+          dataType: 'json',
+          success: function (data) {
+            //console.log(data);
+            if (data.length == 0) {
+              var html = '<div class="text-center mb-3 text-danger"><b>--No Topic, Please add 1 or more Topic--</b></div>';
+            } else {
+              var html = '<select name="topik_id" class="form-control mb-3">';
+              var i;
+              for (i = 0; i < data.length; i++) {
+                html += '<option value=' + data[i].topik_id + '>' + data[i].topik_nama + ' (Sem: ' + data[i].topik_semester + ')</option>';
+              }
+              html += '</select>';
+              html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+              html += 'Input Cognitive and Psychomotor';
+              html += '</button>';
+            }
+
+            $('#topik_tes_ajax').html(html);
+
+          }
+        });
+    });
+  }
+
+
   /////////////////////////////
   //////END////////////////////
   /////////////////////////////
@@ -487,44 +583,125 @@ $(document).ready(function () {
     $('#afek_minggu_aktif').val(total_aktif);
   }
 
-  $('#arr_afek').change(function () {
-    var id = $(this).val();
+  $('#afek_t_id').change(function () {
+    var t_id = $(this).val();
 
-    if (id == 0) {
-      $('#topik_afek_ajax').html("");
-    }
+
+    $('#topik_afek_ajax').html("");
+    $('#kelas_afek_ajax').html("");
+    $('#mapel_afek_ajax').html("");
 
     $.ajax(
       {
         type: "post",
-        url: base_url + "Afek_CRUD/get_topik",
+        url: base_url + "API/get_kelas_by_kr",
         data: {
-          'id': id,
+          't_id': t_id,
         },
         async: true,
         dataType: 'json',
         success: function (data) {
           //console.log(data);
           if (data.length == 0) {
-            var html = '<div class="text-center mb-3 text-danger"><b>--No Topic, Please add Topic--</b></div>';
+            var html = '<div class="text-center mb-3 text-danger"><b>--No Class, Please add Class--</b></div>';
           } else {
-            var html = '<select name="k_afek_id" id="k_afek_id" class="form-control mb-3">';
+            var html = '<select name="kelas_id" id="kelas_afek_id" class="form-control mb-3">';
             var i;
+            html += '<option value=0>Select Class</option>';
             for (i = 0; i < data.length; i++) {
-              html += '<option value=' + data[i].k_afek_id + '>' + data[i].bulan_nama + ' (' + data[i].k_afek_topik_nama + ')</option>';
+              html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama + '-' + data[i].sk_nama + '</option>';
             }
             html += '</select>';
 
-            html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
-            html += 'Insert Affective';
-            html += '</button>';
           }
 
-          $('#topik_afek_ajax').html(html);
-
+          $('#kelas_afek_ajax').html(html);
+          refreshKelasAfektif();
         }
       });
   });
+
+  function refreshKelasAfektif() {
+    $('#kelas_afek_id').change(function () {
+      var kelas_id = $(this).val();
+      //alert(flag);
+      $('#mapel_afek_ajax').html("");
+      $('#topik_afek_ajax').html("");
+
+      $.ajax(
+        {
+          type: "post",
+          url: base_url + "API/get_mapel_by_kr_kelas",
+          data: {
+            'kelas_id': kelas_id,
+          },
+          async: true,
+          dataType: 'json',
+          success: function (data) {
+            //console.log(data);
+            if (data.length == 0) {
+              var html = '<div class="text-center mb-3 text-danger"><b>--No Class--</b></div>';
+            } else {
+              var html = '<select name="mapel_id" id="afek_mapel_id" class="form-control mb-3">';
+              html += '<option value=0>Select Subject</option>';
+              var i;
+              for (i = 0; i < data.length; i++) {
+                html += '<option value=' + data[i].mapel_id + '>' + data[i].mapel_nama + '</option>';
+              }
+              html += '</select>';
+
+
+            }
+
+            $('#mapel_afek_ajax').html(html);
+            refreshAfekMapel();
+          }
+        });
+    });
+  }
+
+  function refreshAfekMapel() {
+    $('#afek_mapel_id').change(function () {
+      var mapel_id = $(this).val();
+      var kelas_id = $('#kelas_afek_id').val();
+
+      $('#topik_afek_ajax').html("");
+
+      $.ajax(
+        {
+          type: "post",
+          url: base_url + "Afek_CRUD/get_topik",
+          data: {
+            'mapel_id': mapel_id,
+            'kelas_id': kelas_id,
+          },
+          async: true,
+          dataType: 'json',
+          success: function (data) {
+            //console.log(data);
+            if (data.length == 0) {
+              var html = '<div class="text-center mb-3 text-danger"><b>--No Affective Topic, Contact Counselor--</b></div>';
+            } else {
+              var html = '<select name="k_afek_id" id="k_afek_id" class="form-control mb-3">';
+              var i;
+              for (i = 0; i < data.length; i++) {
+                html += '<option value=' + data[i].k_afek_id + '>' + data[i].bulan_nama + ' (' + data[i].k_afek_topik_nama + ')</option>';
+              }
+              html += '</select>';
+
+              html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+              html += 'Insert Affective';
+              html += '</button>';
+            }
+
+            $('#topik_afek_ajax').html(html);
+
+          }
+        });
+    });
+  }
+
+
 
   $("#option_minggu1").change(function () {
 
@@ -1172,7 +1349,8 @@ $(document).ready(function () {
   $('#sub_topik_crud').hide();
   $('#topik_mapel').change(function () {
     var id = $(this).val();
-
+    var topik_jabatan_id = $('#topik_jabatan_id').val();
+    //alert(topik_jabatan_id);
     if (id == 0) {
       $('#topik_mapel_ajax').html("");
       $('#sub_topik_crud').hide();
@@ -1198,6 +1376,7 @@ $(document).ready(function () {
           html += '<th>Grade</th>';
           html += '<th>Semester</th>';
           html += '<th>Topic Name</th>';
+          html += '<th>Total Grade</th>';
           html += '<th>Order Number</th>';
           html += '<th>Action</th>';
           html += '</tr>';
@@ -1210,10 +1389,11 @@ $(document).ready(function () {
               html += '<td>' + data[i].jenj_nama + '</td>';
               html += '<td>' + data[i].topik_semester + '</td>';
               html += '<td>' + data[i].topik_nama + '</td>';
+              html += '<td>' + data[i].jum_tes + '</td>';
               html += '<td>' + data[i].topik_urutan + '</td>';
               html += '<td>';
+              html += '<div class="form-group row pl-3">';
               html += '<form method="post" action="' + base_url + 'topik_CRUD/edit">';
-
               html += '<input type="hidden" value="' + data[i].topik_id + '" name="topik_id">';
               html += '<input type="hidden" value="' + data[i].topik_mapel_id + '" name="mapel_id">';
               html += '<button type="submit" class="badge badge-warning">';
@@ -1221,6 +1401,18 @@ $(document).ready(function () {
               html += '</button>';
 
               html += '</form>';
+
+              if (topik_jabatan_id == 4) {
+                html += '<form method="post" action="' + base_url + 'topik_CRUD/delete">';
+
+                html += '<input type="hidden" value="' + data[i].topik_id + '" name="topik_id">';
+                html += '<button type="submit" class="badge badge-danger">';
+                html += 'Delete';
+                html += '</button>';
+
+                html += '</form>';
+              }
+              html += '</div>';
               html += '</td>';
               html += '</tr>';
             }

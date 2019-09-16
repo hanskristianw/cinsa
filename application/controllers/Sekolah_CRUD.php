@@ -18,8 +18,8 @@ class Sekolah_CRUD extends CI_Controller
       redirect('Auth');
     }
 
-    //jika bukan HRD dan sudah login redirect ke home
-    if ($this->session->userdata('kr_jabatan_id') != 1 && $this->session->userdata('kr_jabatan_id')) {
+    //jika bukan KADIV dan sudah login redirect ke home
+    if ($this->session->userdata('kr_jabatan_id') != 5 && $this->session->userdata('kr_jabatan_id')) {
       redirect('Profile');
     }
   }

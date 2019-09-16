@@ -39,12 +39,7 @@
                             Edit
                           </button>
                         </form>
-                        <form class="" action="" method="post">
-                          <input type="hidden" name="" method="get" value=<?= $m['sk_id'] ?>>
-                          <button type="submit" class="badge badge-danger">
-                            Delete
-                          </button>
-                        </form>
+                        
                       </div>
                     </td>
                   </tr>

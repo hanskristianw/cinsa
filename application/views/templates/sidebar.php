@@ -92,9 +92,10 @@
                   <h6 class="collapse-header">Master</h6>
                   <a class="collapse-item" href=' . base_url('Jenjang_CRUD') . '>1. Level</a>
                   <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>2. Subject</a>
-                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>3. Class</a>
-                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>4. SSP</a>
-                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>5. Special Subject</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topic</a>
+                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>4. Class</a>
+                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>5. SSP</a>
+                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>6. Special Subject</a>
                 </div>
               </div>
             </li>
@@ -108,24 +109,6 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Print</h6>
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>Report</a>
-                </div>
-              </div>
-            </li>
-
-            <hr class="sidebar-divider d-none d-md-block">
-            <div class="sidebar-heading">
-            Subject
-            </div>
-
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Subject</span>
-              </a>
-              <div id="collapseOne4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Set</h6>
-                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>Topic</a>
                 </div>
               </div>
             </li>
@@ -161,9 +144,11 @@
               <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
-                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>Topic</a>
-                  <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>Counselor</a>
-                  <a class="collapse-item mb-3" href=' . base_url('Karakter_CRUD') . '>Character</a>
+                  <a class="collapse-item" href=' . base_url('Sekolah_CRUD') . '>1. School</a>
+                  <a class="collapse-item" href=' . base_url('Tahun_CRUD') . '>2. Year</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topic</a>
+                  <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>4. Counselor</a>
+                  <a class="collapse-item mb-3" href=' . base_url('Karakter_CRUD') . '>5. Character</a>
 
                   <h6 class="collapse-header">Grade</h6>
                   <a class="collapse-item" href=' . base_url('Kadiv_CRUD/ujian') . '>Mid & Final</a>
@@ -188,6 +173,8 @@
               </div>
             </li>
             <hr class="sidebar-divider d-none d-md-block">';
+
+            
       } elseif ($this->session->userdata('kr_jabatan_id') == 6 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia TU
         echo '<div class="sidebar-heading">

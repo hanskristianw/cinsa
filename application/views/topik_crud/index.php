@@ -14,9 +14,14 @@
                     <button class="close" data-dismiss="alert" type="button">
                         <span>&times;</span>
                     </button>
-                    <strong>PERHATIAN:</strong> TIDAK perlu membuat topik baru jika topik sudah ada, topik <b>hanya perlu dibuat 1 kali</b> dan dapat digunakan untuk setiap tahun ajaran
+                    <strong>PERHATIAN:</strong> <br><br>
+                    1. TIDAK perlu membuat topik baru jika topik sudah ada, topik <b>HANYA PERLU DIBUAT 1 KALI</b> <br>
+                    2. DELETE topik hanya bisa dilakukan oleh wakakur.
                 </div>'; ?>
             <?= $this->session->flashdata('message'); ?>
+            
+            <input type="hidden" id="topik_jabatan_id" value="<?= $jabatan_id ?>">
+            
             <form method="post" action="topik_CRUD/add">
               <select name="topik_mapel" id="topik_mapel" class="form-control">
                 <option value="0">SELECT SUBJECT</option>
