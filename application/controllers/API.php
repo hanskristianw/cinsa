@@ -144,23 +144,14 @@ class API extends CI_Controller
       $t_id = $this->input->post('t_id',TRUE);
       $kr_id = $this->session->userdata('kr_id');
 
-      if($this->session->userdata('kr_jabatan_id')!=4){
-        $data = $this->db->query(
-          "SELECT DISTINCT kelas_id, kelas_nama, sk_nama
-          FROM d_mpl
-          LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
-          LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
-          LEFT JOIN sk ON kelas_sk_id = sk_id
-          WHERE kelas_t_id = $t_id AND d_mpl_kr_id = $kr_id
-          ORDER BY kelas_nama")->result();
-      }
-      elseif($this->session->userdata('kr_jabatan_id')==4){
-        $data = $this->db->query(
-          "SELECT *
-          FROM kelas
-          WHERE kelas_t_id = $t_id
-          ORDER BY kelas_nama")->result();
-      }
+      $data = $this->db->query(
+        "SELECT DISTINCT kelas_id, kelas_nama, sk_nama
+        FROM d_mpl
+        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN sk ON kelas_sk_id = sk_id
+        WHERE kelas_t_id = $t_id AND d_mpl_kr_id = $kr_id
+        ORDER BY kelas_nama")->result();
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }else{
