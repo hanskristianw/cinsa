@@ -93,7 +93,7 @@ class Topik_CRUD extends CI_Controller
         LEFT JOIN tes ON tes_topik_id = topik_id
         WHERE topik_mapel_id = $mapel_id
         GROUP BY topik_id
-        ORDER BY jenj_id, topik_urutan, topik_semester, topik_nama")->result();
+        ORDER BY jenj_id, topik_semester, topik_urutan, topik_nama")->result();
   
       //var_dump($data);
       //$data = $this->product_model->get_sub_category($category_id)->result();
