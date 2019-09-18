@@ -39,9 +39,9 @@
                                     Edit
                                 </button>
                               </form>
-                              <form class="" action="" method="get">
-                                <input type="hidden" name="" value=<?= $m['mapel_id'] ?>>
-                                <button type="submit" class="badge badge-danger">
+                              <form class="" action="<?= base_url('Mapel_CRUD/delete') ?>" method="post">
+                                <input type="hidden" name="mapel_id" value=<?= $m['mapel_id'] ?>>
+                                <button onclick="return confirm('Lanjutkan?, Seluruh nilai pada mapel akan terhapus dan tidak dapat dikembalikan');" type="submit" class="badge badge-danger">
                                     Delete
                                 </button>
                               </form>

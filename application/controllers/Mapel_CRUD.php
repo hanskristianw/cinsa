@@ -43,6 +43,21 @@ class Mapel_CRUD extends CI_Controller
 
   }
 
+  public function delete(){
+    if($this->input->post('mapel_id',TRUE)){
+      $mapel_id = $this->input->post('mapel_id',TRUE);
+    
+      $this->db->where('mapel_id', $mapel_id);
+      $this->db->delete('mapel');
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Successfully delete subject</div>');
+      redirect('Mapel_CRUD');
+
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
   public function add(){
 
 		$this->form_validation->set_rules('mapel_nama', 'Subject Name', 'required|trim');
