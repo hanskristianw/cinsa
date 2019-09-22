@@ -347,3 +347,31 @@ function return_nama_bulan($bulan_angka){
 
   return $bulan;
 }
+
+function return_menu_kepsek(){
+  $ci =& get_instance();
+
+  $kr_id = $ci->session->userdata('kr_id');
+
+  $kepsek = $ci->db->query(
+    "SELECT *
+    FROM sk
+    WHERE sk_kepsek = $kr_id")->row_array();
+  
+  return $kepsek;
+}
+
+function show_laporan($topik_id, $kelas_id){
+  $ci =& get_instance();
+  $laporan = $ci->db->query(
+    "SELECT *
+    FROM tes
+    LEFT JOIN topik ON tes_topik_id = topik_id
+    LEFT JOIN mapel ON topik_mapel_id = mapel_id
+    LEFT JOIN d_s ON tes_d_s_id = d_s_id
+    LEFT JOIN sis ON d_s_sis_id = sis_id
+    WHERE tes_topik_id = $topik_id AND d_s_kelas_id = $kelas_id
+    ORDER BY sis_no_induk, sis_nama_depan")->result_array();
+
+  return $laporan;
+}
