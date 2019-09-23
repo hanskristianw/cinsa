@@ -26,37 +26,48 @@
                 //var_dump($siswa);
             ?>
               <hr style="height:5px; visibility:hidden;" />
-              <div style="font-size:20px; font-weight:550; text-align:center;">STUDENT'S COUNSELING REPORT</div>
+              <table style='width: 100%;'>
+                  <tr style='margin-left: 0px; text-align:left;' >
+                    <th>
+                      <img style='margin-left: 0px; border-radius: 0%;' src="<?= base_url('assets/img/profile/logo_nsa_bk.png') ?>" height="95">
+                    </th>
+                    <th style="font-family: 'Times New Roman', Times, serif; font-size:14px; font-weight:550; text-align:center;">
+                      <div style='border: 1px solid; padding: 7px;'>CONFIDENTIAL</div></th>
+                  </tr>
+              </table>
+              
+              <hr style="height:10px; visibility:hidden;" />
+              <div style="font-family: 'Times New Roman', Times, serif; font-size:14px; font-weight:550; text-align:center;">STUDENT'S COUNSELING REPORT</div>
               <br><br>
               
               <table class="rapot_tabel">
                 <tr>
-                  <td>1. Student's Name</td>
-                  <td>: <?= $siswa[0]['sis_nama_depan'].' '.$siswa[0]['sis_nama_bel'] ?></td>
+                  <td style="font-family: 'Times New Roman', Times, serif; font-size:12px;">1. Student's Name</td>
+                  <td style="font-family: 'Times New Roman', Times, serif; font-size:12px;">: <?= $siswa[0]['sis_nama_depan'].' '.$siswa[0]['sis_nama_bel'] ?></td>
                 </tr>
                 <tr>
-                  <td>2. Class</td>
-                  <td>: <?= $siswa[0]['kelas_nama'] ?></td>
+                  <td style="font-family: 'Times New Roman', Times, serif; font-size:12px;">2. Class</td>
+                  <td style="font-family: 'Times New Roman', Times, serif; font-size:12px;">: <?= $siswa[0]['kelas_nama'] ?></td>
                 </tr>
                 <tr>
-                  <td>3. Counseling Process</td>
+                  <td style="font-family: 'Times New Roman', Times, serif; font-size:12px;">3. Counseling Process</td>
                   <td></td>
                 </tr>
               </table>
               <br>
                 <?php foreach ($siswa as $m) : ?>
-                  <table class="rapot">
-                    <tr>
-                      <th>Date</th>
-                      <th>Reasons for Counseling</th>
-                      <th>Problem Category</th>
-                      <th>Counseling Results and Student's<br>Commitment</th>
+                  <table class="rapot_bk">
+                    <tr style='background-color:lightgrey;'>
+                      <th style='width: 70px;'>Date</th>
+                      <th style='width: 150px;'>Reasons for<br>Counseling</th>
+                      <th style='width: 70px;'>Problem<br>Category</th>
+                      <th>Counseling Results and Student's Commitment</th>
                     </tr>
                     <tr>
                       <td style='padding: 0px 0px 0px 5px;'><?= $m['konseling_tanggal'] ?></td>
-                      <td style='padding: 0px 0px 0px 5px;'><?= $m['konseling_alasan'] ?></td>
-                      <td style='padding: 0px 0px 0px 5px;'><?= $m['konseling_kategori_nama'] ?></td>
-                      <td style='padding: 0px 0px 0px 5px;'><?= $m['konseling_hasil'] ?></td>
+                      <td style='padding: 5px;'><?= $m['konseling_alasan'] ?></td>
+                      <td style='padding: 5px;text-align:center;'><?= $m['konseling_kategori_nama'] ?></td>
+                      <td style='padding: 5px;'><?= $m['konseling_hasil'] ?></td>
                     </tr>
                   </table>
                   <br>
