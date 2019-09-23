@@ -36,12 +36,13 @@ $(document).ready(function () {
               html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama + '</option>';
             }
             html += '</select>';
+            if (laporan_flag == 1) {
+              html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
+              html += 'Show Report';
+              html += '</button>';
+            }
           }
-          if (laporan_flag == 1) {
-            html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
-            html += 'Show Report';
-            html += '</button>';
-          }
+
 
           $('#laporan_kelas').html(html);
           if (laporan_flag == 0) {

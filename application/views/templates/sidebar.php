@@ -100,18 +100,6 @@
               </div>
             </li>
 
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-book"></i>
-                <span>Report</span>
-              </a>
-              <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Print</h6>
-                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>Report</a>
-                </div>
-              </div>
-            </li>
 
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo">
@@ -121,9 +109,25 @@
               <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Grade</h6>
-                  <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>Mid & Final</a>
-                  <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>Cognitive & Psychomotor</a>
-                  <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>Affective</a>
+                  <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>1. Cognitive Psychomotor</a>
+                  <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>2. Mid & Final</a>
+                  <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>3. Affective</a>
+                </div>
+              </div>
+            </li>
+
+            
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-chart-bar"></i>
+                <span>Report</span>
+              </a>
+              <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Report</h6>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD') . '>1. Cognitive Psychomotor</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/Afektif') . '>2. Affective</a>
+                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Student Report</a>
                 </div>
               </div>
             </li>
@@ -138,7 +142,7 @@
 
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-book"></i>
+                <i class="fas fa-fw fa-database"></i>
                 <span>Master</span>
               </a>
               <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -148,12 +152,22 @@
                   <a class="collapse-item" href=' . base_url('Tahun_CRUD') . '>2. Year</a>
                   <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topic</a>
                   <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>4. Counselor</a>
-                  <a class="collapse-item mb-3" href=' . base_url('Karakter_CRUD') . '>5. Character</a>
+                  <a class="collapse-item" href=' . base_url('Karakter_CRUD') . '>5. Character</a>
+                </div>
+              </div>
+            </li>
 
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Grade</span>
+              </a>
+              <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Grade</h6>
-                  <a class="collapse-item" href=' . base_url('Kadiv_CRUD/ujian') . '>Mid & Final</a>
-                  <a class="collapse-item" href=' . base_url('Kadiv_CRUD/tes') . '>Cognitive & Psychomotor</a>
-                  <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>Affective</a>
+                  <a class="collapse-item" href=' . base_url('Kadiv_CRUD/tes') . '>1. Cognitive Psychomotor</a>
+                  <a class="collapse-item" href=' . base_url('Kadiv_CRUD/ujian') . '>2. Mid & Final</a>
+                  <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>3. Affective</a>
                 </div>
               </div>
             </li>
@@ -161,14 +175,16 @@
             
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-fw fa-chart-bar"></i>
                 <span>Report</span>
               </a>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Show</h6>
-                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>Student Report</a>
-                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>Hours Distribution</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD') . '>1. Cognitive Psychomotor</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/Afektif') . '>2. Affective</a>
+                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Student Report</a>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>4. Hours Distribution</a>
                 </div>
               </div>
             </li>
@@ -209,9 +225,9 @@
                     <div id="collapse9" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Report</h6>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD') . '>Cognitive Psychomotor</a>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/Afektif') . '>Affective</a>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>Counseling</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD') . '>1. Cognitive Psychomotor</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/Afektif') . '>2. Affective</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>3. Counseling</a>
                       </div>
                     </div>
                   </li>
@@ -251,9 +267,9 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Grade</h6>
-                  <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>Mid & Final</a>
-                  <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>Cognitive & Psychomotor</a>
-                  <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>Affective</a>
+                  <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>1. Cognitive & Psychomotor</a>
+                  <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>2. Mid & Final</a>
+                  <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>3. Affective</a>
                 </div>
               </div>
             </li>

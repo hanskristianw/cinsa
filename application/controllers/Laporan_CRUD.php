@@ -33,8 +33,10 @@ class Laporan_CRUD extends CI_Controller
     if($this->session->userdata('kr_jabatan_id')==5){
       $data['sk_all'] = $this->_sk->return_all();
     }
-
-    if($this->session->userdata('kr_jabatan_id')){
+    else if($this->session->userdata('kr_jabatan_id')==4){
+      $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
+    }
+    else if($this->session->userdata('kr_jabatan_id')){
       if(return_menu_kepsek()){
         $kr_id = $this->session->userdata('kr_id');
 
@@ -64,14 +66,24 @@ class Laporan_CRUD extends CI_Controller
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
+    $kr_id = $this->session->userdata('kr_id');
     //data karyawan untuk konten
     $data['t_all'] = $this->_t->return_all();
 
     if($this->session->userdata('kr_jabatan_id')==5){
-      $data['sk_all'] = $this->_sk->return_all();
+      $data['sk_all'] = $this->db->query(
+        "SELECT sk_id, sk_nama
+        FROM sk
+        ORDER BY sk_nama")->result_array();
     }
-
-    if($this->session->userdata('kr_jabatan_id')){
+    else if($this->session->userdata('kr_jabatan_id')==4){
+      $data['sk_all'] = $this->db->query(
+        "SELECT sk_id, sk_nama
+        FROM kr
+        LEFT JOIN sk ON kr_sk_id = sk_id
+        WHERE kr_id = $kr_id")->result_array();
+    }
+    else if($this->session->userdata('kr_jabatan_id')){
       if(return_menu_kepsek()){
         $kr_id = $this->session->userdata('kr_id');
 
@@ -83,7 +95,6 @@ class Laporan_CRUD extends CI_Controller
       }else{
         $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
       }
-      
     }
 
     $this->load->view('templates/header',$data);
