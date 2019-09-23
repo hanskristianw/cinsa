@@ -198,23 +198,4 @@ class Laporan_CRUD extends CI_Controller
     }
   }
 
-  public function show_konsel(){
-    if($this->input->post('sk_id',TRUE)){
-      
-      $data['title'] = 'Counseling Report';
-      $sk_id = $this->input->post('sk_id',TRUE);
-      $kelas_id = $this->input->post('kelas_id',TRUE);
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      
-      $this->load->view('templates/header',$data);
-      $this->load->view('templates/sidebar',$data);
-      $this->load->view('templates/topbar',$data);
-      $this->load->view('Laporan_CRUD/show_konsel',$data);
-      $this->load->view('templates/footer');
-    }
-    else{
-      redirect('Profile');
-    }
-  }
-
 }

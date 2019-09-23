@@ -8,18 +8,17 @@
           <div class="p-5 overflow-auto">
             <div class="text-center">
               <h1 class="h4 text-gray-900"><u><b>Counseling Report</b></u></h1>
-              <h5 class="text-gray-900 mb-4">Select School and Class</h5>
             </div>
+
+            <input type="hidden" id="report_konseling_flag" value="1">
 
             <?= $this->session->flashdata('message'); ?>
 
-            <input type="hidden" id="laporan_flag" value="1">
-
-            <form class="user" action="<?= base_url('Laporan_CRUD/show_konsel') ?>" method="POST">
-              
-              <div class="form-group row">
-                <div class="col-sm mb-sm-0">
-                  <select name="sk_id" id="laporan_sk" class="form-control">
+            <form class="user" action="<?= base_url('Konseling_CRUD/print_report') ?>" method="POST">
+              <div class="form-group row mt-5">
+                <div class="col-sm mb-sm-0 mt-2">
+                  <h6 class="ml-2"><b><u>School</u>:</b></h6>
+                  <select name="sk_id" id="konseling_sk_id" class="form-control mb-1">
                     <option value="0">Select School</option>
                     <?php foreach ($sk_all as $m) : ?>
                       <option value='<?= $m['sk_id'] ?>'>
@@ -28,26 +27,26 @@
                     <?php endforeach ?>
                   </select>
                 </div>
-                <div class="col-sm mb-sm-0">
-                  <select name="t" id="laporan_t" class="form-control">
-                    <option value="0">Select Year</option>
+                <div class="col-sm mb-sm-0 mt-2">
+                  <h6 class="ml-2"><b><u>Year</u>:</b></h6>
+                  <select name="t_id" id="konseling_t_id" class="form-control">
                     <?php foreach ($t_all as $m) : ?>
-                      <option value='<?= $m['t_id'] ?>'>
-                        <?= $m['t_nama']; ?>
+                      <option value='<?=$m['t_id']?>'>
+                        <?= $m['t_nama'] ?>
                       </option>
                     <?php endforeach ?>
                   </select>
                 </div>
               </div>
-              
-              <div id="laporan_kelas">
-                
-              </div>
-              <div id="laporan_mapel">
-                
-              </div>
+              <div id="konseling_kelas_id"></div>
+              <div id="konseling_siswa_check"></div>
+              <!-- <button type="submit" class="btn btn-primary btn-user btn-block">
+                  Show Value
+              </button> -->
             </form>
+
             
+            <div id="detail_konseling"></div>
 
           </div>
         </div>

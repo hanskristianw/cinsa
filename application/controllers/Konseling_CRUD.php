@@ -19,7 +19,9 @@ class Konseling_CRUD extends CI_Controller
 
     //jika bukan guru dan sudah login redirect ke home
     if (konselor_menu() <= 0 && $this->session->userdata('kr_jabatan_id')) {
-      redirect('Profile');
+      if(!return_menu_kepsek()){
+        redirect('Profile');
+      }
     }
   }
 
@@ -198,6 +200,12 @@ class Konseling_CRUD extends CI_Controller
 
       $data['title'] = 'Report Page';
 
+      if(return_menu_kepsek()){
+        $data['jabatan'] = TRUE;
+      }else{
+        $data['jabatan'] = FALSE;
+      }
+      
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
   

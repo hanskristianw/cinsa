@@ -10,11 +10,13 @@
             <br>
             <div id="print_area">
             <?php
-              $tanggal_arr = explode('-', $tanggal);
+              if(!$jabatan){
+                $tanggal_arr = explode('-', $tanggal);
 
-              $tahun = $tanggal_arr[0];
-              $bulan = return_nama_bulan($tanggal_arr[1]);
-              $tanggal = $tanggal_arr[2];
+                $tahun = $tanggal_arr[0];
+                $bulan = return_nama_bulan($tanggal_arr[1]);
+                $tanggal = $tanggal_arr[2];
+              }
               //var_dump($kr['kr_nama_depan']);
               for($i=0;$i<count($sis_arr);$i++):
                 
@@ -55,7 +57,10 @@
                 </tr>
               </table>
               <br>
-                <?php foreach ($siswa as $m) : ?>
+                <?php foreach ($siswa as $m) : 
+                  if(!$jabatan):
+                    //jika dia konselor
+                ?>
                   <table class="rapot_bk">
                     <tr style='background-color:lightgrey;'>
                       <th style='width: 70px;'>Date</th>
@@ -71,17 +76,57 @@
                     </tr>
                   </table>
                   <br>
-                <?php endforeach ?>
+                <?php 
+                  elseif($jabatan && $m['konseling_kategori_nama']!="Personal"):
+                ?>
+                  <table class="rapot_bk">
+                    <tr style='background-color:lightgrey;'>
+                      <th style='width: 70px;'>Date</th>
+                      <th style='width: 150px;'>Reasons for<br>Counseling</th>
+                      <th style='width: 70px;'>Problem<br>Category</th>
+                      <th>Counseling Results and Student's Commitment</th>
+                    </tr>
+                    <tr>
+                      <td style='padding: 0px 0px 0px 5px;'><?= $m['konseling_tanggal'] ?></td>
+                      <td style='padding: 5px;'><?= $m['konseling_alasan'] ?></td>
+                      <td style='padding: 5px;text-align:center;'><?= $m['konseling_kategori_nama'] ?></td>
+                      <td style='padding: 5px;'><?= $m['konseling_hasil'] ?></td>
+                    </tr>
+                  </table>
+                  <br>
+                  <?php 
+                  else:
+                  ?>
+                  <table class="rapot_bk">
+                    <tr style='background-color:lightgrey;'>
+                      <th style='width: 70px;'>Date</th>
+                      <th style='width: 150px;'>Reasons for<br>Counseling</th>
+                      <th style='width: 70px;'>Problem<br>Category</th>
+                      <th>Counseling Results and Student's Commitment</th>
+                    </tr>
+                    <tr>
+                      <td style='padding: 0px 0px 0px 5px; text-align:center; color: red;' colspan="4">-RESTRICTED TO COUNSELOR-</td>
+                    </tr>
+                  </table>
+                  <br>
+                <?php 
+                  endif;
+                  endforeach; ?>
               <br>
               <?php
-                $gelar_belakang = "";
-                if($kr['kr_gelar_belakang']!=""){
-                  $gelar_belakang = ".,".$kr['kr_gelar_belakang'];
+                if(!$jabatan){
+                  $gelar_belakang = "";
+                  if($kr['kr_gelar_belakang']!=""){
+                    $gelar_belakang = ".,".$kr['kr_gelar_belakang'];
+                  }
                 }
+                if(!$jabatan):
               ?>
               <p class='alignright_bawah'>Surabaya, <?= $bulan.' '.$tanggal.', '.$tahun ?><br>
               <br>School Counselor<br><br><br><br><b>(<?= $kr['kr_nama_depan'].' '.$kr['kr_nama_belakang'].$gelar_belakang ?>)</b></p>
-              
+              <?php
+                endif;
+              ?>
               <div style='clear: both;'></div>
               <p style="page-break-after: always;">&nbsp;</p>
 
