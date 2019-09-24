@@ -267,7 +267,7 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Grade</h6>
-                  <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>1. Cognitive & Psychomotor</a>
+                  <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>1. Cognitive Psychomotor</a>
                   <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>2. Mid & Final</a>
                   <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>3. Affective</a>
                 </div>

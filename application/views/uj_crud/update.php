@@ -114,6 +114,18 @@
                     <strong>ALERT:</strong> Grade found, use UPDATE BUTTON below to save grade
                 </div>'; ?>
 
+            <?php echo '<div class="alert alert-danger alert-dismissible fade show">
+                    <button class="close" data-dismiss="alert" type="button">
+                        <span>&times;</span>
+                    </button>
+                    <strong>UNTUK PENGISIAN RAPORT SISIPAN:</strong><br>
+                    Hanya nilai 2 topik pertama pada semester yang sama yang muncul di sisipan, cek urutan di menu topik<br>
+                    Persentase TIDAK berpengaruh di sisipan<br>
+                    Isikan nilai 0 bagi siswa yang BELUM mengikuti tes <br>
+                    Isikan nilai 0 juga bagi tes yang BELUM dilakukan atau MEMANG TIDAK ADA, misalnya nilai quiz psikomotor <br>
+                    Isikan nilai -1 bagi siswa yang MENDAPAT 0 dikarenakan curang atau yang lainnya<br>
+                </div>'; ?>
+
             <form class="" action="<?= base_url('Uj_CRUD/save_update'); ?>" method="post" id="sub_uj" >
               <input type="hidden" value="<?= $kelas_id ?>" name="kelas_id">
               <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">

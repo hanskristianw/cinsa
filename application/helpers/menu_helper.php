@@ -176,7 +176,7 @@ function returnQATmidcek($value){
     elseif($value == -1){
       $print .= "0";
     }
-    elseif($value<0){
+    elseif($value == 0){
       $print .= "-";
     }
     else{
@@ -235,7 +235,9 @@ function returnQATastd($kq, $ka, $kt, $pq, $pa, $pt, $minggu1, $minggu2, $minggu
     $td .= returnQATmidcek($kt[1]);
   }
   else{
-    $td .= "<td class='biasa' colspan='3'>No data</td>";
+    $td .= "<td class='biasa'> </td>";
+    $td .= "<td class='biasa'> </td>";
+    $td .= "<td class='biasa'> </td>";
   }
 
 
@@ -251,7 +253,9 @@ function returnQATastd($kq, $ka, $kt, $pq, $pa, $pt, $minggu1, $minggu2, $minggu
     $td .= returnQATmidcek($pt[1]);
   }
   else{
-    $td .= "<td class='biasa' colspan='3'>No data</td>";
+    $td .= "<td class='biasa'> </td>";
+    $td .= "<td class='biasa'> </td>";
+    $td .= "<td class='biasa'> </td>";
   }
 
   //AFEKTIF
