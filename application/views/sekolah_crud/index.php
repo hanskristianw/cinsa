@@ -18,6 +18,7 @@
                   <th>School Name</th>
                   <th>School Nickname</th>
                   <th>School Principal</th>
+                  <th>Scout Teacher</th>
                   <th>Mid Report Date</th>
                   <th>Final Report Date</th>
                   <th>Action</th>
@@ -28,7 +29,8 @@
                   <tr>
                     <td><?= $m['sk_nama'] ?></td>
                     <td><?= $m['sk_nickname'] ?></td>
-                    <td><?= $m['kr_nama_depan'].' '.$m['kr_nama_belakang'] ?></td>
+                    <td><?= $m['kepsek'] ?></td>
+                    <td><?= $m['guru_scout'] ?></td>
                     <td><?= $m['sk_mid'] ?></td>
                     <td><?= $m['sk_fin'] ?></td>
                     <td>

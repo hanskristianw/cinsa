@@ -18,6 +18,14 @@ function ssp_menu(){
   return $count_walkel;
 }
 
+function scout_menu(){
+  $ci =& get_instance();
+
+  $count_scout = $ci->db->where('sk_scout_kr_id',$ci->session->userdata('kr_id'))->from("sk")->count_all_results();
+
+  return $count_scout;
+}
+
 function konselor_menu(){
   $ci =& get_instance();
 

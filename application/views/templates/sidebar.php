@@ -339,6 +339,26 @@
                   <hr class="sidebar-divider d-none d-md-block">
             ';
         }
+
+        if (scout_menu() >= 1) {
+          echo ' <div class="sidebar-heading">
+                    Scout
+                  </div>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse55" aria-expanded="true" aria-controls="collapseTwo">
+                      <i class="fas fa-fw fa-male"></i>
+                      <span>Scout</span>
+                    </a>
+                    <div id="collapse55" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Input</h6>
+                        <a class="collapse-item" href=' . base_url('Scout_CRUD') . '>Grade</a>
+                      </div>
+                    </div>
+                  </li>
+                  <hr class="sidebar-divider d-none d-md-block">
+            ';
+        }
       }
       ?>
 
