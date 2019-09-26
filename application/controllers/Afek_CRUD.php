@@ -160,14 +160,15 @@ class Afek_CRUD extends CI_Controller
         WHERE d_s_kelas_id = $kelas_id AND afektif_k_afek_id = $k_afek_id AND afektif_mapel_id = $mapel_id
         ORDER BY $_gb sis_nama_depan, sis_no_induk")->result_array();
 
+      //var_dump($this->db->last_query());
       //cari siswa yang ada di kelas tapi tidak mempunyai nilai
       $data['siswa_baru'] = $this->db->query(
-        "SELECT sis_agama_id, agama_nama, d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk
+        "SELECT d_s_id, sis_agama_id, agama_nama, sis_nama_depan, sis_nama_bel, sis_no_induk
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN agama ON sis_agama_id = agama_id
-        WHERE d_s_kelas_id = $kelas_id AND d_s_sis_id NOT IN 
-          (SELECT d_s_sis_id
+        WHERE d_s_kelas_id = $kelas_id AND d_s_id NOT IN 
+          (SELECT d_s_id
           FROM afektif
           LEFT JOIN d_s ON afektif_d_s_id = d_s_id
           LEFT JOIN sis ON sis_id = d_s_sis_id
@@ -176,7 +177,6 @@ class Afek_CRUD extends CI_Controller
           )
         ORDER BY sis_nama_depan")->result_array();
 
-      //var_dump($this->db->last_query());
 
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
@@ -185,6 +185,7 @@ class Afek_CRUD extends CI_Controller
       $this->load->view('templates/footer');
     }
 
+    //die();
 
   }
 
@@ -256,9 +257,10 @@ class Afek_CRUD extends CI_Controller
 
 
     if($this->input->post('minggu1a1[]')){
-      $uj_count = $this->db->join('d_s', 'afektif_d_s_id=d_s_id', 'left')->where_in('d_s_id',$this->input->post('d_s_id[]'))->where('afektif_k_afek_id',$this->input->post('k_afek_id'))->from("afektif")->count_all_results();
+      $uj_count = $this->db->join('d_s', 'afektif_d_s_id=d_s_id', 'left')->where_in('d_s_id',$this->input->post('d_s_id[]'))->where('afektif_k_afek_id',$this->input->post('k_afek_id'))->where('afektif_mapel_id',$this->input->post('mapel_id'))->from("afektif")->count_all_results();
 
       //var_dump($this->db->last_query());
+      //die();
       if($uj_count == 0){
         //Save input
         $data = array();
