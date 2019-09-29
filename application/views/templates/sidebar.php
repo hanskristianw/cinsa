@@ -311,7 +311,8 @@
                     <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Master</h6>
-                        <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>Comment</a>
+                        <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>1. Comment</a>
+                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>2. Student Report</a>
                       </div>
                     </div>
                   </li>
@@ -331,8 +332,8 @@
                     <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Input</h6>
-                        <a class="collapse-item" href=' . base_url('SSP_topik_CRUD') . '>Topic</a>
-                        <a class="collapse-item" href=' . base_url('SSP_grade_CRUD') . '>Grade</a>
+                        <a class="collapse-item" href=' . base_url('SSP_topik_CRUD') . '>1. Topic</a>
+                        <a class="collapse-item" href=' . base_url('SSP_grade_CRUD') . '>2. Grade</a>
                       </div>
                     </div>
                   </li>

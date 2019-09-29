@@ -19,7 +19,7 @@ class Report_CRUD extends CI_Controller
     }
 
     //jika bukan HRD dan sudah login redirect ke home
-    if($this->session->userdata('kr_jabatan_id')!=4 && $this->session->userdata('kr_jabatan_id')!=5 && $this->session->userdata('kr_jabatan_id')){
+    if(!$this->session->userdata('kr_jabatan_id')){
       redirect('Profile');
     }
   }
@@ -37,9 +37,23 @@ class Report_CRUD extends CI_Controller
     if($this->session->userdata('kr_jabatan_id')==5){
       $data['sk_all'] = $this->_sk->return_all();
     }
-
-    if($this->session->userdata('kr_jabatan_id')==4){
+    elseif($this->session->userdata('kr_jabatan_id')==4){
       $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
+    }
+    else{
+      if(walkel_menu()>0){
+        //jika dia wali kelas
+        $kr_id = $this->session->userdata('kr_id');
+        $data['sk_all'] = $this->db->query(
+          "SELECT DISTINCT sk_id, sk_nama
+          FROM kelas
+          LEFT JOIN sk ON kelas_sk_id = sk_id
+          WHERE kelas_kr_id = $kr_id
+          ORDER BY sk_nama")->result_array();
+      }else{
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+        redirect('Profile');
+      }
     }
 
     //var_dump($data['sk_all']);
@@ -60,11 +74,21 @@ class Report_CRUD extends CI_Controller
       $sk_id = $this->input->post('sk_id',TRUE);
       
       //temukan jenjang id pada kelas itu
-      $data = $this->db->query(
-        "SELECT kelas_id, kelas_nama
-        FROM kelas
-        WHERE kelas_t_id = $t_id AND kelas_sk_id = $sk_id
-        ORDER BY kelas_nama")->result();
+      if($this->session->userdata('kr_jabatan_id')==4 || $this->session->userdata('kr_jabatan_id')==5){
+        $data = $this->db->query(
+          "SELECT kelas_id, kelas_nama
+          FROM kelas
+          WHERE kelas_t_id = $t_id AND kelas_sk_id = $sk_id
+          ORDER BY kelas_nama")->result();
+      }else{
+        $kr_id = $this->session->userdata('kr_id');
+
+        $data = $this->db->query(
+          "SELECT kelas_id, kelas_nama
+          FROM kelas
+          WHERE kelas_kr_id = $kr_id AND kelas_t_id = $t_id AND kelas_sk_id = $sk_id
+          ORDER BY kelas_nama")->result();
+      }
   
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
