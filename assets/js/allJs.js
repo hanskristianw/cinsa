@@ -1198,6 +1198,7 @@ $(document).ready(function () {
             html += '<td>' + data[i].kelas_nama + '</td>';
             html += '<td>';
             html += '<form method="post" action="' + base_url + 'SSP_CRUD/deleteSiswaSSP">';
+            html += '<input type="hidden" name="ssp_peserta_id" value= ' + data[i].ssp_peserta_id + '>';
             html += '<input type="hidden" name="d_s_id" value= ' + data[i].d_s_id + '>';
             html += '<input type="hidden" name="ssp_id" value= ' + sspId + '>';
             html += '<button type="submit" class="ml-2 btn btn-danger">';

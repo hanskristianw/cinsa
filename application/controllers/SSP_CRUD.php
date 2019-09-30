@@ -161,11 +161,49 @@ class SSP_CRUD extends CI_Controller
       
 			$this->db->insert_batch('ssp_peserta', $data);
   
-      $this->db->last_query();
+      //$this->db->last_query();
 
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo '<div class="alert alert-success" role="alert">Successfully Added '. count($d_s_id) .' student(s)</div>';
     }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
+  public function deleteSiswaSSP(){
+    if($this->input->post('ssp_peserta_id',TRUE)){
+      $ssp_peserta_id = $this->input->post('ssp_peserta_id',TRUE);
+      $ssp_id = $this->input->post('ssp_id',TRUE);
+      $d_s_id = $this->input->post('d_s_id',TRUE);
+
+      //cek apakah siswa sudah punya nilai pada ssp ini
+      $data = $this->db->query(
+        "SELECT *
+        FROM ssp_nilai 
+        LEFT JOIN ssp_topik ON ssp_nilai_ssp_topik_id = ssp_topik_id
+        LEFT JOIN ssp ON ssp_topik_ssp_id = ssp_id
+        WHERE ssp_id = $ssp_id AND ssp_nilai_d_s_id = $d_s_id")->result_array();
+
+      if(!$data){
+        $this->db->where('ssp_peserta_id', $ssp_peserta_id);
+        $this->db->delete('ssp_peserta');
+
+        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Berhasil dihapus!</div>');
+        redirect('SSP_CRUD');
+      }
+      else{
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Gagal, siswa sudah mempunyai nilai di SSP!</div>');
+        redirect('SSP_CRUD');
+      }
+
+      //$this->db->last_query();
+
+      // echo $ssp_id."<br>";
+      // echo $d_s_id;
+      
+    }
+    else{
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
@@ -196,7 +234,7 @@ class SSP_CRUD extends CI_Controller
       $sspId = $this->input->post('sspId',TRUE);
       
       $data = $this->db->query(
-        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, kelas_nama, ssp_peserta_ssp_id
+        "SELECT ssp_peserta_id, d_s_id, sis_nama_depan, sis_nama_bel, kelas_nama, ssp_peserta_ssp_id
         FROM ssp_peserta
         LEFT JOIN d_s ON ssp_peserta_d_s_id = d_s_id
         LEFT JOIN sis ON d_s_sis_id = sis_id
