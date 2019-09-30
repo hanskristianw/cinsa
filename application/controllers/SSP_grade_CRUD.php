@@ -61,20 +61,20 @@ class SSP_grade_CRUD extends CI_Controller
 
     if($this->input->post('id',TRUE)){
       $ssp_id = $this->input->post('id',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT *
         FROM ssp_topik
         WHERE ssp_topik_ssp_id = $ssp_id
         ORDER BY ssp_topik_semester DESC, ssp_topik_nama")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }else{
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
-    
+
   }
 
   public function input(){
@@ -86,15 +86,15 @@ class SSP_grade_CRUD extends CI_Controller
 
     $ssp_id = $this->input->post('arr_ssp');
     $ssp_topik_id = $this->input->post('ssp_topik_id');
-    
+
 
     $data['title'] = 'SSP grade';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     //untuk header
-    
+
     $data['ssp_all'] = $this->_ssp_topik->find_by_id($ssp_topik_id);
-    
+
     $data['ssp_id'] = $ssp_id;
     $data['ssp_topik_id'] = $ssp_topik_id;
 
@@ -117,7 +117,7 @@ class SSP_grade_CRUD extends CI_Controller
       $this->load->view('templates/footer');
     }else{
       $data['siswa_all'] = $this->db->query(
-        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, ssp_nilai_ssp_topik_id, ssp_nilai_angka, ssp_nilai_id, kelas_nama
+        "SELECT DISTINCT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, ssp_nilai_ssp_topik_id, ssp_nilai_angka, ssp_nilai_id, kelas_nama
         FROM ssp_nilai
         LEFT JOIN d_s ON ssp_nilai_d_s_id = d_s_id
         LEFT JOIN sis ON d_s_sis_id = sis_id
@@ -134,7 +134,7 @@ class SSP_grade_CRUD extends CI_Controller
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
         LEFT JOIN ssp_peserta ON d_s_id = ssp_peserta_d_s_id
-        WHERE ssp_peserta_ssp_id = $ssp_id AND d_s_id NOT IN 
+        WHERE ssp_peserta_ssp_id = $ssp_id AND d_s_id NOT IN
           (SELECT d_s_id
           FROM ssp_nilai
           LEFT JOIN d_s ON ssp_nilai_d_s_id = d_s_id
@@ -200,7 +200,7 @@ class SSP_grade_CRUD extends CI_Controller
         $d_s_id = $this->input->post('d_s_id[]');
 
         $ssp_nilai_angka = $this->input->post('ssp_nilai_angka[]');
-        
+
         for($i=0;$i<count($d_s_id);$i++){
           $data[$i] = [
             'ssp_nilai_d_s_id' => $d_s_id[$i],
@@ -216,7 +216,7 @@ class SSP_grade_CRUD extends CI_Controller
         $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">New Student(s) Grade Already Exist!</div>');
         redirect('SSP_grade_CRUD');
       }
-      
+
     }
   }
 
