@@ -45,6 +45,75 @@ class SSP_CRUD extends CI_Controller
 
   }
 
+  public function delete_grade(){
+    if($this->input->post('ssp_id', true)){
+
+      $data['title'] = 'Delete Grade';
+
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $ssp_id = $this->input->post('ssp_id', true);
+
+      $data['topik_all'] = $this->db->query(
+        "SELECT *
+        FROM ssp_topik 
+        WHERE ssp_topik_ssp_id = $ssp_id")->result_array();
+
+      $this->load->view('templates/header',$data);
+      $this->load->view('templates/sidebar',$data);
+      $this->load->view('templates/topbar',$data);
+      $this->load->view('ssp_crud/delete_grade',$data);
+      $this->load->view('templates/footer');
+
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
+  public function delete_grade_show(){
+    if($this->input->post('ssp_topik_id', true)){
+
+      $data['title'] = 'Delete Grade';
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $ssp_topik_id = $this->input->post('ssp_topik_id', true);
+
+      $data['siswa_all'] = $this->db->query(
+        "SELECT *
+        FROM ssp_nilai
+        LEFT JOIN d_s ON ssp_nilai_d_s_id = d_s_id
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+        WHERE ssp_nilai_ssp_topik_id = $ssp_topik_id")->result_array();
+
+      $this->load->view('templates/header',$data);
+      $this->load->view('templates/sidebar',$data);
+      $this->load->view('templates/topbar',$data);
+      $this->load->view('ssp_crud/delete_grade_show',$data);
+      $this->load->view('templates/footer');
+
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
+  public function delete_grade_proses(){
+    if($this->input->post('ssp_nilai_id', true)){
+
+      $ssp_nilai_id = $this->input->post('ssp_nilai_id', true);
+
+      $this->db->where('ssp_nilai_id', $ssp_nilai_id);
+      $this->db->delete('ssp_nilai');
+
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Grade Deleted!</div>');
+      redirect('SSP_CRUD');
+
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
   public function add(){
 
 		$this->form_validation->set_rules('ssp_nama', 'SSP Name', 'required|trim');

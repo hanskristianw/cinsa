@@ -12,7 +12,7 @@
 
             <form class="user" id="ssp_topik_add_form" action="<?php echo base_url('SSP_topik_CRUD/proses_update'); ?>" method="POST">
               
-              <input type="text" class="form-control mb-3" name="ssp_topik_nama" value="<?= $ssp['ssp_topik_nama']?>" placeholder="Topic Name" required pattern="\S+" title="No space allowed">
+              <input type="text" class="form-control mb-3" name="ssp_topik_nama" value="<?= $ssp['ssp_topik_nama']?>" placeholder="Topic Name" required>
               <input type="hidden" value="<?= $ssp['ssp_topik_id'] ?>" name="ssp_id">
               <div class="form-group row">
                 <div class="col-sm mb-sm-0">

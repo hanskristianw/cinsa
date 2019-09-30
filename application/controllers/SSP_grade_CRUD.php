@@ -101,12 +101,22 @@ class SSP_grade_CRUD extends CI_Controller
     $gradecount = $this->db->where('ssp_nilai_ssp_topik_id',$ssp_topik_id)->from("ssp_nilai")->count_all_results();
     if($gradecount == 0){
       //belum ada nilai
+      // $data['siswa_all'] = $this->db->query(
+      //   "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama
+      //   FROM d_s
+      //   LEFT JOIN sis ON d_s_sis_id = sis_id
+      //   LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+      //   LEFT JOIN ssp_peserta ON d_s_id = ssp_peserta_d_s_id
+      //   WHERE ssp_peserta_ssp_id = $ssp_id
+      //   ORDER BY sis_nama_depan")->result_array();
+
       $data['siswa_all'] = $this->db->query(
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama
-        FROM d_s
-        LEFT JOIN sis ON d_s_sis_id = sis_id
+        FROM ssp_peserta
+        LEFT JOIN ssp ON ssp_peserta_ssp_id = ssp_id
+        LEFT JOIN d_s ON ssp_peserta_d_s_id = d_s_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-        LEFT JOIN ssp_peserta ON d_s_id = ssp_peserta_d_s_id
+        LEFT JOIN sis ON d_s_sis_id = sis_id
         WHERE ssp_peserta_ssp_id = $ssp_id
         ORDER BY sis_nama_depan")->result_array();
 
@@ -117,14 +127,12 @@ class SSP_grade_CRUD extends CI_Controller
       $this->load->view('templates/footer');
     }else{
       $data['siswa_all'] = $this->db->query(
-        "SELECT DISTINCT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, ssp_nilai_ssp_topik_id, ssp_nilai_angka, ssp_nilai_id, kelas_nama
+        "SELECT *
         FROM ssp_nilai
         LEFT JOIN d_s ON ssp_nilai_d_s_id = d_s_id
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-        LEFT JOIN ssp_peserta ON d_s_id = ssp_peserta_d_s_id
-        LEFT JOIN ssp ON ssp_peserta_ssp_id = ssp_id
-        WHERE ssp_peserta_ssp_id = $ssp_id AND ssp_nilai_ssp_topik_id = $ssp_topik_id
+        WHERE ssp_nilai_ssp_topik_id = $ssp_topik_id
         ORDER BY sis_nama_depan")->result_array();
 
       // //cari siswa yang ada di kelas tapi tidak mempunyai nilai
