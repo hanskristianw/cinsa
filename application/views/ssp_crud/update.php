@@ -34,20 +34,6 @@
                                 ?>
                             </select>
                         </div>
-                        <div class="col-sm mb-sm-0">
-                            <select name="ssp_t_id" id="ssp_t_id" class="form-control">
-                                <?php 
-                                $_selected = set_value(ssp_t_id,$ssp_update['ssp_t_id']);
-                                foreach ($t_all as $m) :
-                                    if ($_selected == $m['t_id']) {
-                                        $s = "selected";
-                                    } else {
-                                        $s = "";
-                                    }
-                                    echo "<option value=" . $m['t_id'] . " " . $s . ">" . $m['t_nama'] . "</option>";
-                                endforeach ?>
-                            </select>
-                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
                         Update

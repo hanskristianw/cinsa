@@ -23,23 +23,6 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-
-                                    <select name="jenj_id" id="jenj_id" class="form-control">
-                                        <?php
-                                        $_selected = set_value('jenj_id', $topik_update['topik_jenj_id']);
-
-                                        foreach ($jenj_all as $m) :
-                                        if ($_selected == $m['jenj_id']) {
-                                            $s = "selected";
-                                        } else {
-                                            $s = "";
-                                        }
-                                        echo "<option value=" . $m['jenj_id'] . " " . $s . ">" . $m['jenj_nama'] . "</option>";
-                                        endforeach
-                                        ?>
-                                    </select>
-                                </div>
                                 <div class="col-sm mb-3 mb-sm-0">
                                     <select name="topik_semester" class="form-control">
                                         <?php

@@ -203,8 +203,7 @@ class Topik_CRUD extends CI_Controller
       $data = [
         'topik_nama' => $this->input->post('topik_nama'),
         'topik_semester' => $this->input->post('topik_semester'),
-        'topik_urutan' => $this->input->post('topik_urutan'),
-        'topik_jenj_id' => $this->input->post('jenj_id')
+        'topik_urutan' => $this->input->post('topik_urutan')
       ];
 
       //simpan ke db

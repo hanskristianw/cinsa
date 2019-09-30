@@ -200,7 +200,6 @@ class SSP_CRUD extends CI_Controller
       //fetch data hasil inputan
       $data = [
         'ssp_nama' => $this->input->post('ssp_nama'),
-				'ssp_t_id' => $this->input->post('ssp_t_id'),
 				'ssp_kr_id' => $this->input->post('ssp_kr_id')
       ];
 
