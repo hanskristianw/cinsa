@@ -35,7 +35,7 @@ class Profile extends CI_Controller
       $this->form_validation->set_rules('kr_username', 'Username', 'required|trim|is_unique[kr.kr_username]', ['is_unique' => 'This Username already exist!']);
     }
     $this->form_validation->set_rules('kr_nama_depan', 'First Name', 'required|trim');
-		$this->form_validation->set_rules('kr_nama_belakang', 'Last Name', 'required|trim');
+		$this->form_validation->set_rules('kr_nama_belakang', 'Last Name', 'trim');
 		$this->form_validation->set_rules('kr_password1', 'Password', 'required|trim|min_length[3]|matches[kr_password2]',['matches' => 'Password not match', 'min_length' => 'Password too short']);
 		$this->form_validation->set_rules('kr_password2', 'Password', 'required|trim|matches[kr_password1]');
 
