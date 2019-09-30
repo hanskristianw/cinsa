@@ -1,6 +1,6 @@
 <div class="container">
 
-  
+
   <div class="card o-hidden border-0 shadow-lg my-5">
     <div class="card-body p-0">
       <!-- Nested Row within Card Body -->
@@ -9,7 +9,7 @@
           <div class="p-5 overflow-auto">
             <div id="print_area">
             <?php
-            
+
               //var_dump($sis_arr);
               for($i=0;$i<count($sis_arr);$i++):
                 $nomor = 1;
@@ -27,12 +27,12 @@
             ?>
               <hr style="height:5px; visibility:hidden;" />
 
-              
+
 
               <br><br><br>
               <div id='textbox'>
                 <p class='alignleft'>
-                  
+
                   STUDENT'S NAME &nbsp&nbsp&nbsp&nbsp&nbsp&emsp;&emsp;&emsp;:&nbsp<?= $siswa[0]['sis_nama_depan'].' '.$siswa[0]['sis_nama_bel'] ?><br>
                   STUDENT ID &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&emsp;&emsp;&emsp;:&nbsp<?= $siswa[0]['sis_no_induk'] ?><br>
                 </p>
@@ -78,7 +78,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                  <?php foreach($siswa as $m) : 
+                  <?php foreach($siswa as $m) :
                       if($semester==1)$komen_mid=$m['d_s_komen_sis'];else $komen_mid=$m['d_s_komen_sis2'];
                       if($semester==1)$d_s_sick=$m['d_s_sick'];else $d_s_sick=$m['d_s_sick2'];
                       if($semester==1)$d_s_absenin=$m['d_s_absenin'];else $d_s_absenin=$m['d_s_absenin2'];
@@ -87,7 +87,7 @@
                     <tr>
                       <td class='nomor'><?= $nomor ?></td>
                       <td style='padding: 0px 0px 0px 5px; margin: 0px;'>
-                        <?php 
+                        <?php
                           if($m['mk_nama']){
                             echo $m['mk_nama'];
                           }else{
@@ -98,12 +98,12 @@
                       <td class='kkm' style='padding: 0px 0px 0px 5px; margin: 0px;'><?= $m['mapel_kkm'] ?></td>
                       <?= returnQATastd($m['kq'],$m['ka'],$m['kt'],$m['pq'],$m['pa'],$m['pt'],$m['minggu1'],$m['minggu2'],$m['minggu3'],$m['minggu4'],$m['minggu5'],$m['uj_mid1_kog'],$m['uj_mid1_psi'],$m['uj_mid2_kog'],$m['uj_mid2_psi'],$semester); ?>
                     </tr>
-                  <?php 
+                  <?php
                     $nomor++;
                     endforeach;
                   ?>
                   <tr>
-                    <?php 
+                    <?php
                       if($checkSsp){
                         echo "<td class='nomor'>".($nomor)."</td>";
                         echo returnNilaiSspSisipan($sis_arr[$i], $semester);
@@ -132,23 +132,23 @@
               <div id='textbox'>
                 <p class='alignleft_bawah'>
                 <br>Acknowledged by<br>
-                Parents / Guardian<br><br><br>
+                Parents / Guardian<br><br><br><br>
                 ............................................
                 </p>
                 <p class='alignright_bawah'>
                 <br>Surabaya, <?= $bulan.' '.$tanggal.', '.$tahun ?><br>
-                Homeroom Teacher<br><br><br>
+                Homeroom Teacher<br><br><br><br>
                 <b><?= $walkel['kr_gelar_depan'].$walkel['kr_nama_depan'].' '.$walkel['kr_nama_belakang']." ".$walkel['kr_gelar_belakang'] ?></b><br>
                 </p>
             </div>
 
             <div style='clear: both;'></div>
 
-            <p class='aligncenter_bawah'>Acknowledged by<br>Principal<br><br><br><b><?= $kepsek['kr_gelar_depan'].$kepsek['kr_nama_depan'].' '.$kepsek['kr_nama_belakang']." ".$kepsek['kr_gelar_belakang'] ?></b></p>
-            
+            <p class='aligncenter_bawah'>Acknowledged by<br>Principal<br><br><br><br><b><?= $kepsek['kr_gelar_depan'].$kepsek['kr_nama_depan'].' '.$kepsek['kr_nama_belakang']." ".$kepsek['kr_gelar_belakang'] ?></b></p>
+
             <p style="page-break-after: always;">&nbsp;</p>
 
-            <?php 
+            <?php
                 endif;
               endfor;
             ?>
