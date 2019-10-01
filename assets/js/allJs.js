@@ -496,7 +496,7 @@ $(document).ready(function () {
           success: function (data) {
             //console.log(data);
             if (data.length == 0) {
-              var html = '<div class="text-center mb-3 text-danger"><b>--No Class--</b></div>';
+              var html = '<div class="text-center mb-3 text-danger"><b>--No Subject In Class--</b></div>';
             } else {
               var html = '<select name="mapel_id" id="tes_mapel_id" class="form-control mb-3">';
 

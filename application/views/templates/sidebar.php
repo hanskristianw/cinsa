@@ -128,6 +128,7 @@
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD') . '>1. Cognitive Psychomotor</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/Afektif') . '>2. Affective</a>
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Student Report</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>4. Grade Report</a>
                 </div>
               </div>
             </li>
@@ -184,7 +185,8 @@
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD') . '>1. Cognitive Psychomotor</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/Afektif') . '>2. Affective</a>
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Student Report</a>
-                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>4. Hours Distribution</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>4. Grade Report</a>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>5. Hours Distribution</a>
                 </div>
               </div>
             </li>

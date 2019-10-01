@@ -144,14 +144,30 @@ class API extends CI_Controller
       $t_id = $this->input->post('t_id',TRUE);
       $kr_id = $this->session->userdata('kr_id');
 
-      $data = $this->db->query(
-        "SELECT DISTINCT kelas_id, kelas_nama, sk_nama
-        FROM d_mpl
-        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
-        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
-        LEFT JOIN sk ON kelas_sk_id = sk_id
-        WHERE kelas_t_id = $t_id AND d_mpl_kr_id = $kr_id
-        ORDER BY kelas_nama")->result();
+      $kr_jabatan = $this->session->userdata('kr_jabatan_id');
+      $kr_sk_id = $this->session->userdata('kr_sk_id');
+
+      //jika kurikulum
+      if($kr_jabatan == 4){
+        //cari mapel disekolah itu
+        $data = $this->db->query(
+          "SELECT kelas_id, kelas_nama, sk_nama
+          FROM kelas
+          LEFT JOIN sk ON kelas_sk_id = sk_id
+          WHERE kelas_t_id = $t_id AND kelas_sk_id = $kr_sk_id
+          ORDER BY kelas_nama")->result();
+      }
+      else{
+        $data = $this->db->query(
+          "SELECT DISTINCT kelas_id, kelas_nama, sk_nama
+          FROM d_mpl
+          LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+          LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+          LEFT JOIN sk ON kelas_sk_id = sk_id
+          WHERE kelas_t_id = $t_id AND d_mpl_kr_id = $kr_id
+          ORDER BY kelas_nama")->result();
+      }
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }else{
@@ -168,12 +184,22 @@ class API extends CI_Controller
       $kelas_id = $this->input->post('kelas_id', true);
       $kr_id = $this->session->userdata('kr_id');
       
+      $kr_jabatan = $this->session->userdata('kr_jabatan_id');
+      if($kr_jabatan == 4){
+        //cari mapel dikelas itu
+        $data = $this->db->query(
+          "SELECT DISTINCT mapel_id, mapel_nama
+          FROM d_mpl
+          LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+          WHERE d_mpl_kelas_id = $kelas_id ORDER BY mapel_nama")->result();
+      }
+      else{
       $data = $this->db->query(
         "SELECT DISTINCT mapel_id, mapel_nama
         FROM d_mpl
         LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
         WHERE d_mpl_kelas_id = $kelas_id AND d_mpl_kr_id = $kr_id ORDER BY mapel_nama")->result();
-  
+      }
       echo json_encode($data);
     }
   }

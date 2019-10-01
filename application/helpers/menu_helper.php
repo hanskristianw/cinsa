@@ -387,3 +387,38 @@ function show_laporan($topik_id, $kelas_id){
 
   return $laporan;
 }
+
+function show_mapel_header_summary($kelas_id){
+  $ci =& get_instance();
+  $laporan = $ci->db->query(
+    "SELECT DISTINCT mapel_id, mapel_nama, mapel_sing
+    FROM d_mpl
+    LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+    WHERE d_mpl_kelas_id = $kelas_id
+    ORDER BY mapel_nama")->result_array();
+
+  return $laporan;
+}
+
+function show_cog_count($mapel_id, $kelas_id, $sem){
+  $ci =& get_instance();
+  $laporan = $ci->db->query(
+    "SELECT COUNT(*) as jumlah
+    FROM tes
+    LEFT JOIN topik ON tes_topik_id = topik_id
+    LEFT JOIN d_s ON tes_d_s_id = d_s_id
+    WHERE topik_mapel_id = $mapel_id AND d_s_kelas_id = $kelas_id AND topik_semester = $sem")->row_array();
+
+  return $laporan;
+}
+
+function show_mid_final_count($mapel_id, $kelas_id){
+  $ci =& get_instance();
+  $laporan = $ci->db->query(
+    "SELECT count(*) as jumlah
+    FROM uj
+    LEFT JOIN d_s ON uj_d_s_id = d_s_id
+    WHERE d_s_kelas_id = $kelas_id AND uj_mapel_id = $mapel_id")->row_array();
+
+  return $laporan;
+}

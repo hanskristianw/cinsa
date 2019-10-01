@@ -209,4 +209,74 @@ class Laporan_CRUD extends CI_Controller
     }
   }
 
+  public function summary_index(){
+    $data['title'] = 'Summary';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+    //data karyawan untuk konten
+    $data['t_all'] = $this->_t->return_all();
+
+    if($this->session->userdata('kr_jabatan_id')==5){
+      $data['sk_all'] = $this->_sk->return_all();
+    }
+    else if($this->session->userdata('kr_jabatan_id')==4){
+      $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
+    }
+    else if($this->session->userdata('kr_jabatan_id')){
+      if(return_menu_kepsek()){
+        $kr_id = $this->session->userdata('kr_id');
+
+        $data['sk_all'] = $this->db->query(
+          "SELECT *
+          FROM sk
+          WHERE sk_kepsek = $kr_id")->result_array();
+
+      }else{
+        $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
+      }
+      
+    }
+
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('Laporan_CRUD/summary_index',$data);
+    $this->load->view('templates/footer');
+  }
+
+  
+  public function summary_show(){
+    if($this->input->post('sk_id',TRUE)){
+
+      $sk_id = $this->input->post('sk_id',TRUE);
+      $t_id = $this->input->post('t',TRUE);
+
+      $data['title'] = 'Summary Detail';
+      $data['sk_id'] = $sk_id;
+      $data['t_id'] = $t_id;
+      
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      //mapel di sekolah
+      $data['kelas_all'] = $this->db->query
+                    ("SELECT kelas_id, kelas_nama, COUNT(d_s_id) AS jumlah_murid
+                    FROM kelas
+                    LEFT JOIN d_s ON d_s_kelas_id = kelas_id
+                    WHERE kelas_sk_id = $sk_id AND kelas_t_id = $t_id
+                    GROUP BY kelas_id
+                    ORDER BY kelas_nama")->result_array();
+
+      $this->load->view('templates/header',$data);
+      $this->load->view('templates/sidebar',$data);
+      $this->load->view('templates/topbar',$data);
+      $this->load->view('Laporan_CRUD/summary_show',$data);
+      $this->load->view('templates/footer');
+    }
+    else{
+      redirect('Profile');
+    }
+  }
+
 }
