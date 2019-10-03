@@ -357,4 +357,60 @@ class API extends CI_Controller
     }
   }
 
+  public function get_pengajar_by_mapel(){
+    if($this->input->post('mapel_id', true)){
+
+      $mapel_id = $this->input->post('mapel_id', true);
+      $kelas_id = $this->input->post('kelas_id', true);
+
+      $guru = $this->db->query("
+                  SELECT kr_nama_depan, kr_nama_belakang
+                  FROM d_mpl 
+                  LEFT JOIN kr ON d_mpl_kr_id = kr_id 
+                  WHERE d_mpl_mapel_id = $mapel_id AND d_mpl_kelas_id = $kelas_id")->result();
+
+      echo json_encode($guru);
+    }
+  }
+
+  public function get_cog_by_mapel_kelas_sem(){
+    if($this->input->post('mapel_id', true)){
+
+      $mapel_id = $this->input->post('mapel_id', true);
+      $kelas_id = $this->input->post('kelas_id', true);
+      $sem = $this->input->post('semester', true);
+
+      $guru = $this->db->query("
+              SELECT sis_nama_depan, sis_nama_bel, topik_nama, kog_quiz, kog_test, kog_ass, kog_quiz_persen, kog_test_persen, kog_ass_persen, 
+              psi_quiz, psi_test, psi_ass, psi_quiz_persen, psi_test_persen, psi_ass_persen
+              FROM tes
+              LEFT JOIN topik ON tes_topik_id = topik_id
+              LEFT JOIN d_s ON tes_d_s_id = d_s_id
+              LEFT JOIN sis ON d_s_sis_id = sis_id
+              WHERE topik_mapel_id = $mapel_id AND d_s_kelas_id = $kelas_id AND topik_semester = $sem
+              ORDER BY topik_id, sis_nama_depan")->result();
+
+      echo json_encode($guru);
+    }
+  }
+
+  public function get_uj_by_mapel_kelas(){
+    if($this->input->post('mapel_id', true)){
+
+      $mapel_id = $this->input->post('mapel_id', true);
+      $kelas_id = $this->input->post('kelas_id', true);
+
+      $guru = $this->db->query("
+              SELECT sis_nama_depan, sis_nama_bel, 
+              uj_mid1_kog, uj_mid1_kog_persen, uj_mid1_psi, uj_mid1_psi_persen, uj_fin1_kog, uj_fin1_kog_persen, uj_fin1_psi, uj_fin1_psi_persen,
+              uj_mid2_kog, uj_mid2_kog_persen, uj_mid2_psi, uj_mid2_psi_persen, uj_fin2_kog, uj_fin2_kog_persen, uj_fin2_psi, uj_fin2_psi_persen
+              FROM uj
+              LEFT JOIN d_s ON uj_d_s_id = d_s_id
+              LEFT JOIN sis ON d_s_sis_id = sis_id
+              WHERE d_s_kelas_id = $kelas_id AND uj_mapel_id = $mapel_id")->result();
+
+      echo json_encode($guru);
+    }
+  }
+
 }

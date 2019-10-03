@@ -70,13 +70,13 @@
 
                   <tr>
                     <td><select name="uj_mid1_kog_persen" id="uj_mid1_kog_persen"><?= $opt ?></select></td>
-                    <td><select name="uj_mid1_psi_persen" id="uj_mid1_psi_persen"><?= $opt ?></select></td>
                     <td><select name="uj_fin1_kog_persen" id="uj_fin1_kog_persen"><?= $opt ?></select></td>
+                    <td><select name="uj_mid1_psi_persen" id="uj_mid1_psi_persen"><?= $opt ?></select></td>
                     <td><select name="uj_fin1_psi_persen" id="uj_fin1_psi_persen"><?= $opt ?></select></td>
 
                     <td><select name="uj_mid2_kog_persen" id="uj_mid2_kog_persen"><?= $opt ?></select></td>
-                    <td><select name="uj_mid2_psi_persen" id="uj_mid2_psi_persen"><?= $opt ?></select></td>
                     <td><select name="uj_fin2_kog_persen" id="uj_fin2_kog_persen"><?= $opt ?></select></td>
+                    <td><select name="uj_mid2_psi_persen" id="uj_mid2_psi_persen"><?= $opt ?></select></td>
                     <td><select name="uj_fin2_psi_persen" id="uj_fin2_psi_persen"><?= $opt ?></select></td>
                   </tr>
                 </thead>

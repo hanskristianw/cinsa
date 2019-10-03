@@ -59,42 +59,42 @@ $(document).ready(function () {
 
   $('#uj_mid1_kog_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
-    $("#uj_mid1_psi_persen").val(pasangan);
+    $("#uj_fin1_kog_persen").val(pasangan);
   });
 
   $('#uj_mid1_psi_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
-    $("#uj_mid1_kog_persen").val(pasangan);
+    $("#uj_fin1_psi_persen").val(pasangan);
   });
 
   $('#uj_fin1_kog_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
-    $("#uj_fin1_psi_persen").val(pasangan);
+    $("#uj_mid1_kog_persen").val(pasangan);
   });
 
   $('#uj_fin1_psi_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
-    $("#uj_fin1_kog_persen").val(pasangan);
+    $("#uj_mid1_psi_persen").val(pasangan);
   });
 
   $('#uj_mid2_kog_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
-    $("#uj_mid2_psi_persen").val(pasangan);
+    $("#uj_fin2_kog_persen").val(pasangan);
   });
 
   $('#uj_mid2_psi_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
-    $("#uj_mid2_kog_persen").val(pasangan);
+    $("#uj_fin2_psi_persen").val(pasangan);
   });
 
   $('#uj_fin2_kog_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
-    $("#uj_fin2_psi_persen").val(pasangan);
+    $("#uj_mid2_kog_persen").val(pasangan);
   });
 
   $('#uj_fin2_psi_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
-    $("#uj_fin2_kog_persen").val(pasangan);
+    $("#uj_mid2_psi_persen").val(pasangan);
   });
 
 

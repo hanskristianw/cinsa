@@ -53,13 +53,13 @@
 
                     <tr>
                       <td><input type="hidden" value="<?= $siswa_all[1]['uj_mid1_kog_persen'] ?>" name="uj_mid1_kog_persen"></td>
-                      <td><input type="hidden" value="<?= $siswa_all[1]['uj_mid1_psi_persen'] ?>" name="uj_mid1_psi_persen"></td>
                       <td><input type="hidden" value="<?= $siswa_all[1]['uj_fin1_kog_persen'] ?>" name="uj_fin1_kog_persen"></td>
+                      <td><input type="hidden" value="<?= $siswa_all[1]['uj_mid1_psi_persen'] ?>" name="uj_mid1_psi_persen"></td>
                       <td><input type="hidden" value="<?= $siswa_all[1]['uj_fin1_psi_persen'] ?>" name="uj_fin1_psi_persen"></td>
 
                       <td><input type="hidden" value="<?= $siswa_all[1]['uj_mid2_kog_persen'] ?>" name="uj_mid2_kog_persen"></td>
-                      <td><input type="hidden" value="<?= $siswa_all[1]['uj_mid2_psi_persen'] ?>" name="uj_mid2_psi_persen"></td>
                       <td><input type="hidden" value="<?= $siswa_all[1]['uj_fin2_kog_persen'] ?>" name="uj_fin2_kog_persen"></td>
+                      <td><input type="hidden" value="<?= $siswa_all[1]['uj_mid2_psi_persen'] ?>" name="uj_mid2_psi_persen"></td>
                       <td><input type="hidden" value="<?= $siswa_all[1]['uj_fin2_psi_persen'] ?>" name="uj_fin2_psi_persen"></td>
 
                     </tr>
@@ -173,13 +173,13 @@
 
                   <tr>
                     <td><select name="uj_mid1_kog_persen" id="uj_mid1_kog_persen"><?= returnSelected($siswa_all[1]['uj_mid1_kog_persen']) ?></select></td>
-                    <td><select name="uj_mid1_psi_persen" id="uj_mid1_psi_persen"><?= returnSelected($siswa_all[1]['uj_mid1_psi_persen']) ?></select></td>
                     <td><select name="uj_fin1_kog_persen" id="uj_fin1_kog_persen"><?= returnSelected($siswa_all[1]['uj_fin1_kog_persen']) ?></select></td>
+                    <td><select name="uj_mid1_psi_persen" id="uj_mid1_psi_persen"><?= returnSelected($siswa_all[1]['uj_mid1_psi_persen']) ?></select></td>
                     <td><select name="uj_fin1_psi_persen" id="uj_fin1_psi_persen"><?= returnSelected($siswa_all[1]['uj_fin1_psi_persen']) ?></select></td>
 
                     <td><select name="uj_mid2_kog_persen" id="uj_mid2_kog_persen"><?= returnSelected($siswa_all[1]['uj_mid2_kog_persen']) ?></select></td>
-                    <td><select name="uj_mid2_psi_persen" id="uj_mid2_psi_persen"><?= returnSelected($siswa_all[1]['uj_mid2_psi_persen']) ?></select></td>
                     <td><select name="uj_fin2_kog_persen" id="uj_fin2_kog_persen"><?= returnSelected($siswa_all[1]['uj_fin2_kog_persen']) ?></select></td>
+                    <td><select name="uj_mid2_psi_persen" id="uj_mid2_psi_persen"><?= returnSelected($siswa_all[1]['uj_mid2_psi_persen']) ?></select></td>
                     <td><select name="uj_fin2_psi_persen" id="uj_fin2_psi_persen"><?= returnSelected($siswa_all[1]['uj_fin2_psi_persen']) ?></select></td>
                   </tr>
                 </thead>

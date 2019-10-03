@@ -20,3 +20,12 @@ img {
 .container_custom {
   padding: 2px 16px;
 }
+
+.modal-dialog-custom{
+  overflow-y: initial !important
+}
+.modal-body-custom{
+  height: 650px;
+  overflow-y: auto;
+  overflow-x: auto;
+}

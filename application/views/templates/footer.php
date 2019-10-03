@@ -38,23 +38,25 @@
     </div>
   </div>
 
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><div id='judul_modal'></div></h5>
+          <button class="close" id="close_modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id='isi_modal'></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="close_modal2">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
  
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
-  <script src="<?= base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="<?= base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-  <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
-  <script type = "text/javascript">
-    var base_url = '<?php echo base_url() ?>';
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.12.3/printThis.js"></script>
+  
+  <script src="<?= base_url('assets/'); ?>js/printThis.js"></script>
   <script src="<?= base_url('assets/'); ?>js/allJs.js"></script>
   <script src="<?= base_url('assets/'); ?>js/konselor.js"></script>
   <script src="<?= base_url('assets/'); ?>js/mapel_khusus.js"></script>

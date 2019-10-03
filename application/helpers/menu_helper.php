@@ -422,3 +422,14 @@ function show_mid_final_count($mapel_id, $kelas_id){
 
   return $laporan;
 }
+
+function show_af_count($k_afek_id, $mapel_id, $kelas_id){
+  $ci =& get_instance();
+  $laporan = $ci->db->query(
+    "SELECT COUNT(*) as jumlah
+    FROM afektif
+    LEFT JOIN d_s ON afektif_d_s_id = d_s_id
+    WHERE afektif_k_afek_id = $k_afek_id AND afektif_mapel_id= $mapel_id AND d_s_kelas_id = $kelas_id")->row_array();
+
+  return $laporan;
+}

@@ -1,4 +1,11 @@
 $(document).ready(function () {
+
+  $('#close_modal').click(function () {
+    $("#myModal").hide();
+  });
+  $('#close_modal2').click(function () {
+    $("#myModal").hide();
+  });
   $('#laporan_t').change(function () {
     $('#laporan_sk').change();
   });

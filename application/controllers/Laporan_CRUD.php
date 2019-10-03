@@ -268,6 +268,12 @@ class Laporan_CRUD extends CI_Controller
                     GROUP BY kelas_id
                     ORDER BY kelas_nama")->result_array();
 
+      $data['bulan_aktif'] = $this->db->query
+                    ("SELECT *
+                    FROM k_afek
+                    WHERE k_afek_sk_id = $sk_id AND k_afek_t_id = $t_id
+                    ORDER BY k_afek_bulan_id")->result_array();
+
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
       $this->load->view('templates/topbar',$data);
