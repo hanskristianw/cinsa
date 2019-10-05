@@ -24,8 +24,9 @@ img {
 .modal-dialog-custom{
   overflow-y: initial !important
 }
+
 .modal-body-custom{
-  height: 650px;
+  height: 450px;
   overflow-y: auto;
   overflow-x: auto;
 }

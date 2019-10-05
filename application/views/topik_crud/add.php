@@ -16,15 +16,18 @@
                             <input type="hidden" name="mapel_id" value="<?= $mapel_id ?>">
                             <div class="form-group row">
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <input type="text" class="form-control" id="topik_nama" name="topik_nama" placeholder="Topic Name" required>
+                                    <label for="topik_nama"><b><u>Name</u>:</b></label>
+                                    <input type="text" class="form-control" id="topik_nama" name="topik_nama" required>
                                 </div>
                                 <div class="col-sm mb-3 mb-sm-0">
-                                    <input type="number" class="form-control" id="topik_urutan" name="topik_urutan" placeholder="Topic Order" required>
+                                    <label for="topik_urutan"><b><u>Order Number</u>:</b></label>
+                                    <input type="number" class="form-control" id="topik_urutan" name="topik_urutan" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
 
+                                    <label for="jenj_id"><b><u>For Level</u>:</b></label>
                                     <select name="jenj_id" id="jenj_id" class="form-control">
                                         <?php
                                         $_selected = set_value('jenj_id');
@@ -41,6 +44,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm mb-3 mb-sm-0">
+                                    <label for="topik_semester"><b><u>Semester</u>:</b></label>
                                     <select name="topik_semester" class="form-control">
                                         <?php
                                             $_selected = set_value('topik_semester');

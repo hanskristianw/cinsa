@@ -57,44 +57,156 @@ $(document).ready(function () {
   //////UJIAN - INPUT/UPDATE//////////
   ////////////////////////////////////
 
+  refreshHasiluj();
+  refreshHasiluj2();
+  refreshHasiluj3();
+  refreshHasiluj4();
+  function refreshHasiluj() {
+    //kognitif
+    //alert('hai');
+    var mid1_kog_persen = parseInt($("#uj_mid1_kog_persen").val()) / 100;
+    var fin1_kog_persen = parseInt($("#uj_fin1_kog_persen").val()) / 100;
+
+    var kq = $('.kin').length;
+    //console.log(kq);
+    var total = 0;
+
+    for (var i = 1; i <= kq; i++) {
+      total = (parseInt($('.mk' + i).val()) * mid1_kog_persen) + (parseInt($('.fk' + i).val()) * fin1_kog_persen);
+      //console.log(total);
+      $('.a' + i).html(total.toFixed(2));
+    }
+
+  }
+
+  $("input[type=number]#kin").change(function () {
+    refreshHasiluj();
+  });
+  $("input[type=number]#kin2").change(function () {
+    refreshHasiluj();
+  });
+
+  function refreshHasiluj2() {
+    //kognitif
+    //alert('hai');
+    var mid1_psi_persen = parseInt($("#uj_mid1_psi_persen").val()) / 100;
+    var fin1_psi_persen = parseInt($("#uj_fin1_psi_persen").val()) / 100;
+
+    var kq = $('.kin').length;
+    //console.log(kq);
+    var total = 0;
+
+    for (var i = 1; i <= kq; i++) {
+      total = (parseInt($('.mkx' + i).val()) * mid1_psi_persen) + (parseInt($('.fkx' + i).val()) * fin1_psi_persen);
+      //console.log(total);
+      $('.b' + i).html(total.toFixed(2));
+    }
+
+  }
+
+  $("input[type=number]#kin3").change(function () {
+    refreshHasiluj2();
+  });
+  $("input[type=number]#kin4").change(function () {
+    refreshHasiluj2();
+  });
+
+  function refreshHasiluj3() {
+    //kognitif
+    //alert('hai');
+    var mid1_kog_persen = parseInt($("#uj_mid2_kog_persen").val()) / 100;
+    var fin1_kog_persen = parseInt($("#uj_fin2_kog_persen").val()) / 100;
+
+    var kq = $('.kin').length;
+    //console.log(kq);
+    var total = 0;
+
+    for (var i = 1; i <= kq; i++) {
+      total = (parseInt($('.mkxy' + i).val()) * mid1_kog_persen) + (parseInt($('.fkxy' + i).val()) * fin1_kog_persen);
+      //console.log(total);
+      $('.c' + i).html(total.toFixed(2));
+    }
+
+  }
+
+  $("input[type=number]#kin5").change(function () {
+    refreshHasiluj3();
+  });
+  $("input[type=number]#kin6").change(function () {
+    refreshHasiluj3();
+  });
+
+  function refreshHasiluj4() {
+    //kognitif
+    //alert('hai');
+    var mid1_psi_persen = parseInt($("#uj_mid2_psi_persen").val()) / 100;
+    var fin1_psi_persen = parseInt($("#uj_fin2_psi_persen").val()) / 100;
+
+    var kq = $('.kin').length;
+    //console.log(kq);
+    var total = 0;
+
+    for (var i = 1; i <= kq; i++) {
+      total = (parseInt($('.mkxyz' + i).val()) * mid1_psi_persen) + (parseInt($('.fkxyz' + i).val()) * fin1_psi_persen);
+      //console.log(total);
+      $('.d' + i).html(total.toFixed(2));
+    }
+
+  }
+
+  $("input[type=number]#kin7").change(function () {
+    refreshHasiluj4();
+  });
+  $("input[type=number]#kin8").change(function () {
+    refreshHasiluj4();
+  });
+
   $('#uj_mid1_kog_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
     $("#uj_fin1_kog_persen").val(pasangan);
+    refreshHasiluj();
   });
 
   $('#uj_mid1_psi_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
     $("#uj_fin1_psi_persen").val(pasangan);
+    refreshHasiluj2();
   });
 
   $('#uj_fin1_kog_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
     $("#uj_mid1_kog_persen").val(pasangan);
+    refreshHasiluj();
   });
 
   $('#uj_fin1_psi_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
     $("#uj_mid1_psi_persen").val(pasangan);
+    refreshHasiluj2();
   });
 
   $('#uj_mid2_kog_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
     $("#uj_fin2_kog_persen").val(pasangan);
+    refreshHasiluj3();
   });
 
   $('#uj_mid2_psi_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
     $("#uj_fin2_psi_persen").val(pasangan);
+    refreshHasiluj4();
   });
 
   $('#uj_fin2_kog_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
     $("#uj_mid2_kog_persen").val(pasangan);
+    refreshHasiluj3();
   });
 
   $('#uj_fin2_psi_persen').on('change', function () {
     var pasangan = 100 - $(this).val();
     $("#uj_mid2_psi_persen").val(pasangan);
+    refreshHasiluj4();
   });
 
 
@@ -359,6 +471,66 @@ $(document).ready(function () {
   ////////////////////////////////////
   //////COGNITIVE - PSYSCHOMOTOR//////
   //////////////INDEX/////////////////
+  refreshHasilk();
+  refreshHasilp();
+  function refreshHasilk() {
+    //kognitif
+    //alert('hai');
+    var ass_persen = parseInt($("#kog_ass_persen").val()) / 100;
+    var quiz_persen = parseInt($("#kog_quiz_persen").val()) / 100;
+    var test_persen = parseInt($("#kog_test_persen").val()) / 100;
+
+    var kq = $('.kin').length;
+    //console.log(kq);
+    var total = 0;
+
+    for (var i = 1; i <= kq; i++) {
+      total = (parseInt($('.kq' + i).val()) * quiz_persen) + (parseInt($('.kt' + i).val()) * test_persen) + (parseInt($('.ka' + i).val()) * ass_persen);
+      //console.log(total);
+      $('.r' + i).html(total.toFixed(2));
+    }
+
+  }
+
+  $("input[type=number].kin").change(function () {
+    refreshHasilk();
+  });
+  $("input[type=number].kin2").change(function () {
+    refreshHasilk();
+  });
+  $("input[type=number].kin3").change(function () {
+    refreshHasilk();
+  });
+
+  function refreshHasilp() {
+    //kognitif
+    //alert('hai');
+    var ass_persen = parseInt($("#psi_ass_persen").val()) / 100;
+    var quiz_persen = parseInt($("#psi_quiz_persen").val()) / 100;
+    var test_persen = parseInt($("#psi_test_persen").val()) / 100;
+
+    var kq = $('.kin').length;
+    //console.log(kq);
+    var total = 0;
+
+    for (var i = 1; i <= kq; i++) {
+      total = (parseInt($('.pq' + i).val()) * quiz_persen) + (parseInt($('.pt' + i).val()) * test_persen) + (parseInt($('.pa' + i).val()) * ass_persen);
+      //console.log(total);
+      $('.p' + i).html(total.toFixed(2));
+    }
+
+  }
+
+  $("input[type=number].kin4").change(function () {
+    refreshHasilp();
+  });
+  $("input[type=number].kin5").change(function () {
+    refreshHasilp();
+  });
+  $("input[type=number].kin6").change(function () {
+    refreshHasilp();
+  });
+
   $('#kog_quiz_persen').on('change', function () {
     var total = 100 - $(this).val() - $("#kog_test_persen").val() - $("#kog_ass_persen").val();
 
@@ -369,6 +541,7 @@ $(document).ready(function () {
       $("#btn-save").attr('disabled', 'disabled');
       $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
     }
+    refreshHasilk();
 
   });
 
@@ -382,6 +555,7 @@ $(document).ready(function () {
       $("#btn-save").attr('disabled', 'disabled');
       $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
     }
+    refreshHasilk();
   });
 
   $('#kog_ass_persen').on('change', function () {
@@ -394,6 +568,7 @@ $(document).ready(function () {
       $("#btn-save").attr('disabled', 'disabled');
       $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
     }
+    refreshHasilk();
   });
 
   $('#psi_quiz_persen').on('change', function () {
@@ -406,6 +581,7 @@ $(document).ready(function () {
       $("#btn-save").attr('disabled', 'disabled');
       $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
     }
+    refreshHasilp();
 
   });
 
@@ -419,6 +595,7 @@ $(document).ready(function () {
       $("#btn-save").attr('disabled', 'disabled');
       $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
     }
+    refreshHasilp();
   });
 
   $('#psi_ass_persen').on('change', function () {
@@ -431,6 +608,7 @@ $(document).ready(function () {
       $("#btn-save").attr('disabled', 'disabled');
       $('#notif').html("<div class='alert alert-danger'>Check Total Percentage</div>");
     }
+    refreshHasilp();
   });
 
 
@@ -701,8 +879,9 @@ $(document).ready(function () {
     });
   }
 
-
-
+  /////////////////////
+  //PENGISIAN AFEKTIF//
+  /////////////////////
   $("#option_minggu1").change(function () {
 
     var aktif1 = $("#option_minggu1").val();
@@ -1343,94 +1522,7 @@ $(document).ready(function () {
     //alert(base_url + "css/rapot.css");
   });
 
-  //////////////////////////////
-  /////////////////////////////
-  ////////TOPIK INDEX//////////
-  /////////////////////////////
-  $('#sub_topik_crud').hide();
-  $('#topik_mapel').change(function () {
-    var id = $(this).val();
-    var topik_jabatan_id = $('#topik_jabatan_id').val();
-    //alert(topik_jabatan_id);
-    if (id == 0) {
-      $('#topik_mapel_ajax').html("");
-      $('#sub_topik_crud').hide();
-    } else {
-      $('#sub_topik_crud').show();
-    }
 
-    $.ajax(
-      {
-        type: "post",
-        url: base_url + "Topik_CRUD/get_topik_detail",
-        data: {
-          'id': id,
-        },
-        async: true,
-        dataType: 'json',
-        success: function (data) {
-          //console.log(data);
-
-          var html = '<table class="table table-bordered table-sm mt-2">';
-          html += '<thead class="thead-dark">';
-          html += '<tr>';
-          html += '<th>Grade</th>';
-          html += '<th>Semester</th>';
-          html += '<th>Topic Name</th>';
-          html += '<th>Total Grade</th>';
-          html += '<th>Order Number</th>';
-          html += '<th>Action</th>';
-          html += '</tr>';
-          html += '</thead>';
-
-          html += '<tbody>';
-          if (data.length != 0) {
-            for (var i = 0; i < data.length; i++) {
-              html += '<tr>';
-              html += '<td>' + data[i].jenj_nama + '</td>';
-              html += '<td>' + data[i].topik_semester + '</td>';
-              html += '<td>' + data[i].topik_nama + '</td>';
-              html += '<td>' + data[i].jum_tes + '</td>';
-              html += '<td>' + data[i].topik_urutan + '</td>';
-              html += '<td>';
-              html += '<div class="form-group row pl-3">';
-              html += '<form method="post" action="' + base_url + 'topik_CRUD/edit">';
-              html += '<input type="hidden" value="' + data[i].topik_id + '" name="topik_id">';
-              html += '<input type="hidden" value="' + data[i].topik_mapel_id + '" name="mapel_id">';
-              html += '<button type="submit" class="badge badge-warning">';
-              html += 'Edit';
-              html += '</button>';
-
-              html += '</form>';
-
-              if (topik_jabatan_id == 4) {
-                html += '<form method="post" action="' + base_url + 'topik_CRUD/delete">';
-
-                html += '<input type="hidden" value="' + data[i].topik_id + '" name="topik_id">';
-                html += '<button type="submit" class="badge badge-danger">';
-                html += 'Delete';
-                html += '</button>';
-
-                html += '</form>';
-              }
-              html += '</div>';
-              html += '</td>';
-              html += '</tr>';
-            }
-          } else {
-            html += '<td colspan="6" class="text-center table-danger"><b>--No Topic(s), please add 1 or more topic--</b></td>';
-          }
-          html += '</tbody>';
-          html += '</table>';
-
-
-          //alert(html);
-
-          $('#topik_mapel_ajax').html(html);
-
-        }
-      });
-  });
   /////////////////////////////
   ////////////TATIB////////////
   /////////////////////////////

@@ -38,24 +38,28 @@
                   <tr>
                     <th rowspan="4">No</th>
                     <th rowspan="4">Name</th>
-                    <th colspan="4">Semester 1</th>
-                    <th colspan="4">Semester 2</th>
+                    <th colspan="6">Semester 1</th>
+                    <th colspan="6">Semester 2</th>
                   </tr>
                   <tr>
-                    <td colspan="2">Cognitive</td>
-                    <td colspan="2">Psychomotor</td>
-                    <td colspan="2">Cognitive</td>
-                    <td colspan="2">Psychomotor</td>
+                    <td colspan="3">Cognitive</td>
+                    <td colspan="3">Psychomotor</td>
+                    <td colspan="3">Cognitive</td>
+                    <td colspan="3">Psychomotor</td>
                   </tr>
                   <tr>
                     <td>Mid(%)</td>
                     <td>Final(%)</td>
+                    <td></td>
                     <td>Mid(%)</td>
                     <td>Final(%)</td>
+                    <td></td>
                     <td>Mid(%)</td>
                     <td>Final(%)</td>
+                    <td></td>
                     <td>Mid(%)</td>
                     <td>Final(%)</td>
+                    <td></td>
                   </tr>
                   <?php
                     $opt = "";
@@ -71,19 +75,24 @@
                   <tr>
                     <td><select name="uj_mid1_kog_persen" id="uj_mid1_kog_persen"><?= $opt ?></select></td>
                     <td><select name="uj_fin1_kog_persen" id="uj_fin1_kog_persen"><?= $opt ?></select></td>
+                    <td><b>Result</b></td>
                     <td><select name="uj_mid1_psi_persen" id="uj_mid1_psi_persen"><?= $opt ?></select></td>
                     <td><select name="uj_fin1_psi_persen" id="uj_fin1_psi_persen"><?= $opt ?></select></td>
+                    <td><b>Result</b></td>
 
                     <td><select name="uj_mid2_kog_persen" id="uj_mid2_kog_persen"><?= $opt ?></select></td>
                     <td><select name="uj_fin2_kog_persen" id="uj_fin2_kog_persen"><?= $opt ?></select></td>
+                    <td><b>Result</b></td>
                     <td><select name="uj_mid2_psi_persen" id="uj_mid2_psi_persen"><?= $opt ?></select></td>
                     <td><select name="uj_fin2_psi_persen" id="uj_fin2_psi_persen"><?= $opt ?></select></td>
+                    <td><b>Result</b></td>
                   </tr>
                 </thead>
                 <tbody>
 
                   <?php
                     $ag_temp = "xxx";
+                    $nomor = 1;
                     foreach ($siswa_all as $m) :
 
                       if($cek_agama == 1){
@@ -115,17 +124,21 @@
                           echo $m['sis_nama_depan']." ".$bel;
                         ?>
                       </td>
-                      <td><input type="number" onfocus='this.select();' required class='kin' style='width: 47px;' name="uj_mid1_kog[]" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin2' style='width: 47px;' name="uj_fin1_kog[]" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin3' style='width: 47px;' name="uj_mid1_psi[]" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin4' style='width: 47px;' name="uj_fin1_psi[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' id="kin" required class='kin mk<?= $nomor ?>' style='width: 47px;' name="uj_mid1_kog[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' id="kin2" required class='kin2 fk<?= $nomor ?>' style='width: 47px;' name="uj_fin1_kog[]" value="0" max="100"></td>
+                      <td><div class='a<?= $nomor ?>'></div></td>
+                      <td><input type="number" onfocus='this.select();' id="kin3" required class='kin3 mkx<?= $nomor ?>' style='width: 47px;' name="uj_mid1_psi[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' id="kin4" required class='kin4 fkx<?= $nomor ?>' style='width: 47px;' name="uj_fin1_psi[]" value="0" max="100"></td>
+                      <td><div class='b<?= $nomor ?>'></div></td>
 
-                      <td><input type="number" onfocus='this.select();' required class='kin5' style='width: 47px;' name="uj_mid2_kog[]" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin6' style='width: 47px;' name="uj_fin2_kog[]" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin7' style='width: 47px;' name="uj_mid2_psi[]" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin8' style='width: 47px;' name="uj_fin2_psi[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' id="kin5" required class='kin5 mkxy<?= $nomor ?>' style='width: 47px;' name="uj_mid2_kog[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' id="kin6" required class='kin6 fkxy<?= $nomor ?>' style='width: 47px;' name="uj_fin2_kog[]" value="0" max="100"></td>
+                      <td><div class='c<?= $nomor ?>'></td>
+                      <td><input type="number" onfocus='this.select();' id="kin7" required class='kin7 mkxyz<?= $nomor ?>' style='width: 47px;' name="uj_mid2_psi[]" value="0" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' id="kin8" required class='kin8 fkxyz<?= $nomor ?>' style='width: 47px;' name="uj_fin2_psi[]" value="0" max="100"></td>
+                      <td><div class='d<?= $nomor ?>'></td>
                     </tr>
-                  <?php endforeach ?>
+                    <?php $nomor++;  endforeach; ?>
                 </tbody>
               </table>
               <button type="submit" class="btn btn-success mt-2">

@@ -30,7 +30,7 @@
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0 mt-3">
                             <label for="kr_nama_depan"><b><u>First Name</u>:</b></label>
-                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name" value="<?php echo set_value('kr_nama_depan', $kr['kr_nama_depan']); ?>">
+                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" placeholder="First Name" value="<?php echo set_value('kr_nama_depan', $kr['kr_nama_depan']); ?>" required>
                             <?= form_error('kr_nama_depan','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                         <div class="col-sm-6 mt-3">
@@ -43,12 +43,12 @@
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0 mt-3">
                             <label for="kr_password1"><b><u>Password</u>:</b></label>
-                            <input type="password" class="form-control" id="kr_password1" name="kr_password1" placeholder="Password">
+                            <input type="password" class="form-control" id="kr_password1" name="kr_password1" required>
                             <?= form_error('kr_password1','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                         <div class="col-sm-6 mt-3">
                             <label for="kr_password2"><b><u>Repeat Password</u>:</b></label>
-                            <input type="password" class="form-control" id="kr_password2" name="kr_password2" placeholder="Repeat Password">
+                            <input type="password" class="form-control" id="kr_password2" name="kr_password2" required>
                         </div>
                     </div>
                     
@@ -56,10 +56,12 @@
                     
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input type="text" class="form-control" id="kr_gelar_depan" name="kr_gelar_depan" placeholder="First Name Title (Dr, Prof)" value="<?php echo set_value('kr_gelar_depan', $kr['kr_gelar_depan']); ?>">
+                            <label for="kr_gelar_depan"><b><u>First Name Title (Dr, Prof)</u>:</b></label>
+                            <input type="text" class="form-control" id="kr_gelar_depan" name="kr_gelar_depan" value="<?php echo set_value('kr_gelar_depan', $kr['kr_gelar_depan']); ?>">
                         </div>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="kr_gelar_belakang" name="kr_gelar_belakang" placeholder="Last Name Title (S.kom, M.M)" value="<?php echo set_value('kr_gelar_belakang', $kr['kr_gelar_belakang']); ?>">
+                            <label for="kr_gelar_belakang"><b><u>Last Name Title (S.kom, M.M)</u>:</b></label>
+                            <input type="text" class="form-control" id="kr_gelar_belakang" name="kr_gelar_belakang" value="<?php echo set_value('kr_gelar_belakang', $kr['kr_gelar_belakang']); ?>">
                         </div>
                     </div>
 
@@ -73,10 +75,14 @@
                             </div>
                         </div>
                         <div class="col-sm-6 mt-2">
-                            <input type="text" class="form-control mb-2" id="kr_alamat_ktp" name="kr_alamat_ktp" placeholder="ID Address" value="<?php echo set_value('kr_alamat_ktp', $kr['kr_alamat_ktp']); ?>">
-                            <input type="text" class="form-control mb-2" id="kr_alamat_tinggal" name="kr_alamat_tinggal" placeholder="Home Address" value="<?php echo set_value('kr_alamat_tinggal', $kr['kr_alamat_tinggal']); ?>">
-                            <input type="text" class="form-control mb-2" id="kr_ktp" name="kr_ktp" placeholder="ID number" value="<?php echo set_value('kr_ktp', $kr['kr_ktp']); ?>">
-                            <input type="text" class="form-control mb-2" id="kr_npwp" name="kr_npwp" placeholder="NPWP number" value="<?php echo set_value('kr_npwp', $kr['kr_npwp']); ?>">
+                            <label for="kr_alamat_ktp"><b><u>Address Based On ID</u>:</b></label>
+                            <input type="text" class="form-control mb-3" id="kr_alamat_ktp" name="kr_alamat_ktp" value="<?php echo set_value('kr_alamat_ktp', $kr['kr_alamat_ktp']); ?>">
+                            <label for="kr_alamat_tinggal"><b><u>Current Address</u>:</b></label>
+                            <input type="text" class="form-control mb-3" id="kr_alamat_tinggal" name="kr_alamat_tinggal" value="<?php echo set_value('kr_alamat_tinggal', $kr['kr_alamat_tinggal']); ?>">
+                            <label for="kr_alamat_tinggal"><b><u>ID number</u>:</b></label>
+                            <input type="text" class="form-control mb-3" id="kr_ktp" name="kr_ktp" value="<?php echo set_value('kr_ktp', $kr['kr_ktp']); ?>">
+                            <label for="kr_alamat_tinggal"><b><u>NPWP number</u>:</b></label>
+                            <input type="text" class="form-control mb-2" id="kr_npwp" name="kr_npwp" value="<?php echo set_value('kr_npwp', $kr['kr_npwp']); ?>">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">

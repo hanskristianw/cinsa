@@ -42,16 +42,18 @@
                   <tr>
                     <th rowspan="4">No</th>
                     <th rowspan="4">Name</th>
-                    <th colspan="3">Cognitive</th>
-                    <th colspan="3">Psychomotor</th>
+                    <th colspan="4">Cognitive</th>
+                    <th colspan="4">Psychomotor</th>
                   </tr>
                   <tr>
                     <td>Quiz(%)</td>
                     <td>Test(%)</td>
                     <td>Ass(%)</td>
+                    <td></td>
                     <td>Quiz(%)</td>
                     <td>Test(%)</td>
                     <td>Ass(%)</td>
+                    <td></td>
                   </tr>
                   <?php
                     $opt = "";
@@ -76,16 +78,19 @@
                     <td><select name="kog_quiz_persen" id="kog_quiz_persen"><?= $opt2 ?></select></td>
                     <td><select name="kog_test_persen" id="kog_test_persen"><?= $opt ?></select></td>
                     <td><select name="kog_ass_persen" id="kog_ass_persen"><?= $opt ?></select></td>
-
+                    <td><b>Result</b></td>
+                    
                     <td><select name="psi_quiz_persen" id="psi_quiz_persen"><?= $opt2 ?></select></td>
                     <td><select name="psi_test_persen" id="psi_test_persen"><?= $opt ?></select></td>
                     <td><select name="psi_ass_persen" id="psi_ass_persen"><?= $opt ?></select></td>
+                    <td><b>Result</b></td>
                   </tr>
                 </thead>
                 <tbody>
 
                   <?php
                     $ag_temp = "xxx";
+                    $nomor = 1;
                     foreach ($siswa_all as $m) :
 
                       if($cek_agama == 1){
@@ -117,15 +122,29 @@
                           echo $m['sis_nama_depan']." ".$bel;
                         ?>
                       </td>
-                      <td><input type="number" onfocus='this.select();' required class='kin' style='width: 47px;' name="kog_quiz[]" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin2' style='width: 47px;' name="kog_test[]" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin3' style='width: 47px;' name="kog_ass[]" value="0" max="100"></td>
+                      <td>
+                        <input type="number" onfocus='this.select();' required class='kin kq<?= $nomor ?>' style='width: 47px;' name="kog_quiz[]" value="0" max="100">
+                      </td>
+                      <td>
+                        <input type="number" onfocus='this.select();' required class='kin2 kt<?= $nomor ?>' style='width: 47px;' name="kog_test[]" value="0" max="100">
+                      </td>
+                      <td>
+                        <input type="number" onfocus='this.select();' required class='kin3 ka<?= $nomor ?>' style='width: 47px;' name="kog_ass[]" value="0" max="100">
+                      </td>
+                      <td><div class='r<?= $nomor ?>'></div></td>
 
-                      <td><input type="number" onfocus='this.select();' required class='kin4' style='width: 47px;' name="psi_quiz[]" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin5' style='width: 47px;' name="psi_test[]" value="0" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin6' style='width: 47px;' name="psi_ass[]" value="0" max="100"></td>
+                      <td>
+                        <input type="number" onfocus='this.select();' required class='kin4 pq<?= $nomor ?>' style='width: 47px;' name="psi_quiz[]" value="0" max="100">
+                      </td>
+                      <td>
+                        <input type="number" onfocus='this.select();' required class='kin5 pt<?= $nomor ?>' style='width: 47px;' name="psi_test[]" value="0" max="100">
+                      </td>
+                      <td>
+                        <input type="number" onfocus='this.select();' required class='kin6 pa<?= $nomor ?>' style='width: 47px;' name="psi_ass[]" value="0" max="100">
+                      </td>
+                      <td><div class='p<?= $nomor ?>'></div></td>
                     </tr>
-                  <?php endforeach ?>
+                  <?php $nomor++; endforeach; ?>
                 </tbody>
               </table>
               <button type="submit" class="btn btn-success mt-2" id="btn-save">

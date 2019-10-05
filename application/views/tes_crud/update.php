@@ -126,16 +126,18 @@
                   <tr>
                     <th rowspan="4">No</th>
                     <th rowspan="4">Name</th>
-                    <th colspan="3">Cognitive</th>
-                    <th colspan="3">Psychomotor</th>
+                    <th colspan="4">Cognitive</th>
+                    <th colspan="4">Psychomotor</th>
                   </tr>
                   <tr>
                     <td>Quiz(%)</td>
                     <td>Test(%)</td>
                     <td>Ass(%)</td>
+                    <td></td>
                     <td>Quiz(%)</td>
                     <td>Test(%)</td>
                     <td>Ass(%)</td>
+                    <td></td>
                   </tr>
                   <?php
 
@@ -159,15 +161,18 @@
                     <td><select name="kog_quiz_persen" id="kog_quiz_persen"><?= returnSelected($siswa_all[1]['kog_quiz_persen']) ?></select></td>
                     <td><select name="kog_test_persen" id="kog_test_persen"><?= returnSelected($siswa_all[1]['kog_test_persen']) ?></select></td>
                     <td><select name="kog_ass_persen" id="kog_ass_persen"><?= returnSelected($siswa_all[1]['kog_ass_persen']) ?></select></td>
+                    <td><b>Result</b></td>
 
                     <td><select name="psi_quiz_persen" id="psi_quiz_persen"><?= returnSelected($siswa_all[1]['psi_quiz_persen']) ?></select></td>
                     <td><select name="psi_test_persen" id="psi_test_persen"><?= returnSelected($siswa_all[1]['psi_test_persen']) ?></select></td>
                     <td><select name="psi_ass_persen" id="psi_ass_persen"><?= returnSelected($siswa_all[1]['psi_ass_persen']) ?></select></td>
+                    <td><b>Result</b></td>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
                     $ag_temp = "xxx";
+                    $nomor = 1;
                     foreach ($siswa_all as $m) :
                   ?>
 
@@ -200,15 +205,17 @@
                           echo $m['sis_nama_depan']." ".$bel;
                         ?>
                       </td>
-                      <td><input type="number" onfocus='this.select();' required class='kin' style='width: 47px;' name="kog_quiz[]" value="<?= $m['kog_quiz'] ?>" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin2' style='width: 47px;' name="kog_test[]" value="<?= $m['kog_test'] ?>" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin3' style='width: 47px;' name="kog_ass[]" value="<?= $m['kog_ass'] ?>" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin kq<?= $nomor ?>' style='width: 47px;' name="kog_quiz[]" value="<?= $m['kog_quiz'] ?>" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin2 kt<?= $nomor ?>' style='width: 47px;' name="kog_test[]" value="<?= $m['kog_test'] ?>" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin3 ka<?= $nomor ?>' style='width: 47px;' name="kog_ass[]" value="<?= $m['kog_ass'] ?>" max="100"></td>
+                      <td><div class='r<?= $nomor ?>'></div></td>
                       
-                      <td><input type="number" onfocus='this.select();' required class='kin5' style='width: 47px;' name="psi_quiz[]" value="<?= $m['psi_quiz'] ?>" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin6' style='width: 47px;' name="psi_test[]" value="<?= $m['psi_test'] ?>" max="100"></td>
-                      <td><input type="number" onfocus='this.select();' required class='kin7' style='width: 47px;' name="psi_ass[]" value="<?= $m['psi_ass'] ?>" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin5 pq<?= $nomor ?>' style='width: 47px;' name="psi_quiz[]" value="<?= $m['psi_quiz'] ?>" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin6 pt<?= $nomor ?>' style='width: 47px;' name="psi_test[]" value="<?= $m['psi_test'] ?>" max="100"></td>
+                      <td><input type="number" onfocus='this.select();' required class='kin7 pa<?= $nomor ?>' style='width: 47px;' name="psi_ass[]" value="<?= $m['psi_ass'] ?>" max="100"></td>
+                      <td><div class='p<?= $nomor ?>'></div></td>
                      </tr>
-                  <?php endforeach ?>
+                  <?php $nomor++;  endforeach; ?>
                 </tbody>
               </table>
               

@@ -167,6 +167,8 @@ class Topik_CRUD extends CI_Controller
       redirect('Profile');
     }
 
+    $data['title'] = 'Edit Topic';
+
     $data['sk'] = $this->db->query(
       "SELECT mapel_sk_id
       FROM mapel
@@ -176,6 +178,7 @@ class Topik_CRUD extends CI_Controller
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
     $data['jenj_all'] = $this->_jenj->return_all_by_sk($data['sk']['mapel_sk_id']);
     $data['topik_update'] = $this->_topik->find_by_id($topik_id);
+    $data['jum_tes'] = $this->input->post('jum_tes', true);
 
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);
@@ -203,6 +206,7 @@ class Topik_CRUD extends CI_Controller
       $data = [
         'topik_nama' => $this->input->post('topik_nama'),
         'topik_semester' => $this->input->post('topik_semester'),
+        'topik_jenj_id' => $this->input->post('jenj_id'),
         'topik_urutan' => $this->input->post('topik_urutan')
       ];
 

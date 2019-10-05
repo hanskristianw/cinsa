@@ -30,7 +30,7 @@
 
                   <?= $this->session->flashdata('message'); ?>
 
-                  <table class="table table-sm table-bordered">
+                  <table class="rapot">
                     <thead>
                       <tr>
                         <th>Reg Num</th>
@@ -48,14 +48,15 @@
                       
                       $rekap_nilai = array();
                       $tampung_nama_siswa = array();
+                      $total_semua = 0;
                       foreach($afektif_all as $m) : 
                         $snb = $m['sis_nama_bel'];
                         $total_nilai = 0;
                         $pembagi_total = 0;
                       ?>
                         <tr>
-                          <td style='width: 80px;'><?= $m['sis_no_induk'] ?></td>
-                          <td><?php 
+                          <td style='width: 80px;' class="pl-1"><?= $m['sis_no_induk'] ?></td>
+                          <td class="pl-1"><?php 
                                 array_push($tampung_nama_siswa,$m['sis_nama_depan']);
                                 echo ucwords(strtolower($m['sis_nama_depan']))." "; if(strlen($snb) > 0){echo $snb[0];}
                               ?>
@@ -85,6 +86,7 @@
                           ?>
                           
                           <td class='text-center <?= $red_total ?>' ><?= round($total_nilai/$pembagi_total,2) ?></td>
+                          <?php $total_semua += round($total_nilai/$pembagi_total,2); ?>
                           <td class='text-center <?= $red_total ?>' ><?= return_abjad_afek(round($total_nilai/$pembagi_total,2)) ?></td>
                         </tr>
                         
@@ -95,7 +97,7 @@
                         
                         $tertinggi = max($rekap_nilai);
                         $index_siswa = array();
-                        echo "<tr style='border: 3px solid #ddd; border-top: 3px double #ddd;;'><td><b>Nilai Tertinggi<b></td><td style='text-align:center;vertical-align:middle' colspan= ".(count($mapel_header)*2+4).">";
+                        echo "<tr style='border: 3px solid #ddd; border-top: 3px double #ddd;;'><td><b>Nilai Tertinggi<b></td><td style='text-align:center;vertical-align:middle' colspan= ".(count($mapel_header)*2+1).">";
                         for($j=0;$j<count($rekap_nilai);$j++){
                             if($tertinggi==$rekap_nilai[$j]){
                                 array_push($index_siswa,$j);
@@ -111,6 +113,8 @@
                                 echo ".";
                             }
                         }
+
+                        echo "<td class='text-center' colspan='2'>".round($total_semua/count($rekap_nilai),2)."</td>";
                         echo "</tr>";
                       ?>
                     </tbody>
