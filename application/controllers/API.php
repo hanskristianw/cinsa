@@ -413,4 +413,83 @@ class API extends CI_Controller
     }
   }
 
+  public function get_topik_cb(){
+    if($this->input->post('topik_sk_id', true)){
+
+      $sk_id = $this->input->post('topik_sk_id', true);
+
+      $topik = $this->db->query("
+              SELECT *, count(nilai_cb_id) as jum_cb
+              FROM topik_cb
+              LEFT JOIN jenj ON topik_cb_jenj_id = jenj_id
+              LEFT JOIN nilai_cb ON nilai_cb_topik_cb_id = topik_cb_id
+              WHERE topik_cb_sk_id = $sk_id
+              GROUP BY topik_cb_id
+              ORDER BY topik_cb_jenj_id, topik_cb_semester")->result();
+
+      echo json_encode($topik);
+    }
+  }
+
+  public function get_indicator_cb(){
+    if($this->input->post('topik_cb_id', true)){
+
+      $topik_cb_id = $this->input->post('topik_cb_id', true);
+
+      $topik = $this->db->query("
+              SELECT *
+              FROM ind_cb
+              WHERE ind_cb_topik_cb_id = $topik_cb_id
+              ORDER BY ind_cb_nama")->result();
+
+      echo json_encode($topik);
+    }
+  }
+
+  public function get_topik_cb_by_jenj_sk(){
+    if($this->input->post('sk_id', true)){
+
+      $sk_id = $this->input->post('sk_id', true);
+      $kelas_id = $this->input->post('kelas_id', true);
+
+      //cari jenjang
+      $jenjang = $this->db->query(
+        "SELECT jenj_id
+        FROM kelas
+        LEFT JOIN jenj ON kelas_jenj_id = jenj_id
+        WHERE kelas_id = $kelas_id")->row_array();
+  
+      //print_r($jenjang['jenj_id']);
+  
+      $jenj_id = $jenjang['jenj_id'];
+
+      $topik = $this->db->query("
+              SELECT *
+              FROM topik_cb
+              WHERE topik_cb_sk_id = $sk_id AND topik_cb_jenj_id = $jenj_id
+              ORDER BY topik_cb_semester")->result();
+
+      echo json_encode($topik);
+    }
+  }
+
+  public function get_nilai_cb_by_kelas_semester(){
+    if($this->input->post('kelas_id', true)){
+      
+      $semester = $this->input->post('semester', true);
+      $kelas_id = $this->input->post('kelas_id', true);
+
+      $nilai = $this->db->query("SELECT topik_cb_nama, sis_no_induk, sis_nama_depan, sis_nama_bel, nilai_cb1, nilai_cb2, nilai_cb3, nilai_cb4, nilai_cb5, nilai_cb_jum
+                                FROM nilai_cb
+                                LEFT JOIN d_s ON nilai_cb_d_s_id = d_s_id
+                                LEFT JOIN sis ON d_s_sis_id = sis_id
+                                LEFT JOIN topik_cb ON nilai_cb_topik_cb_id = topik_cb_id
+                                WHERE d_s_kelas_id = $kelas_id AND topik_cb_semester = $semester
+                                ORDER BY topik_cb_id")->result();
+
+      echo json_encode($nilai);
+
+    }
+  }
+
 }

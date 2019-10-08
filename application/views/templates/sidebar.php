@@ -278,7 +278,7 @@
             <hr class="sidebar-divider d-none d-md-block">';
         }
         if (konselor_menu() >= 1) {
-          echo ' <div class="sidebar-heading">
+          echo '  <div class="sidebar-heading">
                     Counselor Menu
                   </div>
                   <li class="nav-item">
@@ -289,11 +289,28 @@
                     <div id="collapseOne3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Set</h6>
-                        <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>Affective Indicator</a>
-                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>Counseling Session</a>
+                        <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>1. Affective Indicator</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD') . '>2. CB Topic</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/grade') . '>3. CB Grade</a>
+                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>4. Counseling Session</a>
+                      </div>
+                    </div>
+                  </li>
+                  <hr class="sidebar-divider d-none d-md-block">
+                  <div class="sidebar-heading">
+                    Report Menu
+                  </div>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse9" aria-expanded="true" aria-controls="collapseTwo">
+                      <i class="fas fa-fw fa-chart-bar"></i>
+                      <span>Report</span>
+                    </a>
+                    <div id="collapse9" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Report</h6>
-                        <a class="collapse-item" href=' . base_url('K_afek_CRUD/Report') . '>Affective Score</a>
-                        <a class="collapse-item" href=' . base_url('Konseling_CRUD/Report') . '>Counseling Report</a>
+                        <a class="collapse-item" href=' . base_url('K_afek_CRUD/Report') . '>1. Affective</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/Report') . '>2. CB</a>
+                        <a class="collapse-item" href=' . base_url('Konseling_CRUD/Report') . '>3. Counseling</a>
                       </div>
                     </div>
                   </li>

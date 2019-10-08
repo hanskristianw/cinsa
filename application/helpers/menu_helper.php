@@ -433,3 +433,16 @@ function show_af_count($k_afek_id, $mapel_id, $kelas_id){
 
   return $laporan;
 }
+
+function show_cb_count($kelas_id, $semester){
+  $ci =& get_instance();
+
+  $laporan = $ci->db->query(
+    "SELECT COUNT(*) as jumlah
+    FROM nilai_cb
+    LEFT JOIN d_s ON nilai_cb_d_s_id = d_s_id
+    LEFT JOIN topik_cb ON nilai_cb_topik_cb_id = topik_cb_id
+    WHERE d_s_kelas_id = $kelas_id AND topik_cb_semester = $semester")->row_array();
+
+  return $laporan;
+}
