@@ -6,8 +6,11 @@
       <div class="row">
         <div class="col-lg">
           <div class="p-5 overflow-auto">
+
+            <?php if($kelas_all): ?>
+
             <div class="text-center mb-4">
-              <h1 class="h4 text-gray-900"><u><b>Laporan Pengumpulan Nilai</b></u></h1>
+              <h1 class="h4 text-gray-900"><u><b>Rangkuman Nilai</b></u></h1>
             </div>
             <div class="alert alert-secondary alert-dismissible fade show">
                 <button class="close" data-dismiss="alert" type="button">
@@ -32,20 +35,33 @@
                   </tr>
                 </table>
             </div>
+            <?php endif; ?>
 
             <?= $this->session->flashdata('message'); ?>
               
-              <?php foreach($kelas_all as $m) : ?>
+              <?php 
+                if(!$kelas_all){
+                  echo "<h1 class='text-center mt-3 text-danger'>--Tidak ada kelas pada tahun ini--</h1>";
+                }
+              
+              foreach($kelas_all as $m) : 
+                $mapel_kelas = show_mapel_header_summary($m['kelas_id']);
+                $arr_mapel_id = array();
+
+                $lebar_tabel ="";
+
+                if(count($mapel_kelas)<5){
+                  $lebar_tabel = "style='width:30%';";
+                }
+              ?>
               <label style="font-family: 'Times New Roman', Times, serif; font-size:22px;"><u><?= $m['kelas_nama'] ?></u> 
               (<?= $m['jumlah_murid'] ?> siswa)</label>
-              <table class="rapot">
+              <table class="rapot" <?= $lebar_tabel ?>>
                 <thead>
                   <tr>
                     <th style='width: 120px;'>Category/Subject</th>
 
                     <?php 
-                      $mapel_kelas = show_mapel_header_summary($m['kelas_id']);
-                      $arr_mapel_id = array();
                       foreach($mapel_kelas as $n) :
                     ?>
                       <th colspan='2'> 

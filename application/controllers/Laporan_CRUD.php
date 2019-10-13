@@ -98,6 +98,12 @@ class Laporan_CRUD extends CI_Controller
   }
 
   public function summary_index(){
+
+    if(mapel_menu() == 0 && $this->session->userdata('kr_jabatan_id')!=5 && $this->session->userdata('kr_jabatan_id')!=4 && !return_menu_kepsek()) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+
     $data['title'] = 'Summary';
 
     //data karyawan yang sedang login untuk topbar
@@ -105,6 +111,7 @@ class Laporan_CRUD extends CI_Controller
 
     //data karyawan untuk konten
     $data['t_all'] = $this->_t->return_all();
+    $kr_id = $this->session->userdata('kr_id');
 
     if($this->session->userdata('kr_jabatan_id')==5){
       $data['sk_all'] = $this->_sk->return_all();
@@ -114,7 +121,6 @@ class Laporan_CRUD extends CI_Controller
     }
     else if($this->session->userdata('kr_jabatan_id')){
       if(return_menu_kepsek()){
-        $kr_id = $this->session->userdata('kr_id');
 
         $data['sk_all'] = $this->db->query(
           "SELECT *
@@ -122,7 +128,12 @@ class Laporan_CRUD extends CI_Controller
           WHERE sk_kepsek = $kr_id")->result_array();
 
       }else{
-        $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
+        $data['sk_all'] = $this->db->query(
+          "SELECT DISTINCT sk_id, sk_nama
+          FROM d_mpl
+          LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+          LEFT JOIN sk ON mapel_sk_id = sk_id
+          WHERE d_mpl_kr_id = $kr_id")->result_array();
       }
       
     }
@@ -147,14 +158,28 @@ class Laporan_CRUD extends CI_Controller
       
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
+      $kr_id = $this->session->userdata('kr_id');
       //mapel di sekolah
-      $data['kelas_all'] = $this->db->query
-                    ("SELECT kelas_id, kelas_nama, COUNT(d_s_id) AS jumlah_murid
-                    FROM kelas
-                    LEFT JOIN d_s ON d_s_kelas_id = kelas_id
-                    WHERE kelas_sk_id = $sk_id AND kelas_t_id = $t_id
-                    GROUP BY kelas_id
-                    ORDER BY kelas_nama")->result_array();
+
+      if (mapel_menu() >= 1 && $this->session->userdata('kr_jabatan_id')!=5 && $this->session->userdata('kr_jabatan_id')!=4) {
+        $data['kelas_all'] = $this->db->query
+        ("SELECT kelas_id, kelas_nama, COUNT(DISTINCT d_s_id) AS jumlah_murid
+        FROM d_mpl
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN d_s ON d_s_kelas_id = kelas_id
+        WHERE kelas_sk_id = $sk_id AND kelas_t_id = $t_id AND d_mpl_kr_id = $kr_id
+        GROUP BY kelas_id
+        ORDER BY kelas_nama")->result_array();
+      }else{
+        $data['kelas_all'] = $this->db->query
+        ("SELECT kelas_id, kelas_nama, COUNT(d_s_id) AS jumlah_murid
+        FROM kelas
+        LEFT JOIN d_s ON d_s_kelas_id = kelas_id
+        WHERE kelas_sk_id = $sk_id AND kelas_t_id = $t_id
+        GROUP BY kelas_id
+        ORDER BY kelas_nama")->result_array();
+      }
+      
 
       $data['bulan_aktif'] = $this->db->query
                     ("SELECT *
@@ -169,6 +194,7 @@ class Laporan_CRUD extends CI_Controller
       $this->load->view('templates/footer');
     }
     else{
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
   }
