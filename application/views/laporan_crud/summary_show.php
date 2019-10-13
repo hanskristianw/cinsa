@@ -112,7 +112,7 @@
                             $kuning = "";
 
                           echo "<td style='padding: 0px 0px 0px 5px;width: 30px;".$kuning."'>
-                                <a class='link-cog1' rel='".$arr_mapel_id[$i]."' rel2='".$m['kelas_id']."' rel3='1' href='javascript:void(0)'>".$sem2['jumlah']."</a>
+                                <a class='link-cog1' rel='".$arr_mapel_id[$i]."' rel2='".$m['kelas_id']."' rel3='2' href='javascript:void(0)'>".$sem2['jumlah']."</a>
                                 </td>";
                         }
                       }
@@ -214,9 +214,15 @@
     });
 
     $(".link-cog1").on('click', function () {
+
       var mapel_id = $(this).attr("rel");
       var kelas_id = $(this).attr("rel2");
       var semester = $(this).attr("rel3");
+
+      
+      // alert(mapel_id);
+      // alert(kelas_id);
+      // alert(semester);
 
       $(".modal-dialog").addClass("modal-dialog-custom");
       $(".modal-body").addClass("modal-body-custom");
