@@ -446,3 +446,43 @@ function show_cb_count($kelas_id, $semester){
 
   return $laporan;
 }
+
+function show_siswa_by_kelas($kelas_id){
+  $ci =& get_instance();
+
+  $siswa = $ci->db->query(
+    "SELECT d_s_id, sis_no_induk, sis_nama_depan, sis_nama_bel
+    FROM d_s
+    LEFT JOIN sis ON d_s_sis_id = sis_id
+    WHERE d_s_kelas_id = $kelas_id")->result_array();
+
+  return $siswa;
+}
+
+function hitung_afek_siswa_perbulan($arr_bulan_id, $d_s_id){
+  
+  $ci =& get_instance();
+
+  $bulan_id = "";
+  for($i=0;$i<count($arr_bulan_id);$i++){
+    $bulan_id .= $arr_bulan_id[$i];
+
+    if($i != count($arr_bulan_id)-1)
+      $bulan_id .= ",";
+  }
+
+  $siswa = $ci->db->query(
+    "SELECT afektif_mapel_id, ROUND(SUM(jumlah)/COUNT(afektif_mapel_id),2) AS total
+    FROM(
+       SELECT afektif_mapel_id, ROUND((afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+
+        afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+
+        afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3+
+        afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3+
+        afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3)/afektif_minggu_aktif,2) AS jumlah, k_afek_bulan_id
+        FROM afektif
+        LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
+        WHERE afektif_d_s_id = $d_s_id AND k_afek_bulan_id IN ($bulan_id)) AS afektif_jumlah
+        GROUP BY afektif_mapel_id")->result_array();
+
+  return $siswa;
+}

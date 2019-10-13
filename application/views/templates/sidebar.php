@@ -125,10 +125,9 @@
               <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Report</h6>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD') . '>1. Cognitive Psychomotor</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/Afektif') . '>2. Affective</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade Report</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Student Report</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>4. Grade Report</a>
                 </div>
               </div>
             </li>
@@ -182,11 +181,10 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Show</h6>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD') . '>1. Cognitive Psychomotor</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/Afektif') . '>2. Affective</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade Report</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Student Report</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>4. Grade Report</a>
-                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>5. Hours Distribution</a>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>4. Hours Distribution</a>
                 </div>
               </div>
             </li>
@@ -227,8 +225,8 @@
                     <div id="collapse9" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Report</h6>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD') . '>1. Cognitive Psychomotor</a>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/Afektif') . '>2. Affective</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade Report</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>3. Counseling</a>
                       </div>
                     </div>
@@ -308,7 +306,7 @@
                     <div id="collapse9" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Report</h6>
-                        <a class="collapse-item" href=' . base_url('K_afek_CRUD/Report') . '>1. Affective</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>1. Affective</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD/Report') . '>2. CB</a>
                         <a class="collapse-item" href=' . base_url('Konseling_CRUD/Report') . '>3. Counseling</a>
                       </div>

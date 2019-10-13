@@ -492,4 +492,52 @@ class API extends CI_Controller
     }
   }
 
+  public function get_bulan_afek_terisi(){
+    if($this->input->post('sk_id', true)){
+      
+      $sk_id = $this->input->post('sk_id', true);
+      $t_id = $this->input->post('t_id', true);
+
+      $bulan = $this->db->query("SELECT DISTINCT k_afek_bulan_id, bulan_nama
+                                FROM afektif 
+                                LEFT JOIN d_s ON afektif_d_s_id = d_s_id
+                                LEFT JOIN sis ON d_s_sis_id = sis_id
+                                LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
+                                LEFT JOIN bulan ON k_afek_bulan_id = bulan_id
+                                WHERE sis_sk_id = $sk_id AND k_afek_t_id = $t_id
+                                ORDER BY k_afek_bulan_id")->result();
+
+      echo json_encode($bulan);
+
+    }
+  }
+
+  public function get_detail_nilai_afek(){
+    if($this->input->post('bulan_id', true) && $this->input->post('d_s_id', true)){
+      
+      $bulan_id = $this->input->post('bulan_id', true);
+      $d_s_id = $this->input->post('d_s_id', true);
+      $mapel_id = $this->input->post('mapel_id', true);
+
+      $detail = $this->db->query("SELECT afektif_mapel_id, afektif_minggu1a1,afektif_minggu1a2,afektif_minggu1a3,
+        afektif_minggu2a1,afektif_minggu2a2,afektif_minggu2a3,
+        afektif_minggu3a1,afektif_minggu3a2,afektif_minggu3a3,
+        afektif_minggu4a1,afektif_minggu4a2,afektif_minggu4a3,
+        afektif_minggu5a1,afektif_minggu5a2,afektif_minggu5a3, afektif_minggu_aktif, k_afek_bulan_id,
+        ROUND((afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+
+        afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+
+        afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3+
+        afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3+
+        afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3)/afektif_minggu_aktif,2) AS jumlah
+        FROM afektif
+        LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
+        WHERE afektif_d_s_id = $d_s_id AND k_afek_bulan_id IN ($bulan_id) AND afektif_mapel_id = $mapel_id
+        ORDER BY k_afek_bulan_id
+      ")->result();
+
+      echo json_encode($detail);
+    }
+
+  }
+
 }

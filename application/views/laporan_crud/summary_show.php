@@ -34,7 +34,7 @@
             </div>
 
             <?= $this->session->flashdata('message'); ?>
-            
+              
               <?php foreach($kelas_all as $m) : ?>
               <label style="font-family: 'Times New Roman', Times, serif; font-size:22px;"><u><?= $m['kelas_nama'] ?></u> 
               (<?= $m['jumlah_murid'] ?> siswa)</label>
@@ -91,7 +91,7 @@
                           echo "<td style='background-color:#d94a02;width: 30px;'></td>";
                         else{
                           if($sem2['jumlah'] % $m['jumlah_murid'] != 0)
-                            $kuning = "background-color:#e9ed55";
+                            $kuning = "background-color:#e9ed55;";
                           else
                             $kuning = "";
 
@@ -109,7 +109,7 @@
                         $uj = show_mid_final_count($arr_mapel_id[$i],$m['kelas_id']);
 
                         if($uj['jumlah'] % $m['jumlah_murid'] != 0)
-                            $kuning = "background-color:#e9ed55";
+                            $kuning = "background-color:#e9ed55;";
                           else
                             $kuning = "";
 
@@ -131,7 +131,7 @@
                           $af = show_af_count($o['k_afek_id'],$arr_mapel_id[$i],$m['kelas_id']);
                           //$af = show_mid_final_count($arr_mapel_id[$i],$m['kelas_id']);
                           if($af['jumlah'] % $m['jumlah_murid'] != 0)
-                            $kuning = "background-color:#e9ed55";
+                            $kuning = "background-color:#e9ed55;";
                           else
                             $kuning = "";
 
