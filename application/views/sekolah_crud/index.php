@@ -12,15 +12,15 @@
 
             <a href="<?= base_url('sekolah_crud/add') ?>" class="btn btn-primary mb-3">Add New School</a>
 
-            <table class="table display compact table-hover dt">
+            <table class="table table-bordered table-sm display compact table-hover dt">
               <thead>
                 <tr>
                   <th>School Name</th>
-                  <th>School Nickname</th>
-                  <th>School Principal</th>
-                  <th>Scout Teacher</th>
-                  <th>Mid Report Date</th>
-                  <th>Final Report Date</th>
+                  <th>Principal</th>
+                  <th>Vice Principal of<br>Students Affairs</th>
+                  <th>Scout<br>Teacher</th>
+                  <th>Mid<br>Report Date</th>
+                  <th>Final<br>Report Date</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -28,12 +28,12 @@
                 <?php foreach ($sk_all as $m) : ?>
                   <tr>
                     <td><?= $m['sk_nama'] ?></td>
-                    <td><?= $m['sk_nickname'] ?></td>
                     <td><?= $m['kepsek'] ?></td>
+                    <td><?= $m['wakasis'] ?></td>
                     <td><?= $m['guru_scout'] ?></td>
                     <td><?= $m['sk_mid'] ?></td>
                     <td><?= $m['sk_fin'] ?></td>
-                    <td>
+                    <td class="pl-3">
                       <div class="form-group row">
                         <form class="" action="<?= base_url('Sekolah_CRUD/update') ?>" method="get">
                           <input type="hidden" name="_id" value=<?= $m['sk_id'] ?>>

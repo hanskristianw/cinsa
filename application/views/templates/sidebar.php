@@ -328,9 +328,10 @@
                     </a>
                     <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Master</h6>
-                        <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>1. Comment</a>
-                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>2. Student Report</a>
+                        <h6 class="collapse-header">Homeroom</h6>
+                        <a class="collapse-item" href=' . base_url('Komen_CRUD/habit') . '>1. Habit, Social Skill</a>
+                        <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>2. Comment</a>
+                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Student Report</a>
                       </div>
                     </div>
                   </li>

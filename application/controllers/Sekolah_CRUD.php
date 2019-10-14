@@ -34,10 +34,19 @@ class Sekolah_CRUD extends CI_Controller
 
     //data karyawan untuk konten
     $data['sk_all'] = $this->db->query(
-      "Select sk_id, sk_nama, sk_mid, sk_fin, kr1.kr_nama_depan as kepsek, kr2.kr_nama_depan as guru_scout, sk_nickname
-      from sk, kr kr1, kr kr2
-      where kr1.kr_id = sk.sk_kepsek
-      and kr2.kr_id = sk.sk_scout_kr_id")->result_array();
+      "SELECT * FROM
+      (   
+          Select sk_id, sk_nama, sk_mid, sk_fin, kr1.kr_nama_depan as kepsek, kr2.kr_nama_depan as guru_scout, sk_nickname
+            from sk, kr kr1, kr kr2
+            where kr1.kr_id = sk.sk_kepsek
+            and kr2.kr_id = sk.sk_scout_kr_id
+      )AS a
+      LEFT JOIN
+      (
+        SELECT sk_id, kr_nama_depan as wakasis
+          FROM sk
+          LEFT JOIN kr ON sk_wakasis = kr_id
+      )AS b ON a.sk_id = b.sk_id")->result_array();
 
     //$data['tes'] = var_dump($this->db->last_query());
 
@@ -148,6 +157,7 @@ class Sekolah_CRUD extends CI_Controller
         'sk_mid' => $sk_mid,
         'sk_kepsek' => $this->input->post('kr_id'),
         'sk_scout_kr_id' => $this->input->post('scout_id'),
+        'sk_wakasis' => $this->input->post('sk_wakasis'),
         'sk_fin' => $sk_fin
       ];
 

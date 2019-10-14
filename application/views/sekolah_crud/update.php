@@ -53,7 +53,27 @@
                                 <?php
                                 $_selected = set_value(kr_id,$sk_update['sk_scout_kr_id']);
 
-                                echo "<option value= '0'> Select Scout Teacher</option>";
+                                echo "<option value= '4'> Admin</option>";
+                                foreach ($guru_all as $n) :
+                                    if ($_selected == $n['kr_id']) {
+                                        $s = "selected";
+                                    } else {
+                                        $s = "";
+                                    }
+                                    echo "<option value=" . $n['kr_id'] . " " . $s . ">" . $n['kr_nama_depan'] . " " . $n['kr_nama_belakang'][0] . "</option>";
+                                endforeach
+                                ?>
+                                </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm mb-3 mb-sm-0">
+                            <label for="sk_wakasis"><b><u>Vice Principal of Students Affairs</u>:</b></label>
+                            <select name="sk_wakasis" id="sk_wakasis" class="form-control mb-2">
+                                <?php
+                                $_selected = set_value(kr_id,$sk_update['sk_wakasis']);
+
+                                echo "<option value= '4'> Admin</option>";
                                 foreach ($guru_all as $n) :
                                     if ($_selected == $n['kr_id']) {
                                         $s = "selected";
