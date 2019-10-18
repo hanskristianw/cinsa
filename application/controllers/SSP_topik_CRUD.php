@@ -154,4 +154,19 @@ class SSP_topik_CRUD extends CI_Controller
     }
     
   }
+
+  public function delete(){
+    if ($this->input->post('ssp_topik_id', true)) {
+      $ssp_topik_id = $this->input->post('ssp_topik_id',TRUE);
+    
+      $this->db->where('ssp_topik_id', $ssp_topik_id);
+      $this->db->delete('ssp_topik');
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Successfully delete topic</div>');
+      redirect('SSP_topik_CRUD');
+    }
+    else{
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
 }

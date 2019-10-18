@@ -1311,6 +1311,11 @@ $(document).ready(function () {
                 htmlStr += '<button type="submit" class="badge badge-success">';
                 htmlStr += '<i class="fa fa-edit"></i>';
                 htmlStr += 'Edit Topic';
+                htmlStr += '</button></form><form action="ssp_topik_crud/delete" method="POST">';
+                htmlStr += '<input type="hidden" name="ssp_topik_id" value=' + data[i].ssp_topik_id + '>';
+                htmlStr += '<button type="submit" class="badge badge-danger">';
+                htmlStr += '<i class="fa fa-trash"></i>';
+                htmlStr += 'Delete';
                 htmlStr += '</button></form></div></td>';
 
                 htmlStr += '</tr>';

@@ -6,18 +6,23 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center mt-3">
+              
               <div class="col-sm mb-sm-0">
                 <h1 class="h4 text-gray-900">Topic List</h1>
                 <button class="btn btn-primary mb-3 tambah_topik_ssp">Add New Topic</button>
               </div>
-              
+              <div class="alert alert-danger alert-dismissible fade show mb-4">
+                  <button class="close" data-dismiss="alert" type="button">
+                      <span>&times;</span>
+                  </button>
+                  <strong>Perhatian: </strong> Menghapus topik berarti menghapus <b>SEMUA NILAI</b> didalam topik tersebut
+              </div>
               <?= $this->session->flashdata('message'); ?>
             </div>
             <hr>
             <div class="form-group row">
                 <div class="col-sm mb-sm-0">
                   <select name="ssp_topik_ssp_id" id="ssp_topik_ssp_id" class="form-control ssp_topik_ssp_id">
-                    <option value="0">Select SSP</option>
                     <?php foreach ($ssp_all as $m) : ?>
                       <option value='<?= $m['ssp_id'] ?>'>
                         <?= "(".$m['t_nama'].") ".$m['ssp_nama'] ?>
