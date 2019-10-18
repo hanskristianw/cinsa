@@ -96,6 +96,7 @@
                   <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>4. Class</a>
                   <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>5. SSP</a>
                   <a class="collapse-item" href=' . base_url('MK_CRUD') . '>6. Special Subject</a>
+                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>7. Percentage</a>
                 </div>
               </div>
             </li>
@@ -276,6 +277,27 @@
             </li>
             <hr class="sidebar-divider d-none d-md-block">';
         }
+
+        if (wakasis_menu() >= 1) {
+          echo '  <div class="sidebar-heading">
+                    Vice Principal Menu
+                  </div>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne">
+                      <i class="fas fa-fw fa-handshake"></i>
+                      <span>Vice Principal</span>
+                    </a>
+                    <div id="collapseOne3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Set</h6>
+                        <a class="collapse-item" href=' . base_url('Wakasis_CRUD') . '>1. Moral Behaviour</a>
+                      </div>
+                    </div>
+                  </li>
+                  <hr class="sidebar-divider d-none d-md-block">
+            ';
+        }
+
         if (konselor_menu() >= 1) {
           echo '  <div class="sidebar-heading">
                     Counselor Menu
@@ -291,7 +313,8 @@
                         <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>1. Affective Indicator</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD') . '>2. CB Topic</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD/grade') . '>3. CB Grade</a>
-                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>4. Counseling Session</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/emo') . '>4. Emotional & Spirituality</a>
+                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>5. Counseling Session</a>
                       </div>
                     </div>
                   </li>

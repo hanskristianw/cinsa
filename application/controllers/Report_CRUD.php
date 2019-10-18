@@ -141,8 +141,28 @@ class Report_CRUD extends CI_Controller
       
       $data['checkSsp'] = $this->input->post('checkSsp',TRUE);
 
-      $data['kepsek'] = $this->_sk->find_by_id($this->session->userdata('kr_sk_id'));
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+
+      $data['kepsek'] = $this->db->query(
+                        "SELECT *
+                        FROM sk
+                        LEFT JOIN kelas ON kelas_sk_id = sk_id
+                        LEFT JOIN kr ON sk_kepsek = kr_id
+                        WHERE kelas_id = $kelas_id")->row_array();
+
       $data['walkel'] = $this->_kelas->find_walkel_by_kelas_id($this->input->post('kelas_id',TRUE));
+
+
+      $data['kelas_jenj_id'] = $this->db->query(
+        "SELECT kelas_jenj_id
+        FROM kelas
+        WHERE kelas_id = $kelas_id")->row_array();
+
+      $t_id = $this->input->post('t',TRUE);
+      $data['t'] = $this->db->query(
+        "SELECT t_nama
+        FROM t
+        WHERE t_id = $t_id")->row_array();
 
       //var_dump($data['checkSsp']);
 

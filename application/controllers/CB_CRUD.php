@@ -453,4 +453,109 @@ class CB_CRUD extends CI_Controller
     }
   }
 
+  public function emo(){
+    $data['title'] = 'Emotional Awareness & Spirituality';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+    $kr_id = $this->session->userdata('kr_id');
+    $data['t_all'] = $this->_t->return_all();
+
+    $data['sk_all'] = $this->db->query("
+                      SELECT sk_id, sk_nama
+                      FROM konselor 
+                      LEFT JOIN sk ON konselor_sk_id = sk_id
+                      WHERE konselor_kr_id = $kr_id")->result_array();
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('cb_crud/emo', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function emo_input(){
+    if($this->input->post('kelas_emo',TRUE)){
+
+      $kelas_id = $this->input->post('kelas_emo',TRUE);
+
+      $data['title'] = 'Emotional Awareness & Spirituality';
+
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $data['siswa_all'] = $this->db->query(
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama,
+                emo_aware_ex,emo_aware_so,emo_aware_ne,
+                emo_aware_ex2,emo_aware_so2,emo_aware_ne2,
+                spirit_coping,spirit_emo,spirit_grate,spirit_ref,
+                spirit_coping2,spirit_emo2,spirit_grate2,spirit_ref2
+        FROM d_s
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_no_induk, sis_nama_depan")->result_array();
+
+      if(!$data['siswa_all']){
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">No Student, add one or more student!</div>');
+        redirect('cb_crud/emo');
+      }
+
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar',$data);
+        $this->load->view('templates/topbar',$data);
+        $this->load->view('cb_crud/emo_input',$data);
+        $this->load->view('templates/footer');
+
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+
+  }
+
+  public function save_emo(){
+    if($this->input->post('d_s_id[]')){
+      $data = array();
+      $emo_aware_ex = $this->input->post('emo_aware_ex[]',true);
+      $emo_aware_so = $this->input->post('emo_aware_so[]',true);
+      $emo_aware_ne = $this->input->post('emo_aware_ne[]',true);
+      $emo_aware_ex2 = $this->input->post('emo_aware_ex2[]',true);
+      $emo_aware_so2 = $this->input->post('emo_aware_so2[]',true);
+      $emo_aware_ne2 = $this->input->post('emo_aware_ne2[]',true);
+      
+      $spirit_coping = $this->input->post('spirit_coping[]',true);
+      $spirit_emo = $this->input->post('spirit_emo[]',true);
+      $spirit_grate = $this->input->post('spirit_grate[]',true);
+      $spirit_ref = $this->input->post('spirit_ref[]',true);
+      $spirit_coping2 = $this->input->post('spirit_coping2[]',true);
+      $spirit_emo2 = $this->input->post('spirit_emo2[]',true);
+      $spirit_grate2 = $this->input->post('spirit_grate2[]',true);
+      $spirit_ref2 = $this->input->post('spirit_ref2[]',true);
+
+      $d_s_id = $this->input->post('d_s_id[]');
+
+      for($i=0;$i<count($d_s_id);$i++){
+        $data[$i] = [
+          'emo_aware_ex' => $emo_aware_ex[$i],
+          'emo_aware_so' => $emo_aware_so[$i],
+          'emo_aware_ne' => $emo_aware_ne[$i],
+          'emo_aware_ex2' => $emo_aware_ex2[$i],
+          'emo_aware_so2' => $emo_aware_so2[$i],
+          'emo_aware_ne2' => $emo_aware_ne2[$i],
+          'spirit_coping' => $spirit_coping[$i],
+          'spirit_emo' => $spirit_emo[$i],
+          'spirit_grate' => $spirit_grate[$i],
+          'spirit_ref' => $spirit_ref[$i],
+          'spirit_coping2' => $spirit_coping2[$i],
+          'spirit_emo2' => $spirit_emo2[$i],
+          'spirit_grate2' => $spirit_grate2[$i],
+          'spirit_ref2' => $spirit_ref2[$i],
+          'd_s_id' =>  $d_s_id[$i]
+        ];
+      }
+      $this->db->update_batch('d_s',$data, 'd_s_id');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Success!</div>');
+      redirect('cb_crud/emo');
+    }
+  }
+
 }

@@ -42,6 +42,14 @@ function mapel_menu(){
   return $count_walkel;
 }
 
+function wakasis_menu(){
+  $ci =& get_instance();
+
+  $count_wakasis = $ci->db->where('sk_wakasis',$ci->session->userdata('kr_id'))->from("sk")->count_all_results();
+  
+  return $count_wakasis;
+}
+
 function return_mk($mapel_id, $d_s_id){
   $ci =& get_instance();
 
@@ -499,4 +507,78 @@ function hitung_afek_siswa_perbulan($arr_bulan_id, $d_s_id){
         GROUP BY afektif_mapel_id")->result_array();
 
   return $siswa;
+}
+
+function return_raport_fin($d_s_id, $semester, $jenjang){
+  $ci =& get_instance();
+  //formative (harian) didapat dari nilai kognitif tes * persen tes
+
+  $siswa = $ci->db->query(
+    "SELECT * FROM 
+      (SELECT mapel_nama, mapel_id, kelas_jenj_id, mapel_urutan, tes_d_s_id,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama, COUNT(DISTINCT tes_topik_id),
+      ROUND(SUM(ROUND(kog_quiz*kog_quiz_persen/100 + kog_ass*kog_ass_persen/100 + kog_test*kog_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_kog,
+      ROUND(SUM(ROUND(psi_quiz*psi_quiz_persen/100 + psi_ass*psi_ass_persen/100 + psi_test*psi_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_psi
+      FROM tes 
+      LEFT JOIN topik
+      ON tes_topik_id = topik_id
+      LEFT JOIN d_s
+      ON tes_d_s_id = d_s_id
+      LEFT JOIN sis
+      ON d_s_sis_id = sis_id
+      LEFT JOIN kelas
+      ON d_s_kelas_id = kelas_id
+      LEFT JOIN mapel
+      ON topik_mapel_id = mapel_id
+      WHERE tes_d_s_id = $d_s_id AND topik_semester = $semester
+      GROUP BY mapel_id
+      ORDER BY mapel_urutan ) AS formative
+  LEFT JOIN
+    (SELECT mapel_id,
+    ROUND((uj_mid1_kog * uj_mid1_kog_persen + uj_fin1_kog * uj_fin1_kog_persen) /100,0) as sum_kog_sem1,
+    ROUND((uj_mid1_psi * uj_mid1_psi_persen + uj_fin1_psi * uj_fin1_psi_persen) /100,0) as sum_psi_sem1,
+    ROUND((uj_mid2_kog * uj_mid2_kog_persen + uj_fin2_kog * uj_fin2_kog_persen) /100,0) as sum_kog_sem2,
+    ROUND((uj_mid2_psi * uj_mid2_psi_persen + uj_fin2_psi * uj_fin2_psi_persen) /100,0) as sum_psi_sem2
+    FROM uj
+    LEFT JOIN mapel
+    ON uj_mapel_id = mapel_id
+    WHERE uj_d_s_id = $d_s_id
+    GROUP BY mapel_id
+    ORDER BY mapel_urutan) AS summative ON formative.mapel_id = summative.mapel_id
+  LEFT JOIN
+    (SELECT * FROM persen
+      WHERE persen_jenj_id = $jenjang
+    ) AS persentase ON persentase.persen_mapel_id = formative.mapel_id
+  LEFT JOIN
+    (SELECT afektif_mapel_id, mapel_nama, ROUND(SUM(jumlah)/COUNT(afektif_mapel_id),2) AS total
+      FROM(
+        SELECT afektif_mapel_id, mapel_nama, ROUND((afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+
+            afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+
+            afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3+
+            afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3+
+            afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3)/afektif_minggu_aktif,2) AS jumlah, k_afek_bulan_id
+        FROM afektif
+        LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
+        LEFT JOIN bulan ON k_afek_bulan_id = bulan_id
+        LEFT JOIN mapel ON afektif_mapel_id = mapel_id
+        WHERE afektif_d_s_id = $d_s_id AND bulan_semester = $semester
+      ) AS afektif_jumlah
+      GROUP BY afektif_mapel_id
+  ) AS afektif_akhir ON afektif_akhir.afektif_mapel_id = formative.mapel_id
+  ORDER BY formative.mapel_urutan")->result_array();
+
+  return $siswa;
+}
+
+function returnNilaiSspFinal($d_s_id, $semester){
+  $ci =& get_instance();
+
+  $ssp_fin = $ci->db->query(
+    "SELECT ssp_nama, ssp_topik_nama, ssp_nilai_angka 
+    FROM ssp_nilai
+    LEFT JOIN ssp_topik ON ssp_nilai_ssp_topik_id = ssp_topik_id
+    LEFT JOIN ssp ON ssp_id = ssp_topik_ssp_id
+    WHERE ssp_nilai_d_s_id = $d_s_id AND ssp_topik_semester = $semester")->result_array();
+
+  //var_dump($td);
+  return $ssp_fin;
 }

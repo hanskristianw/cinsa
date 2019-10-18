@@ -540,4 +540,19 @@ class API extends CI_Controller
 
   }
 
+  public function get_percent_by_mapel_jenj(){
+    if($this->input->post('mapel_id', true) && $this->input->post('jenj_id', true)){
+      $mapel_id = $this->input->post('mapel_id', true);
+      $jenj_id = $this->input->post('jenj_id', true);
+
+      $detail = $this->db->query("SELECT *
+        FROM persen
+        WHERE persen_mapel_id = $mapel_id AND persen_jenj_id = $jenj_id
+      ")->result();
+
+      echo json_encode($detail);
+    }
+
+  }
+
 }
