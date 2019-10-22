@@ -14,7 +14,20 @@
                     <button class="close" data-dismiss="alert" type="button">
                         <span>&times;</span>
                     </button>
-                    Topik <b>HANYA PERLU DIBUAT 1 KALI</b> dan dapat digunakan untuk setiap tahun ajaran
+                    Topik <b>HANYA PERLU DIBUAT 1 KALI</b> dan dapat digunakan untuk setiap tahun ajaran<br><br>
+                    
+                </div>'; ?>
+
+            <?php echo '<div class="alert alert-primary alert-dismissible fade show">
+                    <button class="close" data-dismiss="alert" type="button">
+                        <span>&times;</span>
+                    </button>
+
+                    Deskripsi jika A,B maupun C dapat memakai karakter spesial: <b>{s}</b> yang akan diganti dengan nama depan siswa <br><br>
+
+                    <b>CONTOH</b>: {s} adalah siswa yang mampu berinteraksi dengan baik. <br><br>
+                    <b>HASIL</b>: Ariel adalah siswa yang mampu berinteraksi dengan baik.
+                    
                 </div>'; ?>
             <?= $this->session->flashdata('message'); ?>
             

@@ -371,11 +371,11 @@
                       <?php
                         $total_cb += $m['nilai'];
                         if(return_abjad_base4($m['nilai']) == "A"){
-                          echo $m['topik_cb_a'];
+                          echo str_replace("{s}", ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $m['topik_cb_a']);
                         }elseif(return_abjad_base4($m['nilai']) == "B"){
-                          echo $m['topik_cb_b'];
+                          echo str_replace("{s}", ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $m['topik_cb_b']);
                         }elseif(return_abjad_base4($m['nilai']) == "C"){
-                          echo $m['topik_cb_c'];
+                          echo str_replace("{s}", ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $m['topik_cb_c']);
                         }else{
                           echo "-";
                         }
