@@ -515,7 +515,12 @@ function return_raport_fin($d_s_id, $semester, $jenjang){
 
   $siswa = $ci->db->query(
     "SELECT * FROM 
-      (SELECT mapel_nama, mapel_id, kelas_jenj_id, mapel_urutan, tes_d_s_id,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama, COUNT(DISTINCT tes_topik_id),
+      (SELECT mapel_nama, mapel_id, kelas_jenj_id, mapel_urutan, tes_d_s_id,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama, COUNT(DISTINCT tes_topik_id), d_s_komen_sem, d_s_komen_sem2, d_s_scout_nilai, d_s_scout_nilai2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2,
+      (pfhf_absent+pfhf_uks+pfhf_tardiness)/3 AS pfhf_sem1, (pfhf_absent2+pfhf_uks2+pfhf_tardiness2)/3 AS pfhf_sem2,
+      (moralb_lo+moralb_so)/2 AS mb_sem1, (moralb_lo2+moralb_so2)/2 AS mb_sem2,
+      (emo_aware_ex+emo_aware_so+emo_aware_ne)/3 AS emo_sem1, (emo_aware_ex2+emo_aware_so2+emo_aware_ne2)/3 AS emo_sem2,
+      (spirit_coping+spirit_emo+spirit_grate+spirit_ref)/4 AS spirit_sem1, (spirit_coping2+spirit_emo2+spirit_grate2+spirit_ref2)/4 AS spirit_sem2,
+      (ss_relationship+ss_cooperation+ss_conflict+ss_self_a)/4 AS ss_sem1, (ss_relationship2+ss_cooperation2+ss_conflict2+ss_self_a2) AS ss_sem2,
       ROUND(SUM(ROUND(kog_quiz*kog_quiz_persen/100 + kog_ass*kog_ass_persen/100 + kog_test*kog_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_kog,
       ROUND(SUM(ROUND(psi_quiz*psi_quiz_persen/100 + psi_ass*psi_ass_persen/100 + psi_test*psi_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_psi
       FROM tes 
@@ -573,7 +578,7 @@ function returnNilaiSspFinal($d_s_id, $semester){
   $ci =& get_instance();
 
   $ssp_fin = $ci->db->query(
-    "SELECT ssp_nama, ssp_topik_nama, ssp_nilai_angka 
+    "SELECT ssp_nama, ssp_topik_nama, ssp_nilai_angka, ssp_topik_a, ssp_topik_b, ssp_topik_c
     FROM ssp_nilai
     LEFT JOIN ssp_topik ON ssp_nilai_ssp_topik_id = ssp_topik_id
     LEFT JOIN ssp ON ssp_id = ssp_topik_ssp_id
@@ -581,4 +586,57 @@ function returnNilaiSspFinal($d_s_id, $semester){
 
   //var_dump($td);
   return $ssp_fin;
+}
+
+function returnGuruSsp($d_s_id){
+  $ci =& get_instance();
+
+  $ssp_fin = $ci->db->query(
+    "SELECT kr_gelar_depan, kr_nama_depan, kr_nama_belakang, kr_gelar_belakang
+    FROM ssp_peserta
+    LEFT JOIN ssp ON ssp_peserta_ssp_id = ssp_id
+    LEFT JOIN kr ON ssp_kr_id = kr_id
+    WHERE ssp_peserta_d_s_id = $d_s_id")->row_array();
+
+  //var_dump($td);
+  return $ssp_fin;
+}
+
+function returnNilaiCB($d_s_id, $semester){
+  $ci =& get_instance();
+
+  $cb_fin = $ci->db->query(
+    "SELECT *, (nilai_cb1+nilai_cb2+nilai_cb3+nilai_cb4+nilai_cb5)/nilai_cb_jum AS nilai
+    FROM nilai_cb
+    LEFT JOIN topik_cb ON nilai_cb_topik_cb_id = topik_cb_id
+    WHERE nilai_cb_d_s_id = $d_s_id AND topik_cb_semester = $semester")->result_array();
+
+  //var_dump($td);
+  return $cb_fin;
+}
+
+function returnNilaiKarakter($d_s_id, $semester){
+  $ci =& get_instance();
+
+  $cb_fin = $ci->db->query(
+    "SELECT karakter_id, karakter_nama, SUM(jumlah)/COUNT(karakter_id) AS total, karakter_a, karakter_b, karakter_c
+    FROM(
+    SELECT afektif_mapel_id, mapel_nama, karakter_nama, ROUND((afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+
+    afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+
+    afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3+
+    afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3+
+    afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3)/afektif_minggu_aktif,2) AS jumlah, k_afek_bulan_id, karakter_id, karakter_urutan, karakter_a, karakter_b, karakter_c
+    FROM afektif
+    LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
+    LEFT JOIN bulan ON k_afek_bulan_id = bulan_id
+    LEFT JOIN mapel ON afektif_mapel_id = mapel_id
+    LEFT JOIN karakter_detail ON karakter_detail_mapel_id = mapel_id
+    LEFT JOIN karakter ON karakter_detail_karakter_id = karakter_id
+    WHERE afektif_d_s_id = $d_s_id AND bulan_semester = $semester
+    )AS karakter
+    GROUP BY karakter_id
+    ORDER BY karakter_urutan")->result_array();
+
+  //var_dump($td);
+  return $cb_fin;
 }

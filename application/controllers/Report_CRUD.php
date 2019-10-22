@@ -136,12 +136,20 @@ class Report_CRUD extends CI_Controller
       $data['sis_arr'] = $this->input->post('siswa_check[]',TRUE);
       $data['semester'] = $this->input->post('semester',TRUE);
 
+      
+      $sk_id = $this->input->post('sk',TRUE);
       $jenis = $this->input->post('pJenis',TRUE);
 
       
       $data['checkSsp'] = $this->input->post('checkSsp',TRUE);
+      $data['checkScout'] = $this->input->post('checkScout',TRUE);
 
       $kelas_id = $this->input->post('kelas_id',TRUE);
+
+      $data['karakter'] = $this->db->query(
+        "SELECT *
+        FROM karakter
+        ORDER BY karakter_urutan")->result_array();
 
       $data['kepsek'] = $this->db->query(
                         "SELECT *
@@ -151,6 +159,13 @@ class Report_CRUD extends CI_Controller
                         WHERE kelas_id = $kelas_id")->row_array();
 
       $data['walkel'] = $this->_kelas->find_walkel_by_kelas_id($this->input->post('kelas_id',TRUE));
+
+      
+      $data['guru_cb'] = $this->db->query(
+        "SELECT *
+        FROM konselor
+        LEFT JOIN kr ON konselor_kr_id = kr_id
+        WHERE konselor_sk_id = $sk_id")->row_array();
 
 
       $data['kelas_jenj_id'] = $this->db->query(
