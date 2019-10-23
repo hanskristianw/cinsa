@@ -227,8 +227,9 @@
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Report</h6>
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade Report</a>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>3. Counseling</a>
+                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>2. Student Report</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>3. Affective</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>4. Counseling</a>
                       </div>
                     </div>
                   </li>

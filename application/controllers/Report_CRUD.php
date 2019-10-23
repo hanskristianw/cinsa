@@ -50,7 +50,17 @@ class Report_CRUD extends CI_Controller
           LEFT JOIN sk ON kelas_sk_id = sk_id
           WHERE kelas_kr_id = $kr_id
           ORDER BY sk_nama")->result_array();
-      }else{
+      }
+      elseif(return_menu_kepsek()){
+        //jika dia wali kelas
+        $kr_id = $this->session->userdata('kr_id');
+        $data['sk_all'] = $this->db->query(
+          "SELECT DISTINCT sk_id, sk_nama
+          FROM sk
+          WHERE sk_kepsek = $kr_id
+          ORDER BY sk_nama")->result_array();
+      }
+      else{
         $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
         redirect('Profile');
       }
@@ -74,7 +84,7 @@ class Report_CRUD extends CI_Controller
       $sk_id = $this->input->post('sk_id',TRUE);
       
       //temukan jenjang id pada kelas itu
-      if($this->session->userdata('kr_jabatan_id')==4 || $this->session->userdata('kr_jabatan_id')==5){
+      if($this->session->userdata('kr_jabatan_id')==4 || $this->session->userdata('kr_jabatan_id')==5 || return_menu_kepsek()){
         $data = $this->db->query(
           "SELECT kelas_id, kelas_nama
           FROM kelas
@@ -93,7 +103,7 @@ class Report_CRUD extends CI_Controller
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }else{
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Whoopsie doopsie, what are you doing there!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
   }
