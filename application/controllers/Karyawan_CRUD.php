@@ -89,7 +89,16 @@ class Karyawan_CRUD extends CI_Controller
         'kr_ktp' => htmlspecialchars($this->input->post('kr_ktp', true)),
         'kr_npwp' => htmlspecialchars($this->input->post('kr_npwp', true)),
         'kr_bca' => htmlspecialchars($this->input->post('kr_bca', true)),
-				'kr_date_created' => time()
+        'kr_date_created' => time(),
+        'kr_nikah_tanggal' => htmlspecialchars($this->input->post('kr_nikah_tanggal', true)),
+        'kr_nama_pasangan' => htmlspecialchars($this->input->post('kr_nama_pasangan', true)),
+        'kr_anak1' => htmlspecialchars($this->input->post('kr_anak1', true)),
+        'kr_anak2' => htmlspecialchars($this->input->post('kr_anak2', true)),
+        'kr_anak3' => htmlspecialchars($this->input->post('kr_anak3', true)),
+        'kr_anak4' => htmlspecialchars($this->input->post('kr_anak4', true)),
+        'kr_marital' => htmlspecialchars($this->input->post('kr_marital', true)),
+        'kr_mulai_tgl' => htmlspecialchars($this->input->post('kr_mulai_tgl', true)),
+        'kr_pendidikan_skrng' => htmlspecialchars($this->input->post('kr_pendidikan_skrng', true))
 			];
 
 			$this->db->insert('kr', $data);
@@ -163,7 +172,16 @@ class Karyawan_CRUD extends CI_Controller
         'kr_ktp' => htmlspecialchars($this->input->post('kr_ktp', true)),
         'kr_npwp' => htmlspecialchars($this->input->post('kr_npwp', true)),
         'kr_bca' => htmlspecialchars($this->input->post('kr_bca', true)),
-        'kr_st_id' => $this->input->post('st')
+        'kr_st_id' => $this->input->post('st'),
+        'kr_nikah_tanggal' => htmlspecialchars($this->input->post('kr_nikah_tanggal', true)),
+        'kr_nama_pasangan' => htmlspecialchars($this->input->post('kr_nama_pasangan', true)),
+        'kr_anak1' => htmlspecialchars($this->input->post('kr_anak1', true)),
+        'kr_anak2' => htmlspecialchars($this->input->post('kr_anak2', true)),
+        'kr_anak3' => htmlspecialchars($this->input->post('kr_anak3', true)),
+        'kr_anak4' => htmlspecialchars($this->input->post('kr_anak4', true)),
+        'kr_marital' => htmlspecialchars($this->input->post('kr_marital', true)),
+        'kr_mulai_tgl' => htmlspecialchars($this->input->post('kr_mulai_tgl', true)),
+        'kr_pendidikan_skrng' => htmlspecialchars($this->input->post('kr_pendidikan_skrng', true))
       ];
 
       $this->db->where('kr_id', $this->input->post('_id'));
