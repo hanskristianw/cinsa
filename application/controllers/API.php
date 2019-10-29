@@ -555,4 +555,52 @@ class API extends CI_Controller
 
   }
 
+  public function get_pengajar_ssp(){
+    if($this->input->post('ssp_id', true)){
+      $ssp_id = $this->input->post('ssp_id', true);
+
+      $detail = $this->db->query("SELECT kr_nama_depan, kr_nama_belakang
+        FROM ssp
+        LEFT JOIN kr ON ssp_kr_id= kr_id
+        WHERE ssp_id = $ssp_id
+      ")->result();
+
+      echo json_encode($detail);
+    }
+
+  }
+
+  public function get_siswa_ssp(){
+    if($this->input->post('ssp_id', true)){
+      $ssp_id = $this->input->post('ssp_id', true);
+
+      $detail = $this->db->query("SELECT sis_no_induk, sis_nama_depan, sis_nama_bel
+        FROM ssp_peserta
+        LEFT JOIN d_s ON ssp_peserta_d_s_id = d_s_id
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        WHERE ssp_peserta_ssp_id = $ssp_id
+        ORDER BY sis_no_induk, sis_nama_depan
+      ")->result();
+
+      echo json_encode($detail);
+    }
+
+  }
+
+  public function get_detail_nilai_topik_ssp(){
+    if($this->input->post('ssp_topik_id', true)){
+      $ssp_topik_id = $this->input->post('ssp_topik_id', true);
+
+      $detail = $this->db->query("SELECT sis_no_induk, sis_nama_depan, sis_nama_bel, ssp_nilai_angka
+        FROM ssp_nilai
+        LEFT JOIN d_s ON ssp_nilai_d_s_id = d_s_id
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        WHERE ssp_nilai_ssp_topik_id = $ssp_topik_id
+        ORDER BY sis_no_induk, sis_nama_depan
+      ")->result();
+
+      echo json_encode($detail);
+    }
+  }
+
 }

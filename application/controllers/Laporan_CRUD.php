@@ -270,4 +270,104 @@ class Laporan_CRUD extends CI_Controller
     }
   }
 
+  public function summary_ssp_index(){
+
+    if(ssp_menu() == 0 && $this->session->userdata('kr_jabatan_id')!=5 && $this->session->userdata('kr_jabatan_id')!=4 && !return_menu_kepsek()) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+
+    $data['title'] = 'SSP Summary';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+    //data karyawan untuk konten
+    $data['t_all'] = $this->_t->return_all();
+    $kr_id = $this->session->userdata('kr_id');
+
+    if($this->session->userdata('kr_jabatan_id')==5){
+      $data['sk_all'] = $this->_sk->return_all();
+    }
+    else if($this->session->userdata('kr_jabatan_id')==4){
+      $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
+    }
+    else if($this->session->userdata('kr_jabatan_id')){
+      if(return_menu_kepsek()){
+
+        $data['sk_all'] = $this->db->query(
+          "SELECT *
+          FROM sk
+          WHERE sk_kepsek = $kr_id")->result_array();
+
+      }elseif(ssp_menu() >= 1){
+        $data['sk_all'] = $this->db->query(
+          "SELECT DISTINCT sk_id, sk_nama
+          FROM ssp
+          LEFT JOIN sk ON ssp_sk_id = sk_id
+          WHERE ssp_kr_id = $kr_id")->result_array();
+      }
+      else{
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+        redirect('Profile');
+      }
+      
+    }
+
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('Laporan_CRUD/summary_ssp_index',$data);
+    $this->load->view('templates/footer');
+  }
+
+  public function summary_ssp_show(){
+    if($this->input->post('sk_id',TRUE)){
+
+      $sk_id = $this->input->post('sk_id',TRUE);
+      $t_id = $this->input->post('t',TRUE);
+
+      $data['title'] = 'Summary Detail';
+      $data['sk_id'] = $sk_id;
+      $data['t_id'] = $t_id;
+      
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $kr_id = $this->session->userdata('kr_id');
+      //mapel di sekolah
+
+      //kalau dia pengajar ssp dan dia bukan wakakur atau kadiv 
+      if (ssp_menu() >= 1 && $this->session->userdata('kr_jabatan_id')!=5 && $this->session->userdata('kr_jabatan_id')!=4) {
+        $data['ssp_all'] = $this->db->query
+        ("SELECT ssp_id, ssp_nama, COUNT(ssp_peserta_id) as jumlah_siswa
+        FROM ssp
+        LEFT JOIN ssp_peserta ON ssp_id = ssp_peserta_ssp_id
+        WHERE ssp_sk_id = $sk_id AND ssp_t_id = $t_id AND ssp_kr_id = $kr_id
+        GROUP BY ssp_id
+        ORDER BY ssp_nama")->result_array();
+      }else{
+        //asumsinya disini dia kadiv dan wakakur
+        $data['ssp_all'] = $this->db->query
+        ("SELECT ssp_id, ssp_nama, COUNT(ssp_peserta_id) as jumlah_siswa
+        FROM ssp
+        LEFT JOIN ssp_peserta ON ssp_id = ssp_peserta_ssp_id
+        WHERE ssp_sk_id = $sk_id AND ssp_t_id = $t_id
+        GROUP BY ssp_id
+        ORDER BY ssp_nama")->result_array();
+      }
+      
+
+      $this->load->view('templates/header',$data);
+      $this->load->view('templates/sidebar',$data);
+      $this->load->view('templates/topbar',$data);
+      $this->load->view('Laporan_CRUD/summary_ssp_show',$data);
+      $this->load->view('templates/footer');
+    }
+    else{
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+
+  }
+
 }

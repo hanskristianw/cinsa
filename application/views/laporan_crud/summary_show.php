@@ -51,7 +51,7 @@
                 $lebar_tabel ="";
 
                 if(count($mapel_kelas)<5){
-                  $lebar_tabel = "style='width:30%';";
+                  $lebar_tabel = "style='width:30%;'";
                 }
               ?>
               <label style="font-family: 'Times New Roman', Times, serif; font-size:22px;"><u><?= $m['kelas_nama'] ?></u> 
@@ -327,7 +327,7 @@
         async: true,
         dataType: 'json',
         success: function (data) {
-          console.log(data);
+          //console.log(data);
           if (data.length == 0) {
             var html = '<div class="text-center mb-3 text-danger"><b>--No Data--</b></div>';
           } else {

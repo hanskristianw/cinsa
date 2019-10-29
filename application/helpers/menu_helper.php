@@ -640,3 +640,18 @@ function returnNilaiKarakter($d_s_id, $semester){
   //var_dump($td);
   return $cb_fin;
 }
+
+function show_topik_ssp($ssp_id){
+  $ci =& get_instance();
+
+  $topik_ssp = $ci->db->query(
+    "SELECT *, COUNT(ssp_nilai_id) as jumlah_nilai
+    FROM ssp_topik
+    LEFT JOIN ssp_nilai ON ssp_topik_id = ssp_nilai_ssp_topik_id
+    WHERE ssp_topik_ssp_id = $ssp_id
+    GROUP BY ssp_topik_id
+    ORDER BY ssp_topik_semester")->result_array();
+
+  //var_dump($td);
+  return $topik_ssp;
+}
