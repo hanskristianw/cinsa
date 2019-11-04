@@ -283,23 +283,7 @@
         }
 
         if (wakasis_menu() >= 1) {
-          echo '  <div class="sidebar-heading">
-                    Vice Principal Menu
-                  </div>
-                  <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="true" aria-controls="collapseOne">
-                      <i class="fas fa-fw fa-handshake"></i>
-                      <span>Vice Principal</span>
-                    </a>
-                    <div id="collapseOne3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                      <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Set</h6>
-                        <a class="collapse-item" href=' . base_url('Wakasis_CRUD') . '>1. Moral Behaviour</a>
-                      </div>
-                    </div>
-                  </li>
-                  <hr class="sidebar-divider d-none d-md-block">
-            ';
+          
         }
 
         if (konselor_menu() >= 1) {
@@ -317,12 +301,27 @@
                         <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>1. Affective Indicator</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD') . '>2. CB Topic</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD/grade') . '>3. CB Grade</a>
-                        <a class="collapse-item" href=' . base_url('CB_CRUD/emo') . '>4. Emotional & Spirituality</a>
-                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>5. Counseling Session</a>
+                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>4. Counseling Session</a>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne">
+                      <i class="fas fa-fw fa-users"></i>
+                      <span>Life Skill</span>
+                    </a>
+                    <div id="collapseOne4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Set</h6>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/emo') . '>1. Emotional & Spirituality</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/moral_index') . '>2. Moral Behaviour</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/habit_index') . '>3. Habit, Social Skill</a>
                       </div>
                     </div>
                   </li>
                   <hr class="sidebar-divider d-none d-md-block">
+
                   <div class="sidebar-heading">
                     Report Menu
                   </div>
@@ -356,9 +355,8 @@
                     <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Homeroom</h6>
-                        <a class="collapse-item" href=' . base_url('Komen_CRUD/habit') . '>1. Habit, Social Skill</a>
-                        <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>2. Comment</a>
-                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Student Report</a>
+                        <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>1. Comment</a>
+                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>2. Report Card</a>
                       </div>
                     </div>
                   </li>
@@ -415,12 +413,6 @@
       <!-- Divider -->
 
       <!-- Heading -->
-
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
 
     </ul>
     <!-- End of Sidebar -->

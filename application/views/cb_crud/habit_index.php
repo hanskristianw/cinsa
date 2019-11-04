@@ -13,7 +13,7 @@
 
             <?= $this->session->flashdata('message'); ?>
             
-            <form method="post" action="<?= base_url('wakasis_crud/moral_input'); ?>">
+            <form method="post" action="<?= base_url('cb_crud/habit_input'); ?>">
               <div class="form-group row">
                 <div class="col-sm mb-sm-0">
                   <select name="sk_id" id="sk_cb" class="form-control">
@@ -84,7 +84,7 @@
           if (data.length == 0) {
             var html = '<div class="text-center mb-3 text-danger"><b>--No Class, Add Class First--</b></div>';
           } else {
-            var html = '<select name="kelas_moral" id="kelas_cb" class="form-control mb-3 kelas_id">';
+            var html = '<select name="kelas_habit" id="kelas_cb" class="form-control mb-3 kelas_id">';
             
             var i;
             for (i = 0; i < data.length; i++) {

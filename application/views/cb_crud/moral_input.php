@@ -38,13 +38,13 @@
 
             <div id="notif"></div>
 
-            <form class="" action="<?= base_url('wakasis_CRUD/save_moral'); ?>" method="post">
+            <form class="" action="<?= base_url('cb_CRUD/save_moral'); ?>" method="post">
               <table class="table table-bordered table-hover table-sm mr-5">
                 <thead>
                   <tr>
                     <th rowspan="3">Reg Num</th>
                     <th rowspan="3">Name</th>
-                    <th class="text-center" colspan="4">Moral Behaviour</th>
+                    <th class="text-center" colspan="4"><a class='link-mb' href='javascript:void(0)'>Moral Behaviour</a></th>
                   </tr>
                   <tr>
                     <th class="text-center" colspan="2">Sem 1</th>
@@ -101,3 +101,47 @@
   </div>
 
 </div>
+
+
+<script type = "text/javascript">
+  $(document).ready(function () {
+
+    $(".link-mb").on('click', function () {
+
+      $(".modal-dialog").addClass("modal-dialog-custom");
+      $(".modal-body").addClass("modal-body-custom");
+
+      $("#judul_modal").html("Moral Behaviour");
+
+      var html = "";
+      html += "<table class='rapot'>";
+      html += "<thead>";
+      html += "<tr>";
+      html += "<th style='width: 80px;text-align:center;'></th>";
+      html += "<th>A</th>";
+      html += "<th>B</th>";
+      html += "<th>C</th>";
+      html += "</tr>";
+      html += "</thead>";
+      html += "<tbody>";
+      html += "<tr>";
+      html += "<td style='padding:5px;'>Light Offences</td>";
+      html += "<td style='padding:5px;'>Pelanggaran ringan (0–5 kali) </td>";
+      html += "<td style='padding:5px;'>Pelanggaran ringan (6-10 kali) </td>";
+      html += "<td style='padding:5px;'>Pelanggaran ringan (>10 kali) </td>";
+      html += "</tr>"
+      html += "<tr>";
+      html += "<td style='padding:5px;'>Severe Offences</td>";
+      html += "<td style='padding:5px;'>Pelanggaran berat (0–5 kali) </td>";
+      html += "<td style='padding:5px;'>Pelanggaran berat (6-10 kali) </td>";
+      html += "<td style='padding:5px;'>Pelanggaran berat (>10 kali) </td>";
+      html += "</tr>"
+      html += "</tbody>";
+      html += "</table>";
+
+      $('#isi_modal').html(html);
+      $("#myModal").show();
+    });
+
+  });
+</script>

@@ -19,7 +19,7 @@
                 <form class="user" method="post" action="<?php echo base_url('Karyawan_CRUD/update'); ?>">
                     
                     <h4 class="text-danger mb-3"><u>REQUIRED FIELD</u></h4>
-                    <input type="hidden" name="_id" value="<?= set_value('_id',$kr_update['kr_id']); ?>">
+                    <input type="hidden" class="_id" name="_id" value="<?= set_value('_id',$kr_update['kr_id']); ?>">
                     
                     <input type="hidden" name="is_update" value="1">
                     <div class="form-group row">
@@ -63,31 +63,8 @@
                                     endforeach
                                 ?>
                             </select>
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="st"><b><u>Status</u>:</b></label>
-                            <select name="st" id="st" class="form-control">
-                                <?php
-                                    $_selected = set_value('st',$kr_update['kr_st_id']);
-
-                                    foreach($st_all as $m) :
-                                        if($_selected == $m['st_id']){
-                                            $s = "selected";
-                                        }
-                                        else{
-                                            $s = "";
-                                        }
-
-                                        echo "<option value=".$m['st_id']." ".$s.">".$m['st_nama']."</option>";
-                                    endforeach
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
-
-                            <label for="sk"><b><u>Unit</u>:</b></label>
+                            
+                            <label for="sk" class="mt-3"><b><u>Unit</u>:</b></label>
                             <select name="kr_sk_id" id="kr_sk_id" class="form-control">
                                 <?php
                                     $_selected = set_value('kr_sk_id',$kr_update['kr_sk_id']);
@@ -103,6 +80,12 @@
                                     endforeach
                                 ?>
                             </select>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            
+                            <label for="st" style='display: block;'><b><u>History Status</u>:</b></label>
+                            <div class="history_ajax"></div>
                         </div>
                     </div>
 
@@ -202,3 +185,58 @@
     </div>
 
 </div>
+
+
+<script type = "text/javascript">
+  $(document).ready(function () {
+
+    var kr_id = $('._id').val();
+
+    $.ajax(
+    {
+        type: "post",
+        url: base_url + "API/get_history_st",
+        data: {
+          'kr_id': kr_id,
+        },
+        async: true,
+        dataType: 'json',
+        success: function (data) {
+            //console.log(data);
+            if (data.length == 0) {
+                var html = 'No History Available';
+            } 
+            else {
+                var i;
+
+                var html = '';
+                
+                html += '<table>';
+                html += '<thead>';
+                html += '<th style="padding: 0px 5px 0px 5px;">Date</th>';
+                html += '<th></th>';
+                html += '<th style="padding: 0px 5px 0px 5px;">Status</th>';
+                html += '</thead>';
+                html += '<tbody>';
+                for (i = 0; i < data.length; i++) {
+                    html += '<tr>';
+                    html += '<td style="padding: 0px 15px 0px 0px;">'+data[i].kr_h_status_tanggal+'</td>';
+                    html += '<td style="padding: 0px 15px 0px 0px;">&rarr;</td>';
+                    html += '<td style="padding: 0px 15px 0px 5px;">'+data[i].st_nama+'</td>';
+                    html += '<td>';
+                    html += '</td>';
+                    html += '</tr>';
+                }
+                html += '</tbody>';
+                html += '</table>';
+            
+            }
+
+            $('.history_ajax').html(html);
+        }
+    });
+
+    
+
+  });
+</script>

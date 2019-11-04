@@ -21,7 +21,7 @@
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="kr_username"><b><u>Username</u>:</b></label>
-                            <input type="text" class="form-control" id="kr_username" name="kr_username" placeholder="Username" value="<?php echo set_value('kr_username', $kr['kr_username']); ?>">
+                            <input type="text" class="form-control" pattern="^\S+$" title="No Space Allowed" id="kr_username" name="kr_username" placeholder="Username" value="<?php echo set_value('kr_username', $kr['kr_username']); ?>">
                             <?= form_error('kr_username','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                     </div>

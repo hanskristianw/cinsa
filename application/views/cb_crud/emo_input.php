@@ -17,20 +17,6 @@
                     </button>
                     <strong>INFO:</strong> Press SAVE button below
                 </div>';
-
-                echo '<div class="alert alert-success alert-dismissible fade show mt-3">
-                    <button class="close" data-dismiss="alert" type="button">
-                        <span>&times;</span>
-                    </button>
-
-                    <table style="width: 100%;">
-                      <tr><td><strong><u>Emotional Skill</u></strong></td> <td><strong><u>Spirituality</u></strong></td></tr>
-                      <tr><td>Expressive</td><td>Coping Adversities</td></tr>
-                      <tr><td>Self Control</td><td>Emotional Resilience</td></tr>
-                      <tr><td>Negative Emotions</td><td>Grateful</td></tr>
-                      <tr><td></td><td>Reflective</td></tr>
-                    </table>
-                </div>';
                     
 
                 function cetak_opt($nama, $dipilih){
@@ -58,8 +44,8 @@
                   <tr>
                     <th rowspan="3">Reg Num</th>
                     <th rowspan="3">Name</th>
-                    <th class="text-center" colspan="6">Emotional Skill</th>
-                    <th class="text-center" colspan="8">Spirituality</th>
+                    <th class="text-center" colspan="6"><a class='link-es' href='javascript:void(0)'>Emotional Skill</a></th>
+                    <th class="text-center" colspan="8"><a class='link-ss' href='javascript:void(0)'>Spirituality</a></th>
                   </tr>
                   <tr>
                     <th class="text-center" colspan="3">Sem 1</th>
@@ -141,3 +127,102 @@
   </div>
 
 </div>
+
+
+<script type = "text/javascript">
+  $(document).ready(function () {
+
+    $(".link-es").on('click', function () {
+
+      $(".modal-dialog").addClass("modal-dialog-custom");
+      $(".modal-body").addClass("modal-body-custom");
+
+      $("#judul_modal").html("Emotional Skill");
+
+      var html = "";
+      html += "<table class='rapot'>";
+      html += "<thead>";
+      html += "<tr>";
+      html += "<th style='width: 80px;text-align:center;'></th>";
+      html += "<th>A</th>";
+      html += "<th>B</th>";
+      html += "<th>C</th>";
+      html += "</tr>";
+      html += "</thead>";
+      html += "<tbody>";
+      html += "<tr>";
+      html += "<td style='padding:5px;'>Expressive</td>";
+      html += "<td style='padding:5px;'>Siswa mampu menunjukkan ekpresi emosi secara tepat misalnya tertawa saat lucu, sedih ketika kecewa, dll sesuai dengan keadaan dirinya.</td>";
+      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa mampu menunjukkan ekpresi emosi secara tepat misalnya tertawa saat lucu, sedih ketika kecewa, dll sesuai dengan keadaan dirinya. </td>";
+      html += "<td style='padding:5px;'>Siswa belum mampu menunjukkan ekpresi emosi secara tepat misalnya tertawa saat lucu, sedih ketika kecewa, dll sesuai dengan keadaan dirinya.</td>";
+      html += "</tr>"
+      html += "<tr>";
+      html += "<td style='padding:5px;'>Self Control</td>";
+      html += "<td style='padding:5px;'>Siswa mampu mengontrol emosi dengan tidak berkata atau melakukan tindakan secara negative ketika dia dalam keadaan terdesak.</td>";
+      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa mampu mengontrol emosi dengan tidak berkata atau melakukan tindakan secara negative ketika dia dalam keadaan terdesak.</td>";
+      html += "<td style='padding:5px;'>Siswa belum mampu mengontrol emosi dengan tidak berkata atau melakukan tindakan secara negative ketika dia dalam keadaan terdesak.</td>";
+      html += "</tr>"
+      html += "<tr>";
+      html += "<td style='padding:5px;'>Negative Emotions</td>";
+      html += "<td style='padding:5px;'>Siswa mampu melakukan upaya untuk menanggulangi emosi negative yang menekan akibat suatu masalah baik di dalam sekolah maupun diluar sekolah, dengan melakukan perubahan kognitif maupun perilaku di dalam dirinya</td>";
+      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa mampu melakukan upaya untuk menanggulangi emosi negative yang menekan akibat suatu masalah baik di dalam sekolah maupun diluar sekolah, dengan melakukan perubahan kognitif maupun perilaku di dalam dirinya. </td>";
+      html += "<td style='padding:5px;'>Siswa belum mampu melakukan upaya untuk menanggulangi emosi negative yang menekan akibat suatu masalah baik di dalam sekolah maupun diluar sekolah, dengan melakukan perubahan kognitif maupun perilaku di dalam dirinya</td>";
+      html += "</tr>"
+      html += "</tbody>";
+      html += "</table>";
+
+      $('#isi_modal').html(html);
+      $("#myModal").show();
+    });
+
+    $(".link-ss").on('click', function () {
+
+      $(".modal-dialog").addClass("modal-dialog-custom");
+      $(".modal-body").addClass("modal-body-custom");
+
+      $("#judul_modal").html("Spirituality");
+
+      var html = "";
+      html += "<table class='rapot'>";
+      html += "<thead>";
+      html += "<tr>";
+      html += "<th style='width: 80px;text-align:center;'></th>";
+      html += "<th>A</th>";
+      html += "<th>B</th>";
+      html += "<th>C</th>";
+      html += "</tr>";
+      html += "</thead>";
+      html += "<tbody>";
+      html += "<tr>";
+      html += "<td style='padding:5px;'>Coping Adversities</td>";
+      html += "<td style='padding:5px;'>Siswa mampu mencari jalan keluar akibat permasalahan yang ia hadapi, serta melakukan perubahan (misalnya: siswa sering tidur saat jam pelajaran akibat pola tidur yang salah, namun ada perubahan perilaku berjalannya waktu, atau juga gaya belajar)</td>";
+      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa mampu mencari jalan keluar akibat permasalahan yang ia hadapi, serta melakukan perubahan (misalnya: siswa sering tidur saat jam pelajaran akibat pola tidur yang salah, namun ada perubahan perilaku berjalannya waktu, atau juga gaya belajar)</td>";
+      html += "<td style='padding:5px;'>Siswa belum mampu mencari jalan keluar akibat permasalahan yang ia hadapi, serta melakukan perubahan (misalnya: siswa sering tidur saat jam pelajaran akibat pola tidur yang salah, namun ada perubahan perilaku berjalannya waktu, atau juga gaya belajar)</td>";
+      html += "</tr>"
+      html += "<tr>";
+      html += "<td style='padding:5px;'>Emotional Resilience</td>";
+      html += "<td style='padding:5px;'>Siswa memiliki ketahanan emosi, dimana siswa mampu menunjukkan ekspresi emosi yang tetap baik sekalipun situasi dan kondisi yang ia alami tidaklah begitu nyaman (misalnya, saat siswa merasa tidak nyaman dengan guru, ia mampu bersikap tetap sopan baik dalam bertindak maupun berkata-kata)</td>";
+      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa memiliki ketahanan emosi, dimana siswa mampu menunjukkan ekspresi emosi yang tetap baik sekalipun situasi dan kondisi yang ia alami tidaklah begitu nyaman (misalnya, saat siswa merasa tidak nyaman dengan guru, ia mampu bersikap tetap sopan baik dalam bertindak maupun berkata-kata)</td>";
+      html += "<td style='padding:5px;'>Siswa belum memiliki ketahanan emosi, dimana siswa mampu menunjukkan ekspresi emosi yang tetap baik sekalipun situasi dan kondisi yang ia alami tidaklah begitu nyaman (misalnya, saat siswa merasa tidak nyaman dengan guru, ia mampu bersikap tetap sopan baik dalam bertindak maupun berkata-kata)</td>";
+      html += "</tr>"
+      html += "<tr>";
+      html += "<td style='padding:5px;'>Grateful</td>";
+      html += "<td style='padding:5px;'>Siswa tidak menggerutu secara berlebihan terhadap suatu hal atau suatu keadaan tertentu (misalnya: siswa tidak menggerutu terus-menerus apabila barada dalam kondisi banyak tugas atau siswa sedang melaksanakan kegiatan diluar sekolah namun siswa tidak nyaman dan ia tidak menggerutu)</td>";
+      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa tidak menggerutu secara berlebihan terhadap suatu hal atau suatu keadaan tertentu (misalnya: siswa tidak menggerutu terus-menerus apabila barada dalam kondisi banyak tugas atau siswa sedang melaksanakan kegiatan diluar sekolah namun siswa tidak nyaman dan ia tidak menggerutu)</td>";
+      html += "<td style='padding:5px;'>Siswa belum mampu untuk tidak menggerutu secara berlebihan terhadap suatu hal atau suatu keadaan tertentu (misalnya: siswa tidak menggerutu terus-menerus apabila barada dalam kondisi banyak tugas atau siswa sedang melaksanakan kegiatan diluar sekolah namun siswa tidak nyaman dan ia tidak menggerutu)</td>";
+      html += "</tr>"
+      html += "<tr>";
+      html += "<td style='padding:5px;'>Reflective</td>";
+      html += "<td style='padding:5px;'>Siswa mampu menunjukkan peningkatan kearah yang lebih positif, baik dalam prestasi maupun perilaku </td>";
+      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa mampu menunjukkan peningkatan kearah yang lebih positif, baik dalam prestasi maupun perilaku.</td>";
+      html += "<td style='padding:5px;'>Siswa belum mampu menunjukkan peningkatan kearah yang lebih positif, baik dalam prestasi maupun perilaku.</td>";
+      html += "</tr>"
+      html += "</tbody>";
+      html += "</table>";
+
+      $('#isi_modal').html(html);
+      $("#myModal").show();
+    });
+
+  });
+</script>

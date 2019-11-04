@@ -80,7 +80,6 @@ class Karyawan_CRUD extends CI_Controller
 				'kr_username' => $this->input->post('kr_username'),
 				'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT),
 				'kr_jabatan_id' => $this->input->post('kr_jabatan'),
-				'kr_st_id' => $this->input->post('st'),
 				'kr_sk_id' => $this->input->post('sk'),
         'kr_gelar_depan' => htmlspecialchars($this->input->post('kr_gelar_depan', true)),
         'kr_gelar_belakang' => htmlspecialchars($this->input->post('kr_gelar_belakang', true)),
@@ -172,7 +171,6 @@ class Karyawan_CRUD extends CI_Controller
         'kr_ktp' => htmlspecialchars($this->input->post('kr_ktp', true)),
         'kr_npwp' => htmlspecialchars($this->input->post('kr_npwp', true)),
         'kr_bca' => htmlspecialchars($this->input->post('kr_bca', true)),
-        'kr_st_id' => $this->input->post('st'),
         'kr_nikah_tanggal' => htmlspecialchars($this->input->post('kr_nikah_tanggal', true)),
         'kr_nama_pasangan' => htmlspecialchars($this->input->post('kr_nama_pasangan', true)),
         'kr_anak1' => htmlspecialchars($this->input->post('kr_anak1', true)),
@@ -218,6 +216,34 @@ class Karyawan_CRUD extends CI_Controller
     }else{
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('karyawan_crud');
+    }
+  }
+
+  public function update_status(){
+    $kr_id = $this->input->post('kr_id', true);
+    if($kr_id){
+
+      $data = [
+				'kr_h_status_kr_id' => htmlspecialchars($this->input->post('kr_id', true)),
+				'kr_h_status_status_id' => htmlspecialchars($this->input->post('kr_h_status_status_id', true)),
+				'kr_h_status_tanggal' => $this->input->post('kr_h_status_tanggal')
+			];
+
+			$this->db->insert('kr_h_status', $data);
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">History Updated!</div>');
+			redirect('karyawan_crud');
+    }
+  }
+
+  public function delete_history(){
+    if($this->input->post('kr_h_status_id', true)){
+      $kr_h_status_id = $this->input->post('kr_h_status_id', true);
+
+      $this->db->where('kr_h_status_id', $kr_h_status_id);
+      $this->db->delete('kr_h_status');
+
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">History Deleted!</div>');
+			redirect('karyawan_crud');
     }
   }
 

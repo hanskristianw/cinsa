@@ -603,4 +603,27 @@ class API extends CI_Controller
     }
   }
 
+  public function get_st(){
+
+    $detail = $this->db->query("SELECT *
+      FROM st")->result();
+
+    echo json_encode($detail);
+  }
+
+  public function get_history_st(){
+    if($this->input->post('kr_id', true)){
+      $kr_id = $this->input->post('kr_id', true);
+
+      $detail = $this->db->query("SELECT *
+        FROM kr_h_status
+        LEFT JOIN st ON kr_h_status_status_id = st_id
+        WHERE kr_h_status_kr_id = $kr_id
+        ORDER BY kr_h_status_tanggal DESC
+      ")->result();
+
+      echo json_encode($detail);
+    }
+  }
+
 }

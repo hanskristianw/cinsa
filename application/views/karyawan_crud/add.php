@@ -61,27 +61,8 @@
                                 ?>
                             </select>
                         </div>
-                        <div class="col-sm-6">
-                            <label for="st"><b><u>Status</u>:</b></label>
-                            <select name="st" id="st" class="form-control">
-                                    <?php
-                                        $_selected = set_value('st');
 
-                                        foreach($st_all as $m) :
-                                            if($_selected == $m['st_id']){
-                                                $s = "selected";
-                                            }
-                                            else{
-                                                $s = "";
-                                            }
-
-                                            echo "<option value=".$m['st_id']." ".$s.">".$m['st_nama']."</option>";
-                                        endforeach
-                                    ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row mb-4">
+                        
                         <div class="col-sm-6 mb-sm-0">
 
                             <label for="sk"><b><u>Unit</u>:</b></label>
@@ -145,8 +126,6 @@
 
                             <label for="kr_mulai_tgl"><b><u>Date started work</u>:</b></label>
                             <input type="date" class="form-control mb-2" id="kr_mulai_tgl" name="kr_mulai_tgl">
-
-                            
                         </div>
                     </div>
                     
