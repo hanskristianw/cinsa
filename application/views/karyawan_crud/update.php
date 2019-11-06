@@ -32,16 +32,7 @@
                             <input type="text" class="form-control" id="kr_nama_belakang" name="kr_nama_belakang" value="<?= set_value('kr_nama_belakang',$kr_update['kr_nama_belakang']); ?>" required>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
-                            <label for="kr_password1"><b><u>Password</u>:</b></label>
-                            <input type="password" class="form-control" id="kr_password1" required name="kr_password1" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.kr_password2.pattern = this.value;">
-                        </div>
-                        <div class="col-sm-6">
-                            <label for="kr_password2"><b><u>Repeat Password</u>:</b></label>
-                            <input type="password" class="form-control" id="kr_password2" required name="kr_password2" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password' : '');" >
-                        </div>
-                    </div>
+                    
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
 

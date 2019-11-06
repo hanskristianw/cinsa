@@ -54,8 +54,14 @@
                                 </button>
                               </div>
                               
+                              <form action="<?= base_url('Karyawan_CRUD/reset') ?>" method="post">
+                                <input type="hidden" name="kr_id" value=<?= $m['kr_id'] ?>>
+                                <button type="submit" class="badge badge-info">
+                                  Reset
+                                </button>
+                              </form>
 
-                              <form action="<?= base_url('Karyawan_CRUD/print') ?>" method="get">
+                              <form action="<?= base_url('Karyawan_CRUD/print') ?>" method="post">
                                 <input type="hidden" name="_id" value=<?= $m['kr_id'] ?>>
                                 <button type="submit" class="badge badge-secondary">
                                   Print

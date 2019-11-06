@@ -132,8 +132,6 @@ class Karyawan_CRUD extends CI_Controller
     
     $this->form_validation->set_rules('kr_nama_depan', 'First Name', 'required|trim');
     $this->form_validation->set_rules('kr_nama_belakang', 'Last Name', 'required|trim');
-    $this->form_validation->set_rules('kr_password1', 'Password', 'required|trim|min_length[3]|matches[kr_password2]',['matches' => 'Password not match', 'min_length' => 'Password too short']);
-    $this->form_validation->set_rules('kr_password2', 'Password', 'required|trim|matches[kr_password1]');
 
     if($this->form_validation->run() == false){
       //jika menekan tombol edit
@@ -162,7 +160,6 @@ class Karyawan_CRUD extends CI_Controller
       $data = [
         'kr_nama_depan' => htmlspecialchars($this->input->post('kr_nama_depan', true)),
         'kr_nama_belakang' => htmlspecialchars($this->input->post('kr_nama_belakang', true)),
-        'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT),
         'kr_jabatan_id' => $this->input->post('kr_jabatan_id'),
         'kr_sk_id' => $this->input->post('kr_sk_id'),
         'kr_gelar_depan' => htmlspecialchars($this->input->post('kr_gelar_depan', true)),
@@ -246,6 +243,43 @@ class Karyawan_CRUD extends CI_Controller
 
 			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">History Deleted!</div>');
 			redirect('karyawan_crud');
+    }
+  }
+
+  public function reset(){
+    $kr_id = $this->input->post('kr_id', true);
+    if($kr_id){
+
+      $data['title'] = 'Reset Password';
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $data['kr_update'] = $this->_kr->find_by_id($kr_id);
+
+      $this->load->view('templates/header',$data);
+      $this->load->view('templates/sidebar',$data);
+      $this->load->view('templates/topbar',$data);
+      $this->load->view('karyawan_crud/reset',$data);
+      $this->load->view('templates/footer');
+    }else{
+      redirect('Profile');
+    }
+  }
+
+  public function reset_proses(){
+    $kr_id = $this->input->post('kr_id', true);
+    if($kr_id){
+
+      $data = [
+        'kr_password' => password_hash($this->input->post('kr_password1'), PASSWORD_DEFAULT)
+      ];
+
+      $this->db->where('kr_id', $this->input->post('kr_id'));
+      $this->db->update('kr', $data); 
+      
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Password Updated!</div>');
+      redirect('karyawan_crud');
+
+    }else{
+      redirect('Profile');
     }
   }
 
