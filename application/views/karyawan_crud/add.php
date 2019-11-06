@@ -102,16 +102,23 @@
 
                             <label for="kr_alamat_tinggal"><b><u>Current Address</u>:</b></label>
                             <input type="text" class="form-control mb-2" id="kr_alamat_tinggal" name="kr_alamat_tinggal">
-
-                            <label for="kr_pendidikan_skrng"><b><u>Current Education</u>:</b></label>
-                            <select name="kr_pendidikan_skrng" id="kr_pendidikan_skrng" class="form-control">
-                               <option value="SD">SD</option>
-                               <option value="SMP">SMP</option>
-                               <option value="SMA">SMA</option>
-                               <option value="S1" selected>S1</option>
-                               <option value="S2">S2</option>
-                               <option value="S3">S3</option>
-                            </select>
+                            <div class="form-group row mt-4">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="kr_pendidikan_skrng"><b><u>Current Education</u>:</b></label>
+                                    <select name="kr_pendidikan_skrng" id="kr_pendidikan_skrng" class="form-control mb-1">
+                                    <option value="SD">SD</option>
+                                    <option value="SMP">SMP</option>
+                                    <option value="SMA">SMA</option>
+                                    <option value="S1" selected>S1</option>
+                                    <option value="S2">S2</option>
+                                    <option value="S3">S3</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="kr_pendidikan_univ"><b><u><i>From</i></u>:</b></label>
+                                    <input type="text" class="form-control mb-2" id="kr_pendidikan_univ" name="kr_pendidikan_univ">
+                                </div>
+                            </div>
                             
                         </div>
                         <div class="col-sm-6">

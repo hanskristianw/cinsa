@@ -97,7 +97,8 @@ class Karyawan_CRUD extends CI_Controller
         'kr_anak4' => htmlspecialchars($this->input->post('kr_anak4', true)),
         'kr_marital' => htmlspecialchars($this->input->post('kr_marital', true)),
         'kr_mulai_tgl' => htmlspecialchars($this->input->post('kr_mulai_tgl', true)),
-        'kr_pendidikan_skrng' => htmlspecialchars($this->input->post('kr_pendidikan_skrng', true))
+        'kr_pendidikan_skrng' => htmlspecialchars($this->input->post('kr_pendidikan_skrng', true)),
+        'kr_pendidikan_univ' => htmlspecialchars($this->input->post('kr_pendidikan_univ', true))
 			];
 
 			$this->db->insert('kr', $data);
@@ -179,7 +180,8 @@ class Karyawan_CRUD extends CI_Controller
         'kr_anak4' => htmlspecialchars($this->input->post('kr_anak4', true)),
         'kr_marital' => htmlspecialchars($this->input->post('kr_marital', true)),
         'kr_mulai_tgl' => htmlspecialchars($this->input->post('kr_mulai_tgl', true)),
-        'kr_pendidikan_skrng' => htmlspecialchars($this->input->post('kr_pendidikan_skrng', true))
+        'kr_pendidikan_skrng' => htmlspecialchars($this->input->post('kr_pendidikan_skrng', true)),
+        'kr_pendidikan_univ' => htmlspecialchars($this->input->post('kr_pendidikan_univ', true))
       ];
 
       $this->db->where('kr_id', $this->input->post('_id'));

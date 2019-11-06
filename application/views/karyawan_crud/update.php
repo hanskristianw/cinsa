@@ -106,17 +106,25 @@
                             <label for="kr_alamat_tinggal"><b><u>Current Address</u>:</b></label>
                             <input type="text" class="form-control mb-2" id="kr_alamat_tinggal" name="kr_alamat_tinggal" value="<?= $kr_update['kr_alamat_tinggal'] ?>">
 
-                            <label for="kr_pendidikan_skrng"><b><u>Current Education</u>:</b></label>
-                            <select name="kr_pendidikan_skrng" id="kr_pendidikan_skrng" class="form-control">
-                            <?php
-                                for($i=0;$i<count($pendidikan);$i++){
-                                    if($kr_update['kr_pendidikan_skrng'] == $pendidikan[$i])
-                                        echo '<option value="'.$pendidikan[$i].'" selected>'.$pendidikan[$i].'</option>';
-                                    else
-                                        echo '<option value="'.$pendidikan[$i].'">'.$pendidikan[$i].'</option>';
-                                }
-                            ?>
-                            </select>
+                            <div class="form-group row mt-4">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="kr_pendidikan_skrng"><b><u>Current Education</u>:</b></label>
+                                    <select name="kr_pendidikan_skrng" id="kr_pendidikan_skrng" class="form-control">
+                                    <?php
+                                        for($i=0;$i<count($pendidikan);$i++){
+                                            if($kr_update['kr_pendidikan_skrng'] == $pendidikan[$i])
+                                                echo '<option value="'.$pendidikan[$i].'" selected>'.$pendidikan[$i].'</option>';
+                                            else
+                                                echo '<option value="'.$pendidikan[$i].'">'.$pendidikan[$i].'</option>';
+                                        }
+                                    ?>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <label for="kr_pendidikan_univ"><b><u><i>From</i></u>:</b></label>
+                                    <input type="text" class="form-control mb-2" id="kr_pendidikan_univ" name="kr_pendidikan_univ" value="<?= $kr_update['kr_pendidikan_univ'] ?>">
+                                </div>
+                            </div>
 
                         </div>
                         <div class="col-sm-6">
