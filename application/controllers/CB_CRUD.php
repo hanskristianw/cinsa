@@ -747,5 +747,4 @@ class CB_CRUD extends CI_Controller
       redirect('cb_crud/habit_index');
     }
   }
-
 }

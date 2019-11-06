@@ -130,6 +130,7 @@
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. SSP</a>
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>5. Life Skill</a>
                 </div>
               </div>
             </li>
@@ -187,7 +188,8 @@
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. SSP</a>
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
-                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>5. Hours Distribution</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>5. Life Skill</a>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>6. Hours Distribution</a>
                 </div>
               </div>
             </li>
@@ -233,6 +235,7 @@
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. SSP</a>
                         <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>5. Counseling</a>
+                        <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>6. Life Skill</a>
                       </div>
                     </div>
                   </li>
@@ -336,6 +339,7 @@
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>1. Affective</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD/Report') . '>2. CB</a>
                         <a class="collapse-item" href=' . base_url('Konseling_CRUD/Report') . '>3. Counseling</a>
+                        <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>4. Life Skill</a>
                       </div>
                     </div>
                   </li>

@@ -520,7 +520,7 @@ function return_raport_fin($d_s_id, $semester, $jenjang){
       (moralb_lo+moralb_so)/2 AS mb_sem1, (moralb_lo2+moralb_so2)/2 AS mb_sem2,
       (emo_aware_ex+emo_aware_so+emo_aware_ne)/3 AS emo_sem1, (emo_aware_ex2+emo_aware_so2+emo_aware_ne2)/3 AS emo_sem2,
       (spirit_coping+spirit_emo+spirit_grate+spirit_ref)/4 AS spirit_sem1, (spirit_coping2+spirit_emo2+spirit_grate2+spirit_ref2)/4 AS spirit_sem2,
-      (ss_relationship+ss_cooperation+ss_conflict+ss_self_a)/4 AS ss_sem1, (ss_relationship2+ss_cooperation2+ss_conflict2+ss_self_a2) AS ss_sem2,
+      (ss_relationship+ss_cooperation+ss_conflict+ss_self_a)/4 AS ss_sem1, (ss_relationship2+ss_cooperation2+ss_conflict2+ss_self_a2)/4 AS ss_sem2,
       ROUND(SUM(ROUND(kog_quiz*kog_quiz_persen/100 + kog_ass*kog_ass_persen/100 + kog_test*kog_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_kog,
       ROUND(SUM(ROUND(psi_quiz*psi_quiz_persen/100 + psi_ass*psi_ass_persen/100 + psi_test*psi_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_psi
       FROM tes 
@@ -654,4 +654,30 @@ function show_topik_ssp($ssp_id){
 
   //var_dump($td);
   return $topik_ssp;
+}
+
+function show_life_skill_by_kelas($kelas_id){
+  $ci =& get_instance();
+
+  $siswa = $ci->db->query(
+    "SELECT d_s_id, sis_no_induk, sis_nama_depan, sis_nama_bel,
+    pfhf_absent,pfhf_uks,pfhf_tardiness,
+    pfhf_absent2,pfhf_uks2,pfhf_tardiness2,
+    (pfhf_absent+pfhf_uks+pfhf_tardiness)/3 AS pfhf_sem1, (pfhf_absent2+pfhf_uks2+pfhf_tardiness2)/3 AS pfhf_sem2,
+    moralb_lo,moralb_so,moralb_lo2,moralb_so2,
+    (moralb_lo+moralb_so)/2 AS mb_sem1, (moralb_lo2+moralb_so2)/2 AS mb_sem2,
+    emo_aware_ex,emo_aware_so,emo_aware_ne,
+    emo_aware_ex2,emo_aware_so2,emo_aware_ne2,
+    (emo_aware_ex+emo_aware_so+emo_aware_ne)/3 AS emo_sem1, (emo_aware_ex2+emo_aware_so2+emo_aware_ne2)/3 AS emo_sem2,
+    spirit_coping,spirit_emo,spirit_grate,spirit_ref,
+    spirit_coping2,spirit_emo2,spirit_grate2,spirit_ref2,
+    (spirit_coping+spirit_emo+spirit_grate+spirit_ref)/4 AS spirit_sem1, (spirit_coping2+spirit_emo2+spirit_grate2+spirit_ref2)/4 AS spirit_sem2,
+    ss_relationship,ss_cooperation,ss_conflict,ss_self_a,
+    ss_relationship2,ss_cooperation2,ss_conflict2,ss_self_a2,
+    (ss_relationship+ss_cooperation+ss_conflict+ss_self_a)/4 AS ss_sem1, (ss_relationship2+ss_cooperation2+ss_conflict2+ss_self_a2)/4 AS ss_sem2
+    FROM d_s
+    LEFT JOIN sis ON d_s_sis_id = sis_id
+    WHERE d_s_kelas_id = $kelas_id")->result_array();
+
+  return $siswa;
 }
