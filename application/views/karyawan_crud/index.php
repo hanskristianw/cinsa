@@ -71,7 +71,7 @@
                               <form class="" action="<?= base_url('Karyawan_CRUD/delete') ?>" method="post">
                                 <input type="hidden" name="kr_id" value=<?= $m['kr_id'] ?> method="post">
                                 <button type="submit" class="badge badge-danger">
-                                  Delete
+                                  Del
                                 </button>
                               </form>
                             </div>
