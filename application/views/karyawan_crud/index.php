@@ -61,8 +61,8 @@
                                 </button>
                               </form>
 
-                              <form action="<?= base_url('Karyawan_CRUD/print') ?>" method="post">
-                                <input type="hidden" name="_id" value=<?= $m['kr_id'] ?>>
+                              <form action="<?= base_url('Karyawan_CRUD/print_laporan') ?>" method="post">
+                                <input type="hidden" name="kr_id" value=<?= $m['kr_id'] ?>>
                                 <button type="submit" class="badge badge-secondary">
                                   Print
                                 </button>

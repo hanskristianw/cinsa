@@ -368,6 +368,38 @@ function return_nama_bulan($bulan_angka){
   return $bulan;
 }
 
+function return_nama_bulan_indo($bulan_angka){
+  if($bulan_angka == '1'){
+    $bulan = 'Januari';
+  }elseif($bulan_angka == '2'){
+    $bulan = 'Februari';
+  }elseif($bulan_angka == '3'){
+    $bulan = 'Maret';
+  }elseif($bulan_angka == '4'){
+    $bulan = 'April';
+  }elseif($bulan_angka == '5'){
+    $bulan = 'Mei';
+  }elseif($bulan_angka == '6'){
+    $bulan = 'Juni';
+  }elseif($bulan_angka == '7'){
+    $bulan = 'Juli';
+  }elseif($bulan_angka == '8'){
+    $bulan = 'Agustus';
+  }elseif($bulan_angka == '9'){
+    $bulan = 'September';
+  }elseif($bulan_angka == '10'){
+    $bulan = 'Oktober';
+  }elseif($bulan_angka == '11'){
+    $bulan = 'November';
+  }elseif($bulan_angka == '12'){
+    $bulan = 'Desember';
+  }else{
+    $bulan = '';
+  }
+
+  return $bulan;
+}
+
 function return_menu_kepsek(){
   $ci =& get_instance();
 

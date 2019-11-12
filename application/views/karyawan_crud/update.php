@@ -150,17 +150,49 @@
                             ?>
                             </select>
 
-                            <label for="kr_anak1"><b><u>1st Child's name</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_anak1" name="kr_anak1" value="<?= $kr_update['kr_anak1'] ?>">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-sm-0">
+                                    <label for="kr_anak1"><b><u>1st Child's name</u>:</b></label>
+                                    <input type="text" class="form-control mb-2" id="kr_anak1" name="kr_anak1" value="<?= $kr_update['kr_anak1'] ?>">
+                                </div>
+                                <div class="col-sm-6 mb-sm-0">
+                                    <label for="kr_anak1_tanggal"><b><u>Born Date</u>:</b></label>
+                                    <input type="date" class="form-control mb-2" id="kr_anak1_tanggal" name="kr_anak1_tanggal" value="<?= $kr_update['kr_anak1_tanggal'] ?>">
+                                </div>
+                            </div>
                             
-                            <label for="kr_anak2"><b><u>2nd Child's name</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_anak2" name="kr_anak2" value="<?= $kr_update['kr_anak2'] ?>">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-sm-0">
+                                    <label for="kr_anak2"><b><u>2nd Child's name</u>:</b></label>
+                                    <input type="text" class="form-control mb-2" id="kr_anak2" name="kr_anak2" value="<?= $kr_update['kr_anak2'] ?>">
+                                </div>
+                                <div class="col-sm-6 mb-sm-0">
+                                    <label for="kr_anak2_tanggal"><b><u>Born Date</u>:</b></label>
+                                    <input type="date" class="form-control mb-2" id="kr_anak2_tanggal" name="kr_anak2_tanggal" value="<?= $kr_update['kr_anak2_tanggal'] ?>">
+                                </div>
+                            </div>
 
-                            <label for="kr_anak3"><b><u>3rd Child's name</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_anak3" name="kr_anak3" value="<?= $kr_update['kr_anak3'] ?>">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-sm-0">
+                                    <label for="kr_anak3"><b><u>3rd Child's name</u>:</b></label>
+                                    <input type="text" class="form-control mb-2" id="kr_anak3" name="kr_anak3" value="<?= $kr_update['kr_anak3'] ?>">
+                                </div>
+                                <div class="col-sm-6 mb-sm-0">
+                                    <label for="kr_anak3_tanggal"><b><u>Born Date</u>:</b></label>
+                                    <input type="date" class="form-control mb-2" id="kr_anak3_tanggal" name="kr_anak3_tanggal" value="<?= $kr_update['kr_anak3_tanggal'] ?>">
+                                </div>
+                            </div>
 
-                            <label for="kr_anak4"><b><u>4th Child's name</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_anak4" name="kr_anak4" value="<?= $kr_update['kr_anak4'] ?>">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-sm-0">
+                                    <label for="kr_anak4"><b><u>4th Child's name</u>:</b></label>
+                                    <input type="text" class="form-control mb-2" id="kr_anak4" name="kr_anak4" value="<?= $kr_update['kr_anak4'] ?>">
+                                </div>
+                                <div class="col-sm-6 mb-sm-0">
+                                    <label for="kr_anak4_tanggal"><b><u>Born Date</u>:</b></label>
+                                    <input type="date" class="form-control mb-2" id="kr_anak4_tanggal" name="kr_anak4_tanggal" value="<?= $kr_update['kr_anak4_tanggal'] ?>">
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-sm-6 mb-3 mb-sm-0">

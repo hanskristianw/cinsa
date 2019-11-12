@@ -95,6 +95,10 @@ class Karyawan_CRUD extends CI_Controller
         'kr_anak2' => htmlspecialchars($this->input->post('kr_anak2', true)),
         'kr_anak3' => htmlspecialchars($this->input->post('kr_anak3', true)),
         'kr_anak4' => htmlspecialchars($this->input->post('kr_anak4', true)),
+        'kr_anak1_tanggal' => htmlspecialchars($this->input->post('kr_anak1_tanggal', true)),
+        'kr_anak2_tanggal' => htmlspecialchars($this->input->post('kr_anak2_tanggal', true)),
+        'kr_anak3_tanggal' => htmlspecialchars($this->input->post('kr_anak3_tanggal', true)),
+        'kr_anak4_tanggal' => htmlspecialchars($this->input->post('kr_anak4_tanggal', true)),
         'kr_marital' => htmlspecialchars($this->input->post('kr_marital', true)),
         'kr_mulai_tgl' => htmlspecialchars($this->input->post('kr_mulai_tgl', true)),
         'kr_pendidikan_skrng' => htmlspecialchars($this->input->post('kr_pendidikan_skrng', true)),
@@ -175,6 +179,10 @@ class Karyawan_CRUD extends CI_Controller
         'kr_anak2' => htmlspecialchars($this->input->post('kr_anak2', true)),
         'kr_anak3' => htmlspecialchars($this->input->post('kr_anak3', true)),
         'kr_anak4' => htmlspecialchars($this->input->post('kr_anak4', true)),
+        'kr_anak1_tanggal' => htmlspecialchars($this->input->post('kr_anak1_tanggal', true)),
+        'kr_anak2_tanggal' => htmlspecialchars($this->input->post('kr_anak2_tanggal', true)),
+        'kr_anak3_tanggal' => htmlspecialchars($this->input->post('kr_anak3_tanggal', true)),
+        'kr_anak4_tanggal' => htmlspecialchars($this->input->post('kr_anak4_tanggal', true)),
         'kr_marital' => htmlspecialchars($this->input->post('kr_marital', true)),
         'kr_mulai_tgl' => htmlspecialchars($this->input->post('kr_mulai_tgl', true)),
         'kr_pendidikan_skrng' => htmlspecialchars($this->input->post('kr_pendidikan_skrng', true)),
@@ -277,6 +285,30 @@ class Karyawan_CRUD extends CI_Controller
       
       $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Password Updated!</div>');
       redirect('karyawan_crud');
+
+    }else{
+      redirect('Profile');
+    }
+  }
+
+  public function print_laporan(){
+    $kr_id = $this->input->post('kr_id', true);
+    if($kr_id){
+
+      $data['title'] = 'Print Detail';
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $data['kr_update'] = $this->db->query(
+        "SELECT *
+        FROM kr
+        LEFT JOIN sk ON kr_sk_id = sk_id
+        WHERE kr_id = $kr_id")->row_array();
+
+      $this->load->view('templates/header',$data);
+      $this->load->view('templates/sidebar',$data);
+      $this->load->view('templates/topbar',$data);
+      $this->load->view('karyawan_crud/print',$data);
+      $this->load->view('templates/footer');
 
     }else{
       redirect('Profile');

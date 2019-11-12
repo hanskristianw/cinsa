@@ -204,3 +204,29 @@ table.induk {
     height: 5px;
     padding: 0px 0px 0px 5px;
 }
+
+table.hrd{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:12px;
+}
+
+table.hrd {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.hrd th{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:14px;
+    height: 10px;
+    font-weight:550;
+    text-align:center;
+}
+.hrd td{
+    border: 1px solid black;
+    font-family:Cambria;
+    font-size:12px;
+    height: 15px;
+}
