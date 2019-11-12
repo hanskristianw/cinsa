@@ -15,7 +15,6 @@
       <!-- MANAJEMEN MENU -->
       <?php
 
-      //echo $this->Menu->show_hello_world();
 
       if ($this->session->userdata('kr_jabatan_id') == 1 && $this->session->userdata('kr_jabatan_id')) {
         //Administrator atau Super Admin
@@ -28,7 +27,7 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master:</h6>
-                  <a class="collapse-item" href=' . base_url('Sekolah_CRUD') . '>School</a>
+                  <a class="collapse-item" href=' . base_url('Sekolah_CRUD') . '>Unit</a>
                   <a class="collapse-item" href=' . base_url('Tahun_CRUD') . '>Year</a>
                 </div>
               </div>
@@ -151,7 +150,7 @@
               <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
-                  <a class="collapse-item" href=' . base_url('Sekolah_CRUD') . '>1. School</a>
+                  <a class="collapse-item" href=' . base_url('Sekolah_CRUD') . '>1. Unit</a>
                   <a class="collapse-item" href=' . base_url('Tahun_CRUD') . '>2. Year</a>
                   <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topic</a>
                   <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>4. Counselor</a>

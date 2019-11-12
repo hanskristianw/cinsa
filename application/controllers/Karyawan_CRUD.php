@@ -65,7 +65,7 @@ class Karyawan_CRUD extends CI_Controller
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['jabatan_all'] = $this->_jabatan->return_all();
       $data['st_all'] = $this->_st->return_all();
-      $data['sk_all'] = $this->_sk->return_all();
+      $data['sk_all'] = $this->_sk->return_all_list();
 
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
@@ -145,7 +145,7 @@ class Karyawan_CRUD extends CI_Controller
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['jabatan_all'] = $this->_jabatan->return_all();
       $data['st_all'] = $this->_st->return_all();
-      $data['sk_all'] = $this->_sk->return_all();
+      $data['sk_all'] = $this->_sk->return_all_list();
 
       //simpan data primary key
       $kr_id = $this->input->get('_id', true);

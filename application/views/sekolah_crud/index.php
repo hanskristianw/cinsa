@@ -7,38 +7,59 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4">School List</h1>
             </div>
 
-            <a href="<?= base_url('sekolah_crud/add') ?>" class="btn btn-primary mb-3">Add New School</a>
+            <?php
+              function returnTypeUnit($no){
+                if($no == "0")
+                  return "School";
+                else
+                  return "Management";
+              }
+            ?>
+
+            <h4 class="text-center mb-3"><u>UNIT LIST</u></h4>
+            <a href="<?= base_url('sekolah_crud/add') ?>" class="btn btn-primary mb-3">Add New Unit</a>
 
             <?= $this->session->flashdata('message'); ?>
 
-            <table class="table table-bordered table-sm display compact table-hover dt">
-              <thead>
+            <table class="table table-bordered table-hover table-sm">
+              <thead class="thead-dark">
                 <tr>
-                  <th>School Name</th>
+                  <th>Name</th>
                   <th>Principal</th>
-                  <th>Vice Principal of<br>Students Affairs</th>
-                  <th>Scout<br>Teacher</th>
                   <th>Mid<br>Report Date</th>
                   <th>Final<br>Report Date</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($sk_all as $m) : ?>
+                <?php 
+                  $temp = "";
+                  foreach ($sk_all as $m) : 
+                ?>
+                  
+                  <?php if($m['sk_type'] !== $temp): ?>
+                    <tr>
+                      <td colspan="5" class="text-center bg-info text-white"><?= returnTypeUnit($m['sk_type']) ?></td>
+                    </tr>
+                  <?php endif; ?>
                   <tr>
                     <td><?= $m['sk_nama'] ?></td>
-                    <td><?= $m['kepsek'] ?></td>
-                    <td><?= $m['wakasis'] ?></td>
-                    <td><?= $m['guru_scout'] ?></td>
-                    <td><?= $m['sk_mid'] ?></td>
-                    <td><?= $m['sk_fin'] ?></td>
+                    <?php if($m['sk_type'] == 0): ?>
+                      <td><?= $m['kepsek'] ?></td>
+                      <td><?= $m['sk_mid'] ?></td>
+                      <td><?= $m['sk_fin'] ?></td>
+                    <?php else: ?>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                    <?php endif; ?>
                     <td class="pl-3">
                       <div class="form-group row">
-                        <form class="" action="<?= base_url('Sekolah_CRUD/update') ?>" method="get">
+                        <form class="" action="<?= base_url('Sekolah_CRUD/update') ?>" method="post">
                           <input type="hidden" name="_id" value=<?= $m['sk_id'] ?>>
+                          <input type="hidden" name="sk_type" value=<?= $m['sk_type'] ?>>
                           <button type="submit" class="badge badge-warning">
                             Edit
                           </button>
@@ -47,9 +68,13 @@
                       </div>
                     </td>
                   </tr>
-                <?php endforeach ?>
+                <?php 
+                  $temp = $m['sk_type'];
+                  endforeach;
+                ?>
               </tbody>
             </table>
+
             <hr>
           </div>
         </div>

@@ -10,22 +10,18 @@
                     <h1 class="h4 text-gray-900 mb-4"><?= $title ?></h1>
                 </div>
                 
-                <form class="user" method="post" action="<?php echo base_url('Sekolah_CRUD/update'); ?>">
+                <form class="user" method="post" action="<?php echo base_url('Sekolah_CRUD/update_proses'); ?>">
                     
                     <input type="hidden" name="_id" value="<?= set_value('_id',$sk_update['sk_id']); ?>">
-                    
-                    <input type="hidden" name="is_update" value="1">
                     
                     <div class="form-group row">
                         <div class="col-sm mb-3 mb-sm-0">
                             <label for="sk_nama"><b><u>Name</u>:</b></label>
-                            <input type="text" class="form-control" id="sk_nama" name="sk_nama" placeholder="School Name" value="<?= set_value('sk_nama',$sk_update['sk_nama']); ?>">
-                            <?php echo form_error('sk_nama','<small class="text-danger pl-3">','</small>'); ?>
+                            <input type="text" class="form-control" id="sk_nama" name="sk_nama" value="<?= $sk_update['sk_nama'] ?>" required>
                         </div>
                         <div class="col-sm mb-3 mb-sm-0">
                             <label for="sk_nickname"><b><u>Nickname</u>:</b></label>
-                            <input type="text" class="form-control" id="sk_nickname" name="sk_nickname" placeholder="School Nickname (Ex: Highschool, Elementary)" value="<?= set_value('sk_nickname',$sk_update['sk_nickname']); ?>">
-                            <?php echo form_error('sk_nickname','<small class="text-danger pl-3">','</small>'); ?>
+                            <input type="text" class="form-control" id="sk_nickname" name="sk_nickname" value="<?= $sk_update['sk_nickname'] ?>" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -89,11 +85,11 @@
                     <div class="form-group row">
                         <div class="col-sm mb-3 mb-sm-0">
                             <label for="sk_mid"><b><u>Report Mid Date</u>:</b></label>
-                            <input type="date" name="sk_mid" class="form-control form-control-sm" value="<?= set_value('sk_mid',$sk_update['sk_mid']); ?>">
+                            <input type="date" name="sk_mid" class="form-control form-control-sm" value="<?= $sk_update['sk_mid'] ?>" required>
                         </div>
                         <div class="col-sm mb-3 mb-sm-0">
                             <label for="sk_mid"><b><u>Report Final Date</u>:</b></label>
-                            <input type="date" name="sk_fin" class="form-control form-control-sm" value="<?= set_value('sk_fin',$sk_update['sk_fin']); ?>">
+                            <input type="date" name="sk_fin" class="form-control form-control-sm" value="<?= $sk_update['sk_fin'] ?>" required>
                         </div>
                     </div>
                     <div class="form-group row">
