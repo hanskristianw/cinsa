@@ -94,7 +94,7 @@
                   <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>2. Subject</a>
                   <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topic</a>
                   <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>4. Class</a>
-                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>5. SSP</a>
+                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>5. Extracurricular</a>
                   <a class="collapse-item" href=' . base_url('MK_CRUD') . '>6. Special Subject</a>
                   <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>7. Percentage</a>
                 </div>
@@ -128,7 +128,7 @@
                   <h6 class="collapse-header">Report</h6>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. SSP</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. Extracurricular</a>
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>5. Life Skill</a>
                 </div>
@@ -186,7 +186,7 @@
                   <h6 class="collapse-header">Show</h6>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. SSP</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. Extracurricular</a>
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>5. Life Skill</a>
                   <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>6. Hours Distribution</a>
@@ -232,7 +232,7 @@
                         <h6 class="collapse-header">Report</h6>
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade</a>
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. SSP</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. Extracurricular</a>
                         <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>5. Counseling</a>
                         <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>6. Life Skill</a>

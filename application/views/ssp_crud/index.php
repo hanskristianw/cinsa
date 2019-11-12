@@ -7,17 +7,17 @@
             <div class="col-lg">
               <div class="p-5 overflow-auto">
                   <div class="text-center">
-                      <h1 class="h4 text-gray-900 mb-4">SSP List</h1>
+                      <h1 class="h4 text-gray-900 mb-4">Extracurricular List</h1>
                   </div>
 
                   <?= $this->session->flashdata('message'); ?>
 
-                  <a href="<?= base_url('ssp_crud/add') ?>" class="btn btn-primary mb-3">Add New SSP</a>
+                  <a href="<?= base_url('ssp_crud/add') ?>" class="btn btn-primary mb-3">Add New</a>
 
                   <table class="table display compact table-hover dt">
                     <thead>
                       <tr>
-                        <th>SSP Name</th>
+                        <th>Name</th>
                         <th>Year</th>
                         <th>Teacher</th>
                         <th>Action</th>

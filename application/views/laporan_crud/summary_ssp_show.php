@@ -31,7 +31,7 @@
                     <td>&rarr; Jumlah nilai pada kelas tersebut</td>
                   </tr>
                   <tr>
-                    <td colspan="2"><br><b><u>Klik pada nama ssp untuk melihat guru pengajar</u></b></td>
+                    <td colspan="2"><br><b><u>Klik pada nama extracurricular untuk melihat guru pengajar</u></b></td>
                   </tr>
                   <tr>
                     <td colspan="2"><br><b><u>Klik pada jumlah siswa untuk melihat siswa yang terdaftar</u></b></td>
@@ -47,7 +47,7 @@
               
               <?php 
                 if(!$ssp_all){
-                  echo "<h1 class='text-center mt-3 text-danger'>--Tidak ada SSP pada tahun ini--</h1>";
+                  echo "<h1 class='text-center mt-3 text-danger'>--Tidak ada Extracurricular pada tahun ini--</h1>";
                 }
               
               foreach($ssp_all as $m) : 

@@ -7,7 +7,7 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900"><u><b>SSP Report</b></u></h1>
+              <h1 class="h4 text-gray-900"><u><b>Extracurricular Report</b></u></h1>
               <h5 class="text-gray-900 mb-4">Select School and Year</h5>
             </div>
 
@@ -38,7 +38,7 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-primary btn-user btn-block">
-                Show SSP Report
+                Show Report
               </button>
             </form>
             

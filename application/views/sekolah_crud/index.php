@@ -12,6 +12,8 @@
 
             <a href="<?= base_url('sekolah_crud/add') ?>" class="btn btn-primary mb-3">Add New School</a>
 
+            <?= $this->session->flashdata('message'); ?>
+
             <table class="table table-bordered table-sm display compact table-hover dt">
               <thead>
                 <tr>

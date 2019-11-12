@@ -158,6 +158,8 @@ class Sekolah_CRUD extends CI_Controller
         'sk_kepsek' => $this->input->post('kr_id'),
         'sk_scout_kr_id' => $this->input->post('scout_id'),
         'sk_wakasis' => $this->input->post('sk_wakasis'),
+        'sk_ex_nama' => $this->input->post('sk_ex_nama'),
+        'sk_ex_abr' => $this->input->post('sk_ex_abr'),
         'sk_fin' => $sk_fin
       ];
 

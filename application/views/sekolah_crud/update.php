@@ -96,6 +96,16 @@
                             <input type="date" name="sk_fin" class="form-control form-control-sm" value="<?= set_value('sk_fin',$sk_update['sk_fin']); ?>">
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <div class="col-sm mb-3 mb-sm-0">
+                            <label for="sk_ex_nama"><b><u>Extracurricular Name</u>:</b></label>
+                            <input type="text" class="form-control" id="sk_ex_nama" name="sk_ex_nama" value="<?= $sk_update['sk_ex_nama']; ?>">
+                        </div>
+                        <div class="col-sm mb-3 mb-sm-0">
+                            <label for="sk_ex_abr"><b><u>Extracurricular Abbr</u>:</b></label>
+                            <input type="text" class="form-control" id="sk_ex_abr" name="sk_ex_abr" value="<?= $sk_update['sk_ex_abr']; ?>">
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
                         Update
                     </button>

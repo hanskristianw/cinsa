@@ -229,7 +229,7 @@
               ?>
 
 
-              <p class='judul'>SHARPENING STUDENT'S POTENTIAL</p>
+              <p class='judul'><?= $kepsek['sk_ex_nama'] ?></p>
               <table style="width:100%; font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;">
                   <tr>
                     <td style="width:80px;">NAME</td>
@@ -246,7 +246,7 @@
                   <tr>
                     <td>CLASS</td>
                     <td>: <?= $siswa[0]['kelas_nama'] ?></td>
-                    <td>SSP</td>
+                    <td><?= $kepsek['sk_ex_abr'] ?></td>
                     
                     <td>: <?= $ssp_siswa[0]['ssp_nama'] ?></td>
                   </tr>
@@ -304,7 +304,7 @@
               <div id='textbox'>
                   <p class='alignright_bawah'>
                   <br>Surabaya, <?= $bulan.' '.$tanggal.', '.$tahun ?><br>
-                  SSP Teacher<br><br><br><br>
+                  <?= $kepsek['sk_ex_abr'] ?> Teacher<br><br><br><br>
                   <b><?= $guru_ssp['kr_gelar_depan'].$guru_ssp['kr_nama_depan'].' '.$guru_ssp['kr_nama_belakang']." ".$guru_ssp['kr_gelar_belakang'] ?></b><br>
                   </p>
               </div>
