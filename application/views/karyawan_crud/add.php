@@ -18,32 +18,51 @@
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="kr_nama_depan"><b><u>First Name</u>:</b></label>
-                            <input type="text" class="form-control" id="kr_nama_depan" name="kr_nama_depan" required>
+                            <input type="text" class="form-control form-control-sm" id="kr_nama_depan" name="kr_nama_depan" required>
                         </div>
                         <div class="col-sm-6">
                             <label for="kr_nama_belakang"><b><u>Last Name</u>:</b></label>
-                            <input type="text" class="form-control" id="kr_nama_belakang" name="kr_nama_belakang" required>
+                            <input type="text" class="form-control form-control-sm" id="kr_nama_belakang" name="kr_nama_belakang" required>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="kr_username"><b><u>Username</u>:</b></label>
-                        <input type="text" class="form-control" id="kr_username" name="kr_username" required pattern="^\S+$" title="No Space Allowed">
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="kr_username"><b><u>Username</u>:</b></label>
+                            <input type="text" class="form-control form-control-sm" id="kr_username" name="kr_username" required pattern="^\S+$" title="No Space Allowed">
+                        </div>
+
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="kr_agama_id"><b><u>Religion</u>:</b></label>
+                            <select name="kr_agama_id" id="kr_agama_id" class="form-control form-control-sm mb-3">
+                                <?php
+                                $_selected = set_value('kr_agama_id');
+                                foreach ($agama_all as $m) :
+                                    if ($_selected == $m['agama_id']) {
+                                    $s = "selected";
+                                    } else {
+                                    $s = "";
+                                    }
+                                    echo "<option value=" . $m['agama_id'] . " " . $s . ">" . $m['agama_nama'] . "</option>";
+                                endforeach
+                                ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="kr_password1"><b><u>Password</u>:</b></label>
-                            <input type="password" class="form-control" id="kr_password1" required name="kr_password1" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.kr_password2.pattern = this.value;">
+                            <input type="password" class="form-control form-control-sm" id="kr_password1" required name="kr_password1" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.kr_password2.pattern = this.value;">
                         </div>
                         <div class="col-sm-6">
                             <label for="kr_password2"><b><u>Repeat Password</u>:</b></label>
-                            <input type="password" class="form-control" id="kr_password2" required name="kr_password2" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password' : '');" >
+                            <input type="password" class="form-control form-control-sm" id="kr_password2" required name="kr_password2" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password' : '');" >
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
 
                             <label for="kr_jabatan"><b><u>Position</u>:</b></label>
-                            <select name="kr_jabatan" id="kr_jabatan" class="form-control">
+                            <select name="kr_jabatan" id="kr_jabatan" class="form-control form-control-sm">
                                 <?php
                                     $_selected = set_value('kr_jabatan');
 
@@ -66,7 +85,7 @@
                         <div class="col-sm-6 mb-sm-0">
 
                             <label for="sk"><b><u>Unit</u>:</b></label>
-                            <select name="sk" id="sk" class="form-control">
+                            <select name="sk" id="sk" class="form-control form-control-sm">
                                 <?php
                                     $_selected = set_value('sk');
 
@@ -92,20 +111,24 @@
                     <div class="form-group row mt-4">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="kr_gelar_depan"><b><u>First Name Title (Dr, Prof)</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_gelar_depan" name="kr_gelar_depan">
+                            <input type="text" class="form-control form-control-sm mb-2" id="kr_gelar_depan" name="kr_gelar_depan">
                             
                             <label for="kr_ktp"><b><u>ID number</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_ktp" name="kr_ktp">
+                            <input type="text" class="form-control form-control-sm mb-2" id="kr_ktp" name="kr_ktp">
 
                             <label for="kr_alamat_ktp"><b><u>Address Based On ID</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_alamat_ktp" name="kr_alamat_ktp">
+                            <input type="text" class="form-control form-control-sm mb-2" id="kr_alamat_ktp" name="kr_alamat_ktp">
 
                             <label for="kr_alamat_tinggal"><b><u>Current Address</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_alamat_tinggal" name="kr_alamat_tinggal">
-                            <div class="form-group row mt-4">
+                            <input type="text" class="form-control form-control-sm mb-2" id="kr_alamat_tinggal" name="kr_alamat_tinggal">
+
+                            <label for="kr_hp"><b><u>Handphone Number</u>:</b></label>
+                            <input type="text" class="form-control form-control-sm mb-2" id="kr_hp" name="kr_hp">
+
+                            <div class="form-group row mt-2">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <label for="kr_pendidikan_skrng"><b><u>Current Education</u>:</b></label>
-                                    <select name="kr_pendidikan_skrng" id="kr_pendidikan_skrng" class="form-control mb-1">
+                                    <select name="kr_pendidikan_skrng" id="kr_pendidikan_skrng" class="form-control form-control-sm mb-1">
                                     <option value="SD">SD</option>
                                     <option value="SMP">SMP</option>
                                     <option value="SMA">SMA</option>
@@ -116,23 +139,26 @@
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <label for="kr_pendidikan_univ"><b><u><i>From</i></u>:</b></label>
-                                    <input type="text" class="form-control mb-2" id="kr_pendidikan_univ" name="kr_pendidikan_univ">
+                                    <input type="text" class="form-control form-control-sm mb-2" id="kr_pendidikan_univ" name="kr_pendidikan_univ">
                                 </div>
                             </div>
                             
                         </div>
                         <div class="col-sm-6">
                             <label for="kr_gelar_belakang"><b><u>Last Name Title (S.kom, M.M)</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_gelar_belakang" name="kr_gelar_belakang">
+                            <input type="text" class="form-control form-control-sm mb-2" id="kr_gelar_belakang" name="kr_gelar_belakang">
 
                             <label for="kr_npwp"><b><u>NPWP number</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_npwp" name="kr_npwp">
+                            <input type="text" class="form-control form-control-sm mb-2" id="kr_npwp" name="kr_npwp">
 
                             <label for="kr_bca"><b><u>BCA Account Number</u>:</b></label>
-                            <input type="text" class="form-control mb-2" id="kr_bca" name="kr_bca">
+                            <input type="text" class="form-control form-control-sm mb-2" id="kr_bca" name="kr_bca">
 
                             <label for="kr_mulai_tgl"><b><u>Date started work</u>:</b></label>
-                            <input type="date" class="form-control mb-2" id="kr_mulai_tgl" name="kr_mulai_tgl">
+                            <input type="date" class="form-control form-control-sm mb-2" id="kr_mulai_tgl" name="kr_mulai_tgl">
+
+                            <label for="kr_rumah"><b><u>Home Phone Number</u>:</b></label>
+                            <input type="text" class="form-control form-control-sm mb-2" id="kr_rumah" name="kr_rumah">
                         </div>
                     </div>
                     
@@ -142,7 +168,7 @@
                     <div class="form-group row mt-4">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <label for="kr_marital"><b><u>Status</u>:</b></label>
-                            <select name="kr_marital" id="kr_marital" class="form-control mb-2">
+                            <select name="kr_marital" id="kr_marital" class="form-control form-control-sm mb-2">
                                <option value="single">Single</option>
                                <option value="married">Married</option>
                                <option value="others">Others</option>
@@ -152,44 +178,44 @@
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-sm-0">
                                     <label for="kr_anak1"><b><u>1st Child's name</u>:</b></label>
-                                    <input type="text" class="form-control mb-2" id="kr_anak1" name="kr_anak1">
+                                    <input type="text" class="form-control form-control-sm mb-2" id="kr_anak1" name="kr_anak1">
                                 </div>
                                 <div class="col-sm-6 mb-sm-0">
                                     <label for="kr_anak1_tanggal"><b><u>Born Date</u>:</b></label>
-                                    <input type="date" class="form-control mb-2" id="kr_anak1_tanggal" name="kr_anak1_tanggal">
+                                    <input type="date" class="form-control form-control-sm mb-2" id="kr_anak1_tanggal" name="kr_anak1_tanggal">
                                 </div>
                             </div>
                             
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-sm-0">
                                     <label for="kr_anak2"><b><u>2nd Child's name</u>:</b></label>
-                                    <input type="text" class="form-control mb-2" id="kr_anak2" name="kr_anak2">
+                                    <input type="text" class="form-control form-control-sm mb-2" id="kr_anak2" name="kr_anak2">
                                 </div>
                                 <div class="col-sm-6 mb-sm-0">
                                     <label for="kr_anak2_tanggal"><b><u>Born Date</u>:</b></label>
-                                    <input type="date" class="form-control mb-2" id="kr_anak2_tanggal" name="kr_anak2_tanggal">
+                                    <input type="date" class="form-control form-control-sm mb-2" id="kr_anak2_tanggal" name="kr_anak2_tanggal">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-sm-0">
                                     <label for="kr_anak3"><b><u>3rd Child's name</u>:</b></label>
-                                    <input type="text" class="form-control mb-2" id="kr_anak3" name="kr_anak3">
+                                    <input type="text" class="form-control form-control-sm mb-2" id="kr_anak3" name="kr_anak3">
                                 </div>
                                 <div class="col-sm-6 mb-sm-0">
                                     <label for="kr_anak3_tanggal"><b><u>Born Date</u>:</b></label>
-                                    <input type="date" class="form-control mb-2" id="kr_anak3_tanggal" name="kr_anak3_tanggal">
+                                    <input type="date" class="form-control form-control-sm mb-2" id="kr_anak3_tanggal" name="kr_anak3_tanggal">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-sm-0">
                                     <label for="kr_anak4"><b><u>4th Child's name</u>:</b></label>
-                                    <input type="text" class="form-control mb-2" id="kr_anak4" name="kr_anak4">
+                                    <input type="text" class="form-control form-control-sm mb-2" id="kr_anak4" name="kr_anak4">
                                 </div>
                                 <div class="col-sm-6 mb-sm-0">
                                     <label for="kr_anak4_tanggal"><b><u>Born Date</u>:</b></label>
-                                    <input type="date" class="form-control mb-2" id="kr_anak4_tanggal" name="kr_anak4_tanggal">
+                                    <input type="date" class="form-control form-control-sm mb-2" id="kr_anak4_tanggal" name="kr_anak4_tanggal">
                                 </div>
                             </div>
                         </div>
@@ -198,11 +224,11 @@
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <label for="kr_nama_pasangan"><b><u>Husband / wife's name</u>:</b></label>
-                                    <input type="text" class="form-control mb-2" id="kr_nama_pasangan" name="kr_nama_pasangan">
+                                    <input type="text" class="form-control form-control-sm mb-2" id="kr_nama_pasangan" name="kr_nama_pasangan">
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <label for="kr_nikah_tanggal"><b><u>Date married</u>:</b></label>
-                                    <input type="date" class="form-control mb-2" id="kr_nikah_tanggal" name="kr_nikah_tanggal">
+                                    <input type="date" class="form-control form-control-sm mb-2" id="kr_nikah_tanggal" name="kr_nikah_tanggal">
                                 </div>
                             </div>
                         </div>

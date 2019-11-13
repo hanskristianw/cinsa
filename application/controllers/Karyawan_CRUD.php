@@ -10,6 +10,7 @@ class Karyawan_CRUD extends CI_Controller
     $this->load->model('_jabatan');
     $this->load->model('_st');
     $this->load->model('_sk');
+    $this->load->model('_agama');
 
     //jika belum login
     if(!$this->session->userdata('kr_jabatan_id')){
@@ -61,6 +62,7 @@ class Karyawan_CRUD extends CI_Controller
 
       $data['title'] = 'Create Employee';
 
+      $data['agama_all'] = $this->_agama->return_all();
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['jabatan_all'] = $this->_jabatan->return_all();
@@ -102,6 +104,9 @@ class Karyawan_CRUD extends CI_Controller
         'kr_marital' => htmlspecialchars($this->input->post('kr_marital', true)),
         'kr_mulai_tgl' => htmlspecialchars($this->input->post('kr_mulai_tgl', true)),
         'kr_pendidikan_skrng' => htmlspecialchars($this->input->post('kr_pendidikan_skrng', true)),
+        'kr_agama_id' => htmlspecialchars($this->input->post('kr_agama_id', true)),
+        'kr_hp' => htmlspecialchars($this->input->post('kr_hp', true)),
+        'kr_rumah' => htmlspecialchars($this->input->post('kr_rumah', true)),
         'kr_pendidikan_univ' => htmlspecialchars($this->input->post('kr_pendidikan_univ', true))
 			];
 
@@ -146,6 +151,7 @@ class Karyawan_CRUD extends CI_Controller
       $data['jabatan_all'] = $this->_jabatan->return_all();
       $data['st_all'] = $this->_st->return_all();
       $data['sk_all'] = $this->_sk->return_all_list();
+      $data['agama_all'] = $this->_agama->return_all();
 
       //simpan data primary key
       $kr_id = $this->input->get('_id', true);
@@ -186,6 +192,9 @@ class Karyawan_CRUD extends CI_Controller
         'kr_marital' => htmlspecialchars($this->input->post('kr_marital', true)),
         'kr_mulai_tgl' => htmlspecialchars($this->input->post('kr_mulai_tgl', true)),
         'kr_pendidikan_skrng' => htmlspecialchars($this->input->post('kr_pendidikan_skrng', true)),
+        'kr_agama_id' => htmlspecialchars($this->input->post('kr_agama_id', true)),
+        'kr_hp' => htmlspecialchars($this->input->post('kr_hp', true)),
+        'kr_rumah' => htmlspecialchars($this->input->post('kr_rumah', true)),
         'kr_pendidikan_univ' => htmlspecialchars($this->input->post('kr_pendidikan_univ', true))
       ];
 
@@ -302,6 +311,7 @@ class Karyawan_CRUD extends CI_Controller
         "SELECT *
         FROM kr
         LEFT JOIN sk ON kr_sk_id = sk_id
+        LEFT JOIN agama ON kr_agama_id = agama_id
         WHERE kr_id = $kr_id")->row_array();
 
       $this->load->view('templates/header',$data);

@@ -32,7 +32,7 @@
                   </td>
                   <td style="font-size:14px;text-align:center;font-weight:550; vertical-align:top; padding: 30px 0px 0px 0px;">
                     DIVISI <br> SDM & HUKUM <br> Tgl:
-                    <?= $tanggal_arr[0] .' '. return_nama_bulan_indo($tanggal_arr[0]) .' '.$tanggal_arr[2] ?>
+                    <?= $tanggal_arr[0] .' '. return_nama_bulan_indo($tanggal_arr[1]) .' '.$tanggal_arr[2] ?>
                   </td>
                 </tr>
                 <tr>
@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                   <td style="border: none; padding: 0px 0px 0px 10px;">Agama</td>
-                  <td colspan="2" style="border: none;">: </td>
+                  <td colspan="2" style="border: none;">: <?= $kr_update['agama_nama'] ?></td>
                 </tr>
                 <tr>
                   <td style="border: none; padding: 0px 0px 0px 10px;">Unit</td>
@@ -61,11 +61,11 @@
                 </tr>
                 <tr>
                   <td style="border: none; padding: 0px 0px 0px 10px;">Telp</td>
-                  <td style="border: none;" colspan="2">HP:</td>
+                  <td style="border: none;" colspan="2">HP: <?= return_garis($kr_update['kr_hp']) ?></td>
                 </tr>
                 <tr>
                   <td style="border: none; padding: 0px 0px 0px 10px;"></td>
-                  <td style="border: none;" colspan="2">Rumah:</td>
+                  <td style="border: none;" colspan="2">Rumah: <?= return_garis($kr_update['kr_rumah']) ?></td>
                 </tr>
                 <tr>
                   <td style="border: none; padding: 15px 0px 0px 10px;"><b>PERUBAHAN STATUS</b></td>
@@ -85,11 +85,11 @@
                 </tr>
                 <tr>
                   <td style="border: none; padding: 0px 0px 0px 10px;">Status Perkawinan</td>
-                  <td colspan="2" style="border: none;"></td>
+                  <td colspan="2" style="border: none;">: <?= ucfirst(return_garis($kr_update['kr_marital'])) ?></td>
                 </tr>
                 <tr>
                   <td style="border: none; padding: 0px 0px 0px 15px;">Tanggal Menikah</td>
-                  <td colspan="2" style="border: none;"></td>
+                  <td colspan="2" style="border: none;">: <?= return_garis($kr_update['kr_nikah_tanggal']) ?></td>
                 </tr>
                 <tr>
                   <td style="border: none; padding: 0px 0px 0px 15px;">Nama Suami/istri</td>
@@ -137,7 +137,7 @@
                 </tr>
                 <tr>
                   <td style="border: none; padding: 0px 0px 0px 10px;">Alamat</td>
-                  <td colspan="2" style="border: none;">:</td>
+                  <td colspan="2" style="border: none;"></td>
                 </tr>
                 <tr>
                   <td style="border: none; padding: 0px 0px 0px 15px;">Alamat KTP</td>
@@ -186,7 +186,7 @@
                   
 
                   <td colspan="3" style="border: none; padding: 0px 0px 0px 10px;">
-                    <br>Surabaya, <?= $tanggal_arr[0] .' '. return_nama_bulan_indo($tanggal_arr[0]) .' '.$tanggal_arr[2] ?><br>
+                    <br>Surabaya, <?= $tanggal_arr[0] .' '. return_nama_bulan_indo($tanggal_arr[1]) .' '.$tanggal_arr[2] ?><br>
                     Yang melaporkan,<br><br><br>
                     _____________________________________________<br>
                     <?= $kr_update['kr_nama_depan'] .' '. $kr_update['kr_nama_belakang'] ?>
