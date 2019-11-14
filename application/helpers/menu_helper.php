@@ -597,7 +597,7 @@ function return_raport_fin($d_s_id, $semester, $jenjang){
       WHERE persen_jenj_id = $jenjang
     ) AS persentase ON persentase.persen_mapel_id = formative.mapel_id
   LEFT JOIN
-    (SELECT afektif_mapel_id, mapel_nama, ROUND(SUM(jumlah)/COUNT(afektif_mapel_id),2) AS total
+    (SELECT afektif_mapel_id, ROUND(SUM(jumlah)/COUNT(afektif_mapel_id),2) AS total
       FROM(
         SELECT afektif_mapel_id, mapel_nama, ROUND((afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+
             afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+
