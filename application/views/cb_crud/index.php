@@ -23,10 +23,17 @@
                         <span>&times;</span>
                     </button>
 
-                    Deskripsi jika A,B maupun C dapat memakai karakter spesial: <b>{s}</b> yang akan diganti dengan nama depan siswa <br><br>
+                    Deskripsi jika A,B maupun C dapat memakai karakter spesial: <br>
+                    <b>{s}</b> &rarr; nama depan siswa <br>
+                    <b>{his/her}</b> &rarr; his/her diawali dengan huruf KECIL berdasarkan gender murid<br>
+                    <b>{HIS/HER}</b> &rarr; his/her diawali dengan huruf BESAR berdasarkan gender murid<br>
+                    <b>{he/she}</b> &rarr; he/she diawali dengan huruf KECIL berdasarkan gender murid<br>
+                    <b>{HE/SHE}</b> &rarr; he/she diawali dengan huruf BESAR berdasarkan gender murid<br>
+                    
+                    <br>
 
-                    <b>CONTOH</b>: {s} adalah siswa yang mampu berinteraksi dengan baik. <br><br>
-                    <b>HASIL</b>: Ariel adalah siswa yang mampu berinteraksi dengan baik.
+                    <b>Contoh</b>: Tono is a diligent student. He never comes late, his attitude .... <br><br>
+                    <b>Desc</b>: {s} is a diligent student. {HE/SHE} never comes late, {his/her} attitude ....
                     
                 </div>'; ?>
             <?= $this->session->flashdata('message'); ?>

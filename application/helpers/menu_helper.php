@@ -1,5 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+function return_ip_login(){
+  $ip = getenv('HTTP_CLIENT_IP')?:
+  getenv('HTTP_X_FORWARDED_FOR')?:
+  getenv('HTTP_X_FORWARDED')?:
+  getenv('HTTP_FORWARDED_FOR')?:
+  getenv('HTTP_FORWARDED')?:
+  getenv('REMOTE_ADDR');
+
+  return $ip;
+}
+
 function walkel_menu(){
   $ci =& get_instance();
   $ci->load->model('_kr');
@@ -547,7 +558,7 @@ function return_raport_fin($d_s_id, $semester, $jenjang){
 
   $siswa = $ci->db->query(
     "SELECT * FROM 
-      (SELECT mapel_nama, mapel_id, kelas_jenj_id, mapel_urutan, tes_d_s_id,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama, COUNT(DISTINCT tes_topik_id), d_s_komen_sem, d_s_komen_sem2, d_s_scout_nilai, d_s_scout_nilai2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2,
+      (SELECT mapel_nama, mapel_id, kelas_jenj_id, mapel_urutan, tes_d_s_id,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, sis_jk, kelas_nama, COUNT(DISTINCT tes_topik_id), d_s_komen_sem, d_s_komen_sem2, d_s_scout_nilai, d_s_scout_nilai2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2,
       (pfhf_absent+pfhf_uks+pfhf_tardiness)/3 AS pfhf_sem1, (pfhf_absent2+pfhf_uks2+pfhf_tardiness2)/3 AS pfhf_sem2,
       (moralb_lo+moralb_so)/2 AS mb_sem1, (moralb_lo2+moralb_so2)/2 AS mb_sem2,
       (emo_aware_ex+emo_aware_so+emo_aware_ne)/3 AS emo_sem1, (emo_aware_ex2+emo_aware_so2+emo_aware_ne2)/3 AS emo_sem2,

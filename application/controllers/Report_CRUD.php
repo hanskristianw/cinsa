@@ -60,6 +60,15 @@ class Report_CRUD extends CI_Controller
           WHERE sk_kepsek = $kr_id
           ORDER BY sk_nama")->result_array();
       }
+      elseif(konselor_menu() >= 1){
+        //jika dia wali kelas
+        $kr_id = $this->session->userdata('kr_id');
+        $data['sk_all'] = $this->db->query("
+                      SELECT sk_id, sk_nama
+                      FROM konselor 
+                      LEFT JOIN sk ON konselor_sk_id = sk_id
+                      WHERE konselor_kr_id = $kr_id")->result_array();
+      }
       else{
         $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
         redirect('Profile');
@@ -84,7 +93,7 @@ class Report_CRUD extends CI_Controller
       $sk_id = $this->input->post('sk_id',TRUE);
       
       //temukan jenjang id pada kelas itu
-      if($this->session->userdata('kr_jabatan_id')==4 || $this->session->userdata('kr_jabatan_id')==5 || return_menu_kepsek()){
+      if($this->session->userdata('kr_jabatan_id')==4 || $this->session->userdata('kr_jabatan_id')==5 || return_menu_kepsek() || konselor_menu() >= 1){
         $data = $this->db->query(
           "SELECT kelas_id, kelas_nama
           FROM kelas

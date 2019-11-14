@@ -77,4 +77,24 @@ class Kadiv_CRUD extends CI_Controller
 	
   }
 
+  public function last_login(){
+
+    $data['title'] = 'Login Activity';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+    $data['kr_all'] = $this->db->query(
+      "SELECT kr_nama_depan, kr_nama_belakang, kr_last_login, sk_nama, kr_last_login_ip
+      FROM kr
+      LEFT JOIN sk ON kr_sk_id = sk_id
+      ORDER BY kr_nama_depan")->result_array();
+
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('Kadiv_CRUD/last_login',$data);
+    $this->load->view('templates/footer');
+  }
+
 }

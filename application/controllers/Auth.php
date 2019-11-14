@@ -38,6 +38,17 @@ class Auth extends CI_Controller
 
 		if($user){
 			if(password_verify($kr_password, $user['kr_password'])){
+
+				$ip = return_ip_login();
+				$data2 = [
+					'kr_last_login' => date('Y/m/d H:i:s'),
+					'kr_last_login_ip' => $ip
+				];
+	
+				$this->db->where('kr_id', $user['kr_id']);
+      	$this->db->update('kr', $data2);
+
+
 				$data = [
 					'kr_username' => $user['kr_username'],
 					'kr_id' => $user['kr_id'],
