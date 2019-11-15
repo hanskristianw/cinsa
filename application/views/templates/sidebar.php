@@ -130,6 +130,7 @@
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. Extracurricular</a>
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>5. Life Skill</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>6. PTS/PAS</a>
                 </div>
               </div>
             </li>
@@ -190,6 +191,7 @@
                   <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>5. Life Skill</a>
                   <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>6. Hours Distribution</a>
                   <a class="collapse-item" href=' . base_url('Kadiv_CRUD/last_login') . '>7. Login Activity</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>8. PTS/PAS</a>
                 </div>
               </div>
             </li>
@@ -236,6 +238,7 @@
                         <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>5. Counseling</a>
                         <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>6. Life Skill</a>
+                        <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>7. PTS/PAS</a>
                       </div>
                     </div>
                   </li>

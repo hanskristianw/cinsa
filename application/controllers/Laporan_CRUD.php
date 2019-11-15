@@ -440,4 +440,79 @@ class Laporan_CRUD extends CI_Controller
     }
   }
 
+  public function ptspas(){
+
+    if(!return_menu_kepsek() && $this->session->userdata('kr_jabatan_id') != 5 && $this->session->userdata('kr_jabatan_id') != 4){
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+
+    $data['title'] = 'PTS & PAS Analysis';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['t_all'] = $this->_t->return_all();
+
+    $kr_id = $this->session->userdata('kr_id');
+
+    if(return_menu_kepsek() && $this->session->userdata('kr_jabatan_id') != 5){
+      $data['sk_all'] = $this->db->query(
+        "SELECT *
+        FROM sk
+        WHERE sk_kepsek = $kr_id")->result_array();
+    }
+    elseif($this->session->userdata('kr_jabatan_id')==4){
+      $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
+    }
+    elseif($this->session->userdata('kr_jabatan_id')==5){
+      $data['sk_all'] = $this->_sk->return_all();
+    }
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('laporan_crud/ptspas', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function ptspasShow(){
+
+    if($this->input->post('sk_ptspas',true) && $this->input->post('t_ptspas',true)){
+
+      
+      $data['title'] = 'PTS & PAS Analysis';
+
+      //data karyawan yang sedang login untuk topbar
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $kr_id = $this->session->userdata('kr_id');
+      $sk_id = $this->input->post('sk_ptspas',true);
+      $t_id = $this->input->post('t_ptspas',true);
+
+      $data['pJenis'] = $this->input->post('pJenis',true);
+      $data['semester'] = $this->input->post('semester',true);
+
+      $data['kelas_all'] = $this->db->query
+        ("SELECT kelas_id, kelas_nama, COUNT(DISTINCT d_s_id) AS jumlah_murid
+        FROM d_mpl
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN d_s ON d_s_kelas_id = kelas_id
+        WHERE kelas_sk_id = $sk_id AND kelas_t_id = $t_id
+        GROUP BY kelas_id
+        ORDER BY kelas_nama")->result_array();
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('laporan_crud/ptspasShow', $data);
+      $this->load->view('templates/footer');
+
+    }else{
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+    
+
+  }
+
 }

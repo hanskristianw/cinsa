@@ -88,7 +88,7 @@ class Kadiv_CRUD extends CI_Controller
       "SELECT kr_nama_depan, kr_nama_belakang, kr_last_login, sk_nama, kr_last_login_ip
       FROM kr
       LEFT JOIN sk ON kr_sk_id = sk_id
-      ORDER BY kr_nama_depan")->result_array();
+      ORDER BY kr_last_login DESC")->result_array();
 
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);

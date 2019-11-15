@@ -454,7 +454,7 @@ function show_mapel_header_summary($kelas_id){
       ORDER BY mapel_nama")->result_array();
   }else{
     $laporan = $ci->db->query(
-      "SELECT DISTINCT mapel_id, mapel_nama, mapel_sing
+      "SELECT DISTINCT mapel_id, mapel_nama, mapel_sing, mapel_kkm
       FROM d_mpl
       LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
       WHERE d_mpl_kelas_id = $kelas_id
@@ -722,5 +722,73 @@ function show_life_skill_by_kelas($kelas_id){
     LEFT JOIN sis ON d_s_sis_id = sis_id
     WHERE d_s_kelas_id = $kelas_id")->result_array();
 
+  return $siswa;
+}
+
+function showutsuas($mapel_id, $d_s_id){
+  $ci =& get_instance();
+
+  $siswa = $ci->db->query(
+    "SELECT uj_mid1_kog,uj_mid2_kog,uj_fin1_kog,uj_fin2_kog
+    FROM uj
+    LEFT JOIN mapel
+    ON uj_mapel_id = mapel_id
+    WHERE uj_d_s_id = $d_s_id AND mapel_id = $mapel_id")->row_array();
+
+  return $siswa;
+}
+
+function returnRataMapelKelas($mapel_id, $kelas_id){
+  $ci =& get_instance();
+
+  $siswa = $ci->db->query(
+    "SELECT SUM(uj_mid1_kog)/COUNT(uj_mid1_kog) as ruj_mid1_kog, 
+    SUM(uj_mid2_kog)/COUNT(uj_mid2_kog) as ruj_mid2_kog, 
+    SUM(uj_fin1_kog)/COUNT(uj_fin1_kog) as ruj_fin1_kog, 
+    SUM(uj_fin2_kog)/COUNT(uj_fin2_kog) as ruj_fin2_kog
+    FROM uj
+    LEFT JOIN mapel ON uj_mapel_id = mapel_id
+    LEFT JOIN d_s ON d_s_id = uj_d_s_id
+    WHERE d_s_kelas_id = $kelas_id AND mapel_id = $mapel_id")->row_array();
+
+  return $siswa;
+}
+
+function returnKurangKkmKelas($mapel_id, $kelas_id, $jenis, $semester){
+  $ci =& get_instance();
+
+  if($jenis == 1 && $semester == 1){
+    $siswa = $ci->db->query(
+      "SELECT COUNT(uj_mid1_kog) as kurang
+      FROM uj
+      LEFT JOIN mapel ON uj_mapel_id = mapel_id
+      LEFT JOIN d_s ON d_s_id = uj_d_s_id
+      WHERE d_s_kelas_id = $kelas_id AND mapel_id = $mapel_id AND uj_mid1_kog < mapel_kkm")->row_array();
+  }
+  elseif($jenis == 1 && $semester == 2){
+    $siswa = $ci->db->query(
+      "SELECT COUNT(uj_mid2_kog) as kurang
+      FROM uj
+      LEFT JOIN mapel ON uj_mapel_id = mapel_id
+      LEFT JOIN d_s ON d_s_id = uj_d_s_id
+      WHERE d_s_kelas_id = $kelas_id AND mapel_id = $mapel_id AND uj_mid2_kog < mapel_kkm")->row_array();
+  }
+  elseif($jenis == 2 && $semester == 1){
+    $siswa = $ci->db->query(
+      "SELECT COUNT(uj_fin1_kog) as kurang
+      FROM uj
+      LEFT JOIN mapel ON uj_mapel_id = mapel_id
+      LEFT JOIN d_s ON d_s_id = uj_d_s_id
+      WHERE d_s_kelas_id = $kelas_id AND mapel_id = $mapel_id AND uj_fin1_kog < mapel_kkm")->row_array();
+  }
+  elseif($jenis == 2 && $semester == 2){
+    $siswa = $ci->db->query(
+      "SELECT COUNT(uj_fin2_kog) as kurang
+      FROM uj
+      LEFT JOIN mapel ON uj_mapel_id = mapel_id
+      LEFT JOIN d_s ON d_s_id = uj_d_s_id
+      WHERE d_s_kelas_id = $kelas_id AND mapel_id = $mapel_id AND uj_fin2_kog < mapel_kkm")->row_array();
+  }
+  
   return $siswa;
 }
