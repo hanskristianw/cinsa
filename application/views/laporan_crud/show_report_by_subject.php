@@ -90,13 +90,8 @@
                       <td style='padding: 0px 0px 0px 5px;'><?= $n['sis_no_induk'] ?></td>
                       <?php
                         array_push($tampung_nama_siswa,$n['sis_nama_depan']);
-                        $bel = "";
-                        if(isset($n['sis_nama_bel'][0]))
-                          $bel = $n['sis_nama_bel'][0];
-                        else
-                          $bel = "";
                       ?>
-                      <td style='padding: 0px 0px 0px 5px;'><?= $n['sis_nama_depan'] .' '. $bel ?></td>
+                      <td style='padding: 0px 0px 0px 5px;'><?= $n['sis_nama_depan'] .' '. $n['sis_nama_bel'] ?></td>
 
                       <?php
                         $rata = 0;

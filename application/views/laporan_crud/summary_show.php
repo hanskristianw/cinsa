@@ -279,11 +279,8 @@
               }
 
               html += "<tr>";
-              var nama_bel = "";
-              if(data[i].sis_nama_bel[0])
-                nama_bel = data[i].sis_nama_bel[0];
 
-              html += "<td style='padding: 0px 0px 0px 5px;'>"+data[i].sis_nama_depan + " " + nama_bel + "</td>";
+              html += "<td style='padding: 0px 0px 0px 5px; width: 200px;'>"+data[i].sis_nama_depan + " " + data[i].sis_nama_bel + "</td>";
               html += "<td style='padding: 0px 0px 0px 5px;'>"+data[i].kog_quiz + "</td>";
               html += "<td style='padding: 0px 0px 0px 5px;'>"+data[i].kog_test + "</td>";
               html += "<td style='padding: 0px 0px 0px 5px;'>"+data[i].kog_ass + "</td>";
@@ -362,11 +359,8 @@
             for (i = 0; i < data.length; i++) {
 
               html += "<tr>";
-              var nama_bel = "";
-              if(data[i].sis_nama_bel[0])
-                nama_bel = data[i].sis_nama_bel[0];
 
-              html += "<td style='padding: 0px 0px 0px 5px;'>"+data[i].sis_nama_depan + " " + nama_bel + "</td>";
+              html += "<td style='padding: 0px 0px 0px 5px; width: 200px;'>"+data[i].sis_nama_depan + " " + data[i].sis_nama_bel + "</td>";
               html += "<td style='text-align:center;'>"+data[i].uj_mid1_kog + "</td>";
               html += "<td style='text-align:center;'>"+data[i].uj_fin1_kog + "</td>";
               html += "<td style='text-align:center;'>"+data[i].uj_mid1_psi + "</td>";

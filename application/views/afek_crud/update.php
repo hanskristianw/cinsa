@@ -32,7 +32,7 @@
                 <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
                 <input type="hidden" value="<?= $k_afek_id ?>" name="k_afek_id">
                 <input type="hidden" value = 0 id="afek_minggu_aktif" name="afek_minggu_aktif">
-                <table class="table table-hover table-sm">
+                <table class="table table-hover table-sm" style='font-size:14px;'>
                   <thead>
                     <tr>
                       <th></th>
@@ -55,14 +55,9 @@
                         <input type="hidden" value="<?= $m['d_s_id']; ?>" name="d_s_id[]">
                         <?= $m['sis_no_induk']; ?>
                       </td>
-                      <td>
+                      <td style='width:250px;'>
                         <?php
-                          if($m['sis_nama_bel']){
-                            $bel = $m['sis_nama_bel'][0];
-                          }else{
-                            $bel = "";
-                          }
-                          echo $m['sis_nama_depan']." ".$bel;
+                          echo $m['sis_nama_depan']." ".$m['sis_nama_bel'];
                         ?>
                       </td>
                       <?php
@@ -178,7 +173,7 @@
               <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
               <input type="hidden" value="<?= $k_afek_id ?>" name="k_afek_id">
               <input type="hidden" value = 0 id="afek_minggu_aktif" name="afek_minggu_aktif">
-              <table class="table table-hover table-sm">
+              <table class="table table-hover table-sm" style='font-size:14px;'>
                 <thead>
                   <tr>
                     <th></th>
@@ -233,14 +228,9 @@
                         <input type="hidden" value="<?= $m['afektif_id'] ?>" name="afektif_id[]">
                         <?= $m['sis_no_induk']; ?>
                       </td>
-                      <td>
+                      <td style='width:250px;'>
                         <?php
-                          if($m['sis_nama_bel']){
-                            $bel = $m['sis_nama_bel'][0];
-                          }else{
-                            $bel = "";
-                          }
-                          echo $m['sis_nama_depan']." ".$bel;
+                          echo $m['sis_nama_depan']." ".$m['sis_nama_bel'];
                         ?>
                       </td>
                       <?php

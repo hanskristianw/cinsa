@@ -159,11 +159,8 @@
               }
 
               html += "<tr>";
-              var nama_bel = "";
-              if(data[i].sis_nama_bel[0])
-                nama_bel = data[i].sis_nama_bel[0];
 
-              html += "<td style='padding: 0px 0px 0px 5px;'>"+data[i].sis_nama_depan + " " + nama_bel + "</td>";
+              html += "<td style='padding: 0px 0px 0px 5px; width: 200px;'>"+data[i].sis_nama_depan + " " + data[i].sis_nama_bel + "</td>";
               html += "<td style='padding: 0px 0px 0px 5px;'>"+returnNilaiCB(data[i].nilai_cb1)+"</td>";
               html += "<td style='padding: 0px 0px 0px 5px;'>"+returnNilaiCB(data[i].nilai_cb2)+"</td>";
               html += "<td style='padding: 0px 0px 0px 5px;'>"+returnNilaiCB(data[i].nilai_cb3)+"</td>";

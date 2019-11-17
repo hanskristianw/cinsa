@@ -31,7 +31,7 @@
               <input type="hidden" name="kelas_id" value="<?= $kelas['kelas_id'] ?>">
               <input type="hidden" name="nilai_cb_jum" value="<?= $siswa_all[0]['nilai_cb_jum'] ?>">
               
-              <table class="table table-hover table-sm">
+              <table class="table table-hover table-sm" style='font-size:12px;'>
                 <thead>
                   <tr>
                     <th>No</th>
@@ -55,14 +55,9 @@
                         <input type="hidden" value="<?= $m['d_s_id']; ?>" name="d_s_id[]">
                         <?= $m['sis_no_induk']; ?>
                       </td>
-                      <td>
+                      <td style='width:210px;'>
                         <?php
-                          if($m['sis_nama_bel']){
-                            $bel = $m['sis_nama_bel'][0];
-                          }else{
-                            $bel = "";
-                          }
-                          echo $m['sis_nama_depan']." ".$bel;
+                          echo $m['sis_nama_depan']." ".$m['sis_nama_bel'];
                         ?>
                       </td>
                       <td class="ind1"><?php cetak_opt("nilai_cb1[]","nilai_cb1",4); ?></td>
@@ -118,7 +113,7 @@
                   echo '</select>';
                 ?>
               
-              <table class="table table-hover table-sm">
+              <table class="table table-hover table-sm" style='font-size:12px;'>
                 <thead>
                   <tr>
                     <th>No</th>
@@ -157,14 +152,9 @@
                         <input type="hidden" value="<?= $m['nilai_cb_id']; ?>" name="nilai_cb_id[]">
                         <?= $m['sis_no_induk']; ?>
                       </td>
-                      <td>
+                      <td style='width:210px;'>
                         <?php
-                          if($m['sis_nama_bel']){
-                            $bel = $m['sis_nama_bel'][0];
-                          }else{
-                            $bel = "";
-                          }
-                          echo $m['sis_nama_depan']." ".$bel;
+                          echo $m['sis_nama_depan']." ".$m['sis_nama_bel'];
                         ?>
                       </td>
                       <td class="ind1"><?php cetak_opt("nilai_cb1[]","nilai_cb1",$m['nilai_cb1']); ?></td>

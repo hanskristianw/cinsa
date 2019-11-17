@@ -21,7 +21,7 @@
 
                 function cetak_opt($nama, $dipilih){
                   $afek_nilai = ["A","B","C","D"];
-                  $opt = "<select name=".$nama.">";
+                  $opt = "<select name=".$nama." style='font-size:12px;'>";
                   $_s = "selected";
                   for($i=4;$i>=1;$i--){
                     if($dipilih == $i){
@@ -42,33 +42,33 @@
               <table class="table table-bordered table-hover table-sm mr-5">
                 <thead>
                   <tr>
-                    <th rowspan="3">Reg Num</th>
-                    <th rowspan="3">Name</th>
-                    <th class="text-center" colspan="6"><a class='link-es' href='javascript:void(0)'>Emotional Skill</a></th>
-                    <th class="text-center" colspan="8"><a class='link-ss' href='javascript:void(0)'>Spirituality</a></th>
+                    <th style='font-size:12px;' rowspan="3">Num</th>
+                    <th style='font-size:12px;' rowspan="3">Name</th>
+                    <th style='font-size:12px;' class="text-center" colspan="6"><a class='link-es' href='javascript:void(0)'>Emotional Skill</a></th>
+                    <th style='font-size:12px;' class="text-center" colspan="8"><a class='link-ss' href='javascript:void(0)'>Spirituality</a></th>
                   </tr>
                   <tr>
-                    <th class="text-center" colspan="3">Sem 1</th>
-                    <th class="text-center" colspan="3">Sem 2</th>
-                    <th class="text-center" colspan="4">Sem 1</th>
-                    <th class="text-center" colspan="4">Sem 2</th>
+                    <th style='font-size:12px;' class="text-center" colspan="3">Sem 1</th>
+                    <th style='font-size:12px;' class="text-center" colspan="3">Sem 2</th>
+                    <th style='font-size:12px;' class="text-center" colspan="4">Sem 1</th>
+                    <th style='font-size:12px;' class="text-center" colspan="4">Sem 2</th>
                   </tr>
                   <tr>
-                    <th class="text-center">Expr</th>
-                    <th class="text-center">Self</th>
-                    <th class="text-center">Neg</th>
-                    <th class="text-center">Expr</th>
-                    <th class="text-center">Self</th>
-                    <th class="text-center">Neg</th>
+                    <th style='font-size:12px;' class="text-center">Expr</th>
+                    <th style='font-size:12px;' class="text-center">Self</th>
+                    <th style='font-size:12px;' class="text-center">Neg</th>
+                    <th style='font-size:12px;' class="text-center">Expr</th>
+                    <th style='font-size:12px;' class="text-center">Self</th>
+                    <th style='font-size:12px;' class="text-center">Neg</th>
 
-                    <th class="text-center">Cop</th>
-                    <th class="text-center">Emo</th>
-                    <th class="text-center">Grate</th>
-                    <th class="text-center">Refl</th>
-                    <th class="text-center">Cop</th>
-                    <th class="text-center">Emo</th>
-                    <th class="text-center">Grate</th>
-                    <th class="text-center">Refl</th>
+                    <th style='font-size:12px;' class="text-center">Cop</th>
+                    <th style='font-size:12px;' class="text-center">Emo</th>
+                    <th style='font-size:12px;' class="text-center">Grate</th>
+                    <th style='font-size:12px;' class="text-center">Refl</th>
+                    <th style='font-size:12px;' class="text-center">Cop</th>
+                    <th style='font-size:12px;' class="text-center">Emo</th>
+                    <th style='font-size:12px;' class="text-center">Grate</th>
+                    <th style='font-size:12px;' class="text-center">Refl</th>
 
                   </tr>
                 </thead>
@@ -79,20 +79,11 @@
                   ?>
 
                     <tr>
-                      <td>
+                      <td style='width:50px; font-size:11px;'>
                         <input type="hidden" value="<?= $m['d_s_id']; ?>" name="d_s_id[]">
                         <?= $m['sis_no_induk']; ?>
                       </td>
-                      <td>
-                        <?php
-                          if($m['sis_nama_bel']){
-                            $bel = $m['sis_nama_bel'][0];
-                          }else{
-                            $bel = "";
-                          }
-                          echo $m['sis_nama_depan']." ".$bel;
-                        ?>
-                      </td>
+                      <td style='width:210px; font-size:12px;'> <?= $m['sis_nama_depan']." ".$m['sis_nama_bel']; ?> </td>
 
                       <td class="text-center"><?php cetak_opt("emo_aware_ex[]",$m['emo_aware_ex']); ?></td>
                       <td class="text-center"><?php cetak_opt("emo_aware_so[]",$m['emo_aware_so']); ?></td>

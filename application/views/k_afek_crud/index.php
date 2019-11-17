@@ -18,7 +18,7 @@
               </button>
             </form>
             
-            <table class="table display compact table-hover dt">
+            <table style='font-size:13px;' class="table table-bordered display compact table-hover dt">
               <thead>
                 <tr>
                   <th>Value</th>
@@ -46,7 +46,7 @@
                     <td><?= $m['bulan_nama'] ?></td>
                     <td><?= $m['t_nama'] ?></td>
                     <td>
-                      <div class="form-group row">
+                      <div class="form-group row ml-1">
                         <form class="" action="<?= base_url('k_afek_crud/update') ?>" method="post">
                           <input type="hidden" name="k_afek_id" value=<?= $m['k_afek_id'] ?>>
                           <button type="submit" class="badge badge-warning">
