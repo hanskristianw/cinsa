@@ -523,7 +523,7 @@ class API extends CI_Controller
         afektif_minggu2a1,afektif_minggu2a2,afektif_minggu2a3,
         afektif_minggu3a1,afektif_minggu3a2,afektif_minggu3a3,
         afektif_minggu4a1,afektif_minggu4a2,afektif_minggu4a3,
-        afektif_minggu5a1,afektif_minggu5a2,afektif_minggu5a3, afektif_minggu_aktif, k_afek_bulan_id,
+        afektif_minggu5a1,afektif_minggu5a2,afektif_minggu5a3, afektif_minggu_aktif, k_afek_bulan_id, k_afek_topik_nama,
         ROUND((afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+
         afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+
         afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3+
@@ -621,6 +621,51 @@ class API extends CI_Controller
         WHERE kr_h_status_kr_id = $kr_id
         ORDER BY kr_h_status_tanggal DESC
       ")->result();
+
+      echo json_encode($detail);
+    }
+  }
+
+  public function get_formative_by_mapel(){
+    if($this->input->post('mapel_id', true)){
+      $mapel_id = $this->input->post('mapel_id', true);
+      $d_s_id = $this->input->post('d_s_id', true);
+      $semester = $this->input->post('semester', true);
+
+      $detail = $this->db->query("SELECT 
+        kog_quiz,kog_quiz_persen,kog_ass,kog_ass_persen,kog_test,kog_test_persen,tes_topik_id,
+        psi_quiz,psi_quiz_persen,psi_ass,psi_ass_persen,psi_test,psi_test_persen, topik_nama
+        FROM tes 
+        LEFT JOIN topik
+        ON tes_topik_id = topik_id
+        LEFT JOIN d_s
+        ON tes_d_s_id = d_s_id
+        LEFT JOIN sis
+        ON d_s_sis_id = sis_id
+        LEFT JOIN kelas
+        ON d_s_kelas_id = kelas_id
+        LEFT JOIN mapel
+        ON topik_mapel_id = mapel_id
+        WHERE tes_d_s_id = $d_s_id AND topik_semester = $semester AND mapel_id = $mapel_id
+        ")->result();
+
+      echo json_encode($detail);
+    }
+  }
+
+  public function get_summative_by_mapel(){
+    if($this->input->post('mapel_id', true)){
+      $mapel_id = $this->input->post('mapel_id', true);
+      $d_s_id = $this->input->post('d_s_id', true);
+
+      $detail = $this->db->query("SELECT 
+            uj_mid1_kog, uj_mid1_kog_persen, uj_fin1_kog, uj_fin1_kog_persen,
+            uj_mid1_psi, uj_mid1_psi_persen, uj_fin1_psi, uj_fin1_psi_persen,
+            uj_mid2_kog, uj_mid2_kog_persen, uj_fin2_kog, uj_fin2_kog_persen,
+            uj_mid2_psi, uj_mid2_psi_persen, uj_fin2_psi, uj_fin2_psi_persen
+            FROM uj
+            WHERE uj_d_s_id = $d_s_id AND uj_mapel_id = $mapel_id
+        ")->result();
 
       echo json_encode($detail);
     }

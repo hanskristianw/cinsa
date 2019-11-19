@@ -58,8 +58,8 @@
               <table class="rapot">
                 <thead>
                   <tr>
-                    <th style='width: 60px;'>No Induk</th>
-                    <th style='width: 120px;'>Nama Siswa</th>
+                    <th style='width: 50px; padding: 0px 0px 5px 0px;'>No</th>
+                    <th style='width: 170px;'>Nama Siswa</th>
 
                     <?php 
                       $mapel_kelas = show_mapel_header_summary($m['kelas_id']);
@@ -328,7 +328,7 @@
             for (i = 0; i < data.length; i++) {
 
               html += "<tr>";
-              html += "<td style='padding: 0px 0px 0px 5px;'>"+returnnamabulan(data[i].k_afek_bulan_id) + "</td>";
+              html += "<td style='padding: 0px 0px 0px 5px;'>"+returnnamabulan(data[i].k_afek_bulan_id) + "<br>("+data[i].k_afek_topik_nama+")</td>";
               html += "<td style='text-align:center;'>"+data[i].afektif_minggu1a1 + "</td>";
               html += "<td style='text-align:center;'>"+data[i].afektif_minggu1a2 + "</td>";
               html += "<td style='text-align:center;'>"+data[i].afektif_minggu1a3 + "</td>";
