@@ -375,7 +375,8 @@
                         <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>1. Affective Indicator</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD') . '>2. CB Topic</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD/grade') . '>3. CB Grade</a>
-                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>4. Counseling Session</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/set_lifeskill') . '>4. Set Lifeskill</a>
+                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>5. Counseling Session</a>
                       </div>
                     </div>
                   </li>

@@ -748,4 +748,120 @@ class CB_CRUD extends CI_Controller
       redirect('cb_crud/habit_index');
     }
   }
+
+  public function set_lifeskill()
+  {
+    $data['title'] = 'Class List';
+    $kr_id = $this->session->userdata('kr_id');
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+    //data karyawan untuk konten
+    $data['sk_all'] = $this->db->query("
+                      SELECT sk_id, sk_nama
+                      FROM konselor 
+                      LEFT JOIN sk ON konselor_sk_id = sk_id
+                      WHERE konselor_kr_id = $kr_id")->result_array();
+
+    $data['t_all'] = $this->_t->return_all();
+
+    //$data['tes'] = var_dump($this->db->last_query());
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('CB_CRUD/set_lifeskill', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function set_lifeskill_proses()
+  {
+    $data['title'] = 'Class List';
+    $kr_id = $this->session->userdata('kr_id');
+
+    $data['sk_id'] = $this->input->post('sk_id', true);
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('CB_CRUD/set_lifeskill_proses', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function set_lifeskill_proses_update()
+  {
+    if ($this->input->post('sk_id', true)) {
+
+      $sk_id = $this->input->post('sk_id', true);
+
+      $data = [
+        'mb_ind_1' => $this->input->post('mb_ind_1', true),
+        'mb_ind_1a' => $this->input->post('mb_ind_1a', true),
+        'mb_ind_1b' => $this->input->post('mb_ind_1b', true),
+        'mb_ind_1c' => $this->input->post('mb_ind_1c', true),
+        'mb_ind_2' => $this->input->post('emo_ind_2', true),
+        'mb_ind_2a' => $this->input->post('emo_ind_2a', true),
+        'mb_ind_2b' => $this->input->post('emo_ind_2b', true),
+        'mb_ind_2c' => $this->input->post('emo_ind_2c', true),
+        'emo_ind_1' => $this->input->post('emo_ind_1', true),
+        'emo_ind_1a' => $this->input->post('emo_ind_1a', true),
+        'emo_ind_1b' => $this->input->post('emo_ind_1b', true),
+        'emo_ind_1c' => $this->input->post('emo_ind_1c', true),
+        'emo_ind_2' => $this->input->post('emo_ind_2', true),
+        'emo_ind_2a' => $this->input->post('emo_ind_2a', true),
+        'emo_ind_2b' => $this->input->post('emo_ind_2b', true),
+        'emo_ind_2c' => $this->input->post('emo_ind_2c', true),
+        'emo_ind_3' => $this->input->post('emo_ind_3', true),
+        'emo_ind_3a' => $this->input->post('emo_ind_3a', true),
+        'emo_ind_3b' => $this->input->post('emo_ind_3b', true),
+        'emo_ind_3c' => $this->input->post('emo_ind_3c', true),
+        'spr_ind_1' => $this->input->post('spr_ind_1', true),
+        'spr_ind_1a' => $this->input->post('spr_ind_1a', true),
+        'spr_ind_1b' => $this->input->post('spr_ind_1b', true),
+        'spr_ind_1c' => $this->input->post('spr_ind_1c', true),
+        'spr_ind_2' => $this->input->post('spr_ind_2', true),
+        'spr_ind_2a' => $this->input->post('spr_ind_2a', true),
+        'spr_ind_2b' => $this->input->post('spr_ind_2b', true),
+        'spr_ind_2c' => $this->input->post('spr_ind_2c', true),
+        'spr_ind_3' => $this->input->post('spr_ind_3', true),
+        'spr_ind_3a' => $this->input->post('spr_ind_3a', true),
+        'spr_ind_3b' => $this->input->post('spr_ind_3b', true),
+        'spr_ind_3c' => $this->input->post('spr_ind_3c', true),
+        'ss_ind_1' => $this->input->post('ss_ind_1', true),
+        'ss_ind_1a' => $this->input->post('ss_ind_1a', true),
+        'ss_ind_1b' => $this->input->post('ss_ind_1b', true),
+        'ss_ind_1c' => $this->input->post('ss_ind_1c', true),
+        'ss_ind_2' => $this->input->post('ss_ind_2', true),
+        'ss_ind_2a' => $this->input->post('ss_ind_2a', true),
+        'ss_ind_2b' => $this->input->post('ss_ind_2b', true),
+        'ss_ind_2c' => $this->input->post('ss_ind_2c', true),
+        'ss_ind_3' => $this->input->post('ss_ind_3', true),
+        'ss_ind_3a' => $this->input->post('ss_ind_3a', true),
+        'ss_ind_3b' => $this->input->post('ss_ind_3b', true),
+        'ss_ind_3c' => $this->input->post('ss_ind_3c', true),
+        'ss_ind_4' => $this->input->post('ss_ind_4', true),
+        'ss_ind_4a' => $this->input->post('ss_ind_4a', true),
+        'ss_ind_4b' => $this->input->post('ss_ind_4b', true),
+        'ss_ind_4c' => $this->input->post('ss_ind_4c', true),
+        'pf_ind_1' => $this->input->post('pf_ind_1', true),
+        'pf_ind_1a' => $this->input->post('pf_ind_1a', true),
+        'pf_ind_1b' => $this->input->post('pf_ind_1b', true),
+        'pf_ind_1c' => $this->input->post('pf_ind_1c', true),
+        'pf_ind_2' => $this->input->post('pf_ind_2', true),
+        'pf_ind_2a' => $this->input->post('pf_ind_2a', true),
+        'pf_ind_2b' => $this->input->post('pf_ind_2b', true),
+        'pf_ind_2c' => $this->input->post('pf_ind_2c', true),
+        'pf_ind_3' => $this->input->post('pf_ind_3', true),
+        'pf_ind_3a' => $this->input->post('pf_ind_3a', true),
+        'pf_ind_3b' => $this->input->post('pf_ind_3b', true),
+        'pf_ind_3c' => $this->input->post('pf_ind_3c', true)
+      ];
+
+      $this->db->where('sk_id', $sk_id);
+      $this->db->update('sk', $data);
+    }
+  }
 }
