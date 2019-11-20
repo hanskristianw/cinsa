@@ -18,8 +18,8 @@ class CB_CRUD extends CI_Controller
       redirect('Auth');
     }
 
-    //jika belum login dan bukan konselor
-    if (konselor_menu() <= 0) {
+    //jika belum login dan bukan konselor, walkel atau wakasis
+    if (konselor_menu() == 0 && walkel_menu() == 0 && wakasis_menu() == 0) {
       redirect('Profile');
     }
   }
@@ -47,14 +47,13 @@ class CB_CRUD extends CI_Controller
     $this->load->view('templates/topbar', $data);
     $this->load->view('cb_crud/index', $data);
     $this->load->view('templates/footer');
-    
   }
 
   public function add_topik()
   {
 
     $sk_id = $this->input->post('topik_sk_id');
-    if(!$sk_id){
+    if (!$sk_id) {
       redirect('Profile');
     }
 
@@ -69,40 +68,39 @@ class CB_CRUD extends CI_Controller
     $this->load->view('templates/topbar', $data);
     $this->load->view('cb_crud/add_topik', $data);
     $this->load->view('templates/footer');
-    
   }
 
   public function add_proses_topik()
   {
-    $sk_id = $this->input->post('sk_id',true);
+    $sk_id = $this->input->post('sk_id', true);
 
-    if($sk_id){
+    if ($sk_id) {
       $data = [
-        'topik_cb_nama' => $this->input->post('topik_cb_nama',true),
-        'topik_cb_jenj_id' => $this->input->post('topik_cb_jenj_id',true),
-        'topik_cb_semester' => $this->input->post('topik_cb_semester',true),
-        'topik_cb_a' => $this->input->post('topik_cb_a',true),
-        'topik_cb_b' => $this->input->post('topik_cb_b',true),
-        'topik_cb_c' => $this->input->post('topik_cb_c',true),
+        'topik_cb_nama' => $this->input->post('topik_cb_nama', true),
+        'topik_cb_jenj_id' => $this->input->post('topik_cb_jenj_id', true),
+        'topik_cb_semester' => $this->input->post('topik_cb_semester', true),
+        'topik_cb_a' => $this->input->post('topik_cb_a', true),
+        'topik_cb_b' => $this->input->post('topik_cb_b', true),
+        'topik_cb_c' => $this->input->post('topik_cb_c', true),
         'topik_cb_sk_id' => $sk_id
       ];
 
       $this->db->insert('topik_cb', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Topic Created!</div>');
       redirect('cb_crud');
-    }else{
+    } else {
       redirect('Profile');
     }
-    
   }
 
-  public function edit_topik(){
+  public function edit_topik()
+  {
 
-    $topik_cb_id = $this->input->post('topik_cb_id',true);
+    $topik_cb_id = $this->input->post('topik_cb_id', true);
 
-    if($topik_cb_id){
+    if ($topik_cb_id) {
       $data['title'] = 'Edit Topic';
-      
+
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
 
@@ -114,18 +112,17 @@ class CB_CRUD extends CI_Controller
 
       $data['jenj_all'] = $this->_jenj->return_all_by_sk($data['topik_cb']['topik_cb_sk_id']);
 
-      
-      $data['jum_cb'] = $this->input->post('jum_cb',true);
-                      
+
+      $data['jum_cb'] = $this->input->post('jum_cb', true);
+
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('templates/topbar', $data);
       $this->load->view('cb_crud/edit_topik', $data);
       $this->load->view('templates/footer');
     }
-
   }
-  
+
   public function edit_topik_proses()
   {
 
@@ -139,12 +136,12 @@ class CB_CRUD extends CI_Controller
     }
 
     $data = [
-      'topik_cb_nama' => $this->input->post('topik_cb_nama',true),
-      'topik_cb_jenj_id' => $this->input->post('topik_cb_jenj_id',true),
-      'topik_cb_semester' => $this->input->post('topik_cb_semester',true),
-      'topik_cb_a' => $this->input->post('topik_cb_a',true),
-      'topik_cb_b' => $this->input->post('topik_cb_b',true),
-      'topik_cb_c' => $this->input->post('topik_cb_c',true),
+      'topik_cb_nama' => $this->input->post('topik_cb_nama', true),
+      'topik_cb_jenj_id' => $this->input->post('topik_cb_jenj_id', true),
+      'topik_cb_semester' => $this->input->post('topik_cb_semester', true),
+      'topik_cb_a' => $this->input->post('topik_cb_a', true),
+      'topik_cb_b' => $this->input->post('topik_cb_b', true),
+      'topik_cb_c' => $this->input->post('topik_cb_c', true),
     ];
 
     //simpan ke db
@@ -154,10 +151,10 @@ class CB_CRUD extends CI_Controller
 
     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Topic Updated!</div>');
     redirect('CB_CRUD');
-
   }
-  
-  public function grade(){
+
+  public function grade()
+  {
     $data['title'] = 'CB Grade';
 
     //data karyawan yang sedang login untuk topbar
@@ -181,18 +178,19 @@ class CB_CRUD extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  public function grade_cek(){
-    
-    $topik_cb_id = $this->input->post('topik_cb',true);
-    $kelas_id = $this->input->post('kelas_id',true);
+  public function grade_cek()
+  {
+
+    $topik_cb_id = $this->input->post('topik_cb', true);
+    $kelas_id = $this->input->post('kelas_id', true);
     //cek ada nilai atau belum
 
-    if($topik_cb_id && $kelas_id){
+    if ($topik_cb_id && $kelas_id) {
       $data['title'] = 'CB Grade';
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
       $data['kelas'] = $this->_kelas->find_kelas_nama($kelas_id);
 
-      
+
       $data['topik_cb_nama'] = $this->db->query("SELECT topik_cb_nama
       FROM topik_cb 
       WHERE topik_cb_id = $topik_cb_id")->row_array();
@@ -203,7 +201,7 @@ class CB_CRUD extends CI_Controller
       WHERE nilai_cb_topik_cb_id = $topik_cb_id AND d_s_kelas_id = $kelas_id")->row_array();
 
       $data['topik_cb_id'] = $topik_cb_id;
-      if($cb_cek['jumlah'] == 0){
+      if ($cb_cek['jumlah'] == 0) {
         //masih kosong nilainya
 
         $data['siswa_all'] = $this->db->query(
@@ -211,14 +209,15 @@ class CB_CRUD extends CI_Controller
           FROM d_s
           LEFT JOIN sis ON d_s_sis_id = sis_id
           WHERE d_s_kelas_id = $kelas_id
-          ORDER BY sis_nama_depan, sis_no_induk")->result_array();
-        
+          ORDER BY sis_nama_depan, sis_no_induk"
+        )->result_array();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('cb_crud/grade_input', $data);
         $this->load->view('templates/footer');
-      }else{
+      } else {
         //sudah ada
         $data['siswa_all'] = $this->db->query(
           "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, nilai_cb1, nilai_cb2, nilai_cb3, nilai_cb4, nilai_cb5, nilai_cb_jum, nilai_cb_id
@@ -226,7 +225,8 @@ class CB_CRUD extends CI_Controller
           LEFT JOIN d_s ON d_s_id = nilai_cb_d_s_id
           LEFT JOIN sis ON d_s_sis_id = sis_id
           WHERE d_s_kelas_id = $kelas_id AND nilai_cb_topik_cb_id = $topik_cb_id
-          ORDER BY sis_nama_depan, sis_no_induk")->result_array();
+          ORDER BY sis_nama_depan, sis_no_induk"
+        )->result_array();
 
         //cek apakah ada murid baru
         $data['siswa_baru'] = $this->db->query(
@@ -239,9 +239,10 @@ class CB_CRUD extends CI_Controller
             LEFT JOIN d_s ON nilai_cb_d_s_id = d_s_id
             WHERE d_s_kelas_id = $kelas_id AND nilai_cb_topik_cb_id = $topik_cb_id
             )
-          ORDER BY sis_nama_depan")->result_array();
+          ORDER BY sis_nama_depan"
+        )->result_array();
 
-        
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -249,22 +250,21 @@ class CB_CRUD extends CI_Controller
         $this->load->view('templates/footer');
       }
     }
-
-    
   }
 
-  public function save_input(){
-    if($this->input->post('nilai_cb1[]',true)){
+  public function save_input()
+  {
+    if ($this->input->post('nilai_cb1[]', true)) {
 
-      $topik_cb_id = $this->input->post('nilai_cb_topik_cb_id',true);
-      $kelas_id = $this->input->post('kelas_id',true);
+      $topik_cb_id = $this->input->post('nilai_cb_topik_cb_id', true);
+      $kelas_id = $this->input->post('kelas_id', true);
 
       $cb_cek = $this->db->query("SELECT COUNT(*) AS jumlah
       FROM nilai_cb 
       LEFT JOIN d_s ON nilai_cb_d_s_id = d_s_id
       WHERE nilai_cb_topik_cb_id = $topik_cb_id AND d_s_kelas_id = $kelas_id")->row_array();
 
-      if($cb_cek['jumlah'] == 0){
+      if ($cb_cek['jumlah'] == 0) {
         $data = array();
         $d_s_id = $this->input->post('d_s_id[]');
 
@@ -276,34 +276,35 @@ class CB_CRUD extends CI_Controller
         $nilai_cb_jum = $this->input->post('nilai_cb_jum');
         $nilai_cb_topik_cb_id = $topik_cb_id;
 
-        for($i=0;$i<count($d_s_id);$i++){
-            $data[$i] = [
-              'nilai_cb_d_s_id' => $d_s_id[$i],
-              'nilai_cb_topik_cb_id' => $nilai_cb_topik_cb_id,
-              'nilai_cb_jum' => $nilai_cb_jum,
-              'nilai_cb1' => $nilai_cb1[$i],
-              'nilai_cb2' => $nilai_cb2[$i],
-              'nilai_cb3' => $nilai_cb3[$i],
-              'nilai_cb4' => $nilai_cb4[$i],
-              'nilai_cb5' => $nilai_cb5[$i]
-            ];
+        for ($i = 0; $i < count($d_s_id); $i++) {
+          $data[$i] = [
+            'nilai_cb_d_s_id' => $d_s_id[$i],
+            'nilai_cb_topik_cb_id' => $nilai_cb_topik_cb_id,
+            'nilai_cb_jum' => $nilai_cb_jum,
+            'nilai_cb1' => $nilai_cb1[$i],
+            'nilai_cb2' => $nilai_cb2[$i],
+            'nilai_cb3' => $nilai_cb3[$i],
+            'nilai_cb4' => $nilai_cb4[$i],
+            'nilai_cb5' => $nilai_cb5[$i]
+          ];
         }
 
         $this->db->insert_batch('nilai_cb', $data);
-        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input Success!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Input Success!</div>');
         redirect('cb_crud/grade');
-      }else{
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Failed, grade already exist!</div>');
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed, grade already exist!</div>');
         redirect('cb_crud/grade');
       }
     }
   }
 
-  public function save_update(){
-    if($this->input->post('nilai_cb1[]',true)){
+  public function save_update()
+  {
+    if ($this->input->post('nilai_cb1[]', true)) {
 
-      $topik_cb_id = $this->input->post('nilai_cb_topik_cb_id',true);
-      $kelas_id = $this->input->post('kelas_id',true);
+      $topik_cb_id = $this->input->post('nilai_cb_topik_cb_id', true);
+      $kelas_id = $this->input->post('kelas_id', true);
 
       $data = array();
       $d_s_id = $this->input->post('d_s_id[]');
@@ -316,36 +317,37 @@ class CB_CRUD extends CI_Controller
       $nilai_cb_id = $this->input->post('nilai_cb_id[]');
       $nilai_cb_jum = $this->input->post('nilai_cb_jum');
 
-      for($i=0;$i<count($d_s_id);$i++){
-          $data[$i] = [
-            'nilai_cb_jum' => $nilai_cb_jum,
-            'nilai_cb1' => $nilai_cb1[$i],
-            'nilai_cb2' => $nilai_cb2[$i],
-            'nilai_cb3' => $nilai_cb3[$i],
-            'nilai_cb4' => $nilai_cb4[$i],
-            'nilai_cb5' => $nilai_cb5[$i],
-            'nilai_cb_id' => $nilai_cb_id[$i]
-          ];
+      for ($i = 0; $i < count($d_s_id); $i++) {
+        $data[$i] = [
+          'nilai_cb_jum' => $nilai_cb_jum,
+          'nilai_cb1' => $nilai_cb1[$i],
+          'nilai_cb2' => $nilai_cb2[$i],
+          'nilai_cb3' => $nilai_cb3[$i],
+          'nilai_cb4' => $nilai_cb4[$i],
+          'nilai_cb5' => $nilai_cb5[$i],
+          'nilai_cb_id' => $nilai_cb_id[$i]
+        ];
       }
 
       $this->db->update_batch('nilai_cb', $data, 'nilai_cb_id');
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Update Success!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Update Success!</div>');
       redirect('cb_crud/grade');
     }
   }
 
-  public function save_new_student(){
-    if($this->input->post('d_s_id[]',true)){
+  public function save_new_student()
+  {
+    if ($this->input->post('d_s_id[]', true)) {
 
-      $d_s_id = $this->input->post('d_s_id[]',true);
-      $topik_cb_id = $this->input->post('nilai_cb_topik_cb_id',true);
-      $kelas_id = $this->input->post('kelas_id',true);
-      $nilai_cb_jum = $this->input->post('nilai_cb_jum',true);
+      $d_s_id = $this->input->post('d_s_id[]', true);
+      $topik_cb_id = $this->input->post('nilai_cb_topik_cb_id', true);
+      $kelas_id = $this->input->post('kelas_id', true);
+      $nilai_cb_jum = $this->input->post('nilai_cb_jum', true);
 
       $siswa_id = "";
-      for($i=0;$i<count($d_s_id);$i++){
+      for ($i = 0; $i < count($d_s_id); $i++) {
         $siswa_id .= $d_s_id[$i];
-        if($i != count($d_s_id)-1){
+        if ($i != count($d_s_id) - 1) {
           $siswa_id .= ",";
         }
       }
@@ -355,17 +357,17 @@ class CB_CRUD extends CI_Controller
                 LEFT JOIN d_s ON nilai_cb_d_s_id = d_s_id
                 WHERE nilai_cb_topik_cb_id = $topik_cb_id AND d_s_id IN ($siswa_id)")->row_array();
 
-      
+
       //cek apa nilai sudah ada
 
-      if($cb_cek['jumlah'] == 0){
-        
+      if ($cb_cek['jumlah'] == 0) {
+
         $nilai_cb1 = $this->input->post('nilai_cb1[]');
         $nilai_cb2 = $this->input->post('nilai_cb2[]');
         $nilai_cb3 = $this->input->post('nilai_cb3[]');
         $nilai_cb4 = $this->input->post('nilai_cb4[]');
         $nilai_cb5 = $this->input->post('nilai_cb5[]');
-        for($i=0;$i<count($d_s_id);$i++){
+        for ($i = 0; $i < count($d_s_id); $i++) {
           $data[$i] = [
             'nilai_cb_d_s_id' => $d_s_id[$i],
             'nilai_cb_topik_cb_id' => $topik_cb_id,
@@ -377,13 +379,12 @@ class CB_CRUD extends CI_Controller
             'nilai_cb5' => $nilai_cb5[$i]
           ];
         }
-        
-        $this->db->insert_batch('nilai_cb', $data);
-        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input Success!</div>');
-        redirect('cb_crud/grade');
 
-      }else{
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Failed, grade already exist!</div>');
+        $this->db->insert_batch('nilai_cb', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Input Success!</div>');
+        redirect('cb_crud/grade');
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Failed, grade already exist!</div>');
         redirect('cb_crud/grade');
       }
 
@@ -391,8 +392,9 @@ class CB_CRUD extends CI_Controller
     }
   }
 
-  
-  public function report(){
+
+  public function report()
+  {
 
     $data['title'] = 'CB Grade';
 
@@ -415,18 +417,18 @@ class CB_CRUD extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  
-  public function report_show(){
-    if($this->input->post('sk_id',true)){
-      $sk_id = $this->input->post('sk_id',true);
-      $t_id = $this->input->post('t_id',true);
 
-      
+  public function report_show()
+  {
+    if ($this->input->post('sk_id', true)) {
+      $sk_id = $this->input->post('sk_id', true);
+      $t_id = $this->input->post('t_id', true);
+
+
       $data['title'] = 'CB Report';
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
-      $data['kelas_all'] = $this->db->query
-                    ("SELECT kelas_id, kelas_nama, kelas_nama_singkat, COUNT(d_s_id) AS jumlah_murid
+      $data['kelas_all'] = $this->db->query("SELECT kelas_id, kelas_nama, kelas_nama_singkat, COUNT(d_s_id) AS jumlah_murid
                     FROM kelas
                     LEFT JOIN d_s ON d_s_kelas_id = kelas_id
                     WHERE kelas_sk_id = $sk_id AND kelas_t_id = $t_id
@@ -441,19 +443,21 @@ class CB_CRUD extends CI_Controller
     }
   }
 
-  public function delete_topik(){
-    if($this->input->post('topik_cb_id',true)){
-      $topik_cb_id = $this->input->post('topik_cb_id',true);
+  public function delete_topik()
+  {
+    if ($this->input->post('topik_cb_id', true)) {
+      $topik_cb_id = $this->input->post('topik_cb_id', true);
 
       $this->db->where('topik_cb_id', $topik_cb_id);
       $this->db->delete('topik_cb');
 
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Topic Deleted!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Topic Deleted!</div>');
       redirect('CB_crud');
     }
   }
 
-  public function emo(){
+  public function emo()
+  {
     $data['title'] = 'Emotional Awareness & Spirituality';
 
     //data karyawan yang sedang login untuk topbar
@@ -475,10 +479,11 @@ class CB_CRUD extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  public function emo_input(){
-    if($this->input->post('kelas_emo',TRUE)){
+  public function emo_input()
+  {
+    if ($this->input->post('kelas_emo', TRUE)) {
 
-      $kelas_id = $this->input->post('kelas_emo',TRUE);
+      $kelas_id = $this->input->post('kelas_emo', TRUE);
 
       $data['title'] = 'Emotional Awareness & Spirituality';
 
@@ -492,48 +497,48 @@ class CB_CRUD extends CI_Controller
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_no_induk, sis_nama_depan")->result_array();
+        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_no_induk, sis_nama_depan"
+      )->result_array();
 
-      if(!$data['siswa_all']){
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">No Student, add one or more student!</div>');
+      if (!$data['siswa_all']) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">No Student, add one or more student!</div>');
         redirect('cb_crud/emo');
       }
 
-        $this->load->view('templates/header',$data);
-        $this->load->view('templates/sidebar',$data);
-        $this->load->view('templates/topbar',$data);
-        $this->load->view('cb_crud/emo_input',$data);
-        $this->load->view('templates/footer');
-
-    }else{
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('cb_crud/emo_input', $data);
+      $this->load->view('templates/footer');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
-
   }
 
-  public function save_emo(){
-    if($this->input->post('d_s_id[]')){
+  public function save_emo()
+  {
+    if ($this->input->post('d_s_id[]')) {
       $data = array();
-      $emo_aware_ex = $this->input->post('emo_aware_ex[]',true);
-      $emo_aware_so = $this->input->post('emo_aware_so[]',true);
-      $emo_aware_ne = $this->input->post('emo_aware_ne[]',true);
-      $emo_aware_ex2 = $this->input->post('emo_aware_ex2[]',true);
-      $emo_aware_so2 = $this->input->post('emo_aware_so2[]',true);
-      $emo_aware_ne2 = $this->input->post('emo_aware_ne2[]',true);
-      
-      $spirit_coping = $this->input->post('spirit_coping[]',true);
-      $spirit_emo = $this->input->post('spirit_emo[]',true);
-      $spirit_grate = $this->input->post('spirit_grate[]',true);
-      $spirit_ref = $this->input->post('spirit_ref[]',true);
-      $spirit_coping2 = $this->input->post('spirit_coping2[]',true);
-      $spirit_emo2 = $this->input->post('spirit_emo2[]',true);
-      $spirit_grate2 = $this->input->post('spirit_grate2[]',true);
-      $spirit_ref2 = $this->input->post('spirit_ref2[]',true);
+      $emo_aware_ex = $this->input->post('emo_aware_ex[]', true);
+      $emo_aware_so = $this->input->post('emo_aware_so[]', true);
+      $emo_aware_ne = $this->input->post('emo_aware_ne[]', true);
+      $emo_aware_ex2 = $this->input->post('emo_aware_ex2[]', true);
+      $emo_aware_so2 = $this->input->post('emo_aware_so2[]', true);
+      $emo_aware_ne2 = $this->input->post('emo_aware_ne2[]', true);
+
+      $spirit_coping = $this->input->post('spirit_coping[]', true);
+      $spirit_emo = $this->input->post('spirit_emo[]', true);
+      $spirit_grate = $this->input->post('spirit_grate[]', true);
+      $spirit_ref = $this->input->post('spirit_ref[]', true);
+      $spirit_coping2 = $this->input->post('spirit_coping2[]', true);
+      $spirit_emo2 = $this->input->post('spirit_emo2[]', true);
+      $spirit_grate2 = $this->input->post('spirit_grate2[]', true);
+      $spirit_ref2 = $this->input->post('spirit_ref2[]', true);
 
       $d_s_id = $this->input->post('d_s_id[]');
 
-      for($i=0;$i<count($d_s_id);$i++){
+      for ($i = 0; $i < count($d_s_id); $i++) {
         $data[$i] = [
           'emo_aware_ex' => $emo_aware_ex[$i],
           'emo_aware_so' => $emo_aware_so[$i],
@@ -552,41 +557,42 @@ class CB_CRUD extends CI_Controller
           'd_s_id' =>  $d_s_id[$i]
         ];
       }
-      $this->db->update_batch('d_s',$data, 'd_s_id');
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Success!</div>');
+      $this->db->update_batch('d_s', $data, 'd_s_id');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success!</div>');
       redirect('cb_crud/emo');
     }
   }
 
-  public function moral_index(){
+  public function moral_index()
+  {
     $data['title'] = 'Class List';
     $kr_id = $this->session->userdata('kr_id');
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     //data karyawan untuk konten
-    $data['sk_all'] = $this->db->query("
-                      SELECT sk_id, sk_nama
-                      FROM konselor 
-                      LEFT JOIN sk ON konselor_sk_id = sk_id
-                      WHERE konselor_kr_id = $kr_id")->result_array();
+    $data['sk_all'] = $this->db->query("SELECT sk_id, sk_nama
+                                      FROM sk 
+                                      LEFT JOIN kr ON sk_wakasis = kr_id
+                                      WHERE sk_wakasis = $kr_id")->result_array();
 
     $data['t_all'] = $this->_t->return_all();
 
     //$data['tes'] = var_dump($this->db->last_query());
 
-    $this->load->view('templates/header',$data);
-    $this->load->view('templates/sidebar',$data);
-    $this->load->view('templates/topbar',$data);
-    $this->load->view('CB_CRUD/moral_index',$data);
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('CB_CRUD/moral_index', $data);
     $this->load->view('templates/footer');
   }
 
-  public function moral_input(){
+  public function moral_input()
+  {
 
-    if($this->input->post('kelas_moral',TRUE)){
+    if ($this->input->post('kelas_moral', TRUE)) {
 
-      $kelas_id = $this->input->post('kelas_moral',TRUE);
+      $kelas_id = $this->input->post('kelas_moral', TRUE);
 
       $data['title'] = 'Moral Behaviour';
 
@@ -597,37 +603,37 @@ class CB_CRUD extends CI_Controller
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_no_induk, sis_nama_depan")->result_array();
+        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_no_induk, sis_nama_depan"
+      )->result_array();
 
-      if(!$data['siswa_all']){
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">No Student, add one or more student!</div>');
+      if (!$data['siswa_all']) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">No Student, add one or more student!</div>');
         redirect('Profile');
       }
 
-        $this->load->view('templates/header',$data);
-        $this->load->view('templates/sidebar',$data);
-        $this->load->view('templates/topbar',$data);
-        $this->load->view('cb_crud/moral_input',$data);
-        $this->load->view('templates/footer');
-
-    }else{
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('cb_crud/moral_input', $data);
+      $this->load->view('templates/footer');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
-
   }
 
-  public function save_moral(){
-    if($this->input->post('d_s_id[]')){
+  public function save_moral()
+  {
+    if ($this->input->post('d_s_id[]')) {
       $data = array();
-      $moralb_lo = $this->input->post('moralb_lo[]',true);
-      $moralb_so = $this->input->post('moralb_so[]',true);
-      $moralb_lo2 = $this->input->post('moralb_lo2[]',true);
-      $moralb_so2 = $this->input->post('moralb_so2[]',true);
+      $moralb_lo = $this->input->post('moralb_lo[]', true);
+      $moralb_so = $this->input->post('moralb_so[]', true);
+      $moralb_lo2 = $this->input->post('moralb_lo2[]', true);
+      $moralb_so2 = $this->input->post('moralb_so2[]', true);
 
       $d_s_id = $this->input->post('d_s_id[]');
 
-      for($i=0;$i<count($d_s_id);$i++){
+      for ($i = 0; $i < count($d_s_id); $i++) {
         $data[$i] = [
           'moralb_lo' => $moralb_lo[$i],
           'moralb_so' => $moralb_so[$i],
@@ -636,8 +642,8 @@ class CB_CRUD extends CI_Controller
           'd_s_id' =>  $d_s_id[$i]
         ];
       }
-      $this->db->update_batch('d_s',$data, 'd_s_id');
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Success!</div>');
+      $this->db->update_batch('d_s', $data, 'd_s_id');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success!</div>');
       redirect('cb_crud/moral_index');
     }
   }
@@ -647,15 +653,9 @@ class CB_CRUD extends CI_Controller
     $data['title'] = 'Social Skill, Physical Fitness and Healthful Habit';
 
     //data karyawan yang sedang login untuk topbar
-    $kr_id = $this->session->userdata('kr_id');
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-    $data['sk_all'] = $this->db->query("
-                      SELECT sk_id, sk_nama
-                      FROM konselor 
-                      LEFT JOIN sk ON konselor_sk_id = sk_id
-                      WHERE konselor_kr_id = $kr_id")->result_array();
 
-    $data['t_all'] = $this->_t->return_all();
+    $data['kelas_all'] = $this->_kelas->find_by_walkel($this->session->userdata('kr_id'));
 
     //$data['tes'] = var_dump($this->db->last_query());
 
@@ -666,10 +666,11 @@ class CB_CRUD extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  public function habit_input(){
-    if($this->input->post('kelas_habit',TRUE)){
+  public function habit_input()
+  {
+    if ($this->input->post('kelas_habit', TRUE)) {
 
-      $kelas_id = $this->input->post('kelas_habit',TRUE);
+      $kelas_id = $this->input->post('kelas_habit', TRUE);
 
       $data['title'] = 'Social Skill, Physical Fitness and Healthful Habit';
 
@@ -683,47 +684,47 @@ class CB_CRUD extends CI_Controller
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_no_induk, sis_nama_depan")->result_array();
+        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_no_induk, sis_nama_depan"
+      )->result_array();
 
-      if(!$data['siswa_all']){
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">No Student, add one or more student!</div>');
+      if (!$data['siswa_all']) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">No Student, add one or more student!</div>');
         redirect('Komen_crud/habit');
       }
 
-        $this->load->view('templates/header',$data);
-        $this->load->view('templates/sidebar',$data);
-        $this->load->view('templates/topbar',$data);
-        $this->load->view('cb_crud/habit_input',$data);
-        $this->load->view('templates/footer');
-
-    }else{
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('cb_crud/habit_input', $data);
+      $this->load->view('templates/footer');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
-
   }
 
-  public function save_habit(){
-    if($this->input->post('d_s_id[]')){
+  public function save_habit()
+  {
+    if ($this->input->post('d_s_id[]')) {
       $data = array();
-      $ss_relationship = $this->input->post('ss_relationship[]',true);
-      $ss_cooperation = $this->input->post('ss_cooperation[]',true);
-      $ss_conflict = $this->input->post('ss_conflict[]',true);
-      $ss_self_a = $this->input->post('ss_self_a[]',true);
-      $ss_relationship2 = $this->input->post('ss_relationship2[]',true);
-      $ss_cooperation2 = $this->input->post('ss_cooperation2[]',true);
-      $ss_conflict2 = $this->input->post('ss_conflict2[]',true);
-      $ss_self_a2 = $this->input->post('ss_self_a2[]',true);
-      
-      $pfhf_absent = $this->input->post('pfhf_absent[]',true);
-      $pfhf_uks = $this->input->post('pfhf_uks[]',true);
-      $pfhf_tardiness = $this->input->post('pfhf_tardiness[]',true);
-      $pfhf_absent2 = $this->input->post('pfhf_absent2[]',true);
-      $pfhf_uks2 = $this->input->post('pfhf_uks2[]',true);
-      $pfhf_tardiness2 = $this->input->post('pfhf_tardiness2[]',true);
+      $ss_relationship = $this->input->post('ss_relationship[]', true);
+      $ss_cooperation = $this->input->post('ss_cooperation[]', true);
+      $ss_conflict = $this->input->post('ss_conflict[]', true);
+      $ss_self_a = $this->input->post('ss_self_a[]', true);
+      $ss_relationship2 = $this->input->post('ss_relationship2[]', true);
+      $ss_cooperation2 = $this->input->post('ss_cooperation2[]', true);
+      $ss_conflict2 = $this->input->post('ss_conflict2[]', true);
+      $ss_self_a2 = $this->input->post('ss_self_a2[]', true);
+
+      $pfhf_absent = $this->input->post('pfhf_absent[]', true);
+      $pfhf_uks = $this->input->post('pfhf_uks[]', true);
+      $pfhf_tardiness = $this->input->post('pfhf_tardiness[]', true);
+      $pfhf_absent2 = $this->input->post('pfhf_absent2[]', true);
+      $pfhf_uks2 = $this->input->post('pfhf_uks2[]', true);
+      $pfhf_tardiness2 = $this->input->post('pfhf_tardiness2[]', true);
       $d_s_id = $this->input->post('d_s_id[]');
 
-      for($i=0;$i<count($d_s_id);$i++){
+      for ($i = 0; $i < count($d_s_id); $i++) {
         $data[$i] = [
           'ss_relationship' => $ss_relationship[$i],
           'ss_cooperation' => $ss_cooperation[$i],
@@ -742,8 +743,8 @@ class CB_CRUD extends CI_Controller
           'd_s_id' =>  $d_s_id[$i]
         ];
       }
-      $this->db->update_batch('d_s',$data, 'd_s_id');
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Success!</div>');
+      $this->db->update_batch('d_s', $data, 'd_s_id');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Success!</div>');
       redirect('cb_crud/habit_index');
     }
   }

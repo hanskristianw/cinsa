@@ -75,7 +75,7 @@
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">';
-            echo '<div class="sidebar-heading">
+        echo '<div class="sidebar-heading">
                     Suggestion/Critics
                   </div>
                   <li class="nav-item">
@@ -92,7 +92,6 @@
                   </li>
                   <hr class="sidebar-divider d-none d-md-block">
             ';
-          
       } elseif ($this->session->userdata('kr_jabatan_id') == 4 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia wakakur
         echo '<div class="sidebar-heading">
@@ -155,7 +154,7 @@
 
             <hr class="sidebar-divider d-none d-md-block">';
 
-            echo '<div class="sidebar-heading">
+        echo '<div class="sidebar-heading">
                     Suggestion/Critics
                   </div>
                   <li class="nav-item">
@@ -253,7 +252,7 @@
 
             <hr class="sidebar-divider d-none d-md-block">';
 
-            echo '<div class="sidebar-heading">
+        echo '<div class="sidebar-heading">
                     Suggestion/Critics
                   </div>
                   <li class="nav-item">
@@ -340,7 +339,26 @@
             <hr class="sidebar-divider d-none d-md-block">';
         }
 
-        if (wakasis_menu() >= 1) { }
+        if (wakasis_menu() >= 1) {
+
+          echo '
+            <div class="sidebar-heading">
+              Student Affairs
+            </div>
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne">
+                  <i class="fas fa-fw fa-users"></i>
+                  <span>Life Skill</span>
+                </a>
+                <div id="collapseOne4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Set</h6>
+                    <a class="collapse-item" href=' . base_url('CB_CRUD/moral_index') . '>Moral Behaviour</a>
+                  </div>
+                </div>
+              </li>
+              <hr class="sidebar-divider d-none d-md-block">';
+        }
 
         if (konselor_menu() >= 1) {
           echo '  <div class="sidebar-heading">
@@ -370,9 +388,7 @@
                     <div id="collapseOne4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Set</h6>
-                        <a class="collapse-item" href=' . base_url('CB_CRUD/emo') . '>1. Emotional & Spirituality</a>
-                        <a class="collapse-item" href=' . base_url('CB_CRUD/moral_index') . '>2. Moral Behaviour</a>
-                        <a class="collapse-item" href=' . base_url('CB_CRUD/habit_index') . '>3. Habit, Social Skill</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/emo') . '>Emotional & Spirituality</a>
                       </div>
                     </div>
                   </li>
@@ -414,7 +430,8 @@
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Homeroom</h6>
                         <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>1. Comment</a>
-                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>2. Report Card</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/habit_index') . '>2. Habit, Social Skill</a>
+                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Report Card</a>
                       </div>
                     </div>
                   </li>
