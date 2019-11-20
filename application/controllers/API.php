@@ -671,4 +671,24 @@ class API extends CI_Controller
     }
   }
 
+  public function get_tim_kadiv(){
+
+    $detail = $this->db->query("SELECT kr_nama_depan, kr_nama_belakang
+          FROM kr
+          WHERE kr_jabatan_id = 5
+      ")->result();
+
+    echo json_encode($detail);
+  }
+
+  public function get_tim_ph(){
+
+    $detail = $this->db->query("SELECT kr_nama_depan, kr_nama_belakang
+          FROM kr
+          WHERE kr_jabatan_id = 8
+      ")->result();
+
+    echo json_encode($detail);
+  }
+
 }
