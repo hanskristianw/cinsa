@@ -19,7 +19,7 @@ class CB_CRUD extends CI_Controller
     }
 
     //jika belum login dan bukan konselor, walkel atau wakasis
-    if (konselor_menu() == 0 && walkel_menu() == 0 && wakasis_menu() == 0) {
+    if (konselor_menu() == 0 && walkel_menu() == 0 && wakasis_menu() == 0 && $this->session->userdata('kr_jabatan_id') != 5) {
       redirect('Profile');
     }
   }
@@ -484,10 +484,24 @@ class CB_CRUD extends CI_Controller
     if ($this->input->post('kelas_emo', TRUE)) {
 
       $kelas_id = $this->input->post('kelas_emo', TRUE);
+      $sk_id = $this->input->post('sk_id', TRUE);
 
       $data['title'] = 'Emotional Awareness & Spirituality';
 
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $data['emo_spr_desc'] = $this->db->query(
+        "SELECT emo_ind_1,emo_ind_1a,emo_ind_1b,emo_ind_1c,
+        emo_ind_2,emo_ind_2a,emo_ind_2b,emo_ind_2c,
+        emo_ind_3,emo_ind_3a,emo_ind_3b,emo_ind_3c,
+        spr_ind_1,spr_ind_1a,spr_ind_1b,spr_ind_1c,
+        spr_ind_2,spr_ind_2a,spr_ind_2b,spr_ind_2c,
+        spr_ind_3,spr_ind_3a,spr_ind_3b,spr_ind_3c,
+        spr_ind_4,spr_ind_4a,spr_ind_4b,spr_ind_4c
+        FROM sk
+        WHERE sk_id = $sk_id"
+      )->row_array();
+
       $data['siswa_all'] = $this->db->query(
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama,
                 emo_aware_ex,emo_aware_so,emo_aware_ne,
@@ -675,6 +689,18 @@ class CB_CRUD extends CI_Controller
       $data['title'] = 'Social Skill, Physical Fitness and Healthful Habit';
 
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $sk_id = $this->input->post('sk_id', TRUE);
+
+      $data['emo_spr_desc'] = $this->db->query(
+        "SELECT ss_ind_1,ss_ind_1a,ss_ind_1b,ss_ind_1c,
+        ss_ind_2,ss_ind_2a,ss_ind_2b,ss_ind_2c,
+        ss_ind_3,ss_ind_3a,ss_ind_3b,ss_ind_3c,
+        ss_ind_4,ss_ind_4a,ss_ind_4b,ss_ind_4c
+        FROM sk
+        WHERE sk_id = $sk_id"
+      )->row_array();
+
       $data['siswa_all'] = $this->db->query(
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama,
                 ss_relationship, ss_cooperation, ss_conflict, ss_self_a,
@@ -757,13 +783,18 @@ class CB_CRUD extends CI_Controller
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     //data karyawan untuk konten
-    $data['sk_all'] = $this->db->query("
-                      SELECT sk_id, sk_nama
-                      FROM konselor 
-                      LEFT JOIN sk ON konselor_sk_id = sk_id
-                      WHERE konselor_kr_id = $kr_id")->result_array();
-
-    $data['t_all'] = $this->_t->return_all();
+    if (konselor_menu() > 0) {
+      $data['sk_all'] = $this->db->query("
+                        SELECT sk_id, sk_nama
+                        FROM konselor 
+                        LEFT JOIN sk ON konselor_sk_id = sk_id
+                        WHERE konselor_kr_id = $kr_id")->result_array();
+    } else if ($this->session->userdata('kr_jabatan_id') == 5) {
+      $data['sk_all'] = $this->db->query("
+                        SELECT sk_id, sk_nama
+                        FROM sk 
+                        WHERE sk_type = 0")->result_array();
+    }
 
     //$data['tes'] = var_dump($this->db->last_query());
 
@@ -776,19 +807,29 @@ class CB_CRUD extends CI_Controller
 
   public function set_lifeskill_proses()
   {
-    $data['title'] = 'Class List';
-    $kr_id = $this->session->userdata('kr_id');
+    if ($this->input->post('sk_id', true)) {
 
-    $data['sk_id'] = $this->input->post('sk_id', true);
-    //data karyawan yang sedang login untuk topbar
-    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $data['title'] = 'Class List';
+      $kr_id = $this->session->userdata('kr_id');
+
+      $sk_id = $this->input->post('sk_id', true);
+      $data['sk_id'] = $sk_id;
 
 
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('CB_CRUD/set_lifeskill_proses', $data);
-    $this->load->view('templates/footer');
+      $data['l'] = $this->db->query("SELECT *
+                        FROM sk 
+                        WHERE sk_id = $sk_id")->row_array();
+
+      //data karyawan yang sedang login untuk topbar
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('CB_CRUD/set_lifeskill_proses', $data);
+      $this->load->view('templates/footer');
+    }
   }
 
   public function set_lifeskill_proses_update()
@@ -802,10 +843,10 @@ class CB_CRUD extends CI_Controller
         'mb_ind_1a' => $this->input->post('mb_ind_1a', true),
         'mb_ind_1b' => $this->input->post('mb_ind_1b', true),
         'mb_ind_1c' => $this->input->post('mb_ind_1c', true),
-        'mb_ind_2' => $this->input->post('emo_ind_2', true),
-        'mb_ind_2a' => $this->input->post('emo_ind_2a', true),
-        'mb_ind_2b' => $this->input->post('emo_ind_2b', true),
-        'mb_ind_2c' => $this->input->post('emo_ind_2c', true),
+        'mb_ind_2' => $this->input->post('mb_ind_2', true),
+        'mb_ind_2a' => $this->input->post('mb_ind_2a', true),
+        'mb_ind_2b' => $this->input->post('mb_ind_2b', true),
+        'mb_ind_2c' => $this->input->post('mb_ind_2c', true),
         'emo_ind_1' => $this->input->post('emo_ind_1', true),
         'emo_ind_1a' => $this->input->post('emo_ind_1a', true),
         'emo_ind_1b' => $this->input->post('emo_ind_1b', true),
@@ -830,6 +871,10 @@ class CB_CRUD extends CI_Controller
         'spr_ind_3a' => $this->input->post('spr_ind_3a', true),
         'spr_ind_3b' => $this->input->post('spr_ind_3b', true),
         'spr_ind_3c' => $this->input->post('spr_ind_3c', true),
+        'spr_ind_4' => $this->input->post('spr_ind_4', true),
+        'spr_ind_4a' => $this->input->post('spr_ind_4a', true),
+        'spr_ind_4b' => $this->input->post('spr_ind_4b', true),
+        'spr_ind_4c' => $this->input->post('spr_ind_4c', true),
         'ss_ind_1' => $this->input->post('ss_ind_1', true),
         'ss_ind_1a' => $this->input->post('ss_ind_1a', true),
         'ss_ind_1b' => $this->input->post('ss_ind_1b', true),
@@ -862,6 +907,9 @@ class CB_CRUD extends CI_Controller
 
       $this->db->where('sk_id', $sk_id);
       $this->db->update('sk', $data);
+
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Description Updated!</div>');
+      redirect('cb_crud/set_lifeskill');
     }
   }
 }

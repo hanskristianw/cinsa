@@ -191,6 +191,7 @@
                   <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topic</a>
                   <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>4. Counselor</a>
                   <a class="collapse-item" href=' . base_url('Karakter_CRUD') . '>5. Character</a>
+                  <a class="collapse-item" href=' . base_url('CB_CRUD/set_lifeskill') . '>6. Life Skill Description</a>
                 </div>
               </div>
             </li>
@@ -375,7 +376,6 @@
                         <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>1. Affective Indicator</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD') . '>2. CB Topic</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD/grade') . '>3. CB Grade</a>
-                        <a class="collapse-item" href=' . base_url('CB_CRUD/set_lifeskill') . '>4. Set Lifeskill</a>
                         <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>5. Counseling Session</a>
                       </div>
                     </div>
@@ -389,7 +389,8 @@
                     <div id="collapseOne4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Set</h6>
-                        <a class="collapse-item" href=' . base_url('CB_CRUD/emo') . '>Emotional & Spirituality</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/set_lifeskill') . '>1. Life Skill Description</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/emo') . '>2. Emotional & Spirituality</a>
                       </div>
                     </div>
                   </li>
