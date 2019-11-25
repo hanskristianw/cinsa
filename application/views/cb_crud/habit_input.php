@@ -130,9 +130,9 @@
                     <th style='font-size:12px;' rowspan="3">Num</th>
                     <th style='font-size:12px;' rowspan="3">Name</th>
                     <th style='font-size:12px;' class="text-center" colspan="8">
-                      <a class='link-ss' href='javascript:void(0)'>Social Skill</a>
+                      Social Skill
                     </th>
-                    <th style='font-size:12px;' class="text-center" colspan="8"><a class='link-pf' href='javascript:void(0)'>Physical Fitness<br>and Healthful Habit</a></th>
+                    <th style='font-size:12px;' class="text-center" colspan="8">Physical Fitness<br>and Healthful Habit</th>
                   </tr>
                   <tr>
                     <th style='font-size:12px;' class="text-center" colspan="4">Sem 1</th>

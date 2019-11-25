@@ -129,8 +129,8 @@
                   <tr>
                     <th style='font-size:12px;' rowspan="3">Num</th>
                     <th style='font-size:12px;' rowspan="3">Name</th>
-                    <th style='font-size:12px;' class="text-center" colspan="6"><a class='link-es' href='javascript:void(0)'>Emotional Skill</a></th>
-                    <th style='font-size:12px;' class="text-center" colspan="8"><a class='link-ss' href='javascript:void(0)'>Spirituality</a></th>
+                    <th style='font-size:12px;' class="text-center" colspan="6">Emotional Skill</th>
+                    <th style='font-size:12px;' class="text-center" colspan="8">Spirituality</th>
                   </tr>
                   <tr>
                     <th style='font-size:12px;' class="text-center" colspan="3">Sem 1</th>

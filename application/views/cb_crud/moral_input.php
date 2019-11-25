@@ -75,7 +75,7 @@
                   <tr>
                     <th style='width: 100px;' rowspan="3">Reg Num</th>
                     <th style='width: 320px;' rowspan="3">Name</th>
-                    <th class="text-center" colspan="4"><a class='link-mb' href='javascript:void(0)'>Moral Behaviour</a></th>
+                    <th class="text-center" colspan="4">Moral Behaviour</th>
                   </tr>
                   <tr>
                     <th class="text-center" colspan="2">Sem 1</th>
