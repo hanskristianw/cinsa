@@ -380,7 +380,11 @@
                       </div>
                     </div>
                   </li>
+                  <hr class="sidebar-divider d-none d-md-block">
 
+                  <div class="sidebar-heading">
+                    Life Skill Menu
+                  </div>
                   <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne">
                       <i class="fas fa-fw fa-users"></i>
@@ -443,12 +447,12 @@
 
         if (ssp_menu() >= 1) {
           echo ' <div class="sidebar-heading">
-                    SSP
+                    Extracurricular
                   </div>
                   <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapseTwo">
                       <i class="fas fa-fw fa-basketball-ball"></i>
-                      <span>SSP</span>
+                      <span>Extracurricular</span>
                     </a>
                     <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">

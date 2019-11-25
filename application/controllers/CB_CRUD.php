@@ -584,6 +584,7 @@ class CB_CRUD extends CI_Controller
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
+
     //data karyawan untuk konten
     $data['sk_all'] = $this->db->query("SELECT sk_id, sk_nama
                                       FROM sk 
@@ -611,6 +612,16 @@ class CB_CRUD extends CI_Controller
       $data['title'] = 'Moral Behaviour';
 
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $sk_id = $this->input->post('sk_id', TRUE);
+
+      $data['emo_spr_desc'] = $this->db->query(
+        "SELECT mb_ind_1,mb_ind_1a,mb_ind_1b,mb_ind_1c,
+                mb_ind_2,mb_ind_2a,mb_ind_2b,mb_ind_2c
+        FROM sk
+        WHERE sk_id = $sk_id"
+      )->row_array();
+
       $data['siswa_all'] = $this->db->query(
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama,
                 moralb_lo,moralb_so,moralb_lo2,moralb_so2
@@ -690,13 +701,22 @@ class CB_CRUD extends CI_Controller
 
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
-      $sk_id = $this->input->post('sk_id', TRUE);
+      $temp = $this->db->query(
+        "SELECT kelas_sk_id
+        FROM kelas
+        WHERE kelas_id = $kelas_id"
+      )->row_array();
+
+      $sk_id = $temp['kelas_sk_id'];
 
       $data['emo_spr_desc'] = $this->db->query(
         "SELECT ss_ind_1,ss_ind_1a,ss_ind_1b,ss_ind_1c,
         ss_ind_2,ss_ind_2a,ss_ind_2b,ss_ind_2c,
         ss_ind_3,ss_ind_3a,ss_ind_3b,ss_ind_3c,
-        ss_ind_4,ss_ind_4a,ss_ind_4b,ss_ind_4c
+        ss_ind_4,ss_ind_4a,ss_ind_4b,ss_ind_4c,
+        pf_ind_1,pf_ind_1a,pf_ind_1b,pf_ind_1c,
+        pf_ind_2,pf_ind_2a,pf_ind_2b,pf_ind_2c,
+        pf_ind_3,pf_ind_3a,pf_ind_3b,pf_ind_3c
         FROM sk
         WHERE sk_id = $sk_id"
       )->row_array();
@@ -777,7 +797,7 @@ class CB_CRUD extends CI_Controller
 
   public function set_lifeskill()
   {
-    $data['title'] = 'Class List';
+    $data['title'] = 'Lifeskill Description';
     $kr_id = $this->session->userdata('kr_id');
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -809,7 +829,7 @@ class CB_CRUD extends CI_Controller
   {
     if ($this->input->post('sk_id', true)) {
 
-      $data['title'] = 'Class List';
+      $data['title'] = 'Lifeskill Description';
       $kr_id = $this->session->userdata('kr_id');
 
       $sk_id = $this->input->post('sk_id', true);

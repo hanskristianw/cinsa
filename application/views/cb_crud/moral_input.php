@@ -11,7 +11,7 @@
               <h4 class="h4 text-gray-900 mb-3"><b><u><?= $siswa_all[0]['kelas_nama'] ?></u></b></h4>
             </div>
 
-            <?php echo '<div class="alert alert-danger alert-dismissible fade show">
+            <?php echo '<div style="font-size:12px;" class="alert alert-danger alert-dismissible fade show">
                     <button class="close" data-dismiss="alert" type="button">
                         <span>&times;</span>
                     </button>
@@ -38,12 +38,43 @@
 
             <div id="notif"></div>
 
+            <div style='text-align: center;'>
+              <label><u>Indikator Moral Behaviour</u></label>
+            </div>
+            <table class="rapot mb-3">
+              <thead>
+                <tr>
+                  <th>Indikator</th>
+                  <th>Nama</th>
+                  <th>Desc A</th>
+                  <th>Desc B</th>
+                  <th>Desc C</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style='padding: 0px 5px 0px 5px; width: 60px;'>1</td>
+                  <td style='padding: 0px 5px 0px 5px; width: 150px;'><?= $emo_spr_desc['mb_ind_1'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_1a'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_1b'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_1c'] ?></td>
+                </tr>
+                <tr>
+                  <td style='padding: 0px 5px 0px 5px; width: 60px;'>2</td>
+                  <td style='padding: 0px 5px 0px 5px; width: 150px;'><?= $emo_spr_desc['mb_ind_2'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_2a'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_2b'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_2c'] ?></td>
+                </tr>
+              </tbody>
+            </table>
+
             <form class="" action="<?= base_url('cb_CRUD/save_moral'); ?>" method="post">
               <table style='font-size:12px;' class="table table-bordered table-hover table-sm mr-5">
                 <thead>
                   <tr>
-                    <th rowspan="3">Reg Num</th>
-                    <th rowspan="3">Name</th>
+                    <th style='width: 100px;' rowspan="3">Reg Num</th>
+                    <th style='width: 320px;' rowspan="3">Name</th>
                     <th class="text-center" colspan="4"><a class='link-mb' href='javascript:void(0)'>Moral Behaviour</a></th>
                   </tr>
                   <tr>
@@ -51,10 +82,10 @@
                     <th class="text-center" colspan="2">Sem 2</th>
                   </tr>
                   <tr>
-                    <th class="text-center">Light Offences</th>
-                    <th class="text-center">Severe Offences</th>
-                    <th class="text-center">Light Offences</th>
-                    <th class="text-center">Severe Offences</th>
+                    <th class="text-center">Ind 1</th>
+                    <th class="text-center">Ind 2</th>
+                    <th class="text-center">Ind 1</th>
+                    <th class="text-center">Ind 2</th>
 
                   </tr>
                 </thead>
@@ -83,7 +114,7 @@
                   <?php endforeach ?>
                 </tbody>
               </table>
-              <button type="submit" class="btn btn-success mt-2" id="btn-save">
+              <button type="submit" class="btn btn-sm btn-success mt-2" id="btn-save">
                   <i class="fa fa-save"></i>
                   Save
               </button>
@@ -96,47 +127,3 @@
   </div>
 
 </div>
-
-
-<script type = "text/javascript">
-  $(document).ready(function () {
-
-    $(".link-mb").on('click', function () {
-
-      $(".modal-dialog").addClass("modal-dialog-custom");
-      $(".modal-body").addClass("modal-body-custom");
-
-      $("#judul_modal").html("Moral Behaviour");
-
-      var html = "";
-      html += "<table class='rapot'>";
-      html += "<thead>";
-      html += "<tr>";
-      html += "<th style='width: 80px;text-align:center;'></th>";
-      html += "<th>A</th>";
-      html += "<th>B</th>";
-      html += "<th>C</th>";
-      html += "</tr>";
-      html += "</thead>";
-      html += "<tbody>";
-      html += "<tr>";
-      html += "<td style='padding:5px;'>Light Offences</td>";
-      html += "<td style='padding:5px;'>Pelanggaran ringan (0–5 kali) </td>";
-      html += "<td style='padding:5px;'>Pelanggaran ringan (6-10 kali) </td>";
-      html += "<td style='padding:5px;'>Pelanggaran ringan (>10 kali) </td>";
-      html += "</tr>"
-      html += "<tr>";
-      html += "<td style='padding:5px;'>Severe Offences</td>";
-      html += "<td style='padding:5px;'>Pelanggaran berat (0–5 kali) </td>";
-      html += "<td style='padding:5px;'>Pelanggaran berat (6-10 kali) </td>";
-      html += "<td style='padding:5px;'>Pelanggaran berat (>10 kali) </td>";
-      html += "</tr>"
-      html += "</tbody>";
-      html += "</table>";
-
-      $('#isi_modal').html(html);
-      $("#myModal").show();
-    });
-
-  });
-</script>

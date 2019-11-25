@@ -11,7 +11,7 @@
               <h4 class="h4 text-gray-900 mb-3"><b><u><?= $siswa_all[0]['kelas_nama'] ?></u></b></h4>
             </div>
 
-            <?php echo '<div class="alert alert-danger alert-dismissible fade show">
+            <?php echo '<div style="font-size:12px;" class="alert alert-danger alert-dismissible fade show">
                     <button class="close" data-dismiss="alert" type="button">
                         <span>&times;</span>
                     </button>
@@ -38,13 +38,14 @@
 
             <div id="notif"></div>
 
+
             <div style='text-align: center;'>
-              <label><u>Indicator Sosial Skill</u></label>
+              <label><u>Indikator Sosial Skill</u></label>
             </div>
             <table class="rapot mb-3">
               <thead>
                 <tr>
-                  <th>Indicator</th>
+                  <th>Indikator</th>
                   <th>Nama</th>
                   <th>Desc A</th>
                   <th>Desc B</th>
@@ -83,6 +84,45 @@
               </tbody>
             </table>
 
+
+            <div style='text-align: center;'>
+              <label><u>Indikator Physical Fitness & Healthfull Habit</u></label>
+            </div>
+            <table class="rapot mb-3">
+              <thead>
+                <tr>
+                  <th>Indikator</th>
+                  <th>Nama</th>
+                  <th>Desc A</th>
+                  <th>Desc B</th>
+                  <th>Desc C</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style='padding: 0px 5px 0px 5px; width: 60px;'>1</td>
+                  <td style='padding: 0px 5px 0px 5px; width: 150px;'><?= $emo_spr_desc['pf_ind_1'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['pf_ind_1a'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['pf_ind_1b'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['pf_ind_1c'] ?></td>
+                </tr>
+                <tr>
+                  <td style='padding: 0px 5px 0px 5px; width: 60px;'>2</td>
+                  <td style='padding: 0px 5px 0px 5px; width: 150px;'><?= $emo_spr_desc['pf_ind_2'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['pf_ind_2a'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['pf_ind_2b'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['pf_ind_2c'] ?></td>
+                </tr>
+                <tr>
+                  <td style='padding: 0px 5px 0px 5px; width: 60px;'>3</td>
+                  <td style='padding: 0px 5px 0px 5px; width: 150px;'><?= $emo_spr_desc['pf_ind_3'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['pf_ind_3a'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['pf_ind_3b'] ?></td>
+                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['pf_ind_3c'] ?></td>
+                </tr>
+              </tbody>
+            </table>
+
             <form class="" action="<?= base_url('cb_CRUD/save_habit'); ?>" method="post">
               <table class="table table-bordered table-hover table-sm mr-5">
                 <thead>
@@ -101,21 +141,21 @@
                     <th style='font-size:12px;' class="text-center" colspan="3">Sem 2</th>
                   </tr>
                   <tr>
-                    <th style='font-size:12px;' class="text-center">Rel</th>
-                    <th style='font-size:12px;' class="text-center">Coop</th>
-                    <th style='font-size:12px;' class="text-center">Con</th>
-                    <th style='font-size:12px;' class="text-center">Self</th>
-                    <th style='font-size:12px;' class="text-center">Rel</th>
-                    <th style='font-size:12px;' class="text-center">Coop</th>
-                    <th style='font-size:12px;' class="text-center">Con</th>
-                    <th style='font-size:12px;' class="text-center">Self</th>
+                    <th style='font-size:12px;' class="text-center">Ind 1</th>
+                    <th style='font-size:12px;' class="text-center">Ind 2</th>
+                    <th style='font-size:12px;' class="text-center">Ind 3</th>
+                    <th style='font-size:12px;' class="text-center">Ind 4</th>
+                    <th style='font-size:12px;' class="text-center">Ind 1</th>
+                    <th style='font-size:12px;' class="text-center">Ind 2</th>
+                    <th style='font-size:12px;' class="text-center">Ind 3</th>
+                    <th style='font-size:12px;' class="text-center">Ind 4</th>
 
-                    <th style='font-size:12px;' class="text-center">Abst</th>
-                    <th style='font-size:12px;' class="text-center">UKS</th>
-                    <th style='font-size:12px;' class="text-center">Tardy</th>
-                    <th style='font-size:12px;' class="text-center">Abst</th>
-                    <th style='font-size:12px;' class="text-center">UKS</th>
-                    <th style='font-size:12px;' class="text-center">Tardy</th>
+                    <th style='font-size:12px;' class="text-center">Ind 1</th>
+                    <th style='font-size:12px;' class="text-center">Ind 2</th>
+                    <th style='font-size:12px;' class="text-center">Ind 3</th>
+                    <th style='font-size:12px;' class="text-center">Ind 1</th>
+                    <th style='font-size:12px;' class="text-center">Ind 2</th>
+                    <th style='font-size:12px;' class="text-center">Ind 3</th>
 
                   </tr>
                 </thead>
@@ -156,7 +196,7 @@
                   <?php endforeach ?>
                 </tbody>
               </table>
-              <button type="submit" class="btn btn-success mt-2" id="btn-save">
+              <button type="submit" class="btn btn-sm btn-success mt-2" id="btn-save">
                 <i class="fa fa-save"></i>
                 Save
               </button>
@@ -169,100 +209,3 @@
   </div>
 
 </div>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".link-ss").on('click', function() {
-
-      $(".modal-dialog").addClass("modal-dialog-custom");
-      $(".modal-body").addClass("modal-body-custom");
-
-      $("#judul_modal").html("Social Skill");
-
-      var html = "";
-      html += "<table class='rapot'>";
-      html += "<thead>";
-      html += "<tr>";
-      html += "<th style='width: 80px;text-align:center;'></th>";
-      html += "<th>A</th>";
-      html += "<th>B</th>";
-      html += "<th>C</th>";
-      html += "</tr>";
-      html += "</thead>";
-      html += "<tbody>";
-      html += "<tr>";
-      html += "<td style='padding:5px;'>Relationship</td>";
-      html += "<td style='padding:5px;'>Siswa mampu menjalin hubungan sosial yang baik di sekolah, tidak hanya dengan teman namun dengan guru-guru dan staff.</td>";
-      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa mampu menjalin hubungan sosial yang baik di sekolah, tidak hanya dengan teman namun dengan guru-guru dan staff.</td>";
-      html += "<td style='padding:5px;'>Siswa belum mampu menjalin hubungan sosial yang baik di sekolah, tidak hanya dengan teman namun dengan guru-guru dan staff.</td>";
-      html += "</tr>"
-      html += "<tr>";
-      html += "<td style='padding:5px;'>Cooperation</td>";
-      html += "<td style='padding:5px;'>Siswa mampu melaksanakan peran dan tugasnya dalam kelompok (misalnya: apabila siswa mendapatkan tugas kelompok, ia tidak bekerja semua tugas sendirian atau sebaliknya siswa tidak mengerjakan sama sekali/titip nama saja dalam kelompok)</td>";
-      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa mampu melaksanakan peran dan tugasnya dalam kelompok (misalnya: apabila siswa mendapatkan tugas kelompok, ia tidak bekerja semua tugas sendirian atau sebaliknya siswa tidak mengerjakan sama sekali/titip nama saja dalam kelompok)</td>";
-      html += "<td style='padding:5px;'>Siswa belum mampu melaksanakan peran dan tugasnya dalam kelompok (misalnya: apabila siswa mendapatkan tugas kelompok, ia tidak bekerja semua tugas sendirian atau sebaliknya siswa tidak mengerjakan sama sekali/titip nama saja dalam kelompok)</td>";
-      html += "</tr>"
-      html += "<tr>";
-      html += "<td style='padding:5px;'>Conflict</td>";
-      html += "<td style='padding:5px;'>Siswa memiliki kemampuan memecahkan masalah dengan baik dalam hal ini siswa mampu membuat dan menentukan keputusan atas sesuatu hal yang terjadi di dalam hidupnya</td>";
-      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa memiliki kemampuan memecahkan masalah dengan baik dalam hal ini siswa mampu membuat dan menentukan keputusan atas sesuatu hal yang terjadi di dalam hidupnya</td>";
-      html += "<td style='padding:5px;'>Siswa belum memiliki kemampuan memecahkan masalah dengan baik dalam hal ini siswa mampu membuat dan menentukan keputusan atas sesuatu hal yang terjadi di dalam hidupnya</td>";
-      html += "</tr>"
-      html += "<tr>";
-      html += "<td style='padding:5px;'>Self-Appraisal</td>";
-      html += "<td style='padding:5px;'>Siswa memahami dirinya dengan sangat baik, hal ini dimaksudkan pemahaman akan karakter, minat serta kemampuan yang dia miliki (misalnya: siswa mampu menyebutkan kelebihan dan kekurangannya, siswa mampu menjelaskan dengan baik sesuatu hal yang dia minati)</td>";
-      html += "<td style='padding:5px;'>Dengan bimbingan guru siswa memahami dirinya dengan sangat baik, hal ini dimaksudkan pemahaman akan karakter, minat serta kemampuan yang dia miliki (misalnya: siswa mampu menyebutkan kelebihan dan kekurangannya, siswa mampu menjelaskan dengan baik sesuatu hal yang dia minati)</td>";
-      html += "<td style='padding:5px;'>Siswa belum memahami dirinya dengan sangat baik, hal ini dimaksudkan pemahaman akan karakter, minat serta kemampuan yang dia miliki (misalnya: siswa mampu menyebutkan kelebihan dan kekurangannya, siswa mampu menjelaskan dengan baik sesuatu hal yang dia minati)</td>";
-      html += "</tr>"
-      html += "</tbody>";
-      html += "</table>";
-
-      $('#isi_modal').html(html);
-      $("#myModal").show();
-    });
-
-    $(".link-pf").on('click', function() {
-
-      $(".modal-dialog").addClass("modal-dialog-custom");
-      $(".modal-body").addClass("modal-body-custom");
-
-      $("#judul_modal").html("Physical Fitness and Healthful Habit");
-
-      var html = "";
-      html += "<table class='rapot'>";
-      html += "<thead>";
-      html += "<tr>";
-      html += "<th style='width: 80px;text-align:center;'></th>";
-      html += "<th>A</th>";
-      html += "<th>B</th>";
-      html += "<th>C</th>";
-      html += "</tr>";
-      html += "</thead>";
-      html += "<tbody>";
-      html += "<tr>";
-      html += "<td style='padding:5px;'>Absent</td>";
-      html += "<td style='padding:5px;'>Sakit / Ijin tidak masuk ( 0 - 5 kali) </td>";
-      html += "<td style='padding:5px;'>Sakit / Ijin tidak masuk ( 6 – 12 kali) </td>";
-      html += "<td style='padding:5px;'>Sakit / Ijin tidak masuk ( ≥ 13 kali) </td>";
-      html += "</tr>"
-      html += "<tr>";
-      html += "<td style='padding:5px;'>UKS</td>";
-      html += "<td style='padding:5px;'>Ijin ke UKS ( 0 - 3 kali)  </td>";
-      html += "<td style='padding:5px;'>Ijin ke UKS ( 4 - 5 kali) </td>";
-      html += "<td style='padding:5px;'>Ijin ke UKS  ( ≥ 6 kali) </td>";
-      html += "</tr>"
-      html += "<tr>";
-      html += "<td style='padding:5px;'>Tardy</td>";
-      html += "<td style='padding:5px;'>Terlambat ( 0 – 5 kali) </td>";
-      html += "<td style='padding:5px;'>Terlambat ( 6 - 10 kali) </td>";
-      html += "<td style='padding:5px;'>Terlambat ( ≥ 10 kali) </td>";
-      html += "</tr>"
-      html += "</tbody>";
-      html += "</table>";
-
-      $('#isi_modal').html(html);
-      $("#myModal").show();
-    });
-
-  });
-</script>
