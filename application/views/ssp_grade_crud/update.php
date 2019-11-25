@@ -15,7 +15,7 @@
             <?php 
             
               if(!empty($siswa_baru)):
-                echo '<div class="alert alert-danger alert-dismissible fade show">
+                echo '<div style="font-size:14px;" class="mt-3 alert alert-danger alert-dismissible fade show">
                           <button class="close" data-dismiss="alert" type="button">
                               <span>&times;</span>
                           </button>
@@ -25,7 +25,7 @@
             ?>
               <form class="" action="<?= base_url('SSP_grade_CRUD/save_new_student'); ?>" method="post" id="sub_uj" >
                 <input type="hidden" value="<?= $ssp_topik_id ?>" name="ssp_topik_id">
-                <table class="table table-hover table-sm">
+                <table class="table table-hover table-sm" style='font-size:14px;'>
                   <thead>
                     <tr>
                       <th>No</th>
@@ -45,21 +45,12 @@
                           <input type="hidden" value="<?= $m['d_s_id']; ?>" name="d_s_id[]">
                           <?= $m['sis_no_induk']; ?>
                         </td>
-                        <td>
-                          <?php
-                            if($m['sis_nama_bel']){
-                              $bel = $m['sis_nama_bel'][0];
-                            }else{
-                              $bel = "";
-                            }
-                            echo $m['sis_nama_depan']." ".$bel;
-                          ?>
-                        </td>
+                        <td><?= $m['sis_nama_depan']." ".$m['sis_nama_bel']; ?></td>
                         <td>
                           <?= $m['kelas_nama']; ?>
                         </td>
                         <td>
-                        <select name="ssp_nilai_angka[]" id="ssp_nilai_angka" class="form-control">
+                        <select name="ssp_nilai_angka[]" id="ssp_nilai_angka" class="form-control form-control-sm" style='font-size:14px;'>
                           <option value="4">A</option>
                           <option value="3">B</option>
                           <option value="2">C</option>
@@ -70,7 +61,7 @@
                     <?php endforeach ?>
                   </tbody>
                 </table>
-                <button type="submit" class="btn btn-success mt-2 mb-3">
+                <button type="submit" class="btn btn-sm btn-success mt-2 mb-3">
                     <i class="fa fa-save"></i>
                     Save New Student(s)
                 </button>
@@ -79,7 +70,7 @@
               <hr>
             <?php endif; ?>
 
-            <?php echo '<div class="alert alert-success alert-dismissible fade show">
+            <?php echo '<div style="font-size:14px;" class="mt-3 alert alert-success alert-dismissible fade show">
                     <button class="close" data-dismiss="alert" type="button">
                         <span>&times;</span>
                     </button>
@@ -88,7 +79,7 @@
 
             <form class="" action="<?= base_url('SSP_grade_CRUD/save_update'); ?>" method="post">
             
-              <table class="table table-hover table-sm">
+              <table class="table table-hover table-sm" style='font-size:14px;'>
                 <thead>
                   <tr>
                     <th>No</th>
@@ -106,21 +97,12 @@
                         <input type="hidden" value="<?= $m['ssp_nilai_id']; ?>" name="ssp_nilai_id[]">
                         <?= $m['sis_no_induk']; ?>
                       </td>
-                      <td>
-                        <?php
-                          if($m['sis_nama_bel']){
-                            $bel = $m['sis_nama_bel'][0];
-                          }else{
-                            $bel = "";
-                          }
-                          echo $m['sis_nama_depan']." ".$bel;
-                        ?>
-                      </td>
+                      <td><?= $m['sis_nama_depan']." ".$m['sis_nama_bel']; ?></td>
                       <td>
                         <?= $m['kelas_nama']; ?>
                       </td>
                       <td>
-                        <select name="ssp_nilai_angka[]" id="ssp_nilai_angka" class="form-control">
+                        <select name="ssp_nilai_angka[]" id="ssp_nilai_angka" class="form-control form-control-sm" style='font-size:14px;'>
                           <?php 
                             $j = 0;
                             $_selected = $m['ssp_nilai_angka'];
@@ -146,7 +128,7 @@
                 }
               ?>
 
-              <button type="submit" <?= $dis ?> class="btn btn-success mt-2" id="btn-save">
+              <button type="submit" <?= $dis ?> class="btn btn-sm btn-success" id="btn-save">
                   <i class="fa fa-save"></i>
                   Update All
               </button>

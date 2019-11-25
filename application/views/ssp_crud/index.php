@@ -47,11 +47,11 @@
                               <form class="" action="<?= base_url('SSP_CRUD/delete_grade') ?>" method="post">
                                 <input type="hidden" name="ssp_id" value=<?= $m['ssp_id'] ?>>
                                 <button type="submit" class="badge badge-primary">
-                                    Delete Grade
+                                    Delete Grade by topic
                                 </button>
                               </form>
-                              <form class="" action="" method="get">
-                                <input type="hidden" name="" value=<?= $m['ssp_id'] ?>>
+                              <form class="" action="<?= base_url('SSP_CRUD/delete') ?>" method="post">
+                                <input type="hidden" name="ssp_id" value=<?= $m['ssp_id'] ?>>
                                 <button type="submit" class="badge badge-danger">
                                     Delete
                                 </button>

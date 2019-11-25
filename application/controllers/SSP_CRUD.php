@@ -58,11 +58,18 @@ class SSP_CRUD extends CI_Controller
         FROM ssp_topik 
         WHERE ssp_topik_ssp_id = $ssp_id")->result_array();
 
-      $this->load->view('templates/header',$data);
-      $this->load->view('templates/sidebar',$data);
-      $this->load->view('templates/topbar',$data);
-      $this->load->view('ssp_crud/delete_grade',$data);
-      $this->load->view('templates/footer');
+      if($data['topik_all']){
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar',$data);
+        $this->load->view('templates/topbar',$data);
+        $this->load->view('ssp_crud/delete_grade',$data);
+        $this->load->view('templates/footer');
+      }
+      else{
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Topic not exist!</div>');
+        redirect('ssp_crud');
+      }
+
 
     }else{
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
@@ -90,6 +97,23 @@ class SSP_CRUD extends CI_Controller
       $this->load->view('templates/topbar',$data);
       $this->load->view('ssp_crud/delete_grade_show',$data);
       $this->load->view('templates/footer');
+
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
+  public function delete(){
+    if($this->input->post('ssp_id', true)){
+
+      $ssp_id = $this->input->post('ssp_id', true);
+
+      $this->db->where('ssp_id', $ssp_id);
+      $this->db->delete('ssp');
+
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">SSP Deleted!</div>');
+      redirect('SSP_CRUD');
 
     }else{
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');

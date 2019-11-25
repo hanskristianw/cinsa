@@ -120,11 +120,18 @@ class SSP_grade_CRUD extends CI_Controller
         WHERE ssp_peserta_ssp_id = $ssp_id
         ORDER BY sis_nama_depan")->result_array();
 
-      $this->load->view('templates/header',$data);
-      $this->load->view('templates/sidebar',$data);
-      $this->load->view('templates/topbar',$data);
-      $this->load->view('ssp_grade_crud/input',$data);
-      $this->load->view('templates/footer');
+      if($data['siswa_all']){
+        $this->load->view('templates/header',$data);
+        $this->load->view('templates/sidebar',$data);
+        $this->load->view('templates/topbar',$data);
+        $this->load->view('ssp_grade_crud/input',$data);
+        $this->load->view('templates/footer');
+      }
+      else{
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Student(s) not exist, add 1 or more student!</div>');
+        redirect('SSP_grade_CRUD');
+      }
+
     }else{
       $data['siswa_all'] = $this->db->query(
         "SELECT *

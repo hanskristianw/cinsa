@@ -81,10 +81,12 @@
                 </thead>
                 <tbody>
                   <?php foreach($topik_ssp_all as $t) : 
-                    if($t['jumlah_nilai'] % $m['jumlah_siswa'] != 0)
-                      $kuning = "background-color:#e9ed55;";
-                    else
-                      $kuning = "";
+                    if($m['jumlah_siswa']!=0){
+                      if($t['jumlah_nilai'] % $m['jumlah_siswa'] != 0)
+                        $kuning = "background-color:#e9ed55;";
+                      else
+                        $kuning = "";
+                    }
                   ?>
                     <tr>
                       <td style='padding: 0px 0px 0px 5px;'><?= $t['ssp_topik_semester'] ?></td>
