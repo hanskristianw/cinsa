@@ -519,7 +519,8 @@ function show_siswa_by_kelas($kelas_id){
     "SELECT d_s_id, sis_no_induk, sis_nama_depan, sis_nama_bel
     FROM d_s
     LEFT JOIN sis ON d_s_sis_id = sis_id
-    WHERE d_s_kelas_id = $kelas_id")->result_array();
+    WHERE d_s_kelas_id = $kelas_id
+    ORDER BY sis_nama_depan, sis_no_induk")->result_array();
 
   return $siswa;
 }
@@ -720,7 +721,8 @@ function show_life_skill_by_kelas($kelas_id){
     (ss_relationship+ss_cooperation+ss_conflict+ss_self_a)/4 AS ss_sem1, (ss_relationship2+ss_cooperation2+ss_conflict2+ss_self_a2)/4 AS ss_sem2
     FROM d_s
     LEFT JOIN sis ON d_s_sis_id = sis_id
-    WHERE d_s_kelas_id = $kelas_id")->result_array();
+    WHERE d_s_kelas_id = $kelas_id
+    ORDER BY sis_nama_depan, sis_no_induk")->result_array();
 
   return $siswa;
 }
