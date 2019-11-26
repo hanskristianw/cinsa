@@ -27,13 +27,22 @@ class SSP_CRUD extends CI_Controller
 
   public function index(){
 
-    $data['title'] = 'SSP List';
+    $data['title'] = 'Extracurricular List';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
+    $sk_id = $this->session->userdata('kr_sk_id');
     //data karyawan untuk konten
-    $data['ssp_all'] = $this->_ssp->return_all_by_sk_id($this->session->userdata('kr_sk_id'));
+    $data['ssp_all'] = $this->db->query(
+      "SELECT ssp_id, ssp_nama, kr_nama_depan, kr_nama_belakang, count(ssp_peserta_id) as jum_peserta, t_nama
+      FROM ssp
+      LEFT JOIN kr ON ssp_kr_id = kr_id
+      LEFT JOIN t ON ssp_t_id = t_id
+      LEFT JOIN ssp_peserta ON ssp_peserta_ssp_id = ssp_id
+      WHERE ssp_sk_id = $sk_id
+      GROUP BY ssp_id
+      ORDER BY t_nama, ssp_nama")->result_array();
 
     //$data['tes'] = var_dump($this->db->last_query());
 
@@ -140,7 +149,7 @@ class SSP_CRUD extends CI_Controller
 
   public function add(){
 
-		$this->form_validation->set_rules('ssp_nama', 'SSP Name', 'required|trim');
+		$this->form_validation->set_rules('ssp_nama', 'Extracurricular Name', 'required|trim');
     // $this->form_validation->set_rules('ssp_kkm', 'Passing Grade', 'required|trim|greater_than[0]|less_than[101])');
     // $this->form_validation->set_rules('ssp_sing', 'Abbreviation', 'required|trim');
     // $this->form_validation->set_rules('ssp_urutan', 'Order', 'required|trim');
@@ -148,7 +157,7 @@ class SSP_CRUD extends CI_Controller
 
 
 		if($this->form_validation->run() == false){
-			$data['title'] = 'Create SSP';
+			$data['title'] = 'Create Extracurricular';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -172,7 +181,7 @@ class SSP_CRUD extends CI_Controller
 			];
 
 			$this->db->insert('ssp', $data);
-			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">SSP Created!</div>');
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Extracurricular Created!</div>');
 			redirect('ssp_crud/add');
 		}
 
@@ -200,7 +209,7 @@ class SSP_CRUD extends CI_Controller
 
     if($this->form_validation->run() == false){
       //jika menekan tombol edit
-      $data['title'] = 'Update SSP Name';
+      $data['title'] = 'Update Extracurricular';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -231,7 +240,7 @@ class SSP_CRUD extends CI_Controller
       $this->db->where('ssp_id', $this->input->post('_id'));
       $this->db->update('ssp', $data);
 
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">SSP Updated!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Extracurricular Updated!</div>');
       redirect('SSP_CRUD');
     }
 
@@ -285,7 +294,7 @@ class SSP_CRUD extends CI_Controller
         redirect('SSP_CRUD');
       }
       else{
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Gagal, siswa sudah mempunyai nilai di SSP!</div>');
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Gagal, siswa sudah mempunyai nilai di Extracurricular!</div>');
         redirect('SSP_CRUD');
       }
 

@@ -12,14 +12,15 @@
 
                   <?= $this->session->flashdata('message'); ?>
 
-                  <a href="<?= base_url('ssp_crud/add') ?>" class="btn btn-primary mb-3">Add New</a>
+                  <a href="<?= base_url('ssp_crud/add') ?>" class="btn btn-sm btn-primary mb-3">Add New</a>
 
-                  <table class="table display compact table-hover dt">
+                  <table class="table table-sm table-bordered display compact table-hover dt" style="font-size:14px;">
                     <thead>
                       <tr>
                         <th>Name</th>
                         <th>Year</th>
                         <th>Teacher</th>
+                        <th>&Sigma; Student</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -27,10 +28,11 @@
                       <?php 
                       foreach($ssp_all as $m) : ?>
                         <tr>
-                          <td><?= $m['ssp_nama'] ?></td>
-                          <td><?= $m['t_nama'] ?></td>
-                          <td><?= $m['kr_nama_depan'] ?></td>
-                          <td>
+                          <td style="width:150px;"><?= $m['ssp_nama'] ?></td>
+                          <td style="width:50px;"><?= $m['t_nama'] ?></td>
+                          <td><?= $m['kr_nama_depan'].' '.$m['kr_nama_belakang'] ?></td>
+                          <td style="width:50px;"><?= $m['jum_peserta'] ?></td>
+                          <td class="pl-3">
                             <div class="form-group row">
                               <form class="" action="<?= base_url('SSP_CRUD/update') ?>" method="get">
                                 <input type="hidden" name="_id" value=<?= $m['ssp_id'] ?>>

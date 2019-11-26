@@ -14,22 +14,22 @@
                     <div class="form-group row">
                         <div class="col-sm mb-3 mb-sm-0">
                             <input type="hidden" name="_id" value="<?= set_value('_id', $ssp_update['ssp_id']); ?>">
-                            <input type="text" class="form-control" id="ssp_nama" name="ssp_nama" placeholder="SSP Name" value="<?= set_value('ssp_nama', $ssp_update['ssp_nama']) ?>">
+                            <input type="text" class="form-control form-control-sm" id="ssp_nama" name="ssp_nama" placeholder="Extracurricular Name" value="<?= set_value('ssp_nama', $ssp_update['ssp_nama']) ?>">
                             <?= form_error('ssp_nama','<small class="text-danger pl-3">','</small>'); ?>
                         </div>
                         <div class="col-sm mb-3 mb-sm-0">
-                            <select name="ssp_kr_id" id="ssp_kr_id" class="form-control mb-2">
+                            <select name="ssp_kr_id" id="ssp_kr_id" class="form-control form-control-sm mb-2">
                                 <?php
                                 $_selected = set_value(ssp_kr_id,$ssp_update['ssp_kr_id']);
 
-                                echo "<option value= '0'> Select SSP Teacher</option>";
+                                echo "<option value= '0'> Select Teacher</option>";
                                 foreach ($guru_all as $n) :
                                     if ($_selected == $n['kr_id']) {
                                         $s = "selected";
                                     } else {
                                         $s = "";
                                     }
-                                    echo "<option value=" . $n['kr_id'] . " " . $s . ">" . $n['kr_nama_depan'] . " " . $n['kr_nama_belakang'][0] . "</option>";
+                                    echo "<option value=" . $n['kr_id'] . " " . $s . ">" . $n['kr_nama_depan'] . " " . $n['kr_nama_belakang'] . "</option>";
                                 endforeach
                                 ?>
                             </select>
