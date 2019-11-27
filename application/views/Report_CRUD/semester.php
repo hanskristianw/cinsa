@@ -814,6 +814,7 @@
             html += "<th>Quiz x %</th>";
             html += "<th>Test x %</th>";
             html += "<th>Ass x %</th>";
+            html += "<th>Total</th>";
             html += "</tr>"
             var total_akhir = 0;
             for (i = 0; i < data.length; i++) {
@@ -825,18 +826,21 @@
               var hasil_test = data[i].kog_test * data[i].kog_test_persen / 100;
               var hasil_ass = data[i].kog_ass * data[i].kog_ass_persen / 100;
               total += hasil_quiz + hasil_test + hasil_ass;
-              total_akhir += total;
+              var roundtotal = Math.round(total);
+              total_akhir += roundtotal;
               html += "<td style='padding: 0px 0px 0px 5px;'>" + data[i].kog_quiz + "x" + data[i].kog_quiz_persen / 100 + " = " + hasil_quiz + "</td>";
               html += "<td style='padding: 0px 0px 0px 5px;'>" + data[i].kog_test + "x" + data[i].kog_test_persen / 100 + " = " + hasil_test + "</td>";
               html += "<td style='padding: 0px 0px 0px 5px;'>" + data[i].kog_ass + "x" + data[i].kog_ass_persen / 100 + " = " + hasil_ass + "</td>";
+              html += "<td style='padding: 0px 0px 0px 5px;'>" + total + "~ " + roundtotal + "</td>";
               html += "</tr>"
             }
 
             var total_akhir_forma = total_akhir / data.length;
+            var roundtotal_akhir_forma = Math.round(total_akhir_forma);
 
             html += "<tr>"
-            html += "<td style='padding: 0px 0px 0px 5px;'>Total</td>";
-            html += "<td colspan='3' style='padding: 0px 0px 0px 5px;'>" + total_akhir_forma + "</td>";
+            html += "<td style='padding: 0px 0px 0px 5px;'>Formative</td>";
+            html += "<td colspan='4' style='padding: 0px 0px 0px 5px;'>" + total_akhir_forma + "~ "+roundtotal_akhir_forma+"</td>";
             html += "</tr>"
             html += "</table>";
 
@@ -881,16 +885,21 @@
                   }
 
                   total_akhir_sum = hasil_pts + hasil_pas;
+
+                  var roundtotal_akhir_sum = Math.round(total_akhir_sum);
                   html2 += "<tr>"
                   html2 += "<td style='padding: 0px 0px 0px 5px;'>Total</td>";
-                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + total_akhir_sum + "</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + total_akhir_sum + " ~"+roundtotal_akhir_sum+"</td>";
                   html2 += "</tr>"
 
                   html2 += "</table>";
 
-                  var akhir_kognitif = total_akhir_forma * persen_forma_peng / 100 + total_akhir_sum * persen_summa_peng / 100;
-                  var akhir_forma = total_akhir_forma * persen_forma_peng / 100;
-                  var akhir_summa = total_akhir_sum * persen_summa_peng / 100;
+                  var akhir_kognitif = roundtotal_akhir_forma * persen_forma_peng / 100 + roundtotal_akhir_sum * persen_summa_peng / 100;
+                  var akhir_forma = roundtotal_akhir_forma * persen_forma_peng / 100;
+                  var akhir_summa = roundtotal_akhir_sum * persen_summa_peng / 100;
+
+                  var roundakhir_kognitif = Math.round(akhir_kognitif);
+
                   html2 += "<table class='rapot mt-3'>";
                   html2 += "<tr>"
                   html2 += "<th>"
@@ -901,10 +910,10 @@
                   html2 += "</th>"
                   html2 += "</tr>"
                   html2 += "<tr>"
-                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + total_akhir_forma + "x" + persen_forma_peng / 100 + "= " + akhir_forma + "</td>";
-                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + total_akhir_sum + "x" + persen_summa_peng / 100 + "= " + akhir_summa + "</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + roundtotal_akhir_forma + "x" + persen_forma_peng / 100 + "= " + akhir_forma + "</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + roundtotal_akhir_sum + "x" + persen_summa_peng / 100 + "= " + akhir_summa + "</td>";
                   html2 += "</tr>"
-                  html2 += "<td style='padding: 0px 0px 0px 5px;' colspan='2'>Nilai Akhir Kognitif: " + akhir_kognitif + "</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;' colspan='2'>Nilai Akhir Kognitif: " + akhir_kognitif + " ~"+roundakhir_kognitif+"</td>";
                   html2 += "</tr>"
                   html2 += "</table>";
                 }
