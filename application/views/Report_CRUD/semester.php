@@ -41,6 +41,13 @@
 
             </div>
 
+            <div class="alert alert-info alert-dismissible fade show mb-4">
+              <button class="close" data-dismiss="alert" type="button">
+                <span>&times;</span>
+              </button>
+              Klik nilai cognitive, psychomotor dan nilai akhir untuk melihat detail perhitungan
+            </div>
+
             <div id="print_area">
 
               <?php
@@ -226,9 +233,17 @@
                               <?= $kognitif ?>
                             </a>
                           </td>
-                          <td class='biasa' style='width:80px;'><?= $psikomotor ?></td>
+                          <td class='biasa' style='width:80px;'>
+                            <a class='link-psi' style="text-decoration : none; color: inherit;" rel="<?= $m['mapel_id'] ?>" rel2="<?= $sis_arr[$i] ?>" rel3="<?= $semester ?>" rel4="<?= $persen_forma_ket ?>" rel5="<?= $persen_summa_ket ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2">
+                              <?= $psikomotor ?>
+                            </a>
+                          </td>
                           <td class='biasa' style='width:60px;'><?= return_abjad_afek($m['total']) ?></td>
-                          <td class='biasa'><?= $n_akhir ?></td>
+                          <td class='biasa'>
+                            <a class='link-akhir' style="text-decoration : none; color: inherit;" rel="<?= $kognitif ?>" rel2="<?= $psikomotor ?>" rel3="<?= $persen_peng_akhir ?>" rel4="<?= $persen_ket_akhir ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2">
+                              <?= $n_akhir ?>
+                            </a>
+                          </td>
                           <td class='biasa'><?= grading($n_akhir - $m['mapel_kkm']) ?></td>
                         </tr>
                       <?php
@@ -784,7 +799,7 @@
       var persen_forma_peng = $(this).attr("rel4");
       var persen_summa_peng = $(this).attr("rel5");
 
-      $("#judul_modal").html("Detail Nilai");
+      $("#judul_modal").html("Detail Nilai Pengetahuan");
 
       $(".modal-dialog").removeClass("modal-dialog-custom");
       $(".modal-body").removeClass("modal-body-custom");
@@ -928,5 +943,197 @@
         }
       });
     });
+
+    $(".link-psi").on('click', function() {
+      var mapel_id = $(this).attr("rel");
+      var d_s_id = $(this).attr("rel2");
+      var semester = $(this).attr("rel3");
+
+      var persen_forma_ket = $(this).attr("rel4");
+      var persen_summa_ket = $(this).attr("rel5");
+
+      $("#judul_modal").html("Detail Nilai Ketrampilan");
+
+      $(".modal-dialog").removeClass("modal-dialog-custom");
+      $(".modal-body").removeClass("modal-body-custom");
+      //alert(mapel_id);
+      $.ajax({
+        type: "post",
+        url: base_url + "API/get_formative_by_mapel",
+        data: {
+          'mapel_id': mapel_id,
+          'd_s_id': d_s_id,
+          'semester': semester,
+        },
+        async: true,
+        dataType: 'json',
+        success: function(data) {
+          //console.log(data);
+          if (data.length == 0) {
+            var html = '<div class="text-center mb-3 text-danger"><b>--No Data--</b></div>';
+          } else {
+            var html = '';
+            var html2 = "";
+            var i;
+            html += "<label><u>Formative</u></label>"
+            html += "<table class='rapot'>";
+            html += "<tr>"
+            html += "<th>Nama</th>";
+            html += "<th>Quiz x %</th>";
+            html += "<th>Test x %</th>";
+            html += "<th>Ass x %</th>";
+            html += "<th>Total</th>";
+            html += "</tr>"
+            var total_akhir = 0;
+            for (i = 0; i < data.length; i++) {
+              html += "<tr>"
+              html += "<td style='width: 180px; padding: 0px 0px 0px 5px;'>" + data[i].topik_nama + "</td>";
+
+              var total = 0;
+              var hasil_quiz = data[i].psi_quiz * data[i].psi_quiz_persen / 100;
+              var hasil_test = data[i].psi_test * data[i].psi_test_persen / 100;
+              var hasil_ass = data[i].psi_ass * data[i].psi_ass_persen / 100;
+              total += hasil_quiz + hasil_test + hasil_ass;
+              var roundtotal = Math.round(total);
+              total_akhir += roundtotal;
+              html += "<td style='padding: 0px 0px 0px 5px;'>" + data[i].psi_quiz + "x" + data[i].psi_quiz_persen / 100 + " = " + hasil_quiz + "</td>";
+              html += "<td style='padding: 0px 0px 0px 5px;'>" + data[i].psi_test + "x" + data[i].psi_test_persen / 100 + " = " + hasil_test + "</td>";
+              html += "<td style='padding: 0px 0px 0px 5px;'>" + data[i].psi_ass + "x" + data[i].psi_ass_persen / 100 + " = " + hasil_ass + "</td>";
+              html += "<td style='padding: 0px 0px 0px 5px;'>" + total + "~ " + roundtotal + "</td>";
+              html += "</tr>"
+            }
+
+            var total_akhir_forma = total_akhir / data.length;
+            var roundtotal_akhir_forma = Math.round(total_akhir_forma);
+
+            html += "<tr>"
+            html += "<td style='padding: 0px 0px 0px 5px;'>Formative</td>";
+            html += "<td colspan='4' style='padding: 0px 0px 0px 5px;'>" + total_akhir_forma + "~ "+roundtotal_akhir_forma+"</td>";
+            html += "</tr>"
+            html += "</table>";
+
+            $.ajax({
+              type: "post",
+              url: base_url + "API/get_summative_by_mapel",
+              data: {
+                'mapel_id': mapel_id,
+                'd_s_id': d_s_id,
+              },
+              async: true,
+              dataType: 'json',
+              success: function(data) {
+                if (data.length == 0) {
+                  html2 += '<div class="text-center mb-3 text-danger"><b>--No Data--</b></div>';
+                } else {
+                  var i;
+                  html2 += "<label class='mt-3'><u>Summative</u></label>"
+                  html2 += "<table class='rapot'>";
+                  html2 += "<tr>"
+                  html2 += "<th>PTS x %</th>";
+                  html2 += "<th>PAS x %</th>";
+                  html2 += "</tr>"
+                  var total_akhir_sum = 0;
+                  for (i = 0; i < data.length; i++) {
+                    if (semester == 1) {
+                      var hasil_pts = data[i].uj_mid1_psi * data[i].uj_mid1_psi_persen / 100;
+                      var hasil_pas = data[i].uj_fin1_psi * data[i].uj_fin1_psi_persen / 100;
+                      html2 += "<tr>"
+                      html2 += "<td style='padding: 0px 0px 0px 5px;'>" + data[i].uj_mid1_psi + "x" + data[i].uj_mid1_psi_persen / 100 + " = " + hasil_pts + "</td>";
+                      html2 += "<td style='padding: 0px 0px 0px 5px;'>" + data[i].uj_fin1_psi + "x" + data[i].uj_fin1_psi_persen / 100 + " = " + hasil_pas + "</td>";
+                      html2 += "</tr>"
+                    } else if (semester == 2) {
+                      var hasil_pts = data[i].uj_mid2_psi * data[i].uj_mid2_psi_persen / 100;
+                      var hasil_pas = data[i].uj_fin2_psi * data[i].uj_fin2_psi_persen / 100;
+                      html2 += "<tr>"
+                      html2 += "<td style='padding: 0px 0px 0px 5px;'>" + data[i].uj_mid2_psi + "x" + data[i].uj_mid2_psi_persen / 100 + " = " + hasil_pts + "</td>";
+                      html2 += "<td style='padding: 0px 0px 0px 5px;'>" + data[i].uj_fin2_psi + "x" + data[i].uj_fin2_psi_persen / 100 + " = " + hasil_pas + "</td>";
+                      html2 += "</tr>"
+                    }
+
+                  }
+
+                  total_akhir_sum = hasil_pts + hasil_pas;
+
+                  var roundtotal_akhir_sum = Math.round(total_akhir_sum);
+                  html2 += "<tr>"
+                  html2 += "<td style='padding: 0px 0px 0px 5px;'>Total</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + total_akhir_sum + " ~"+roundtotal_akhir_sum+"</td>";
+                  html2 += "</tr>"
+
+                  html2 += "</table>";
+
+                  var akhir_kognitif = roundtotal_akhir_forma * persen_forma_ket / 100 + roundtotal_akhir_sum * persen_summa_ket / 100;
+                  var akhir_forma = roundtotal_akhir_forma * persen_forma_ket / 100;
+                  var akhir_summa = roundtotal_akhir_sum * persen_summa_ket / 100;
+
+                  var roundakhir_kognitif = Math.round(akhir_kognitif);
+
+                  html2 += "<table class='rapot mt-3'>";
+                  html2 += "<tr>"
+                  html2 += "<th>"
+                  html2 += "Formative x % formative"
+                  html2 += "</th>"
+                  html2 += "<th>"
+                  html2 += "Summative x % Summative"
+                  html2 += "</th>"
+                  html2 += "</tr>"
+                  html2 += "<tr>"
+                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + roundtotal_akhir_forma + "x" + persen_forma_ket / 100 + "= " + akhir_forma + "</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + roundtotal_akhir_sum + "x" + persen_summa_ket / 100 + "= " + akhir_summa + "</td>";
+                  html2 += "</tr>"
+                  html2 += "<td style='padding: 0px 0px 0px 5px;' colspan='2'>Nilai Akhir Kognitif: " + akhir_kognitif + " ~"+roundakhir_kognitif+"</td>";
+                  html2 += "</tr>"
+                  html2 += "</table>";
+                }
+
+                //console.log(html2);
+
+                $('#isi_modal').html(html + html2);
+                $("#myModal").show();
+              }
+            });
+          }
+        }
+      });
+    });
+
+    $(".link-akhir").on('click', function() {
+      var kog = $(this).attr("rel");
+      var psi = $(this).attr("rel2");
+      var persen_kog = $(this).attr("rel3");
+      var persen_psi = $(this).attr("rel4");
+
+      //alert("aaaa");
+      var html = '';
+      $("#judul_modal").html("Detail Nilai Akhir");
+
+      $(".modal-dialog").removeClass("modal-dialog-custom");
+      $(".modal-body").removeClass("modal-body-custom");
+      //alert(mapel_id);
+      html += "<label><u>Nilai Akhir</u></label>"
+      html += "<table class='rapot'>";
+      html += "<tr>"
+      html += "<th>Cognitive x % Cog</th>";
+      html += "<th>Psychomotor x % Psy</th>";
+      html += "<th>NA</th>";
+      html += "</tr>"
+      html += "<tr>"
+
+      var akhir_kog = kog*(persen_kog/100);
+      var akhir_psi = psi*(persen_psi/100);
+
+      var na = akhir_kog + akhir_psi;
+      var roundna = Math.round(na);
+
+      html += "<td style='padding: 0px 0px 0px 5px;'>"+kog+"x"+persen_kog/100+"="+akhir_kog+"</td>";
+      html += "<td style='padding: 0px 0px 0px 5px;'>"+psi+"x"+persen_psi/100+"="+akhir_psi+"</td>";
+      html += "<td style='padding: 0px 0px 0px 5px;'>"+akhir_kog+"+"+akhir_psi+"= "+na+"~ "+roundna+"</td>";
+      html += "</tr>"
+      html += "</table>";
+
+      $('#isi_modal').html(html);
+      $("#myModal").show();
+    });
+
   });
 </script>
