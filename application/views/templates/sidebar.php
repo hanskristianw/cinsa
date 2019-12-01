@@ -143,11 +143,12 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Report</h6>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. Extracurricular</a>
-                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
-                  <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>5. Life Skill</a>
-                  <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>6. PTS/PAS</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective / Subject</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new2') . '>3. Affective / Month</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>4. Extracurricular</a>
+                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>5. Report Card</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>6. Life Skill</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>7. PTS/PAS</a>
                 </div>
               </div>
             </li>
@@ -221,13 +222,14 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Show</h6>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. Extracurricular</a>
-                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
-                  <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>5. Life Skill</a>
-                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>6. Hours Distribution</a>
-                  <a class="collapse-item" href=' . base_url('Kadiv_CRUD/last_login') . '>7. Login Activity</a>
-                  <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>8. PTS/PAS</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective / Subject</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new2') . '>3. Affective / Month</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>4. Extracurricular</a>
+                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>5. Report Card</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>6. Life Skill</a>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>7. Hours Distribution</a>
+                  <a class="collapse-item" href=' . base_url('Kadiv_CRUD/last_login') . '>8. Login Activity</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>9. PTS/PAS</a>
                 </div>
               </div>
             </li>
@@ -285,12 +287,13 @@
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Report</h6>
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade</a>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective</a>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>3. Extracurricular</a>
-                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>4. Report Card</a>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>5. Counseling</a>
-                        <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>6. Life Skill</a>
-                        <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>7. PTS/PAS</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective / Subject</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new2') . '>3. Affective / Month</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>4. Extracurricular</a>
+                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>5. Report Card</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>6. Counseling</a>
+                        <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>7. Life Skill</a>
+                        <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>8. PTS/PAS</a>
                       </div>
                     </div>
                   </li>
@@ -411,11 +414,12 @@
                     <div id="collapse9" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Report</h6>
-                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>1. Affective</a>
-                        <a class="collapse-item" href=' . base_url('CB_CRUD/Report') . '>2. CB</a>
-                        <a class="collapse-item" href=' . base_url('Konseling_CRUD/Report') . '>3. Counseling</a>
-                        <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>4. Life Skill</a>
-                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>5. Report Card</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>1. Affective / Subject</a>
+                        <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new2') . '>2. Affective / Month</a>
+                        <a class="collapse-item" href=' . base_url('CB_CRUD/Report') . '>3. CB</a>
+                        <a class="collapse-item" href=' . base_url('Konseling_CRUD/Report') . '>4. Counseling</a>
+                        <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>5. Life Skill</a>
+                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>6. Report Card</a>
                       </div>
                     </div>
                   </li>

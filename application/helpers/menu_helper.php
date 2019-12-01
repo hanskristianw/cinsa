@@ -794,3 +794,33 @@ function returnKurangKkmKelas($mapel_id, $kelas_id, $jenis, $semester){
   
   return $siswa;
 }
+
+function return_nama_kriteria_afektif($bulan_id, $t_id, $sk_id){
+  $ci =& get_instance();
+  $kriteria = $ci->db->query(
+    "SELECT k_afek_topik_nama, bulan_nama
+    FROM k_afek
+    LEFT JOIN bulan ON k_afek_bulan_id = bulan_id
+    WHERE k_afek_t_id = $t_id AND k_afek_bulan_id = $bulan_id AND k_afek_sk_id = $sk_id
+    ORDER BY bulan_id")->row_array();
+
+  return $kriteria;
+}
+
+function return_nilai_afek_perbulan($bulan_id, $d_s_id){
+  $ci =& get_instance();
+  $kriteria = $ci->db->query(
+    "SELECT ROUND(SUM(jumlah)/COUNT(jumlah),2) AS rata
+    FROM(
+        SELECT afektif_mapel_id, ROUND((afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+
+        afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+
+        afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3+
+        afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3+
+        afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3)/afektif_minggu_aktif,2) AS jumlah
+        FROM afektif
+        LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
+        WHERE afektif_d_s_id = $d_s_id AND k_afek_bulan_id = $bulan_id
+    )AS a")->row_array();
+
+  return $kriteria;
+}
