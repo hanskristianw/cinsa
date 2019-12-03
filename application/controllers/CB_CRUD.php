@@ -510,7 +510,7 @@ class CB_CRUD extends CI_Controller
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_no_induk, sis_nama_depan"
+        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_nama_depan, sis_no_induk"
       )->result_array();
 
       if (!$data['siswa_all']) {
@@ -613,19 +613,18 @@ class CB_CRUD extends CI_Controller
       $sk_id = $this->input->post('sk_id', TRUE);
 
       $data['emo_spr_desc'] = $this->db->query(
-        "SELECT mb_ind_1,mb_ind_1a,mb_ind_1b,mb_ind_1c,
-                mb_ind_2,mb_ind_2a,mb_ind_2b,mb_ind_2c
+        "SELECT mb_ind_1,mb_ind_1a,mb_ind_1b,mb_ind_1c
         FROM sk
         WHERE sk_id = $sk_id"
       )->row_array();
 
       $data['siswa_all'] = $this->db->query(
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama,
-                moralb_lo,moralb_so,moralb_lo2,moralb_so2
+                moralb_lo,moralb_lo2
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_no_induk, sis_nama_depan"
+        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_nama_depan, sis_no_induk"
       )->result_array();
 
       if (!$data['siswa_all']) {
@@ -723,7 +722,7 @@ class CB_CRUD extends CI_Controller
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_no_induk, sis_nama_depan"
+        WHERE d_s_kelas_id = $kelas_id ORDER BY sis_nama_depan, sis_no_induk"
       )->result_array();
 
       if (!$data['siswa_all']) {
