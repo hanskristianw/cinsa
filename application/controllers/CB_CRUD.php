@@ -496,8 +496,7 @@ class CB_CRUD extends CI_Controller
         emo_ind_3,emo_ind_3a,emo_ind_3b,emo_ind_3c,
         spr_ind_1,spr_ind_1a,spr_ind_1b,spr_ind_1c,
         spr_ind_2,spr_ind_2a,spr_ind_2b,spr_ind_2c,
-        spr_ind_3,spr_ind_3a,spr_ind_3b,spr_ind_3c,
-        spr_ind_4,spr_ind_4a,spr_ind_4b,spr_ind_4c
+        spr_ind_3,spr_ind_3a,spr_ind_3b,spr_ind_3c
         FROM sk
         WHERE sk_id = $sk_id"
       )->row_array();
@@ -506,8 +505,8 @@ class CB_CRUD extends CI_Controller
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama,
                 emo_aware_ex,emo_aware_so,emo_aware_ne,
                 emo_aware_ex2,emo_aware_so2,emo_aware_ne2,
-                spirit_coping,spirit_emo,spirit_grate,spirit_ref,
-                spirit_coping2,spirit_emo2,spirit_grate2,spirit_ref2
+                spirit_coping,spirit_emo,spirit_grate,
+                spirit_coping2,spirit_emo2,spirit_grate2
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
@@ -563,11 +562,9 @@ class CB_CRUD extends CI_Controller
           'spirit_coping' => $spirit_coping[$i],
           'spirit_emo' => $spirit_emo[$i],
           'spirit_grate' => $spirit_grate[$i],
-          'spirit_ref' => $spirit_ref[$i],
           'spirit_coping2' => $spirit_coping2[$i],
           'spirit_emo2' => $spirit_emo2[$i],
           'spirit_grate2' => $spirit_grate2[$i],
-          'spirit_ref2' => $spirit_ref2[$i],
           'd_s_id' =>  $d_s_id[$i]
         ];
       }
@@ -652,18 +649,14 @@ class CB_CRUD extends CI_Controller
     if ($this->input->post('d_s_id[]')) {
       $data = array();
       $moralb_lo = $this->input->post('moralb_lo[]', true);
-      $moralb_so = $this->input->post('moralb_so[]', true);
       $moralb_lo2 = $this->input->post('moralb_lo2[]', true);
-      $moralb_so2 = $this->input->post('moralb_so2[]', true);
 
       $d_s_id = $this->input->post('d_s_id[]');
 
       for ($i = 0; $i < count($d_s_id); $i++) {
         $data[$i] = [
           'moralb_lo' => $moralb_lo[$i],
-          'moralb_so' => $moralb_so[$i],
           'moralb_lo2' => $moralb_lo2[$i],
-          'moralb_so2' => $moralb_so2[$i],
           'd_s_id' =>  $d_s_id[$i]
         ];
       }
@@ -863,10 +856,6 @@ class CB_CRUD extends CI_Controller
         'mb_ind_1a' => $this->input->post('mb_ind_1a', true),
         'mb_ind_1b' => $this->input->post('mb_ind_1b', true),
         'mb_ind_1c' => $this->input->post('mb_ind_1c', true),
-        'mb_ind_2' => $this->input->post('mb_ind_2', true),
-        'mb_ind_2a' => $this->input->post('mb_ind_2a', true),
-        'mb_ind_2b' => $this->input->post('mb_ind_2b', true),
-        'mb_ind_2c' => $this->input->post('mb_ind_2c', true),
         'emo_ind_1' => $this->input->post('emo_ind_1', true),
         'emo_ind_1a' => $this->input->post('emo_ind_1a', true),
         'emo_ind_1b' => $this->input->post('emo_ind_1b', true),
@@ -891,10 +880,6 @@ class CB_CRUD extends CI_Controller
         'spr_ind_3a' => $this->input->post('spr_ind_3a', true),
         'spr_ind_3b' => $this->input->post('spr_ind_3b', true),
         'spr_ind_3c' => $this->input->post('spr_ind_3c', true),
-        'spr_ind_4' => $this->input->post('spr_ind_4', true),
-        'spr_ind_4a' => $this->input->post('spr_ind_4a', true),
-        'spr_ind_4b' => $this->input->post('spr_ind_4b', true),
-        'spr_ind_4c' => $this->input->post('spr_ind_4c', true),
         'ss_ind_1' => $this->input->post('ss_ind_1', true),
         'ss_ind_1a' => $this->input->post('ss_ind_1a', true),
         'ss_ind_1b' => $this->input->post('ss_ind_1b', true),

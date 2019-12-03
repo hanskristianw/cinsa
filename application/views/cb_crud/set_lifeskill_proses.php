@@ -40,24 +40,6 @@
                                             <input type="text" class="form-control form-control-sm" name="mb_ind_1c" value="<?= $l['mb_ind_1c'] ?>">
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Indicator 2</label>
-                                            <input type="text" class="form-control form-control-sm" name="mb_ind_2" value="<?= $l['mb_ind_2'] ?>">
-                                        </td>
-                                        <td>
-                                            <label>Desc a</label>
-                                            <input type="text" class="form-control form-control-sm" name="mb_ind_2a" value="<?= $l['mb_ind_2a'] ?>">
-                                        </td>
-                                        <td>
-                                            <label>Desc b</label>
-                                            <input type="text" class="form-control form-control-sm" name="mb_ind_2b" value="<?= $l['mb_ind_2b'] ?>">
-                                        </td>
-                                        <td>
-                                            <label>Desc c</label>
-                                            <input type="text" class="form-control form-control-sm" name="mb_ind_2c" value="<?= $l['mb_ind_2c'] ?>">
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
 
@@ -184,24 +166,6 @@
                                         <td>
                                             <label>Desc c</label>
                                             <input type="text" class="form-control form-control-sm" name="spr_ind_3c" value="<?= $l['spr_ind_3c'] ?>">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Indicator 4</label>
-                                            <input type="text" class="form-control form-control-sm" name="spr_ind_4" value="<?= $l['spr_ind_4'] ?>">
-                                        </td>
-                                        <td>
-                                            <label>Desc a</label>
-                                            <input type="text" class="form-control form-control-sm" name="spr_ind_4a" value="<?= $l['spr_ind_4a'] ?>">
-                                        </td>
-                                        <td>
-                                            <label>Desc b</label>
-                                            <input type="text" class="form-control form-control-sm" name="spr_ind_4b" value="<?= $l['spr_ind_4b'] ?>">
-                                        </td>
-                                        <td>
-                                            <label>Desc c</label>
-                                            <input type="text" class="form-control form-control-sm" name="spr_ind_4c" value="<?= $l['spr_ind_4c'] ?>">
                                         </td>
                                     </tr>
                                 </tbody>

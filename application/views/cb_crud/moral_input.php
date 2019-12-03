@@ -44,7 +44,6 @@
             <table class="rapot mb-3">
               <thead>
                 <tr>
-                  <th>Indikator</th>
                   <th>Nama</th>
                   <th>Desc A</th>
                   <th>Desc B</th>
@@ -53,18 +52,10 @@
               </thead>
               <tbody>
                 <tr>
-                  <td style='padding: 0px 5px 0px 5px; width: 60px;'>1</td>
                   <td style='padding: 0px 5px 0px 5px; width: 150px;'><?= $emo_spr_desc['mb_ind_1'] ?></td>
                   <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_1a'] ?></td>
                   <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_1b'] ?></td>
                   <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_1c'] ?></td>
-                </tr>
-                <tr>
-                  <td style='padding: 0px 5px 0px 5px; width: 60px;'>2</td>
-                  <td style='padding: 0px 5px 0px 5px; width: 150px;'><?= $emo_spr_desc['mb_ind_2'] ?></td>
-                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_2a'] ?></td>
-                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_2b'] ?></td>
-                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['mb_ind_2c'] ?></td>
                 </tr>
               </tbody>
             </table>
@@ -73,20 +64,13 @@
               <table style='font-size:12px;' class="table table-bordered table-hover table-sm mr-5">
                 <thead>
                   <tr>
-                    <th style='width: 100px;' rowspan="3">Reg Num</th>
-                    <th style='width: 320px;' rowspan="3">Name</th>
-                    <th class="text-center" colspan="4">Moral Behaviour</th>
+                    <th style='width: 100px;' rowspan="2">Reg Num</th>
+                    <th style='width: 320px;' rowspan="2">Name</th>
+                    <th class="text-center" colspan="2">Moral Behaviour</th>
                   </tr>
                   <tr>
-                    <th class="text-center" colspan="2">Sem 1</th>
-                    <th class="text-center" colspan="2">Sem 2</th>
-                  </tr>
-                  <tr>
-                    <th class="text-center">Ind 1</th>
-                    <th class="text-center">Ind 2</th>
-                    <th class="text-center">Ind 1</th>
-                    <th class="text-center">Ind 2</th>
-
+                    <th class="text-center">Sem 1</th>
+                    <th class="text-center">Sem 2</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -107,9 +91,7 @@
                       </td>
 
                       <td class="text-center"><?php cetak_opt("moralb_lo[]",$m['moralb_lo']); ?></td>
-                      <td class="text-center"><?php cetak_opt("moralb_so[]",$m['moralb_so']); ?></td>
                       <td class="text-center"><?php cetak_opt("moralb_lo2[]",$m['moralb_lo2']); ?></td>
-                      <td class="text-center"><?php cetak_opt("moralb_so2[]",$m['moralb_so2']); ?></td>
                     </tr>
                   <?php endforeach ?>
                 </tbody>

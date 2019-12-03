@@ -113,13 +113,6 @@
                   <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['spr_ind_3b'] ?></td>
                   <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['spr_ind_3c'] ?></td>
                 </tr>
-                <tr>
-                  <td style='padding: 0px 5px 0px 5px; width: 60px;'>4</td>
-                  <td style='padding: 0px 5px 0px 5px; width: 150px;'><?= $emo_spr_desc['spr_ind_4'] ?></td>
-                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['spr_ind_4a'] ?></td>
-                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['spr_ind_4b'] ?></td>
-                  <td style='padding: 0px 5px 0px 5px;'><?= $emo_spr_desc['spr_ind_4c'] ?></td>
-                </tr>
               </tbody>
             </table>
 
@@ -130,13 +123,13 @@
                     <th style='font-size:12px;' rowspan="3">Num</th>
                     <th style='font-size:12px;' rowspan="3">Name</th>
                     <th style='font-size:12px;' class="text-center" colspan="6">Emotional Skill</th>
-                    <th style='font-size:12px;' class="text-center" colspan="8">Spirituality</th>
+                    <th style='font-size:12px;' class="text-center" colspan="6">Spirituality</th>
                   </tr>
                   <tr>
                     <th style='font-size:12px;' class="text-center" colspan="3">Sem 1</th>
                     <th style='font-size:12px;' class="text-center" colspan="3">Sem 2</th>
-                    <th style='font-size:12px;' class="text-center" colspan="4">Sem 1</th>
-                    <th style='font-size:12px;' class="text-center" colspan="4">Sem 2</th>
+                    <th style='font-size:12px;' class="text-center" colspan="3">Sem 1</th>
+                    <th style='font-size:12px;' class="text-center" colspan="3">Sem 2</th>
                   </tr>
                   <tr>
                     <th style='font-size:12px;' class="text-center">Ind 1</th>
@@ -149,11 +142,9 @@
                     <th style='font-size:12px;' class="text-center">Ind 1</th>
                     <th style='font-size:12px;' class="text-center">Ind 2</th>
                     <th style='font-size:12px;' class="text-center">Ind 3</th>
-                    <th style='font-size:12px;' class="text-center">Ind 4</th>
                     <th style='font-size:12px;' class="text-center">Ind 1</th>
                     <th style='font-size:12px;' class="text-center">Ind 2</th>
                     <th style='font-size:12px;' class="text-center">Ind 3</th>
-                    <th style='font-size:12px;' class="text-center">Ind 4</th>
 
                   </tr>
                 </thead>
@@ -181,11 +172,9 @@
                       <td class="text-center"><?php cetak_opt("spirit_coping[]", $m['spirit_coping']); ?></td>
                       <td class="text-center"><?php cetak_opt("spirit_emo[]", $m['spirit_emo']); ?></td>
                       <td class="text-center"><?php cetak_opt("spirit_grate[]", $m['spirit_grate']); ?></td>
-                      <td class="text-center"><?php cetak_opt("spirit_ref[]", $m['spirit_ref']); ?></td>
                       <td class="text-center"><?php cetak_opt("spirit_coping2[]", $m['spirit_coping2']); ?></td>
                       <td class="text-center"><?php cetak_opt("spirit_emo2[]", $m['spirit_emo2']); ?></td>
                       <td class="text-center"><?php cetak_opt("spirit_grate2[]", $m['spirit_grate2']); ?></td>
-                      <td class="text-center"><?php cetak_opt("spirit_ref2[]", $m['spirit_ref2']); ?></td>
                     </tr>
                   <?php endforeach ?>
                 </tbody>
