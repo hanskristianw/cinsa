@@ -587,4 +587,52 @@ class Laporan_CRUD extends CI_Controller
 
   }
 
+  public function final_report(){
+    
+    $data['t_all'] = $this->_t->return_all();
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['title'] = 'Final Grade Report';
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('laporan_crud/final_report', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function final_report_show(){
+    if($this->input->post('t',true) && $this->input->post('semester',true)){
+
+      $t_id = $this->input->post('t',true);
+      $semester = $this->input->post('semester',true);
+
+      $data['title'] = 'Final Grade';
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $kr_id = $this->session->userdata('kr_id');
+
+      $data['kelas_all'] = $this->db->query
+        ("SELECT kelas_id, kelas_nama, COUNT(DISTINCT d_s_id) AS jumlah_murid, sk_nama, kelas_jenj_id
+        FROM d_mpl
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN d_s ON d_s_kelas_id = kelas_id
+        LEFT JOIN sk ON kelas_sk_id = sk_id
+        WHERE kelas_t_id = $t_id AND d_mpl_kr_id = $kr_id
+        GROUP BY kelas_id
+        ORDER BY kelas_sk_id, kelas_nama")->result_array();
+
+      $data['semester'] = $semester;
+      
+      $data['kr_id'] = $kr_id;
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('laporan_crud/final_report_show', $data);
+      $this->load->view('templates/footer');
+
+    }
+
+  }
+
 }

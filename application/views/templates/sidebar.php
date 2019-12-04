@@ -337,6 +337,7 @@
                   <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>2. Mid & Final</a>
                   <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>3. Affective</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>4. Grade Report</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/final_report') . '>5. Final Grade Report</a>
                 </div>
               </div>
             </li>

@@ -823,3 +823,80 @@ function return_nilai_afek_perbulan($bulan_id, $d_s_id){
 
   return $kriteria;
 }
+
+function get_mapel_ajar_kelas_kr($kelas_id, $kr_id){
+  $ci =& get_instance();
+  $kriteria = $ci->db->query(
+    "SELECT *
+    FROM d_mpl
+    LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+    WHERE d_mpl_kr_id = $kr_id AND d_mpl_kelas_id = $kelas_id
+    ORDER BY mapel_nama")->result_array();
+
+  return $kriteria;
+}
+
+function return_raport_fin_mapel($d_s_id, $semester, $jenjang, $mapel_id){
+  $ci =& get_instance();
+  //formative (harian) didapat dari nilai kognitif tes * persen tes
+
+  $siswa = $ci->db->query(
+    "SELECT * FROM 
+      (SELECT mapel_nama, mapel_id, kelas_jenj_id, mapel_urutan, tes_d_s_id,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, sis_jk, kelas_nama, COUNT(DISTINCT tes_topik_id), d_s_komen_sem, d_s_komen_sem2, d_s_scout_nilai, d_s_scout_nilai2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2,
+      (pfhf_absent+pfhf_uks+pfhf_tardiness)/3 AS pfhf_sem1, (pfhf_absent2+pfhf_uks2+pfhf_tardiness2)/3 AS pfhf_sem2,
+      moralb_lo AS mb_sem1, moralb_lo2 AS mb_sem2,
+      (emo_aware_ex+emo_aware_so+emo_aware_ne)/3 AS emo_sem1, (emo_aware_ex2+emo_aware_so2+emo_aware_ne2)/3 AS emo_sem2,
+      (spirit_coping+spirit_emo+spirit_grate)/3 AS spirit_sem1, (spirit_coping2+spirit_emo2+spirit_grate2)/3 AS spirit_sem2,
+      (ss_relationship+ss_cooperation+ss_conflict+ss_self_a)/4 AS ss_sem1, (ss_relationship2+ss_cooperation2+ss_conflict2+ss_self_a2)/4 AS ss_sem2,
+      ROUND(SUM(ROUND(kog_quiz*kog_quiz_persen/100 + kog_ass*kog_ass_persen/100 + kog_test*kog_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_kog,
+      ROUND(SUM(ROUND(psi_quiz*psi_quiz_persen/100 + psi_ass*psi_ass_persen/100 + psi_test*psi_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_psi
+      FROM tes 
+      LEFT JOIN topik
+      ON tes_topik_id = topik_id
+      LEFT JOIN d_s
+      ON tes_d_s_id = d_s_id
+      LEFT JOIN sis
+      ON d_s_sis_id = sis_id
+      LEFT JOIN kelas
+      ON d_s_kelas_id = kelas_id
+      LEFT JOIN mapel
+      ON topik_mapel_id = mapel_id
+      WHERE tes_d_s_id = $d_s_id AND topik_semester = $semester AND mapel_id = $mapel_id
+      GROUP BY mapel_id
+      ORDER BY mapel_urutan ) AS formative
+  LEFT JOIN
+    (SELECT mapel_id,
+    ROUND((uj_mid1_kog * uj_mid1_kog_persen + uj_fin1_kog * uj_fin1_kog_persen) /100,0) as sum_kog_sem1,
+    ROUND((uj_mid1_psi * uj_mid1_psi_persen + uj_fin1_psi * uj_fin1_psi_persen) /100,0) as sum_psi_sem1,
+    ROUND((uj_mid2_kog * uj_mid2_kog_persen + uj_fin2_kog * uj_fin2_kog_persen) /100,0) as sum_kog_sem2,
+    ROUND((uj_mid2_psi * uj_mid2_psi_persen + uj_fin2_psi * uj_fin2_psi_persen) /100,0) as sum_psi_sem2
+    FROM uj
+    LEFT JOIN mapel
+    ON uj_mapel_id = mapel_id
+    WHERE uj_d_s_id = $d_s_id AND mapel_id = $mapel_id
+    GROUP BY mapel_id
+    ORDER BY mapel_urutan) AS summative ON formative.mapel_id = summative.mapel_id
+  LEFT JOIN
+    (SELECT * FROM persen
+      WHERE persen_jenj_id = $jenjang
+    ) AS persentase ON persentase.persen_mapel_id = formative.mapel_id
+  LEFT JOIN
+    (SELECT afektif_mapel_id, ROUND(SUM(jumlah)/COUNT(afektif_mapel_id),2) AS total
+      FROM(
+        SELECT afektif_mapel_id, mapel_nama, ROUND((afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+
+            afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+
+            afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3+
+            afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3+
+            afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3)/afektif_minggu_aktif,2) AS jumlah, k_afek_bulan_id
+        FROM afektif
+        LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
+        LEFT JOIN bulan ON k_afek_bulan_id = bulan_id
+        LEFT JOIN mapel ON afektif_mapel_id = mapel_id
+        WHERE afektif_d_s_id = $d_s_id AND bulan_semester = $semester
+      ) AS afektif_jumlah
+      GROUP BY afektif_mapel_id
+  ) AS afektif_akhir ON afektif_akhir.afektif_mapel_id = formative.mapel_id
+  ORDER BY formative.mapel_urutan")->row_array();
+
+  return $siswa;
+}
