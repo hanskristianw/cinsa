@@ -100,7 +100,7 @@
               //var_dump($kelas_jenj_id);
               for ($i = 0; $i < count($sis_arr); $i++) :
 
-                //echo $sis_arr[$i]."<br>";
+                //echo $sis_arr[$i]."<br>".$kelas_jenj_id['kelas_jenj_id'];
 
                 $tanggal_arr = explode('-', $kepsek['sk_fin']);
                 $tahun = $tanggal_arr[0];
@@ -164,70 +164,70 @@
                       <?php
                           $nomor_hal1 = 1;
                           foreach ($siswa as $m) :
-                            ?>
+                      ?>
                         <tr>
                           <td class='nomor'><?= $nomor_hal1 ?></td>
                           <td style='padding: 2px 0px 0px 5px;width:200px;height:10px;'><?= $m['mapel_nama'] ?></td>
                           <td style='width:60px;' class='kkm'><?= $m['mapel_kkm'] ?></td>
 
                           <?php
-                                $for_kog = $m['for_kog'];
-                                $for_psi = $m['for_psi'];
-                                $sum_kog_sem1 = $m['sum_kog_sem1'];
-                                $sum_psi_sem1 = $m['sum_psi_sem1'];
-                                $sum_kog_sem2 = $m['sum_kog_sem2'];
-                                $sum_psi_sem2 = $m['sum_psi_sem2'];
+                            $for_kog = $m['for_kog'];
+                            $for_psi = $m['for_psi'];
+                            $sum_kog_sem1 = $m['sum_kog_sem1'];
+                            $sum_psi_sem1 = $m['sum_psi_sem1'];
+                            $sum_kog_sem2 = $m['sum_kog_sem2'];
+                            $sum_psi_sem2 = $m['sum_psi_sem2'];
 
-                                //PENGETAHUAN 
-                                //formative 70
-                                if ($m['persen_forma_peng'])
-                                  $persen_forma_peng = $m['persen_forma_peng'];
-                                else
-                                  $persen_forma_peng = 70;
+                            //PENGETAHUAN 
+                            //formative 70
+                            if (isset($m['persen_forma_peng']))
+                              $persen_forma_peng = $m['persen_forma_peng'];
+                            else
+                              $persen_forma_peng = 70;
 
-                                //summative 30
-                                if ($m['persen_summa_peng'])
-                                  $persen_summa_peng = $m['persen_summa_peng'];
-                                else
-                                  $persen_summa_peng = 30;
+                            //summative 30
+                            if (isset($m['persen_summa_peng']))
+                              $persen_summa_peng = $m['persen_summa_peng'];
+                            else
+                              $persen_summa_peng = 30;
 
-                                //KETRAMPILAN
-                                //formative 70
-                                if ($m['persen_forma_ket'])
-                                  $persen_forma_ket = $m['persen_forma_ket'];
-                                else
-                                  $persen_forma_ket = 70;
+                            //KETRAMPILAN
+                            //formative 70
+                            if (isset($m['persen_forma_ket']))
+                              $persen_forma_ket = $m['persen_forma_ket'];
+                            else
+                              $persen_forma_ket = 70;
 
-                                //summative 30
-                                if ($m['persen_summa_ket'])
-                                  $persen_summa_ket = $m['persen_summa_ket'];
-                                else
-                                  $persen_summa_ket = 30;
+                            //summative 30
+                            if (isset($m['persen_summa_ket']))
+                              $persen_summa_ket = $m['persen_summa_ket'];
+                            else
+                              $persen_summa_ket = 30;
 
-                                //AKHIR
-                                //pengetahuan 50 ketrampilan 50
-                                if ($m['persen_peng_akhir'])
-                                  $persen_peng_akhir = $m['persen_peng_akhir'];
-                                else
-                                  $persen_peng_akhir = 50;
+                            //AKHIR
+                            //pengetahuan 50 ketrampilan 50
+                            if (isset($m['persen_peng_akhir']))
+                              $persen_peng_akhir = $m['persen_peng_akhir'];
+                            else
+                              $persen_peng_akhir = 50;
 
-                                if ($m['persen_ket_akhir'])
-                                  $persen_ket_akhir = $m['persen_ket_akhir'];
-                                else
-                                  $persen_ket_akhir = 50;
+                            if (isset($m['persen_ket_akhir']))
+                              $persen_ket_akhir = $m['persen_ket_akhir'];
+                            else
+                              $persen_ket_akhir = 50;
 
-                                if ($semester == 1) {
-                                  $kognitif = round($for_kog * $persen_forma_peng / 100 + $sum_kog_sem1 * $persen_summa_peng / 100);
-                                  $psikomotor = round($for_psi * $persen_forma_ket / 100 + $sum_psi_sem1 * $persen_summa_ket / 100);
+                            if ($semester == 1) {
+                              $kognitif = round($for_kog * $persen_forma_peng / 100 + $sum_kog_sem1 * $persen_summa_peng / 100);
+                              $psikomotor = round($for_psi * $persen_forma_ket / 100 + $sum_psi_sem1 * $persen_summa_ket / 100);
 
-                                  $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
-                                } elseif ($semester == 2) {
-                                  $kognitif = round($for_kog * $persen_forma_peng / 100 + $sum_kog_sem2 * $persen_summa_peng / 100);
-                                  $psikomotor = round($for_psi * $persen_forma_ket / 100 + $sum_psi_sem2 * $persen_summa_ket / 100);
+                              $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
+                            } elseif ($semester == 2) {
+                              $kognitif = round($for_kog * $persen_forma_peng / 100 + $sum_kog_sem2 * $persen_summa_peng / 100);
+                              $psikomotor = round($for_psi * $persen_forma_ket / 100 + $sum_psi_sem2 * $persen_summa_ket / 100);
 
-                                  $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
-                                }
-                                ?>
+                              $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
+                            }
+                          ?>
                           <td class='biasa' style='width:80px;'>
                             <a class='link-kog' style="text-decoration : none; color: inherit;" rel="<?= $m['mapel_id'] ?>" rel2="<?= $sis_arr[$i] ?>" rel3="<?= $semester ?>" rel4="<?= $persen_forma_peng ?>" rel5="<?= $persen_summa_peng ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2">
                               <?= $kognitif ?>
@@ -275,8 +275,10 @@
                   <!-- HALAMAN 2 SSP -->
                   <?php
                       $ssp_siswa = returnNilaiSspFinal($sis_arr[$i], $semester);
+                      $total = 0;
+                      $nomor_hal2 = 1;
                       if ($ssp_siswa && $checkSsp) :
-                        ?>
+                  ?>
 
 
                     <p class='judul'><?= $kepsek['sk_ex_nama'] ?></p>
@@ -315,8 +317,6 @@
                       </thead>
                       <tbody>
                         <?php
-                              $nomor_hal2 = 1;
-                              $total = 0;
                               $guru_ssp = returnGuruSsp($sis_arr[$i]);
                               foreach ($ssp_siswa as $m) :
                                 ?>
@@ -644,7 +644,7 @@
                       else
                         $nilai_cb = "NO DATA";
 
-                      if (isset($total)) {
+                      if (isset($total) && $nomor_hal2 - 1 > 0) {
                         $nilai_ssp = return_abjad_base4($total / ($nomor_hal2 - 1));
                         $nama_ssp = $ssp_siswa[0]['ssp_nama'];
                       } else {
@@ -1081,7 +1081,7 @@
                   html2 += "<td style='padding: 0px 0px 0px 5px;'>" + roundtotal_akhir_forma + "x" + persen_forma_ket / 100 + "= " + akhir_forma + "</td>";
                   html2 += "<td style='padding: 0px 0px 0px 5px;'>" + roundtotal_akhir_sum + "x" + persen_summa_ket / 100 + "= " + akhir_summa + "</td>";
                   html2 += "</tr>"
-                  html2 += "<td style='padding: 0px 0px 0px 5px;' colspan='2'>Nilai Akhir Kognitif: " + akhir_kognitif + " ~"+roundakhir_kognitif+"</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;' colspan='2'>Nilai Akhir Psychomotor: " + akhir_kognitif + " ~"+roundakhir_kognitif+"</td>";
                   html2 += "</tr>"
                   html2 += "</table>";
                 }

@@ -68,7 +68,7 @@
                     <th rowspan="2">No Induk</th>
                     <th rowspan="2">Nama</th>
                   <?php foreach($mapel_ajar as $m) : ?>
-                    <th colspan="3"><?= $m['mapel_sing'] ?></th>
+                    <th colspan="4"><?= $m['mapel_sing'] ?></th>
                   <?php endforeach; ?>
                   </tr>
                   <tr>
@@ -76,6 +76,7 @@
                     <th>Cognitive</th>
                     <th>Psychomotor</th>
                     <th>Final</th>
+                    <th>Affective</th>
                   <?php endforeach; ?>
                   </tr>
                 </thead>
@@ -99,38 +100,38 @@
 
                       //PENGETAHUAN 
                       //formative 70
-                      if ($nil_fin['persen_forma_peng'])
+                      if (isset($nil_fin['persen_forma_peng']))
                         $persen_forma_peng = $nil_fin['persen_forma_peng'];
                       else
                         $persen_forma_peng = 70;
 
                       //summative 30
-                      if ($nil_fin['persen_summa_peng'])
+                      if (isset($nil_fin['persen_summa_peng']))
                         $persen_summa_peng = $nil_fin['persen_summa_peng'];
                       else
                         $persen_summa_peng = 30;
 
                       //KETRAMPILAN
                       //formative 70
-                      if ($nil_fin['persen_forma_ket'])
+                      if (isset($nil_fin['persen_forma_ket']))
                         $persen_forma_ket = $nil_fin['persen_forma_ket'];
                       else
                         $persen_forma_ket = 70;
 
                       //summative 30
-                      if ($nil_fin['persen_summa_ket'])
+                      if (isset($nil_fin['persen_summa_ket']))
                         $persen_summa_ket = $nil_fin['persen_summa_ket'];
                       else
                         $persen_summa_ket = 30;
 
                       //AKHIR
                       //pengetahuan 50 ketrampilan 50
-                      if ($nil_fin['persen_peng_akhir'])
+                      if (isset($nil_fin['persen_peng_akhir']))
                         $persen_peng_akhir = $nil_fin['persen_peng_akhir'];
                       else
                         $persen_peng_akhir = 50;
 
-                      if ($nil_fin['persen_ket_akhir'])
+                      if (isset($nil_fin['persen_ket_akhir']))
                         $persen_ket_akhir = $nil_fin['persen_ket_akhir'];
                       else
                         $persen_ket_akhir = 50;
@@ -161,12 +162,17 @@
                           <?= $psikomotor ?>
                         </a>
                       </td>
+
+
                       <!-- final -->
                       <td style='text-align: center;'>
                         <a class='link-akhir' style="text-decoration : none; color: inherit;" rel="<?= $kognitif ?>" rel2="<?= $psikomotor ?>" rel3="<?= $persen_peng_akhir ?>" rel4="<?= $persen_ket_akhir ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2">
                           <?= $n_akhir ?>
                         </a>
                       </td>
+                      
+                      <!-- affective -->
+                      <td style='text-align: center;'><?= return_abjad_afek($nil_fin['total']) ?></td>
                     <?php endforeach; ?>
                   </tr>
                 <?php 

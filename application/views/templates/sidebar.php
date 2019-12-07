@@ -149,6 +149,7 @@
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>5. Report Card</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>6. Life Skill</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>7. PTS/PAS</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>8. DKN</a>
                 </div>
               </div>
             </li>
@@ -230,6 +231,7 @@
                   <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>7. Hours Distribution</a>
                   <a class="collapse-item" href=' . base_url('Kadiv_CRUD/last_login') . '>8. Login Activity</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>9. PTS/PAS</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>10. DKN</a>
                 </div>
               </div>
             </li>

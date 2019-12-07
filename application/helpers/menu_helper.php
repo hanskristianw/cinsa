@@ -892,7 +892,7 @@ function return_raport_fin_mapel($d_s_id, $semester, $jenjang, $mapel_id){
         LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
         LEFT JOIN bulan ON k_afek_bulan_id = bulan_id
         LEFT JOIN mapel ON afektif_mapel_id = mapel_id
-        WHERE afektif_d_s_id = $d_s_id AND bulan_semester = $semester
+        WHERE afektif_d_s_id = $d_s_id AND bulan_semester = $semester AND mapel_id = $mapel_id
       ) AS afektif_jumlah
       GROUP BY afektif_mapel_id
   ) AS afektif_akhir ON afektif_akhir.afektif_mapel_id = formative.mapel_id
