@@ -41,6 +41,8 @@
                     <th><?= $m['mapel_kkm'] ?></th>
                     <th colspan="3"><?= $m['mapel_sing'] ?></th>
                   <?php endforeach; ?>
+                    <th colspan="3">Total</th>
+                    <th rowspan="2">R</th>
                   </tr>
                   <tr>
                   <?php foreach($mapel_ajar as $m) : ?>
@@ -49,14 +51,25 @@
                     <th>F</th>
                     <th>A</th>
                   <?php endforeach; ?>
+                    <th>C</th>
+                    <th>P</th>
+                    <th>F</th>
                   </tr>
                 </thead>
                 <tbody>
                 <?php 
+                  $no1 = 1;
+                  $no2 = 1;
                   foreach($siswa as $o) :
                     //$uts_uas = showutsuas();
                   $nama = explode(" ", $o['sis_nama_bel']);
+                  $total_kog = 0;
+                  $total_psi = 0;
+                  $total_f = 0;
 
+                  $total_kog2 = 0;
+                  $total_psi2 = 0;
+                  $total_f2 = 0;
                   if($nama[0])
                    $nama = $o['sis_nama_depan']." ".$nama[0];
                   else
@@ -118,7 +131,9 @@
                       $psikomotor = round($for_psi * $persen_forma_ket / 100 + $sum_psi_sem1 * $persen_summa_ket / 100);
 
                       $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
-
+                      $total_kog += $kognitif;
+                      $total_psi += $psikomotor;
+                      $total_f += $n_akhir;
                     ?>
                     <!-- Cog -->
                     <td style='width: 18px; text-align: center;'><?= $kognitif ?></td>
@@ -137,6 +152,12 @@
 
 
                     <?php endforeach; ?>
+
+                    <!-- total cog -->
+                    <td style='text-align: center;'><?= $total_kog ?></td>
+                    <td style='text-align: center;'><?= $total_psi ?></td>
+                    <td style='text-align: center;'><?= $total_f ?></td>
+                    <td style='text-align: center;'><div class="semester1" id="<?= $no1 ?>" rel="<?= $total_f ?>"></div></td>
                   </tr>
                   <tr>
                     <td style='text-align: center;'>2</td>
@@ -193,6 +214,9 @@
 
                       $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
 
+                      $total_kog2 += $kognitif;
+                      $total_psi2 += $psikomotor;
+                      $total_f2 += $n_akhir;
                     ?>
                       <!-- Cog -->
                       <td style='width: 18px; text-align: center;'><?= $kognitif ?></td>
@@ -207,12 +231,20 @@
                         
                       <!-- Aff -->
 
-                      <td style='width: 18px; text-align: center;'>-</td>
+                      <td style='width: 18px; text-align: center;'><?= return_abjad_afek($nil_fin['total']) ?></td>
 
 
                     <?php endforeach; ?>
+                    
+                    <!-- total cog -->
+                    <td style='text-align: center;'><?= $total_kog2 ?></td>
+                    <td style='text-align: center;'><?= $total_psi2 ?></td>
+                    <td style='text-align: center;'><?= $total_f2 ?></td>
+                    <td style='text-align: center;'><div id="<?= $no2 ?>" class="semester2" rel="<?= $total_f2 ?>"></div></td>
                   </tr>
-                <?php 
+                <?php   
+                  $no1++;
+                  $no2++;
                   endforeach;
                 ?>
                 </tbody>
@@ -232,3 +264,41 @@
 
 </div>
 
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    function sortNumber(a, b) {
+      return b - a;
+    }
+
+    var nilai_arr = [];
+    $(".semester1").each(function() {
+      nilai_arr.push($(this).attr('rel'));
+    });
+    //console.log(nilai_arr);
+
+    var nilai_arr_urut;
+    nilai_arr_urut = nilai_arr.sort(sortNumber);
+    //console.log(nilai_arr_urut);
+    
+    $(".semester1").each(function() {
+      var rank = nilai_arr.indexOf($(this).attr('rel'));
+      $(this).html(rank+1);
+      //console.log(rank);
+    });
+
+    var nilai_arr2 = [];
+    $(".semester2").each(function() {
+      nilai_arr2.push($(this).attr('rel'));
+    });
+
+    var nilai_arr_urut2;
+    nilai_arr_urut2 = nilai_arr2.sort(sortNumber);
+    //console.log(nilai_arr_urut2);
+    
+    $(".semester2").each(function() {
+      var rank2 = nilai_arr_urut2.indexOf($(this).attr('rel'));
+      $(this).html(rank2+1);
+    });
+  });
+</script>
