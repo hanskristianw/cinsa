@@ -694,4 +694,73 @@ class Laporan_CRUD extends CI_Controller
     }
   }
 
+  public function bi(){
+    $data['title'] = 'Buku Induk';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['t_all'] = $this->_t->return_all();
+
+    $kr_id = $this->session->userdata('kr_id');
+
+    if(return_menu_kepsek()){
+      $data['sk_all'] = $this->db->query(
+        "SELECT *
+        FROM sk
+        WHERE sk_kepsek = $kr_id")->result_array();
+    }
+    elseif($this->session->userdata('kr_jabatan_id')==4){
+      $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
+    }
+    elseif($this->session->userdata('kr_jabatan_id')==5){
+      $data['sk_all'] = $this->_sk->return_all();
+    }
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('laporan_crud/bi', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function bi_show(){
+    if($this->input->post('sk_id',true) && $this->input->post('t_id',true)){
+
+      $data['title'] = 'Laporan Buku Induk';
+      $data['sis_arr'] = $this->input->post('siswa_check[]',TRUE);
+      //data karyawan yang sedang login untuk topbar
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $kr_id = $this->session->userdata('kr_id');
+      $sk_id = $this->input->post('sk_id',true);
+      $t_id = $this->input->post('t_id',true);
+      $kelas_id = $this->input->post('kelas_id',true);
+
+      $data['kepsek'] = $this->db->query(
+        "SELECT *
+        FROM sk
+        LEFT JOIN kelas ON kelas_sk_id = sk_id
+        LEFT JOIN kr ON sk_kepsek = kr_id
+        WHERE kelas_id = $kelas_id")->row_array();
+
+      $data['walkel'] = $this->_kelas->find_walkel_by_kelas_id($kelas_id);
+
+      $data['kelas_all'] = $this->db->query
+        ("SELECT kelas_id, kelas_nama, COUNT(DISTINCT d_s_id) AS jumlah_murid, kelas_jenj_id, t_nama
+        FROM d_mpl
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN t ON kelas_t_id = t_id
+        LEFT JOIN d_s ON d_s_kelas_id = kelas_id
+        WHERE kelas_sk_id = $sk_id AND kelas_t_id = $t_id AND kelas_id = $kelas_id
+        GROUP BY kelas_id
+        ORDER BY kelas_nama")->result_array();
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('laporan_crud/bi_show', $data);
+      $this->load->view('templates/footer');
+    }
+  }
+
 }

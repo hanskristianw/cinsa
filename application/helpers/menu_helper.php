@@ -516,7 +516,7 @@ function show_siswa_by_kelas($kelas_id){
   $ci =& get_instance();
 
   $siswa = $ci->db->query(
-    "SELECT d_s_id, sis_no_induk, sis_nama_depan, sis_nama_bel
+    "SELECT d_s_id, sis_no_induk, sis_nama_depan, sis_nama_bel, sis_nisn, d_s_scout_nilai, d_s_scout_nilai2
     FROM d_s
     LEFT JOIN sis ON d_s_sis_id = sis_id
     WHERE d_s_kelas_id = $kelas_id
@@ -897,6 +897,106 @@ function return_raport_fin_mapel($d_s_id, $semester, $jenjang, $mapel_id){
       GROUP BY afektif_mapel_id
   ) AS afektif_akhir ON afektif_akhir.afektif_mapel_id = formative.mapel_id
   ORDER BY formative.mapel_urutan")->row_array();
+
+  return $siswa;
+}
+
+function show_mapel_header_summary_urut_raport($kelas_id){
+  $ci =& get_instance();
+
+  if (mapel_menu() >= 1 && $ci->session->userdata('kr_jabatan_id')!=5 && $ci->session->userdata('kr_jabatan_id')!=4) {
+
+    $kr_id = $ci->session->userdata('kr_id');
+
+    $laporan = $ci->db->query(
+      "SELECT DISTINCT mapel_id, mapel_nama, mapel_sing
+      FROM d_mpl
+      LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+      WHERE d_mpl_kelas_id = $kelas_id AND d_mpl_kr_id = $kr_id
+      ORDER BY mapel_urutan")->result_array();
+  }else{
+    $laporan = $ci->db->query(
+      "SELECT DISTINCT mapel_id, mapel_nama, mapel_sing, mapel_kkm
+      FROM d_mpl
+      LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+      WHERE d_mpl_kelas_id = $kelas_id
+      ORDER BY mapel_urutan")->result_array();
+  }
+
+
+  return $laporan;
+}
+
+function returnSSPSiswa($d_s_id){
+  $ci =& get_instance();
+
+  $ssp_fin = $ci->db->query(
+    "SELECT ssp_id, ssp_nama
+    FROM ssp_peserta
+    LEFT JOIN ssp ON ssp_id = ssp_peserta_ssp_id
+    WHERE ssp_peserta_d_s_id = $d_s_id")->result_array();
+
+  //var_dump($td);
+  return $ssp_fin;
+}
+
+function returnnilSSPSiswa($d_s_id, $semester, $ssp_id){
+  $ci =& get_instance();
+
+  $ssp_fin = $ci->db->query(
+    "SELECT SUM(ssp_nilai_angka)/COUNT(ssp_topik_id) AS total
+    FROM ssp_nilai
+    LEFT JOIN ssp_topik ON ssp_nilai_ssp_topik_id = ssp_topik_id
+    LEFT JOIN ssp ON ssp_id = ssp_topik_ssp_id
+    WHERE ssp_nilai_d_s_id = $d_s_id AND ssp_topik_semester = $semester AND ssp_id = $ssp_id")->row_array();
+
+  return $ssp_fin;
+}
+
+function returnNilaiKarakterbyID($d_s_id, $semester, $karakter_id){
+  $ci =& get_instance();
+
+  $cb_fin = $ci->db->query(
+    "SELECT karakter_id, karakter_nama, SUM(jumlah)/COUNT(karakter_id) AS total, karakter_a, karakter_b, karakter_c
+    FROM(
+    SELECT afektif_mapel_id, mapel_nama, karakter_nama, ROUND((afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+
+    afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+
+    afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3+
+    afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3+
+    afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3)/afektif_minggu_aktif,2) AS jumlah, k_afek_bulan_id, karakter_id, karakter_urutan, karakter_a, karakter_b, karakter_c
+    FROM afektif
+    LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
+    LEFT JOIN bulan ON k_afek_bulan_id = bulan_id
+    LEFT JOIN mapel ON afektif_mapel_id = mapel_id
+    LEFT JOIN karakter_detail ON karakter_detail_mapel_id = mapel_id
+    LEFT JOIN karakter ON karakter_detail_karakter_id = karakter_id
+    WHERE afektif_d_s_id = $d_s_id AND bulan_semester = $semester AND karakter_id = $karakter_id
+    )AS karakter
+    GROUP BY karakter_id
+    ORDER BY karakter_urutan")->row_array();
+
+  //var_dump($td);
+  return $cb_fin;
+}
+
+
+function show_siswa_by_sis_arr($sis_arr){
+  $ci =& get_instance();
+
+  $d_s_id = "";
+  for($i=0;$i<count($sis_arr);$i++){
+    $d_s_id .= $sis_arr[$i];
+
+    if($i != count($sis_arr)-1)
+      $d_s_id .= ",";
+  }
+
+  $siswa = $ci->db->query(
+    "SELECT d_s_id, sis_no_induk, sis_nama_depan, sis_nama_bel, sis_nisn, d_s_scout_nilai, d_s_scout_nilai2
+    FROM d_s
+    LEFT JOIN sis ON d_s_sis_id = sis_id
+    WHERE d_s_id IN ($d_s_id)
+    ORDER BY sis_nama_depan, sis_no_induk")->result_array();
 
   return $siswa;
 }

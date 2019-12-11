@@ -150,6 +150,7 @@
                   <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>6. Life Skill</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>7. PTS/PAS</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>8. DKN</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/bi') . '>9. Buku Induk</a>
                 </div>
               </div>
             </li>
@@ -232,6 +233,7 @@
                   <a class="collapse-item" href=' . base_url('Kadiv_CRUD/last_login') . '>8. Login Activity</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>9. PTS/PAS</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>10. DKN</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/bi') . '>11. Buku Induk</a>
                 </div>
               </div>
             </li>
@@ -296,6 +298,8 @@
                         <a class="collapse-item" href=' . base_url('Laporan_CRUD/Konseling') . '>6. Counseling</a>
                         <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>7. Life Skill</a>
                         <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>8. PTS/PAS</a>
+                        <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>9. DKN</a>
+                        <a class="collapse-item" href=' . base_url('laporan_crud/bi') . '>10. Buku Induk</a>
                       </div>
                     </div>
                   </li>
