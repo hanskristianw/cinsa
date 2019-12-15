@@ -73,6 +73,14 @@
                   return "POOR";
               }
 
+              function return_her_him($jk)
+              {
+                if ($jk == 1)
+                  return "him";
+                elseif ($jk == 2)
+                  return "her";
+              }
+
               function return_his_her($jk)
               {
                 if ($jk == 1)
@@ -164,70 +172,70 @@
                       <?php
                           $nomor_hal1 = 1;
                           foreach ($siswa as $m) :
-                      ?>
+                            ?>
                         <tr>
                           <td class='nomor'><?= $nomor_hal1 ?></td>
                           <td style='padding: 2px 0px 0px 5px;width:200px;height:10px;'><?= $m['mapel_nama'] ?></td>
                           <td style='width:60px;' class='kkm'><?= $m['mapel_kkm'] ?></td>
 
                           <?php
-                            $for_kog = $m['for_kog'];
-                            $for_psi = $m['for_psi'];
-                            $sum_kog_sem1 = $m['sum_kog_sem1'];
-                            $sum_psi_sem1 = $m['sum_psi_sem1'];
-                            $sum_kog_sem2 = $m['sum_kog_sem2'];
-                            $sum_psi_sem2 = $m['sum_psi_sem2'];
+                                $for_kog = $m['for_kog'];
+                                $for_psi = $m['for_psi'];
+                                $sum_kog_sem1 = $m['sum_kog_sem1'];
+                                $sum_psi_sem1 = $m['sum_psi_sem1'];
+                                $sum_kog_sem2 = $m['sum_kog_sem2'];
+                                $sum_psi_sem2 = $m['sum_psi_sem2'];
 
-                            //PENGETAHUAN 
-                            //formative 70
-                            if (isset($m['persen_forma_peng']))
-                              $persen_forma_peng = $m['persen_forma_peng'];
-                            else
-                              $persen_forma_peng = 70;
+                                //PENGETAHUAN 
+                                //formative 70
+                                if (isset($m['persen_forma_peng']))
+                                  $persen_forma_peng = $m['persen_forma_peng'];
+                                else
+                                  $persen_forma_peng = 70;
 
-                            //summative 30
-                            if (isset($m['persen_summa_peng']))
-                              $persen_summa_peng = $m['persen_summa_peng'];
-                            else
-                              $persen_summa_peng = 30;
+                                //summative 30
+                                if (isset($m['persen_summa_peng']))
+                                  $persen_summa_peng = $m['persen_summa_peng'];
+                                else
+                                  $persen_summa_peng = 30;
 
-                            //KETRAMPILAN
-                            //formative 70
-                            if (isset($m['persen_forma_ket']))
-                              $persen_forma_ket = $m['persen_forma_ket'];
-                            else
-                              $persen_forma_ket = 70;
+                                //KETRAMPILAN
+                                //formative 70
+                                if (isset($m['persen_forma_ket']))
+                                  $persen_forma_ket = $m['persen_forma_ket'];
+                                else
+                                  $persen_forma_ket = 70;
 
-                            //summative 30
-                            if (isset($m['persen_summa_ket']))
-                              $persen_summa_ket = $m['persen_summa_ket'];
-                            else
-                              $persen_summa_ket = 30;
+                                //summative 30
+                                if (isset($m['persen_summa_ket']))
+                                  $persen_summa_ket = $m['persen_summa_ket'];
+                                else
+                                  $persen_summa_ket = 30;
 
-                            //AKHIR
-                            //pengetahuan 50 ketrampilan 50
-                            if (isset($m['persen_peng_akhir']))
-                              $persen_peng_akhir = $m['persen_peng_akhir'];
-                            else
-                              $persen_peng_akhir = 50;
+                                //AKHIR
+                                //pengetahuan 50 ketrampilan 50
+                                if (isset($m['persen_peng_akhir']))
+                                  $persen_peng_akhir = $m['persen_peng_akhir'];
+                                else
+                                  $persen_peng_akhir = 50;
 
-                            if (isset($m['persen_ket_akhir']))
-                              $persen_ket_akhir = $m['persen_ket_akhir'];
-                            else
-                              $persen_ket_akhir = 50;
+                                if (isset($m['persen_ket_akhir']))
+                                  $persen_ket_akhir = $m['persen_ket_akhir'];
+                                else
+                                  $persen_ket_akhir = 50;
 
-                            if ($semester == 1) {
-                              $kognitif = round($for_kog * $persen_forma_peng / 100 + $sum_kog_sem1 * $persen_summa_peng / 100);
-                              $psikomotor = round($for_psi * $persen_forma_ket / 100 + $sum_psi_sem1 * $persen_summa_ket / 100);
+                                if ($semester == 1) {
+                                  $kognitif = round($for_kog * $persen_forma_peng / 100 + $sum_kog_sem1 * $persen_summa_peng / 100);
+                                  $psikomotor = round($for_psi * $persen_forma_ket / 100 + $sum_psi_sem1 * $persen_summa_ket / 100);
 
-                              $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
-                            } elseif ($semester == 2) {
-                              $kognitif = round($for_kog * $persen_forma_peng / 100 + $sum_kog_sem2 * $persen_summa_peng / 100);
-                              $psikomotor = round($for_psi * $persen_forma_ket / 100 + $sum_psi_sem2 * $persen_summa_ket / 100);
+                                  $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
+                                } elseif ($semester == 2) {
+                                  $kognitif = round($for_kog * $persen_forma_peng / 100 + $sum_kog_sem2 * $persen_summa_peng / 100);
+                                  $psikomotor = round($for_psi * $persen_forma_ket / 100 + $sum_psi_sem2 * $persen_summa_ket / 100);
 
-                              $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
-                            }
-                          ?>
+                                  $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
+                                }
+                                ?>
                           <td class='biasa' style='width:80px;'>
                             <a class='link-kog' style="text-decoration : none; color: inherit;" rel="<?= $m['mapel_id'] ?>" rel2="<?= $sis_arr[$i] ?>" rel3="<?= $semester ?>" rel4="<?= $persen_forma_peng ?>" rel5="<?= $persen_summa_peng ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2">
                               <?= $kognitif ?>
@@ -278,7 +286,7 @@
                       $total = 0;
                       $nomor_hal2 = 1;
                       if ($ssp_siswa && $checkSsp) :
-                  ?>
+                        ?>
 
 
                     <p class='judul'><?= $kepsek['sk_ex_nama'] ?></p>
@@ -437,6 +445,10 @@
                                         $temp_desc_cb = str_replace("{herself/himself}", return_herself_himself($siswa[0]['sis_jk']), $temp_desc_cb);
                                         //rubah herself himself huruf besar
                                         $temp_desc_cb = str_replace("{HERSELF/HIMSELF}", ucfirst(return_herself_himself($siswa[0]['sis_jk'])), $temp_desc_cb);
+                                        //rubah herself himself huruf kecil
+                                        $temp_desc_cb = str_replace("{her/him}", return_her_him($siswa[0]['sis_jk']), $temp_desc_cb);
+                                        //rubah herself himself huruf besar
+                                        $temp_desc_cb = str_replace("{HER/HIM}", ucfirst(return_her_him($siswa[0]['sis_jk'])), $temp_desc_cb);
 
                                         echo $temp_desc_cb;
                                       } elseif (return_abjad_base4($m['nilai']) == "B") {
@@ -454,6 +466,10 @@
                                         //rubah herself himself huruf besar
                                         $temp_desc_cb = str_replace("{HERSELF/HIMSELF}", ucfirst(return_herself_himself($siswa[0]['sis_jk'])), $temp_desc_cb);
 
+                                        //rubah herself himself huruf kecil
+                                        $temp_desc_cb = str_replace("{her/him}", return_her_him($siswa[0]['sis_jk']), $temp_desc_cb);
+                                        //rubah herself himself huruf besar
+                                        $temp_desc_cb = str_replace("{HER/HIM}", ucfirst(return_her_him($siswa[0]['sis_jk'])), $temp_desc_cb);
                                         echo $temp_desc_cb;
                                       } elseif (return_abjad_base4($m['nilai']) == "C") {
                                         $temp_desc_cb = str_replace("{s}", ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $m['topik_cb_c']);
@@ -470,6 +486,10 @@
                                         //rubah herself himself huruf besar
                                         $temp_desc_cb = str_replace("{HERSELF/HIMSELF}", ucfirst(return_herself_himself($siswa[0]['sis_jk'])), $temp_desc_cb);
 
+                                        //rubah herself himself huruf kecil
+                                        $temp_desc_cb = str_replace("{her/him}", return_her_him($siswa[0]['sis_jk']), $temp_desc_cb);
+                                        //rubah herself himself huruf besar
+                                        $temp_desc_cb = str_replace("{HER/HIM}", ucfirst(return_her_him($siswa[0]['sis_jk'])), $temp_desc_cb);
                                         echo $temp_desc_cb;
                                       } else {
                                         echo "-";
@@ -855,7 +875,7 @@
 
             html += "<tr>"
             html += "<td style='padding: 0px 0px 0px 5px;'>Formative</td>";
-            html += "<td colspan='4' style='padding: 0px 0px 0px 5px;'>" + total_akhir_forma + "~ "+roundtotal_akhir_forma+"</td>";
+            html += "<td colspan='4' style='padding: 0px 0px 0px 5px;'>" + total_akhir_forma + "~ " + roundtotal_akhir_forma + "</td>";
             html += "</tr>"
             html += "</table>";
 
@@ -904,7 +924,7 @@
                   var roundtotal_akhir_sum = Math.round(total_akhir_sum);
                   html2 += "<tr>"
                   html2 += "<td style='padding: 0px 0px 0px 5px;'>Total</td>";
-                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + total_akhir_sum + " ~"+roundtotal_akhir_sum+"</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + total_akhir_sum + " ~" + roundtotal_akhir_sum + "</td>";
                   html2 += "</tr>"
 
                   html2 += "</table>";
@@ -928,7 +948,7 @@
                   html2 += "<td style='padding: 0px 0px 0px 5px;'>" + roundtotal_akhir_forma + "x" + persen_forma_peng / 100 + "= " + akhir_forma + "</td>";
                   html2 += "<td style='padding: 0px 0px 0px 5px;'>" + roundtotal_akhir_sum + "x" + persen_summa_peng / 100 + "= " + akhir_summa + "</td>";
                   html2 += "</tr>"
-                  html2 += "<td style='padding: 0px 0px 0px 5px;' colspan='2'>Nilai Akhir Kognitif: " + akhir_kognitif + " ~"+roundakhir_kognitif+"</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;' colspan='2'>Nilai Akhir Kognitif: " + akhir_kognitif + " ~" + roundakhir_kognitif + "</td>";
                   html2 += "</tr>"
                   html2 += "</table>";
                 }
@@ -1008,7 +1028,7 @@
 
             html += "<tr>"
             html += "<td style='padding: 0px 0px 0px 5px;'>Formative</td>";
-            html += "<td colspan='4' style='padding: 0px 0px 0px 5px;'>" + total_akhir_forma + "~ "+roundtotal_akhir_forma+"</td>";
+            html += "<td colspan='4' style='padding: 0px 0px 0px 5px;'>" + total_akhir_forma + "~ " + roundtotal_akhir_forma + "</td>";
             html += "</tr>"
             html += "</table>";
 
@@ -1057,7 +1077,7 @@
                   var roundtotal_akhir_sum = Math.round(total_akhir_sum);
                   html2 += "<tr>"
                   html2 += "<td style='padding: 0px 0px 0px 5px;'>Total</td>";
-                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + total_akhir_sum + " ~"+roundtotal_akhir_sum+"</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;'>" + total_akhir_sum + " ~" + roundtotal_akhir_sum + "</td>";
                   html2 += "</tr>"
 
                   html2 += "</table>";
@@ -1081,7 +1101,7 @@
                   html2 += "<td style='padding: 0px 0px 0px 5px;'>" + roundtotal_akhir_forma + "x" + persen_forma_ket / 100 + "= " + akhir_forma + "</td>";
                   html2 += "<td style='padding: 0px 0px 0px 5px;'>" + roundtotal_akhir_sum + "x" + persen_summa_ket / 100 + "= " + akhir_summa + "</td>";
                   html2 += "</tr>"
-                  html2 += "<td style='padding: 0px 0px 0px 5px;' colspan='2'>Nilai Akhir Psychomotor: " + akhir_kognitif + " ~"+roundakhir_kognitif+"</td>";
+                  html2 += "<td style='padding: 0px 0px 0px 5px;' colspan='2'>Nilai Akhir Psychomotor: " + akhir_kognitif + " ~" + roundakhir_kognitif + "</td>";
                   html2 += "</tr>"
                   html2 += "</table>";
                 }
@@ -1119,15 +1139,15 @@
       html += "</tr>"
       html += "<tr>"
 
-      var akhir_kog = kog*(persen_kog/100);
-      var akhir_psi = psi*(persen_psi/100);
+      var akhir_kog = kog * (persen_kog / 100);
+      var akhir_psi = psi * (persen_psi / 100);
 
       var na = akhir_kog + akhir_psi;
       var roundna = Math.round(na);
 
-      html += "<td style='padding: 0px 0px 0px 5px;'>"+kog+"x"+persen_kog/100+"="+akhir_kog+"</td>";
-      html += "<td style='padding: 0px 0px 0px 5px;'>"+psi+"x"+persen_psi/100+"="+akhir_psi+"</td>";
-      html += "<td style='padding: 0px 0px 0px 5px;'>"+akhir_kog+"+"+akhir_psi+"= "+na+"~ "+roundna+"</td>";
+      html += "<td style='padding: 0px 0px 0px 5px;'>" + kog + "x" + persen_kog / 100 + "=" + akhir_kog + "</td>";
+      html += "<td style='padding: 0px 0px 0px 5px;'>" + psi + "x" + persen_psi / 100 + "=" + akhir_psi + "</td>";
+      html += "<td style='padding: 0px 0px 0px 5px;'>" + akhir_kog + "+" + akhir_psi + "= " + na + "~ " + roundna + "</td>";
       html += "</tr>"
       html += "</table>";
 

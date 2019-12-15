@@ -31,6 +31,8 @@
                     <b>{HE/SHE}</b> &rarr; he/she diawali dengan huruf BESAR berdasarkan gender murid<br>
                     <b>{herself/himself}</b> &rarr; herself/himself diawali dengan huruf KECIL berdasarkan gender murid<br>
                     <b>{HERSELF/HIMSELF}</b> &rarr; herself/himself diawali dengan huruf BESAR berdasarkan gender murid<br>
+                    <b>{her/him}</b> &rarr; her/him diawali dengan huruf KECIL berdasarkan gender murid<br>
+                    <b>{HER/HIM}</b> &rarr; her/him diawali dengan huruf BESAR berdasarkan gender murid<br>
                     
                     <br>
 
