@@ -6,26 +6,24 @@
       <div class="row">
         <div class="col-lg">
           <div class="p-5 overflow-auto">
-            
-            
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-2"><?= $title ?></h1>
-              <h5><u>Select School and Year</u></h5>
+              <h1 class="h4 text-gray-900 mb-4"><u>Pilih Tahun, Kelas dan Siswa</u></h1>
             </div>
-            <br>
+
             <div class="alert alert-info alert-dismissible fade show mb-4">
               <button class="close" data-dismiss="alert" type="button">
                 <span>&times;</span>
               </button>
-              <strong>INFO: </strong> Semakin banyak memilih siswa maka proses penyajian data akan semakin lama
+              <strong>INFO: </strong> Halaman ini digunakan untuk mencetak raport versi YPPI
             </div>
             <?= $this->session->flashdata('message'); ?>
-            
-            <form method="post" action="<?= base_url('laporan_crud/bi_show'); ?>">
+
+            <form class="user" action="<?= base_url('Report_CRUD/yppi_show') ?>" method="POST">
+              
               <div class="form-group row">
                 <div class="col-sm mb-sm-0">
                   <select name="sk_id" id="sk_id_dkn" class="form-control">
-                    <option value="0">Select School</option>
+                    <option value="0">Pilih Sekolah</option>
                     <?php foreach ($sk_all as $m) : ?>
                       <option value='<?= $m['sk_id'] ?>'>
                         <?= $m['sk_nama']; ?>
@@ -35,12 +33,20 @@
                 </div>
                 <div class="col-sm mb-sm-0">
                   <select name="t_id" id="t_dkn" class="form-control">
-                    <option value="0">Select Year</option>
+                    <option value="0">Pilih Tahun</option>
                     <?php foreach ($t_all as $m) : ?>
                       <option value='<?= $m['t_id'] ?>'>
                         <?= $m['t_nama']; ?>
                       </option>
                     <?php endforeach ?>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm mb-sm-0">
+                  <select name="semester" id="semester" class="form-control">
+                    <option value="1">Semester Ganjil</option>
+                    <option value="2">Semester Genap</option>
                   </select>
                 </div>
               </div>
@@ -52,7 +58,6 @@
               </div>
             </form>
 
-            <hr>
           </div>
         </div>
       </div>
@@ -61,12 +66,14 @@
 
 </div>
 
+
 <script>
 $(document).ready(function () {
   $('#sk_id_dkn').change(function () {
     $('#t_dkn').change();
   });
   $('#t_dkn').change(function () {
+    //alert("haha");
     var id = $(this).val();
     var sk_id = $('#sk_id_dkn').val();
 
@@ -86,10 +93,10 @@ $(document).ready(function () {
         success: function (data) {
           //console.log(data);
           if (data.length == 0) {
-            var html = '<div class="text-center mb-3 text-danger"><b>--No Class, Add Class First--</b></div>';
+            var html = '<div class="text-center mb-3 text-danger"><b>--Tidak ada kelas, tambahkan kelas terlebih dahulu--</b></div>';
           } else {
             var html = '<select name="kelas_id" id="kelas_id" class="form-control mb-3 kelas_id">';
-            html += '<option value="0">Select Class</option>';
+            html += '<option value="0">Pilih Kelas</option>';
             var i;
             for (i = 0; i < data.length; i++) {
               html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama + '</option>';
@@ -108,7 +115,7 @@ $(document).ready(function () {
       var id = $(this).val();
       //alert(id);
       if (id == 0) {
-        $('#siswa_ajax_dkn').html("");
+        $('#siswa_ajax').html("");
       }
 
       $.ajax(
@@ -122,12 +129,12 @@ $(document).ready(function () {
           dataType: 'json',
           success: function (data) {
             if (data.length == 0) {
-              var html = '<div class="text-center mb-3 text-danger"><b>--No Student(s), please add 1 or more student--</b></div>';
+              var html = '<div class="text-center mb-3 text-danger"><b>--Tidak ada murid, tambahkan siswa terlebih dahulu--</b></div>';
             } else {
               var i;
               html = "";
 
-              html += '<hr><div class="form-group d-flex justify-content-center"><label class="checkbox-inline mr-2"><input class="checkAll" type="checkbox"> <b><u>CHECK ALL</u></b></label></div><hr>';
+              html += '<hr><div class="form-group d-flex justify-content-center"><label class="checkbox-inline mr-2"><input class="checkAll" type="checkbox"> <b><u>PILIH SEMUA</u></b></label></div><hr>';
 
 
               for (i = 0; i < data.length; i++) {
@@ -137,7 +144,7 @@ $(document).ready(function () {
               }
 
               html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
-              html += 'Show';
+              html += 'Tampilkan';
               html += '</button>';
 
             }

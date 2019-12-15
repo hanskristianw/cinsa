@@ -1000,3 +1000,16 @@ function show_siswa_by_sis_arr($sis_arr){
 
   return $siswa;
 }
+
+function return_detail_siswa($d_s_id){
+  $ci =& get_instance();
+
+  $siswa = $ci->db->query(
+    "SELECT d_s_id, sis_no_induk, sis_nama_depan, sis_nama_bel, sis_nisn, kelas_nama
+    FROM d_s
+    LEFT JOIN sis ON d_s_sis_id = sis_id
+    LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+    WHERE d_s_id = $d_s_id")->result_array();
+
+  return $siswa;
+}
