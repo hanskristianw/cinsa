@@ -336,11 +336,11 @@ function return_abjad_afek($nilai){
 }
 
 function return_abjad_base4($nilai){
-  if($nilai >3.25){
+  if($nilai >=3.34){
       return "A";
-  }elseif($nilai >2.50){
+  }elseif($nilai >=2.66){
       return "B";
-  }elseif($nilai >1.75){
+  }elseif($nilai >=1.66){
       return "C";
   }else{
       return "D";
