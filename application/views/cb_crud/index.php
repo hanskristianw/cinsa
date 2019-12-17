@@ -29,15 +29,16 @@
                     <b>{HIS/HER}</b> &rarr; his/her diawali dengan huruf BESAR berdasarkan gender murid<br>
                     <b>{he/she}</b> &rarr; he/she diawali dengan huruf KECIL berdasarkan gender murid<br>
                     <b>{HE/SHE}</b> &rarr; he/she diawali dengan huruf BESAR berdasarkan gender murid<br>
-                    <b>{herself/himself}</b> &rarr; herself/himself diawali dengan huruf KECIL berdasarkan gender murid<br>
-                    <b>{HERSELF/HIMSELF}</b> &rarr; herself/himself diawali dengan huruf BESAR berdasarkan gender murid<br>
-                    <b>{her/him}</b> &rarr; her/him diawali dengan huruf KECIL berdasarkan gender murid<br>
-                    <b>{HER/HIM}</b> &rarr; her/him diawali dengan huruf BESAR berdasarkan gender murid<br>
+                    <b>{him/her}</b> &rarr; her/him diawali dengan huruf KECIL berdasarkan gender murid<br>
+                    <b>{HIM/HER}</b> &rarr; her/him diawali dengan huruf BESAR berdasarkan gender murid<br>
                     
                     <br>
 
                     <b>Contoh</b>: Tono is a diligent student. He never comes late, his attitude .... <br><br>
                     <b>Desc</b>: {s} is a diligent student. {HE/SHE} never comes late, {his/her} attitude ....
+
+                    <br><br>
+                    *Penulisan juga dapat dibalik {his/her} atau {her/his} akan menghasilkan hal yang sama
                     
                 </div>'; ?>
             <?= $this->session->flashdata('message'); ?>

@@ -99,7 +99,8 @@ class SSP_CRUD extends CI_Controller
         LEFT JOIN d_s ON ssp_nilai_d_s_id = d_s_id
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-        WHERE ssp_nilai_ssp_topik_id = $ssp_topik_id")->result_array();
+        WHERE ssp_nilai_ssp_topik_id = $ssp_topik_id
+        ORDER BY sis_nama_depan")->result_array();
 
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
@@ -340,7 +341,8 @@ class SSP_CRUD extends CI_Controller
         LEFT JOIN d_s ON ssp_peserta_d_s_id = d_s_id
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-        WHERE ssp_peserta_ssp_id = $sspId")->result();
+        WHERE ssp_peserta_ssp_id = $sspId
+        ORDER BY sis_nama_depan")->result();
   
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);

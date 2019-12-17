@@ -34,7 +34,7 @@
                 </div>
                 <div class="mb-3 pr-3 pl-3 sspMsg"><?= $this->session->flashdata('message'); ?></div>
                 <input type="hidden" value = <?= $ssp_id ?> id="sspInputId">
-                <div class="col-sm mb-3 mb-sm-0 table-responsive">
+                <div class="col-sm mb-3 mb-sm-0 table-responsive" style='font-size:13px;'>
                     
                     <div id="siswaSSPAjax">
                     

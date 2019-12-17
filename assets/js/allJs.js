@@ -1385,8 +1385,8 @@ $(document).ready(function () {
             html += '<input type="hidden" name="ssp_peserta_id" value= ' + data[i].ssp_peserta_id + '>';
             html += '<input type="hidden" name="d_s_id" value= ' + data[i].d_s_id + '>';
             html += '<input type="hidden" name="ssp_id" value= ' + sspId + '>';
-            html += '<button type="submit" class="ml-2 btn btn-danger">';
-            html += '<i class="fa fa-trash-alt"></i>';
+            html += '<button type="submit" class="ml-2 badge badge-danger">';
+            html += 'Delete';
             html += '</button>';
             html += '</form>';
             html += '</td>';

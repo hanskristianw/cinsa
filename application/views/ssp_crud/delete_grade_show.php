@@ -12,7 +12,7 @@
 
             <?= $this->session->flashdata('message'); ?>
 
-              <table class="table table-hover table-sm">
+              <table class="table table-hover table-sm" style='font-size:13px;'>
                 <thead>
                   <tr>
                     <th>No</th>
@@ -32,12 +32,7 @@
                       </td>
                       <td>
                         <?php
-                          if($m['sis_nama_bel']){
-                            $bel = $m['sis_nama_bel'][0];
-                          }else{
-                            $bel = "";
-                          }
-                          echo $m['sis_nama_depan']." ".$bel;
+                          echo $m['sis_nama_depan']." ".$m['sis_nama_bel'];
                         ?>
                       </td>
                       <td>
