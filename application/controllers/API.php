@@ -691,4 +691,20 @@ class API extends CI_Controller
     echo json_encode($detail);
   }
 
+  public function get_guru_cb_by_sk(){
+
+    if($this->input->post('sk_id', true)){
+
+      $sk_id = $this->input->post('sk_id', true);
+
+      $detail = $this->db->query("SELECT *
+          FROM konselor
+          LEFT JOIN kr ON konselor_kr_id = kr_id
+          WHERE konselor_sk_id = $sk_id
+        ")->result();
+
+      echo json_encode($detail);
+    }
+  }
+
 }

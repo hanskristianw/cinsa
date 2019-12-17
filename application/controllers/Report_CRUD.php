@@ -31,6 +31,12 @@ class Report_CRUD extends CI_Controller
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
+    // $data['guru_cb'] = $this->db->query(
+    //   "SELECT *
+    //   FROM konselor
+    //   LEFT JOIN kr ON konselor_kr_id = kr_id
+    //   WHERE konselor_sk_id = $sk_id")->result_array();
+
     //data karyawan untuk konten
     $data['t_all'] = $this->_t->return_all();
 
@@ -179,13 +185,13 @@ class Report_CRUD extends CI_Controller
 
       $data['walkel'] = $this->_kelas->find_walkel_by_kelas_id($this->input->post('kelas_id',TRUE));
 
-      
-      $data['guru_cb'] = $this->db->query(
-        "SELECT *
-        FROM konselor
-        LEFT JOIN kr ON konselor_kr_id = kr_id
-        WHERE konselor_sk_id = $sk_id")->row_array();
+      $data['guru_cb'] = $this->input->post('guru_cb',TRUE);
 
+      // $data['guru_cb'] = $this->db->query(
+      //   "SELECT *
+      //   FROM konselor
+      //   LEFT JOIN kr ON konselor_kr_id = kr_id
+      //   WHERE konselor_sk_id = $sk_id")->result_array();
 
       $data['kelas_jenj_id'] = $this->db->query(
         "SELECT kelas_jenj_id

@@ -538,7 +538,7 @@
                       <p class='alignright_bawah'>
                         <br>Surabaya, <?= $bulan . ' ' . $tanggal . ', ' . $tahun ?><br>
                         CB Teacher<br><br><br><br>
-                        <b><?= $guru_cb['kr_gelar_depan'] . $guru_cb['kr_nama_depan'] . ' ' . $guru_cb['kr_nama_belakang'] . " " . $guru_cb['kr_gelar_belakang'] ?></b><br>
+                        <b><?= $guru_cb ?></b><br>
                       </p>
                     </div>
 
