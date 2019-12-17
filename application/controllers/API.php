@@ -93,7 +93,7 @@ class API extends CI_Controller
         ) as mapel_awal
         LEFT JOIN
         (
-          SELECT karakter_detail_mapel_id FROM karakter_detail
+          SELECT karakter_detail_mapel_id, karakter_detail_id FROM karakter_detail
           LEFT JOIN mapel ON karakter_detail_mapel_id = mapel_id
           LEFT JOIN karakter ON karakter_detail_karakter_id = karakter_id
           WHERE mapel_sk_id = $sk_id AND karakter_id = $karakter_id

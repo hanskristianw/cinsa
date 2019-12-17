@@ -29,6 +29,7 @@ $(document).ready(function () {
                 if (data[i].karakter_detail_mapel_id) {
                   check = "checked";
                 }
+                html += '<input type="hidden" name="karakter_detail_id[]" value=' + data[i].karakter_detail_id + '>';
                 html += '<div class="checkbox ml-2">';
                 html += '<label><input type="checkbox" ' + check + ' name="mapel_check[]" class="mapel_check" value="' + data[i].mapel_id + '"> ' + data[i].mapel_nama + '</label>';
                 html += '</div>';

@@ -77,12 +77,28 @@ class Karakter_CRUD extends CI_Controller
 
   public function save_character(){
     $mapel = $this->input->post('mapel_check[]',true);
+    $karakter_detail_id = $this->input->post('karakter_detail_id[]',true);
+
     $karakter_id = $this->input->post('karakter_id',true);
 
+    $arr_karakter_detail_id = array();
+
+    for($i=0;$i<count($karakter_detail_id);$i++){
+      if($karakter_detail_id[$i] != "null"){
+        array_push($arr_karakter_detail_id,$karakter_detail_id[$i]);
+      }
+    }
+
+    //var_dump($arr_karakter_detail_id);
+
+    
+
     if($mapel){
-      //delete semua mapel dengan karakter ini
-      $this->db->where('karakter_detail_karakter_id', $karakter_id);
-      $this->db->delete('karakter_detail');
+      if(count($arr_karakter_detail_id) > 0){
+        //delete semua dengan karakter detail ini
+        $this->db->where_in('karakter_detail_id', $arr_karakter_detail_id);
+        $this->db->delete('karakter_detail');
+      }
 
       //set semua mapel yang dipilih dengan karakter id
       $data = array();
