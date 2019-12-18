@@ -268,7 +268,7 @@
                   </div>
                   <div style='clear: both;'></div>
 
-                  <p class='aligncenter_bawah'>Acknowleged by<br>Principal<br><br><br><br><b><?= $kepsek['kr_gelar_depan'] . $kepsek['kr_nama_depan'] . ' ' . $kepsek['kr_nama_belakang'] . " " . $kepsek['kr_gelar_belakang'] ?></b></p>
+                  <p class='aligncenter_bawah'>Acknowledged by<br>Principal<br><br><br><br><b><?= $kepsek['kr_gelar_depan'] . $kepsek['kr_nama_depan'] . ' ' . $kepsek['kr_nama_belakang'] . " " . $kepsek['kr_gelar_belakang'] ?></b></p>
                   <p style="page-break-after: always;">&nbsp;</p>
 
 
