@@ -25,7 +25,7 @@
             <?php foreach($kelas_all as $n): 
               $siswa = show_siswa_by_kelas($n['kelas_id']);
 
-              $mapel_ajar = show_mapel_header_summary($n['kelas_id']);
+              $mapel_ajar = show_mapel_header_summary_order_by_mapel_urutan($n['kelas_id']);
 
               //var_dump($mapel_ajar);
             ?>

@@ -285,9 +285,9 @@
                     <table style="width:100%; font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;">
                       <tr>
                         <td style="width:80px;">NAME</td>
-                        <td style="width:60%;">: <?= $siswa[0]['sis_nama_depan'] . " " . $siswa[0]['sis_nama_bel'] ?></td>
-                        <td style="width:100px;">SEMESTER</td>
-                        <td>: <?= returnNamaSemester($semester) ?></td>
+                        <td style="width:50%;">: <?= $siswa[0]['sis_nama_depan'] . " " . $siswa[0]['sis_nama_bel'] ?></td>
+                        <td style="width:80px;">SEMESTER</td>
+                        <td style="width:100px;">: <?= returnNamaSemester($semester) ?></td>
                       </tr>
                       <tr>
                         <td>ID NUMBER</td>
@@ -324,7 +324,7 @@
                             <td class='nomor'><?= $nomor_hal2 ?></td>
                             <td style='padding: 0px 5px 0px 5px;'><?= $m['ssp_topik_nama'] ?></td>
                             <td style='text-align: center;'><?= return_abjad_base4($m['ssp_nilai_angka']) ?></td>
-                            <td style='padding: 0px 5px 0px 5px;'>
+                            <td style='padding: 5px 5px 5px 5px;'>
                               <?php
                                       $total += $m['ssp_nilai_angka'];
                                       if (return_abjad_base4($m['ssp_nilai_angka']) == "A") {
@@ -418,7 +418,7 @@
                             <td class='nomor'><?= $nomor_hal3 ?></td>
                             <td style='padding: 0px 5px 0px 5px;'><?= $m['topik_cb_nama'] ?></td>
                             <td style='text-align: center;'><?= return_abjad_base4($m['nilai']) ?></td>
-                            <td style='padding: 0px 5px 0px 5px;'>
+                            <td style='padding: 5px 5px 5px 5px;'>
                               <?php
                                       $total_cb += $m['nilai'];
                                       $temp_desc_cb = "";

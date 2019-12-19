@@ -465,6 +465,32 @@ function show_mapel_header_summary($kelas_id){
   return $laporan;
 }
 
+function show_mapel_header_summary_order_by_mapel_urutan($kelas_id){
+  $ci =& get_instance();
+
+  if (mapel_menu() >= 1 && $ci->session->userdata('kr_jabatan_id')!=5 && $ci->session->userdata('kr_jabatan_id')!=4) {
+
+    $kr_id = $ci->session->userdata('kr_id');
+
+    $laporan = $ci->db->query(
+      "SELECT DISTINCT mapel_id, mapel_nama, mapel_sing
+      FROM d_mpl
+      LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+      WHERE d_mpl_kelas_id = $kelas_id AND d_mpl_kr_id = $kr_id
+      ORDER BY mapel_urutan")->result_array();
+  }else{
+    $laporan = $ci->db->query(
+      "SELECT DISTINCT mapel_id, mapel_nama, mapel_sing, mapel_kkm
+      FROM d_mpl
+      LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+      WHERE d_mpl_kelas_id = $kelas_id
+      ORDER BY mapel_urutan")->result_array();
+  }
+
+
+  return $laporan;
+}
+
 function show_cog_count($mapel_id, $kelas_id, $sem){
   $ci =& get_instance();
   $laporan = $ci->db->query(
