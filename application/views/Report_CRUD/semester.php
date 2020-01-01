@@ -97,7 +97,7 @@
                   return "she";
               }
 
-              //var_dump($kelas_jenj_id);
+              //var_dump($t_id);
               for ($i = 0; $i < count($sis_arr); $i++) :
 
                 //echo $sis_arr[$i]."<br>".$kelas_jenj_id['kelas_jenj_id'];
@@ -107,7 +107,7 @@
                 $bulan = return_nama_bulan($tanggal_arr[1]);
                 $tanggal = $tanggal_arr[2];
 
-                $siswa = return_raport_fin($sis_arr[$i], $semester, $kelas_jenj_id['kelas_jenj_id']);
+                $siswa = return_raport_fin($sis_arr[$i], $semester, $kelas_jenj_id['kelas_jenj_id'], $t_id);
 
                 //var_dump($siswa);
 

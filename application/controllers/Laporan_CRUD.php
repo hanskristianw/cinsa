@@ -622,6 +622,7 @@ class Laporan_CRUD extends CI_Controller
         ORDER BY kelas_sk_id, kelas_nama")->result_array();
 
       $data['semester'] = $semester;
+      $data['t_id'] = $t_id;
       
       $data['kr_id'] = $kr_id;
 
@@ -677,6 +678,7 @@ class Laporan_CRUD extends CI_Controller
       $t_id = $this->input->post('t_id',true);
       $kelas_id = $this->input->post('kelas_id',true);
 
+      $data['t_id'] = $t_id;
       $data['kelas_all'] = $this->db->query
         ("SELECT kelas_id, kelas_nama, COUNT(DISTINCT d_s_id) AS jumlah_murid, kelas_jenj_id
         FROM d_mpl
@@ -736,6 +738,7 @@ class Laporan_CRUD extends CI_Controller
       $t_id = $this->input->post('t_id',true);
       $kelas_id = $this->input->post('kelas_id',true);
 
+      $data['t_id'] = $t_id;
       $data['kepsek'] = $this->db->query(
         "SELECT *
         FROM sk

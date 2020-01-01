@@ -579,7 +579,7 @@ function hitung_afek_siswa_perbulan($arr_bulan_id, $d_s_id){
   return $siswa;
 }
 
-function return_raport_fin($d_s_id, $semester, $jenjang){
+function return_raport_fin($d_s_id, $semester, $jenjang, $t_id){
   $ci =& get_instance();
   //formative (harian) didapat dari nilai kognitif tes * persen tes
 
@@ -621,7 +621,7 @@ function return_raport_fin($d_s_id, $semester, $jenjang){
     ORDER BY mapel_urutan) AS summative ON formative.mapel_id = summative.mapel_id
   LEFT JOIN
     (SELECT * FROM persen
-      WHERE persen_jenj_id = $jenjang
+      WHERE persen_jenj_id = $jenjang AND persen_t_id = $t_id
     ) AS persentase ON persentase.persen_mapel_id = formative.mapel_id
   LEFT JOIN
     (SELECT afektif_mapel_id, ROUND(SUM(jumlah)/COUNT(afektif_mapel_id),2) AS total
@@ -862,7 +862,7 @@ function get_mapel_ajar_kelas_kr($kelas_id, $kr_id){
   return $kriteria;
 }
 
-function return_raport_fin_mapel($d_s_id, $semester, $jenjang, $mapel_id){
+function return_raport_fin_mapel($d_s_id, $semester, $jenjang, $mapel_id, $t_id){
   $ci =& get_instance();
   //formative (harian) didapat dari nilai kognitif tes * persen tes
 
@@ -904,7 +904,7 @@ function return_raport_fin_mapel($d_s_id, $semester, $jenjang, $mapel_id){
     ORDER BY mapel_urutan) AS summative ON formative.mapel_id = summative.mapel_id
   LEFT JOIN
     (SELECT * FROM persen
-      WHERE persen_jenj_id = $jenjang
+      WHERE persen_jenj_id = $jenjang AND persen_t_id = $t_id
     ) AS persentase ON persentase.persen_mapel_id = formative.mapel_id
   LEFT JOIN
     (SELECT afektif_mapel_id, ROUND(SUM(jumlah)/COUNT(afektif_mapel_id),2) AS total

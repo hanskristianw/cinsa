@@ -80,7 +80,7 @@
                     <td rowspan="2" style="text-align: center; width: 170px;"><?= $nama ?></td>
                     <td style='text-align: center;'>1</td>
                     <?php foreach($mapel_ajar as $m) : 
-                      $nil_fin = return_raport_fin_mapel($o['d_s_id'], 1, $n['kelas_jenj_id'], $m['mapel_id']);
+                      $nil_fin = return_raport_fin_mapel($o['d_s_id'], 1, $n['kelas_jenj_id'], $m['mapel_id'], $t_id);
 
                       $for_kog = $nil_fin['for_kog'];
                       $for_psi = $nil_fin['for_psi'];
@@ -162,7 +162,7 @@
                   <tr>
                     <td style='text-align: center;'>2</td>
                     <?php foreach($mapel_ajar as $m) : 
-                      $nil_fin = return_raport_fin_mapel($o['d_s_id'], 2, $n['kelas_jenj_id'], $m['mapel_id']);
+                      $nil_fin = return_raport_fin_mapel($o['d_s_id'], 2, $n['kelas_jenj_id'], $m['mapel_id'], $t_id);
 
                       $for_kog = $nil_fin['for_kog'];
                       $for_psi = $nil_fin['for_psi'];

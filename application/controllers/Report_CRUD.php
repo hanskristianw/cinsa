@@ -199,6 +199,7 @@ class Report_CRUD extends CI_Controller
         WHERE kelas_id = $kelas_id")->row_array();
 
       $t_id = $this->input->post('t',TRUE);
+      $data['t_id'] = $t_id;
       $data['t'] = $this->db->query(
         "SELECT t_nama
         FROM t

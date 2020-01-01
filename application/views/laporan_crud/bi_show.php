@@ -81,7 +81,7 @@
                 <?php 
                   $no = 1;
                   foreach($mapel_ajar as $m): 
-                    $nil_fin = return_raport_fin_mapel($s['d_s_id'], 1, $n['kelas_jenj_id'], $m['mapel_id']);
+                    $nil_fin = return_raport_fin_mapel($s['d_s_id'], 1, $n['kelas_jenj_id'], $m['mapel_id'], $t_id);
 
                     $for_kog = $nil_fin['for_kog'];
                     $for_psi = $nil_fin['for_psi'];
@@ -134,7 +134,7 @@
                     $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
 
                     //SEMESTER 2
-                    $nil_fin2 = return_raport_fin_mapel($s['d_s_id'], 2, $n['kelas_jenj_id'], $m['mapel_id']);
+                    $nil_fin2 = return_raport_fin_mapel($s['d_s_id'], 2, $n['kelas_jenj_id'], $m['mapel_id'], $t_id);
                     $for_kog2 = $nil_fin2['for_kog'];
                     $for_psi2 = $nil_fin2['for_psi'];
                     $kognitif2 = round($for_kog2 * $persen_forma_peng / 100 + $sum_kog_sem2 * $persen_summa_peng / 100);

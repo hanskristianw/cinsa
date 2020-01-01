@@ -89,7 +89,7 @@
                     <td style="padding: 0px 0px 0px 5px; width: 50px;"><?= $o['sis_no_induk'] ?></td>
                     <td style="padding: 0px 0px 0px 5px; width: 230px;"><?= $o['sis_nama_depan'] .' '. $o['sis_nama_bel'] ?></td>
                     <?php foreach($mapel_ajar as $m) : 
-                      $nil_fin = return_raport_fin_mapel($o['d_s_id'], $semester, $n['kelas_jenj_id'], $m['mapel_id']);
+                      $nil_fin = return_raport_fin_mapel($o['d_s_id'], $semester, $n['kelas_jenj_id'], $m['mapel_id'], $t_id);
 
                       $for_kog = $nil_fin['for_kog'];
                       $for_psi = $nil_fin['for_psi'];
