@@ -13,7 +13,6 @@
 
   <link href="<?= base_url('assets/'); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="<?= base_url('assets/'); ?>css/nunito.css" rel="stylesheet" type="text/css">
-  <link href="<?= base_url('assets/'); ?>css/datatables.min.css" rel="stylesheet" type="text/css" >
   <!-- Custom styles for this template-->
   <link href="<?= base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
   <link href="<?= base_url('/'); ?>css/rapot.css" rel="stylesheet">
@@ -28,11 +27,14 @@
   <script src="<?= base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script type="text/javascript" src="<?= base_url('assets/'); ?>js/datatables.min.js"></script>
   
   <script type = "text/javascript">
     var base_url = '<?php echo base_url() ?>';
   </script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/af-2.3.4/b-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/kt-2.5.1/r-2.2.3/datatables.min.css"/>
+ 
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/af-2.3.4/b-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/kt-2.5.1/r-2.2.3/datatables.min.js"></script>
+ 
 </head>
 
 <body id="page-top">

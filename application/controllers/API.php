@@ -708,4 +708,42 @@ class API extends CI_Controller
     }
   }
 
+  public function get_kr_absen_by_sk(){
+    if($this->input->post('sk_id', true)){
+
+      $sk_id = $this->input->post('sk_id', true);
+      $event_id = $this->input->post('event_id', true);
+      
+      $detail = $this->db->query("SELECT kr_id, kr_nama_depan, kr_nama_belakang 
+          FROM kr
+          WHERE kr_sk_id = $sk_id AND kr_nama_depan <> 'admin' AND kr_id NOT IN 
+          (SELECT kr_id
+            FROM kr
+            LEFT JOIN d_event ON d_event_kr_id = kr_id
+            WHERE kr_sk_id = $sk_id AND d_event_event_id = $event_id
+          )
+          ORDER BY kr_nama_depan
+        ")->result();
+
+      echo json_encode($detail);
+    }
+  }
+
+  public function get_kr_absen_update_by_sk(){
+    if($this->input->post('sk_id', true)){
+
+      $sk_id = $this->input->post('sk_id', true);
+      $event_id = $this->input->post('event_id', true);
+      
+      $detail = $this->db->query("SELECT kr_id, kr_nama_depan, kr_nama_belakang 
+          FROM kr
+          LEFT JOIN d_event ON d_event_kr_id = kr_id
+          WHERE kr_sk_id = $sk_id AND d_event_event_id = $event_id
+          ORDER BY kr_nama_depan
+        ")->result();
+
+      echo json_encode($detail);
+    }
+  }
+
 }

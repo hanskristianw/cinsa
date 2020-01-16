@@ -1039,3 +1039,14 @@ function return_detail_siswa($d_s_id){
 
   return $siswa;
 }
+
+function cek_absen_kegiatan($kr_id, $event_id){
+  $ci =& get_instance();
+
+  $det = $ci->db->query(
+    "SELECT d_event_hadir
+    FROM d_event
+    WHERE d_event_event_id = $event_id AND d_event_kr_id = $kr_id")->row_array();
+
+  return $det;
+}

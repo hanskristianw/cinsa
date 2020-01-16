@@ -196,6 +196,7 @@
                   <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>4. Counselor</a>
                   <a class="collapse-item" href=' . base_url('Karakter_CRUD') . '>5. Character</a>
                   <a class="collapse-item" href=' . base_url('CB_CRUD/set_lifeskill') . '>6. Life Skill Description</a>
+                  <a class="collapse-item" href=' . base_url('Event_CRUD') . '>7. Event</a>
                 </div>
               </div>
             </li>
@@ -236,6 +237,7 @@
                   <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>10. PTS/PAS</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>11. DKN</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/bi') . '>12. Buku Induk</a>
+                  <a class="collapse-item" href=' . base_url('Event_crud/laporan') . '>13. Event</a>
                 </div>
               </div>
             </li>
