@@ -1,109 +1,123 @@
-<div class="container">
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-column-gap:3px;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: 5px 5px 5px 5px;
+  overflow: auto;
+}
+</style>
 
-  <div class="card o-hidden border-0 shadow-lg my-5">
-    <div class="card-body p-0">
-      <!-- Nested Row within Card Body -->
-      <div class="row">
-        <div class="col-lg">
-          <div class="p-5 overflow-auto">
-            <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4"><?= $title ?></h1>
-            </div>
-            <div class="p-2"><?= $this->session->flashdata('message'); ?></div>
-            <div id="print_area">
-            <table class="table table-hover table-bordered table-sm">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Nama</th>
-                  <th style='width: 8%' >Status</th>
-                  <th style='width: 8%' >Mapel</th>
-                  <?php 
-                    $kelas_id = array();
-                  foreach ($kelas_all as $m) : 
-                    array_push($kelas_id, $m['kelas_id']);
-                    echo "<th style='width: 5%'>".ucfirst(strtolower ($m['kelas_nama_singkat']))."</th>";
-                  ?>
-                  <?php endforeach ?>
-                  <th style='width: 5%' >Jum Unit Lain</th>
-                  <th style='width: 5%' >Tot</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $no=1; $temp=""; foreach ($kr_all as $m) : 
-                  // $mapel_id_dis = explode(",",$m['mapel_id_dis']);
-                  $beban_jam = explode(",",$m['beban_jam']);
-                  $kelas_id_ajar = explode(",",$m['kelas_id']);
-                ?>
-                  <tr>
-                  <?php 
-                    $initial = $m['kr_id'];
-                    if ($temp == $initial): 
-                      $sekolah_lain = NULL;
-                  ?>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                  <?php 
-                    else: ?>
-                      <td>
-                        <?php 
-                          echo $no; $no++; $total=0; 
-                          $sekolah_lain = disjam_sekolah_lain($m['kr_id'],$m['kelas_t_id'],$m['kelas_sk_id']);
-                        ?>
-                      </td>
-                      <td><?= $m['kr_nama_depan'] ." ".$m['kr_nama_belakang'] ?></td>
-                      <td><?= $m['st_nama'] ?></td>
-                  <?php 
-                    endif; 
-                    
-                    
-                  ?>
+<div class="grid-container">
 
-                    <td><?= $m['mapel_nama'] ?></td>
-                    <?php
-                      for($j=0;$j<count($kelas_id);$j++){
-                        echo "<td>";
-                        for($k=0;$k<count($kelas_id_ajar);$k++){
-                          if($kelas_id[$j]==$kelas_id_ajar[$k]){
-                            echo $beban_jam[$k];
-                          }
-                        }
-                        echo "</td>";
-                      }
-                    ?>
-                    <td>
-                      <?php 
-                        $total_sl = 0;
-                        if($sekolah_lain){
-                          foreach ($sekolah_lain as $sl){
-                            $total_sl += $sl['beban'];
-                            echo $sl['beban'];
-                          }
-                        }
-                      ?>
-                    </td>
-                    <td><?php 
-                        $total += $total_sl + array_sum($beban_jam); 
-                        echo $total; 
-                          
-                        $next = $m['kr_id'];
-                        $temp = $next;
-                      ?>
-                    </td>
-                  </tr>
-                <?php endforeach ?>
-              </tbody>
-            </table>
-            </div>
-            <button type="submit" class="btn btn-success btn-user btn-block" id="export_excel">
-                Export To Excel
-            </button>
-            <hr>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="text-center">
+    <h1 class="h4 text-gray-900"><?= $title.' '.$sk_detail['sk_nama'] ?></h1>
+    <h1 class="h4 text-gray-900 mb-4"><u><?= $t_detail['t_nama'] ?></u></h1>
   </div>
+  <div class="p-2"><?= $this->session->flashdata('message'); ?></div>
+  <div id="print_area">
+  <table class="table table-hover table-bordered table-sm" style="font-size:11px;">
+    <thead>
+      <tr>
+        <th style='width: 10px;'>No</th>
+        <th>Nama</th>
+        <th style='width: 50px;'>Status</th>
+        <th>Mapel</th>
+        <?php
+        foreach ($kelas_all as $m) : 
+          echo "<th style='width: 30px'>".ucfirst(strtolower ($m['kelas_nama_singkat']))."</th>";
+        ?>
+        <?php endforeach ?>
+        <th style='width: 5%' >Jum Unit Lain</th>
+        <th style='width: 5%' >Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <?php $no=1; $temp=""; 
+      foreach ($kr_all as $m) : 
+        $mapel_ajar = return_mapel_ajar_by_guru($sk_detail['sk_id'], $m['kr_id'], $t_detail['t_id']);
+
+        if($mapel_ajar):
+
+        $st = explode(',',$m['st_nama']);
+        if($st[0])
+          $st = $st[0];
+        else
+          $st = "";
+        // $mapel_id_dis = explode(",",$m['mapel_id_dis']);
+      ?>
+        <tr>
+          <td rowspan="<?= count($mapel_ajar)+1; ?>"><?= $no; ?></td>
+          <td rowspan="<?= count($mapel_ajar)+1; ?>"><?= $m['kr_nama_depan'].' '.$m['kr_nama_belakang'] ?></td>
+          <td rowspan="<?= count($mapel_ajar)+1; ?>"><?= $st; ?></td>
+        </tr>
+        <!-- CETAK MAPEL dan BEBAN perkelas -->
+          <?php 
+              $count=0; 
+              $total = 0;
+              foreach ($mapel_ajar as $a) : ?>
+          <tr>
+            <td><?= $a['mapel_nama'] ?></td>
+            <?php foreach ($kelas_all as $k) : ?>
+            <td>
+              <?php
+                $jam_kelas = return_jam_by_guru_kelas($m['kr_id'], $k['kelas_id'],$a['mapel_id']);
+                if($jam_kelas){
+                  $total += $jam_kelas;
+                  echo $jam_kelas;
+                }
+              ?>
+            </td>
+            <?php endforeach; ?>
+            <?php if ($count == 0) : ?>
+              <td rowspan="<?= count($mapel_ajar)+1; ?>">
+                <?php 
+                  $jam_unit_lain = return_jam_by_guru_kelas_unit_lain($m['kr_id'], $t_detail['t_id'], $sk_detail['sk_id']);
+                  if($jam_unit_lain){
+                    $total += $jam_unit_lain;
+                    echo $jam_unit_lain;
+                  }
+                ?>
+              </td>
+              <td rowspan="<?= count($mapel_ajar)+1; ?>"><div class="tot_dis"></div></td>
+            <?php endif; ?>
+          </tr>
+          <?php $count++; endforeach; ?>
+        <!-- //////////////////////////////// -->
+        <div class="tot_temp" rel="<?= $total ?>"></div>
+      <?php $no++; 
+        endif; 
+      endforeach; 
+      ?>
+    </tbody>
+  </table>
+  </div>
+  <button type="submit" class="btn btn-success btn-user btn-block" id="export_excel">
+      Export To Excel
+  </button>
+  <hr>
 
 </div>
+
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    
+    var tot_arr = [];
+    $(".tot_temp").each(function() {
+      tot_arr.push($(this).attr('rel'));
+    });
+
+    var i =0;
+    $(".tot_dis").each(function() {
+      $(this).html(tot_arr[i]);
+      i++;
+    });
+
+  });
+
+</script>

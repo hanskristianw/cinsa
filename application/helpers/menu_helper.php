@@ -1050,3 +1050,41 @@ function cek_absen_kegiatan($kr_id, $event_id){
 
   return $det;
 }
+
+function return_mapel_ajar_by_guru($sk_id, $kr_id, $t_id){
+  $ci =& get_instance();
+
+  $det = $ci->db->query(
+    "SELECT *
+    FROM d_mpl
+    LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+    LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+    WHERE kelas_t_id = $t_id AND kelas_sk_id = $sk_id AND d_mpl_kr_id = $kr_id
+    GROUP BY mapel_id")->result_array();
+
+  return $det;
+}
+
+function return_jam_by_guru_kelas($kr_id, $kelas_id, $mapel_id){
+  $ci =& get_instance();
+
+  $det = $ci->db->query(
+    "SELECT d_mpl_beban
+    FROM d_mpl
+    WHERE d_mpl_kr_id = $kr_id AND d_mpl_mapel_id = $mapel_id AND d_mpl_kelas_id = $kelas_id
+    GROUP BY d_mpl_id")->row_array();
+
+  return $det['d_mpl_beban'];
+}
+
+function return_jam_by_guru_kelas_unit_lain($kr_id, $t_id, $sk_id){
+  $ci =& get_instance();
+
+  $det = $ci->db->query(
+    "SELECT SUM(d_mpl_beban) as beban_total
+    FROM d_mpl
+    LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+    WHERE d_mpl_kr_id = $kr_id AND kelas_t_id = $t_id AND kelas_sk_id <> $sk_id")->row_array();
+
+  return $det['beban_total'];
+}

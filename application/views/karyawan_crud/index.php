@@ -1,7 +1,13 @@
 <style>
-  table.dataTable td {
-    padding: 0px;
-  }
+.grid-container {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-column-gap:3px;
+  padding-right:3px;
+}
+.grid-container > div{
+  text-align:left;
+}
 </style>
 
 <div class="container">
@@ -20,33 +26,35 @@
 
                   <a href="<?= base_url('karyawan_crud/add') ?>" class="btn btn-primary mb-3">Add New Employee</a>
 
-                  <table class="table-bordered dt compact">
+                  <table class="table table-hover table-bordered dt2" style="font-size:13px;">
                     <thead>
                       <tr>
-                        <th style='padding: 0px 0px 0px 5px; width: 100px;'>First Name</th>
-                        <th style='padding: 0px 0px 0px 5px; width: 200px;'>Last Name</th>
+                        <th style='padding: 0px 0px 0px 5px;'>Name</th>
                         <th style='padding: 0px 0px 0px 5px; width: 120px;'>Username</th>
-                        <th style='padding: 0px 0px 0px 5px; width: 100px;'>Department</th>
-                        <th style='padding: 0px 0px 0px 5px; width: 150px;'>School</th>
+                        <th style='padding: 0px 0px 0px 5px;'>Status</th>
+                        <th style='padding: 0px 0px 0px 5px;'>Department</th>
+                        <th style='padding: 0px 0px 0px 5px; width: 150px;'>Unit</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php foreach($kr_all as $m) : ?>
                         <tr>
-                          <td style='padding: 0px 5px 0px 5px;'><?= $m['kr_nama_depan'] ?></td>
-                          <td style='padding: 0px 5px 0px 5px;'><?= $m['kr_nama_belakang'] ?></td>
-                          <td style='padding: 0px 5px 0px 5px;'><?= $m['kr_username'] ?></td>
-                          <td style='padding: 0px 5px 0px 5px;'><?= $m['jabatan_nama'] ?></td>
-                          <td style='padding: 0px 5px 0px 5px;'><?= ucfirst(strtolower($m['sk_nama'])) ?></td>
-                          <td style='padding: 10px 0px 0px 20px;'>
-                            <div class="form-group row">
-                              <form class="" action="<?= base_url('Karyawan_CRUD/update') ?>" method="get">
-                                <input type="hidden" name="_id" value=<?= $m['kr_id'] ?>>
-                                <button type="submit" class="badge badge-warning">
-                                  Edit
-                                </button>
-                              </form>
+                          <td style='padding: 2px 5px 2px 5px;'><?= $m['kr_nama_depan'].' '.$m['kr_nama_belakang'] ?></td>
+                          <td style='padding: 2px 5px 2px 5px;'><?= $m['kr_username'] ?></td>
+                          <td style='padding: 2px 5px 2px 5px;'><?= $m['st_nama'] ?></td>
+                          <td style='padding: 2px 5px 2px 5px;'><?= $m['jabatan_nama'] ?></td>
+                          <td style='padding: 2px 5px 2px 5px;'><?= ucfirst(strtolower($m['sk_nama'])) ?></td>
+                          <td style='padding: 0px 0px 0px 0px;'>
+                            <div class="grid-container">
+                              <div>
+                                <form action="<?= base_url('Karyawan_CRUD/update') ?>" method="get">
+                                  <input type="hidden" name="_id" value=<?= $m['kr_id'] ?>>
+                                  <button type="submit" class="badge badge-warning">
+                                    Edit
+                                  </button>
+                                </form>
+                              </div>
                               
                               <div>
                                 <button id="<?= $m['kr_id'] ?>" class="update-status badge badge-success">
@@ -54,26 +62,32 @@
                                 </button>
                               </div>
                               
-                              <form action="<?= base_url('Karyawan_CRUD/reset') ?>" method="post">
-                                <input type="hidden" name="kr_id" value=<?= $m['kr_id'] ?>>
-                                <button type="submit" class="badge badge-info">
-                                  Reset
-                                </button>
-                              </form>
+                              <div>
+                                <form action="<?= base_url('Karyawan_CRUD/reset') ?>" method="post">
+                                  <input type="hidden" name="kr_id" value="<?= $m['kr_id'] ?>">
+                                  <button type="submit" class="badge badge-info">
+                                    Reset
+                                  </button>
+                                </form>
+                              </div>
 
-                              <form action="<?= base_url('Karyawan_CRUD/print_laporan') ?>" method="post" class="form_print">
-                                <input type="hidden" name="kr_id" value=<?= $m['kr_id'] ?>>
-                                <button type="submit" class="badge badge-secondary" onclick="$('.form_print').attr('target', '_blank');">
-                                  Print
-                                </button>
-                              </form>
+                              <div>
+                                <form action="<?= base_url('Karyawan_CRUD/print_laporan') ?>" method="post" class="form_print">
+                                  <input type="hidden" name="kr_id" value="<?= $m['kr_id'] ?>">
+                                  <button type="submit" class="badge badge-secondary" onclick="$('.form_print').attr('target', '_blank');">
+                                    Print
+                                  </button>
+                                </form>
+                              </div>
 
-                              <form class="" action="<?= base_url('Karyawan_CRUD/delete') ?>" method="post">
-                                <input type="hidden" name="kr_id" value=<?= $m['kr_id'] ?> method="post">
-                                <button type="submit" class="badge badge-danger">
-                                  Del
-                                </button>
-                              </form>
+                              <div>
+                                <form action="<?= base_url('Karyawan_CRUD/delete') ?>" method="post">
+                                  <input type="hidden" name="kr_id" value="<?= $m['kr_id'] ?>" method="post">
+                                  <button type="submit" class="badge badge-danger">
+                                    Del
+                                  </button>
+                                </form>
+                              </div>
                             </div>
                           </td>
                         </tr>
@@ -92,6 +106,15 @@
 
 <script type = "text/javascript">
   $(document).ready(function () {
+    
+    $('.dt2').DataTable({
+      "pageLength": 50
+    });
+
+    $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+      $(".alert-success").slideUp(500);
+    });
+
     function refreshhistory(){
       var kr_id = $('.kr_id').val();
 

@@ -32,7 +32,15 @@ class Karyawan_CRUD extends CI_Controller
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     //data karyawan untuk konten
-    $data['kr_all'] = $this->_kr->return_all_except_admin();
+    $data['kr_all'] = $this->db->query(
+      "SELECT *, GROUP_CONCAT(st_nama ORDER BY kr_h_status_tanggal DESC) as st_nama
+      FROM kr
+      LEFT JOIN jabatan ON kr_jabatan_id = jabatan_id
+      LEFT JOIN sk ON kr_sk_id = sk_id
+      LEFT JOIN kr_h_status ON kr_h_status_kr_id = kr_id
+      LEFT JOIN st ON kr_h_status_status_id = st_id
+      GROUP BY kr_id
+      ORDER BY kr_nama_depan")->result_array();
 
     //$data['tes'] = var_dump($this->db->last_query());
 
