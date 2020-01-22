@@ -9,6 +9,16 @@
     padding:1em;
   }
 
+  .wrapper_img{
+    display:grid;
+    grid-template-columns: 80% 20%;
+    /* grid-gap:1em; */
+    overflow: auto;
+    padding:1em;
+    height:400px;
+    align-items: center;
+  }
+
   .wrapper_inside{
     display:grid;
     grid-template-columns:1fr 1fr 1fr 1fr;
@@ -89,7 +99,10 @@
           <tbody>
             <?php foreach ($event_all as $m) : ?>
               <tr>
-                <td><?= $m['event_nama'] ?></td>
+                <td>
+                  <a class='link-img' style="text-decoration : none; color: inherit;" rel="<?= $m['event_id'] ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2"><?= $m['event_nama'] ?>
+                  </a>
+                </td>
                 <td style="width:10%;"><?= date("d-m-Y", strtotime($m['event_tgl'])) ?></td>
                 <td style="width:10%;">
                   <div class="wrapper_inside">
@@ -110,6 +123,16 @@
                         </button>
                       </form>
                     </div>
+
+                    <div>
+                      <form class="" action="<?= base_url('Event_CRUD/add_pic') ?>" method="post">
+                        <input type="hidden" name="event_id" value=<?= $m['event_id'] ?>>
+                        <button type="submit" class="badge badge-secondary">
+                          Add Pic
+                        </button>
+                      </form>
+                    </div>
+
                     <div>
                       <form class="" action="<?= base_url('Event_CRUD/del_absent') ?>" method="post">
                         <input type="hidden" name="event_id" value=<?= $m['event_id'] ?>>
@@ -140,5 +163,57 @@
     $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
       $(".alert-success").slideUp(500);
     });
+
+    $(".alert-danger").fadeTo(3000, 500).slideUp(500, function(){
+      $(".alert-danger").slideUp(500);
+    });
+
+    $(".link-img").on('click', function() {
+      var event_id = $(this).attr("rel");
+      var html = '';
+
+      $.ajax({
+        type: "post",
+        url: base_url + "API/get_img_event",
+        data: {
+          'event_id': event_id,
+        },
+        async: true,
+        dataType: 'json',
+        success: function(data) {
+          console.log(data);
+          if (data.length == 0) {
+            html += '<div class="text-center mb-3 text-danger"><b>--No Image Available--</b></div>';
+          } else {
+            html += '<div class="wrapper_img">';
+            var i;
+            for (i = 0; i < data.length; i++) {
+              html += '<div><img src="'+base_url+'assets/img/event/'+data[i].event_gambar_path+'" width="200px"></div>';
+              
+              html += '<div><form method="post" action="' + base_url + 'Event_CRUD/deleteimg">';
+              html += '<input type="hidden" value="'+data[i].event_gambar_path+'" name="event_gambar_path">';
+              html += '<input type="hidden" value="'+data[i].event_gambar_id+'" name="event_gambar_id">';
+              html += `<button type="submit" class="badge badge-danger">
+                          Delete
+                        </button>`;
+              html += "</form></div>";
+            }
+            html += '</div>';
+            
+          }
+          
+          $("#judul_modal").html("Image");
+
+          $(".modal-dialog").removeClass("modal-dialog-custom");
+          $(".modal-body").removeClass("modal-body-custom");
+
+          $('#isi_modal').html(html);
+          $("#myModal").show();
+        }
+      });
+
+    });
+
+
   });
 </script>

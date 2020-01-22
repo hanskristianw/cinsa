@@ -288,4 +288,61 @@ class Event_CRUD extends CI_Controller
     $this->load->view('templates/footer');
   }
 
+  public function add_pic(){
+    if($this->input->post('event_id',true)){
+
+      $data['title'] = 'Upload Foto Kegiatan';
+      $data['event_id'] = $this->input->post('event_id',true);
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+
+      $this->load->view('templates/header',$data);
+      $this->load->view('templates/sidebar',$data);
+      $this->load->view('templates/topbar',$data);
+      $this->load->view('Event_CRUD/add_pic',$data);
+      $this->load->view('templates/footer');
+
+    }
+  }
+
+  public function save_pic() {
+    $config['upload_path'] = './assets/img/event/';
+    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+    $config['max_size'] = 10000;
+    $config['max_width'] = 3000;
+    $config['max_height'] = 3000;
+    $config['file_name'] = 'event'.date('ymd').'-'.substr(md5(rand()),0,10);
+
+    $this->load->library('upload', $config);
+
+    if (!$this->upload->do_upload('image')) {
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">'.$this->upload->display_errors().'</div>');
+      redirect('Event_CRUD');
+    } else {
+
+      $data = [
+        'event_gambar_event_id' => $this->input->post('event_id',true),
+        'event_gambar_path' => $this->upload->data('file_name')
+      ];
+
+      $this->db->insert('event_gambar', $data);
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Upload Success!</div>');
+      redirect('Event_CRUD');
+    }
+  }
+
+  public function deleteimg(){
+    if($this->input->post('event_gambar_id',true)){
+
+      $event_gambar_id = $this->input->post('event_gambar_id',true);
+      $old_image = $this->input->post('event_gambar_path',true);
+      unlink(FCPATH.'assets/img/event/'.$old_image);
+      $this->db->where('event_gambar_id', $event_gambar_id);
+      $this->db->delete('event_gambar');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Delete Success!</div>');
+      redirect('Event_CRUD');
+    }
+
+  }
+
 }

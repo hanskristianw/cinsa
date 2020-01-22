@@ -746,4 +746,18 @@ class API extends CI_Controller
     }
   }
 
+  public function get_img_event(){
+    if($this->input->post('event_id', true)){
+
+      $event_id = $this->input->post('event_id', true);
+      
+      $detail = $this->db->query("SELECT *
+          FROM event_gambar
+          WHERE event_gambar_event_id = $event_id
+        ")->result();
+
+      echo json_encode($detail);
+    }
+  }
+
 }

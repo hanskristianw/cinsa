@@ -120,14 +120,14 @@ function return_status_absen($status){
                       if($status == 0 || !$status){
                         echo "-";
                       }elseif($status == 1){
-                        //tidak hadir
+                        //hadir
                         echo "&#10004;";
-                        $jum_tidak_hadir++;
+                        $jum_hadir++;
                         $total++;
                       }elseif($status == 2){
-                        //hadir
+                        //tidak hadir
                         echo "&#10006;";
-                        $jum_hadir++;
+                        $jum_tidak_hadir++;
                         $total++;
                       }
                     ?>
