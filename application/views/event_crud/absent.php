@@ -164,7 +164,7 @@
                     <td style='padding: 6px 0px 0px 5px;'>
                       <input type="radio" class="form-control-sm" name="${data[i].kr_id}" value="2" style="height:15px;">
                     </td>
-                    <td style='width: 30%;'><input style="height:20px; font-size:12px;" type="text" class="form-control form-control-sm"></td>
+                    <td style='width: 30%;'><input name="d_event_keterangan[]" style="height:20px; font-size:12px;" type="text" class="form-control form-control-sm"></td>
                   </tr>`;
                 }
                   html+=`</tbody>

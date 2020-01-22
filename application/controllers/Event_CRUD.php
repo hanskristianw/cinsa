@@ -163,6 +163,7 @@ class Event_CRUD extends CI_Controller
 
     if($kr_id){
 
+      $d_event_keterangan = $this->input->post('d_event_keterangan[]',true);
       $event_id = $this->input->post('event_id',true);
 
       for($i=0;$i<count($kr_id);$i++){
@@ -171,7 +172,8 @@ class Event_CRUD extends CI_Controller
           $data[$i] = [
             'd_event_kr_id' => $kr_id[$i],
             'd_event_event_id' => $event_id,
-            'd_event_hadir' => $this->input->post($kr_id[$i],true)
+            'd_event_hadir' => $this->input->post($kr_id[$i],true),
+            'd_event_keterangan' => $d_event_keterangan[$i]
           ];
         }
       }
