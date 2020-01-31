@@ -226,18 +226,19 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Show</h6>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>1. Grade</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>2. Affective / Subject</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new2') . '>3. Affective / Month</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>4. Extracurricular</a>
-                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>5. Report Card (NSA)</a>
-                  <a class="collapse-item" href=' . base_url('Report_CRUD/yppi') . '>6. Report Card (YPPI)</a>
-                  <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>7. Life Skill</a>
-                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>8. Hours Distribution</a>
-                  <a class="collapse-item" href=' . base_url('Kadiv_CRUD/last_login') . '>9. Login Activity</a>
-                  <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>10. PTS/PAS</a>
-                  <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>11. DKN</a>
-                  <a class="collapse-item" href=' . base_url('laporan_crud/bi') . '>12. Buku Induk</a>
-                  <a class="collapse-item" href=' . base_url('Event_crud/laporan') . '>13. Event</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/grade_history') . '>2. Grade History</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new') . '>3. Affective / Subject</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/afektif_new2') . '>4. Affective / Month</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_ssp_index') . '>5. Extracurricular</a>
+                  <a class="collapse-item" href=' . base_url('Report_CRUD') . '>6. Report Card (NSA)</a>
+                  <a class="collapse-item" href=' . base_url('Report_CRUD/yppi') . '>7. Report Card (YPPI)</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>8. Life Skill</a>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>9. Hours Distribution</a>
+                  <a class="collapse-item" href=' . base_url('Kadiv_CRUD/last_login') . '>10. Login Activity</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>11. PTS/PAS</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>12. DKN</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/bi') . '>13. Buku Induk</a>
+                  <a class="collapse-item" href=' . base_url('Event_crud/laporan') . '>14. Event</a>
                 </div>
               </div>
             </li>

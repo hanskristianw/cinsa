@@ -124,6 +124,7 @@
             <form class="" action="<?= base_url('Uj_CRUD/save_update'); ?>" method="post" id="sub_uj" >
               <input type="hidden" value="<?= $kelas_id ?>" name="kelas_id">
               <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
+
               <table class="table table-hover table-sm" style='font-size:14px;'>
                 <thead>
                   <tr>
@@ -193,6 +194,15 @@
                     foreach ($siswa_all as $m) :
                   ?>
 
+                    <input type="hidden" value="<?= $m['uj_mid1_kog_log'] ?>" name="uj_mid1_kog_log[]">
+                    <input type="hidden" value="<?= $m['uj_mid1_psi_log'] ?>" name="uj_mid1_psi_log[]">
+                    <input type="hidden" value="<?= $m['uj_fin1_kog_log'] ?>" name="uj_fin1_kog_log[]">
+                    <input type="hidden" value="<?= $m['uj_fin1_psi_log'] ?>" name="uj_fin1_psi_log[]">
+                    
+                    <input type="hidden" value="<?= $m['uj_mid2_kog_log'] ?>" name="uj_mid2_kog_log[]">
+                    <input type="hidden" value="<?= $m['uj_mid2_psi_log'] ?>" name="uj_mid2_psi_log[]">
+                    <input type="hidden" value="<?= $m['uj_fin2_kog_log'] ?>" name="uj_fin2_kog_log[]">
+                    <input type="hidden" value="<?= $m['uj_fin2_psi_log'] ?>" name="uj_fin2_psi_log[]">
                     <?php
                         if($cek_agama == 1){
                           $ag = $m['agama_nama'];

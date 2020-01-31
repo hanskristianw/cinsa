@@ -181,20 +181,28 @@ class Uj_CRUD extends CI_Controller
             $data[$i] = [
               'uj_d_s_id' => $d_s_id[$i],
               'uj_mid1_kog' => $uj_mid1_kog[$i],
+              'uj_mid1_kog_log' => $uj_mid1_kog[$i],
               'uj_mid1_kog_persen' => $this->input->post('uj_mid1_kog_persen'),
               'uj_mid1_psi' => $uj_mid1_psi[$i],
+              'uj_mid1_psi_log' => $uj_mid1_psi[$i],
               'uj_mid1_psi_persen' => $this->input->post('uj_mid1_psi_persen'),
               'uj_fin1_kog' =>  $uj_fin1_kog[$i],
+              'uj_fin1_kog_log' =>  $uj_fin1_kog[$i],
               'uj_fin1_kog_persen' => $this->input->post('uj_fin1_kog_persen'),
               'uj_fin1_psi' =>  $uj_fin1_psi[$i],
+              'uj_fin1_psi_log' =>  $uj_fin1_psi[$i],
               'uj_fin1_psi_persen' => $this->input->post('uj_fin1_psi_persen'),
               'uj_mid2_kog' =>  $uj_mid2_kog[$i],
+              'uj_mid2_kog_log' =>  $uj_mid2_kog[$i],
               'uj_mid2_kog_persen' => $this->input->post('uj_mid2_kog_persen'),
               'uj_mid2_psi' =>  $uj_mid2_psi[$i],
+              'uj_mid2_psi_log' =>  $uj_mid2_psi[$i],
               'uj_mid2_psi_persen' => $this->input->post('uj_mid2_psi_persen'),
               'uj_fin2_kog' =>  $uj_fin2_kog[$i],
+              'uj_fin2_kog_log' =>  $uj_fin2_kog[$i],
               'uj_fin2_kog_persen' => $this->input->post('uj_fin2_kog_persen'),
               'uj_fin2_psi' =>  $uj_fin2_psi[$i],
+              'uj_fin2_psi_log' =>  $uj_fin2_psi[$i],
               'uj_fin2_psi_persen' => $this->input->post('uj_fin2_psi_persen'),
               'uj_mapel_id' => $this->input->post('mapel_id')
             ];
@@ -282,23 +290,52 @@ class Uj_CRUD extends CI_Controller
       $uj_fin2_kog = $this->input->post('uj_fin2_kog[]');
       $uj_fin2_psi = $this->input->post('uj_fin2_psi[]');
 
+      //LOG untuk history
+      $uj_mid1_kog_log = $this->input->post('uj_mid1_kog_log[]');
+      $uj_mid1_psi_log = $this->input->post('uj_mid1_psi_log[]');
+      $uj_fin1_kog_log = $this->input->post('uj_fin1_kog_log[]');
+      $uj_fin1_psi_log = $this->input->post('uj_fin1_psi_log[]');
+
+      $uj_mid2_kog_log = $this->input->post('uj_mid2_kog_log[]');
+      $uj_mid2_psi_log = $this->input->post('uj_mid2_psi_log[]');
+      $uj_fin2_kog_log = $this->input->post('uj_fin2_kog_log[]');
+      $uj_fin2_psi_log = $this->input->post('uj_fin2_psi_log[]');
+
       for($i=0;$i<count($uj_id);$i++){
+        $uj_mid1_kog_log[$i] .= ','.$uj_mid1_kog[$i];
+        $uj_mid1_psi_log[$i] .= ','.$uj_mid1_psi[$i];
+        $uj_fin1_kog_log[$i] .= ','.$uj_fin1_kog[$i];
+        $uj_fin1_psi_log[$i] .= ','.$uj_fin1_psi[$i];
+  
+        $uj_mid2_kog_log[$i] .= ','.$uj_mid2_kog[$i];
+        $uj_mid2_psi_log[$i] .= ','.$uj_mid2_psi[$i];
+        $uj_fin2_kog_log[$i] .= ','.$uj_fin2_kog[$i];
+        $uj_fin2_psi_log[$i] .= ','.$uj_fin2_psi[$i];
+
         $data[$i] = [
           'uj_mid1_kog' => $uj_mid1_kog[$i],
+          'uj_mid1_kog_log' => $uj_mid1_kog_log[$i],
           'uj_mid1_kog_persen' => $this->input->post('uj_mid1_kog_persen'),
           'uj_mid1_psi' => $uj_mid1_psi[$i],
+          'uj_mid1_psi_log' => $uj_mid1_psi_log[$i],
           'uj_mid1_psi_persen' => $this->input->post('uj_mid1_psi_persen'),
           'uj_fin1_kog' =>  $uj_fin1_kog[$i],
+          'uj_fin1_kog_log' => $uj_fin1_kog_log[$i],
           'uj_fin1_kog_persen' => $this->input->post('uj_fin1_kog_persen'),
           'uj_fin1_psi' =>  $uj_fin1_psi[$i],
+          'uj_fin1_psi_log' => $uj_fin1_psi_log[$i],
           'uj_fin1_psi_persen' => $this->input->post('uj_fin1_psi_persen'),
           'uj_mid2_kog' =>  $uj_mid2_kog[$i],
+          'uj_mid2_kog_log' => $uj_mid2_kog_log[$i],
           'uj_mid2_kog_persen' => $this->input->post('uj_mid2_kog_persen'),
           'uj_mid2_psi' =>  $uj_mid2_psi[$i],
+          'uj_mid2_psi_log' => $uj_mid2_psi_log[$i],
           'uj_mid2_psi_persen' => $this->input->post('uj_mid2_psi_persen'),
           'uj_fin2_kog' =>  $uj_fin2_kog[$i],
+          'uj_fin2_kog_log' => $uj_fin2_kog_log[$i],
           'uj_fin2_kog_persen' => $this->input->post('uj_fin2_kog_persen'),
           'uj_fin2_psi' =>  $uj_fin2_psi[$i],
+          'uj_fin2_psi_log' =>  $uj_fin2_psi_log[$i],
           'uj_fin2_psi_persen' => $this->input->post('uj_fin2_psi_persen'),
           'uj_id' =>  $uj_id[$i]
         ];

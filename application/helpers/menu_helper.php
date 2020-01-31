@@ -1088,3 +1088,14 @@ function return_jam_by_guru_kelas_unit_lain($kr_id, $t_id, $sk_id){
 
   return $det['beban_total'];
 }
+
+function return_history_nilai($d_s_id, $mapel_id){
+  $ci =& get_instance();
+
+  $det = $ci->db->query(
+    "SELECT uj_mid1_kog_log,uj_mid2_kog_log,uj_fin1_kog_log,uj_fin2_kog_log,uj_mid1_psi_log,uj_mid2_psi_log,uj_fin1_psi_log,uj_fin2_psi_log
+    FROM uj
+    WHERE uj_d_s_id = $d_s_id AND uj_mapel_id = $mapel_id")->row_array();
+
+  return $det;
+}
