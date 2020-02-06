@@ -1099,3 +1099,14 @@ function return_history_nilai($d_s_id, $mapel_id){
 
   return $det;
 }
+
+function return_tamb_by_guru($kr_id, $t_id){
+  $ci =& get_instance();
+
+  $det = $ci->db->query(
+    "SELECT beban_tam_jum
+    FROM beban_tam
+    WHERE beban_tam_kr_id = $kr_id AND beban_tam_t_id = $t_id")->row_array();
+
+  return $det;
+}

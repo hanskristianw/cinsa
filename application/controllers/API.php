@@ -760,4 +760,19 @@ class API extends CI_Controller
     }
   }
 
+  public function get_kr_by_sk(){
+    if($this->input->post('sk_id', true)){
+
+      $sk_id = $this->input->post('sk_id', true);
+      
+      $detail = $this->db->query("SELECT kr_id, kr_nama_depan, kr_nama_belakang
+          FROM kr
+          WHERE kr_sk_id = $sk_id
+          ORDER BY kr_nama_depan
+        ")->result();
+
+      echo json_encode($detail);
+    }
+  }
+
 }

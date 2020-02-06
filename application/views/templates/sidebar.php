@@ -197,6 +197,7 @@
                   <a class="collapse-item" href=' . base_url('Karakter_CRUD') . '>5. Character</a>
                   <a class="collapse-item" href=' . base_url('CB_CRUD/set_lifeskill') . '>6. Life Skill Description</a>
                   <a class="collapse-item" href=' . base_url('Event_CRUD') . '>7. Event</a>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD/set_beban') . '>8. Beban Jam</a>
                 </div>
               </div>
             </li>
