@@ -775,4 +775,81 @@ class API extends CI_Controller
     }
   }
 
+  public function get_absen_siswa_by_kelas(){
+    if($this->input->post('kelas_id',TRUE)){
+    
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+      $tgl = $this->input->post('tgl',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk
+        FROM d_s
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        WHERE d_s_kelas_id = $kelas_id AND d_s_id NOT IN
+        (
+          SELECT absen_siswa_d_s_id
+          FROM absen_siswa
+          LEFT JOIN d_s ON d_s_id = absen_siswa_d_s_id
+          WHERE d_s_kelas_id = $kelas_id AND absen_siswa_tgl = '$tgl'
+        )
+        ORDER BY sis_nama_depan")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }
+  }
+
+  public function get_absen_siswa_tidak_masuk_by_kelas(){
+    if($this->input->post('kelas_id',TRUE)){
+    
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+      $tgl = $this->input->post('tgl',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, absen_siswa_id, absen_siswa_status, absen_siswa_ket
+        FROM absen_siswa
+        LEFT JOIN d_s ON d_s_id = absen_siswa_d_s_id
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        WHERE d_s_kelas_id = $kelas_id AND absen_siswa_tgl = '$tgl'
+        ORDER BY sis_nama_depan")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }
+  }
+
+  public function get_jurnal_by_mapel_tgl(){
+    
+    if($this->input->post('mapel_id',TRUE)){
+    
+      $mapel_id = $this->input->post('mapel_id',TRUE);
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+      $tgl = $this->input->post('tgl',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT *
+        FROM jurnal
+        WHERE jurnal_mapel_id = $mapel_id AND jurnal_kelas_id = $kelas_id  AND jurnal_tgl = '$tgl'")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }
+  }
+
+  public function get_laporan_by_kelas_mapel(){
+    if($this->input->post('mapel_id',TRUE)){
+    
+      $mapel_id = $this->input->post('mapel_id',TRUE);
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT *
+        FROM jurnal
+        WHERE jurnal_mapel_id = $mapel_id AND jurnal_kelas_id = $kelas_id
+        ORDER BY jurnal_tgl DESC")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }
+  }
 }

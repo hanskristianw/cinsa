@@ -350,6 +350,8 @@
                   <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>3. Affective</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>4. Grade Report</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/final_report') . '>5. Final Grade Report</a>
+                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>6. Journal</a>
+                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>7. Journal Report</a>
                 </div>
               </div>
             </li>
@@ -456,6 +458,7 @@
                         <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>1. Comment</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD/habit_index') . '>2. Habit, Social Skill</a>
                         <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Report Card</a>
+                        <a class="collapse-item" href=' . base_url('Absent_CRUD') . '>4. Absent</a>
                       </div>
                     </div>
                   </li>
