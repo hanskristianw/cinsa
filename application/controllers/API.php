@@ -852,4 +852,65 @@ class API extends CI_Controller
       echo json_encode($data);
     }
   }
+
+  public function get_jenj_by_sk(){
+    if($this->input->post('sk_id',TRUE)){
+      
+      $sk_id = $this->input->post('sk_id',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT *
+        FROM jenj
+        WHERE jenj_sk_id = $sk_id")->result();
+
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }
+
+  }
+
+  public function get_buku_by_jenj_sk_t(){
+    if($this->input->post('sk_id',TRUE)){
+      
+      $sk_id = $this->input->post('sk_id',TRUE);
+      $jenj_id = $this->input->post('jenj_id',TRUE);
+      $t_id = $this->input->post('t_id',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT *
+        FROM buku
+        WHERE buku_id NOT IN (
+          SELECT buku_jual_buku_id
+          FROM buku_jual
+          LEFT JOIN jenj ON buku_jual_jenj_id = jenj_id
+          LEFT JOIN sk ON jenj_sk_id = sk_id
+          WHERE buku_jual_jenj_id = $jenj_id AND sk_id = $sk_id AND buku_jual_t_id = $t_id
+        )
+        ORDER BY buku_nama")->result();
+
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }
+  }
+
+  public function get_buku_terjual_by_jenj_sk_t(){
+    if($this->input->post('sk_id',TRUE)){
+
+      $sk_id = $this->input->post('sk_id',TRUE);
+      $jenj_id = $this->input->post('jenj_id',TRUE);
+      $t_id = $this->input->post('t_id',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT buku_jual_id, buku_nama
+        FROM buku_jual
+        LEFT JOIN buku ON buku_jual_buku_id = buku_id
+        LEFT JOIN jenj ON buku_jual_jenj_id = jenj_id
+        LEFT JOIN sk ON jenj_sk_id = sk_id
+        WHERE buku_jual_jenj_id = $jenj_id AND sk_id = $sk_id AND buku_jual_t_id = $t_id
+        ORDER BY buku_nama")->result();
+        
+      echo json_encode($data);
+    }
+  }
+
 }

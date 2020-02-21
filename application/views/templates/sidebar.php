@@ -15,7 +15,6 @@
       <!-- MANAJEMEN MENU -->
       <?php
 
-
       if ($this->session->userdata('kr_jabatan_id') == 1 && $this->session->userdata('kr_jabatan_id')) {
         //Administrator atau Super Admin
         echo '<div class="sidebar-heading">Administrator</div>
@@ -106,13 +105,13 @@
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master</h6>
-                  <a class="collapse-item" href=' . base_url('Jenjang_CRUD') . '>1. Level</a>
-                  <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>2. Subject</a>
-                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topic</a>
-                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>4. Class</a>
-                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>5. Extracurricular</a>
-                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>6. Special Subject</a>
-                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>7. Percentage</a>
+                  <a class="collapse-item" href=' . base_url('Jenjang_CRUD') . '>1. Jenjang</a>
+                  <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>2. Mapel</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topik</a>
+                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>4. Kelas</a>
+                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>5. Extrakurikuler</a>
+                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>6. Mapel Khusus</a>
+                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>7. Persentase</a>
                 </div>
               </div>
             </li>
@@ -362,8 +361,21 @@
 
           echo '
             <div class="sidebar-heading">
-              Student Affairs
+              Kesiswaan
             </div>
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne41" aria-expanded="true" aria-controls="collapseOne">
+                  <i class="fas fa-fw fa-users"></i>
+                  <span>Master</span>
+                </a>
+                <div id="collapseOne41" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Set</h6>
+                    <a class="collapse-item" href=' . base_url('Wakasis_CRUD/pelanggaran') . '>1. Kategori Pelanggaran</a>
+                    <a class="collapse-item" href=' . base_url('Wakasis_CRUD/jenis') . '>2. Jenis Pelanggaran</a>
+                  </div>
+                </div>
+              </li>
               <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne4" aria-expanded="true" aria-controls="collapseOne">
                   <i class="fas fa-fw fa-users"></i>
@@ -507,6 +519,8 @@
                   <hr class="sidebar-divider d-none d-md-block">
             ';
         }
+
+        
         // echo '<div class="sidebar-heading">
         //         Suggestion/Critics
         //       </div>
@@ -525,6 +539,46 @@
         //       <hr class="sidebar-divider d-none d-md-block">
         // ';
       }
+      elseif($this->session->userdata('kr_jabatan_id') == 8){
+          echo '<div class="sidebar-heading">
+                  Admission
+                </div>
+                <li class="nav-item">
+                  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsead" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-book"></i>
+                    <span>Buku</span>
+                  </a>
+                  <div id="collapsead" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                      <h6 class="collapse-header">Set</h6>
+                      <a class="collapse-item" href=' . base_url('Admission_CRUD/buku') . '>1. Buku</a>
+                      <a class="collapse-item" href=' . base_url('Admission_CRUD/penjualan') . '>2. Penjualan</a>
+                    </div>
+                  </div>
+                </li>
+                <hr class="sidebar-divider d-none d-md-block">
+                ';
+      }
+      elseif($this->session->userdata('kr_jabatan_id') == 9){
+        //KEUANGAN
+        echo '<div class="sidebar-heading">
+                Keuangan
+              </div>
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsead" aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-fw fa-book"></i>
+                  <span>Buku</span>
+                </a>
+                <div id="collapsead" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Set</h6>
+                    <a class="collapse-item" href=' . base_url('Keuangan_CRUD/konfirmasi_buku') . '>1. Konfirmasi</a>
+                  </div>
+                </div>
+              </li>
+              <hr class="sidebar-divider d-none d-md-block">
+              ';
+    }
       ?>
 
 

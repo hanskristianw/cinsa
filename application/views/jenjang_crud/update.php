@@ -7,7 +7,7 @@
         <div class="col-lg">
           <div class="p-5">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4"><?= $title ?></h1>
+              <h1 class="h4 text-gray-900 mb-4"><u><?= $title ?></u></h1>
             </div>
 
             <form class="user" method="post" action="<?= base_url('Jenjang_CRUD/update'); ?>">
@@ -18,11 +18,15 @@
               </div>
               <div class="form-group row">
                 <div class="col-sm mb-3 mb-sm-0 cek">
-                  <input type="text" class="form-control" id="jenj_nama" name="jenj_nama" placeholder="Level Name (EX: X, XI, XII)" value="<?= set_value('jenj_nama', $jenj_update['jenj_nama']) ?>">
-                  <?= form_error('jenj_nama', '<small class="text-danger pl-3">', '</small>'); ?>
+                  <label for="jenj_nama"><u><b>Nama Jenjang</b></u>:</label>
+                  <input type="text" class="form-control form-control-sm" name="jenj_nama" value="<?= $jenj_update['jenj_nama'] ?>" required>
+                </div>
+
+                <div class="col-sm mb-3 mb-sm-0 cek">
+                  <label for="jenj_nama"><u><b>Urutan Jenjang</b></u>:</label>
+                  <input type="number" class="form-control form-control-sm" name="jenj_urutan" value="<?= $jenj_update['jenj_urutan'] ?>" required>
                 </div>
               </div>
-              <?= $this->session->flashdata('warning'); ?>
               <button type="submit" class="btn btn-primary btn-user btn-block">
                 Update
               </button>

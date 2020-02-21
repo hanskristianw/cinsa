@@ -61,6 +61,19 @@ function wakasis_menu(){
   return $count_wakasis;
 }
 
+function admission_menu(){
+  $ci =& get_instance();
+  $kr_id = $ci->session->userdata('kr_id');
+  
+  $data = $ci->db->query(
+    "SELECT *
+    FROM kr
+    WHERE kr_jabatan_id = 8 AND kr_id = $kr_id")->result_array();
+  
+  return $data;
+}
+
+
 function return_mk($mapel_id, $d_s_id){
   $ci =& get_instance();
 

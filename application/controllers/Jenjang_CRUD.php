@@ -30,7 +30,7 @@ class Jenjang_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'List of Level';
+    $data['title'] = 'Daftar Jenjang';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -101,7 +101,7 @@ class Jenjang_CRUD extends CI_Controller
 
     if ($this->form_validation->run() == false) {
       //jika menekan tombol edit
-      $data['title'] = 'Update Level Name';
+      $data['title'] = 'Edit Nama Jenjang';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -121,7 +121,8 @@ class Jenjang_CRUD extends CI_Controller
     } else {
       //fetch data hasil inputan
       $data = [
-        'jenj_nama' => $this->input->post('jenj_nama')
+        'jenj_nama' => $this->input->post('jenj_nama'),
+        'jenj_urutan' => $this->input->post('jenj_urutan')
       ];
 
       //simpan ke db
