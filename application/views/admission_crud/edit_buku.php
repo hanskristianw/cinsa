@@ -28,6 +28,12 @@
 
   <div class="box1 mb-3">
     <h5 class="text-center"><b><u><?= $title ?></u></b></h5>
+    <?php if(count($cek_jual) > 0): ?>
+      <div class="alert alert-primary" role="alert">
+        <b>Perhatian: </b>Jika buku sudah pernah terjual, maka tidak dapat merubah harga beli maupun harga jual, karena berpengaruh terhadap perhitungan laporan penjualan
+      </div>
+    <?php endif; ?>
+
     <div><?= $this->session->flashdata('message'); ?></div>
   </div>
   <div class="box1">
@@ -38,11 +44,28 @@
       <label for="buku_harga_beli" style="font-size:14px;"><b>Nama Buku:</b></label>
       <input type="text" name="buku_nama" class="form-control form-control-sm mb-2" value="<?= $buku['buku_nama'] ?>" required>
 
-      <label for="buku_harga_beli" style="font-size:14px;"><b>Harga Beli:</b></label>
-      <input type="number" name="buku_harga_beli" min="0" class="form-control form-control-sm mb-2" value="<?= $buku['buku_harga_beli'] ?>" required>
+      <?php if(count($cek_jual) == 0): ?>
+        <label for="buku_harga_beli" style="font-size:14px;"><b>Harga Beli:</b></label>
+        <input type="number" name="buku_harga_beli" min="0" class="form-control form-control-sm mb-2" value="<?= $buku['buku_harga_beli'] ?>" required>
 
-      <label for="buku_harga_jual" style="font-size:14px;"><b>Harga Jual</b></label>
-      <input type="number" name="buku_harga_jual" min="0" class="form-control form-control-sm mb-2" value="<?= $buku['buku_harga_jual'] ?>" required>
+        <label for="buku_harga_jual" style="font-size:14px;"><b>Harga Jual</b></label>
+        <input type="number" name="buku_harga_jual" min="0" class="form-control form-control-sm mb-2" value="<?= $buku['buku_harga_jual'] ?>" required>
+      <?php else: ?>
+        <input type="hidden" name="buku_harga_beli" value="<?= $buku['buku_harga_beli'] ?>">
+        <input type="hidden" name="buku_harga_jual" value="<?= $buku['buku_harga_jual'] ?>">
+      <?php endif; ?>
+
+
+      <label for="buku_penerbit_id" style="font-size:14px;"><b>Penerbit:</b></label>
+      <select name="buku_penerbit_id" class="form-control form-control-sm">
+        <?php foreach($p_all as $p): ?>
+          <?php if($p['penerbit_id'] == $buku['buku_penerbit_id']): ?>
+            <option value="<?= $p['penerbit_id'] ?>" selected><?= $p['penerbit_nama'] ?></option>
+          <?php else: ?>
+            <option value="<?= $p['penerbit_id'] ?>"><?= $p['penerbit_nama'] ?></option>
+          <?php endif; ?>
+        <?php endforeach; ?>
+      </select>
 
       <button type="submit" class="btn btn-primary btn-user btn-block mt-3" style="cursor: pointer;">
         Update

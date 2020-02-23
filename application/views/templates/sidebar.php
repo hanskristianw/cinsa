@@ -551,8 +551,9 @@
                   <div id="collapsead" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                       <h6 class="collapse-header">Set</h6>
-                      <a class="collapse-item" href=' . base_url('Admission_CRUD/buku') . '>1. Buku</a>
-                      <a class="collapse-item" href=' . base_url('Admission_CRUD/penjualan') . '>2. Penjualan</a>
+                      <a class="collapse-item" href=' . base_url('Admission_CRUD/penerbit') . '>1. Penerbit</a>
+                      <a class="collapse-item" href=' . base_url('Admission_CRUD/buku') . '>2. Buku</a>
+                      <a class="collapse-item" href=' . base_url('Admission_CRUD/penjualan') . '>3. Penjualan Buku</a>
                     </div>
                   </div>
                 </li>
@@ -573,6 +574,18 @@
                   <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Set</h6>
                     <a class="collapse-item" href=' . base_url('Keuangan_CRUD/konfirmasi_buku') . '>1. Konfirmasi</a>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseadl" aria-expanded="true" aria-controls="collapseTwo">
+                  <i class="fas fa-fw fa-print"></i>
+                  <span>Laporan</span>
+                </a>
+                <div id="collapseadl" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Lihat</h6>
+                    <a class="collapse-item" href=' . base_url('Keuangan_CRUD/laporan_buku') . '>1. Penjualan Buku</a>
                   </div>
                 </div>
               </li>

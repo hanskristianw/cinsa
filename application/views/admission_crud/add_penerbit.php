@@ -31,23 +31,10 @@
     <div><?= $this->session->flashdata('message'); ?></div>
   </div>
   <div class="box1">
-    <form method="post" action="<?= base_url('admission_crud/add_buku_proses') ?>">
+    <form method="post" action="<?= base_url('admission_crud/add_penerbit_proses') ?>">
       
-      <label for="buku_harga_beli" style="font-size:14px;"><b>Nama Buku:</b></label>
-      <input type="text" name="buku_nama" class="form-control form-control-sm mb-2" required>
-
-      <label for="buku_harga_beli" style="font-size:14px;"><b>Harga Beli:</b></label>
-      <input type="number" name="buku_harga_beli" min="0" class="form-control form-control-sm mb-2" required>
-
-      <label for="buku_harga_jual" style="font-size:14px;"><b>Harga Jual</b></label>
-      <input type="number" name="buku_harga_jual" min="0" class="form-control form-control-sm mb-2" required>
-
-      <label for="buku_penerbit_id" style="font-size:14px;"><b>Penerbit:</b></label>
-      <select name="buku_penerbit_id" class="form-control form-control-sm">
-        <?php foreach($p_all as $p): ?>
-          <option value="<?= $p['penerbit_id'] ?>"><?= $p['penerbit_nama'] ?></option>
-        <?php endforeach; ?>
-      </select>
+      <label for="penerbit_nama" style="font-size:14px;"><b>Nama Penerbit:</b></label>
+      <input type="text" name="penerbit_nama" class="form-control form-control-sm mb-2" required>
 
       <button type="submit" class="btn btn-primary btn-user btn-block mt-3" style="cursor: pointer;">
         Proses

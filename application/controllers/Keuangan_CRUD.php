@@ -114,4 +114,46 @@ class Keuangan_CRUD extends CI_Controller
     }
   }
 
+  public function laporan_buku(){
+    $data['title'] = 'Laporan Penjualan Buku';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+    $sk_id = $this->session->userdata('kr_sk_id');
+
+    $data['t_all'] = $this->db->query(
+      "SELECT t_id, t_nama
+      FROM t
+      ORDER BY t_nama DESC")->result_array();
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('Keuangan_CRUD/laporan_buku', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function get_laporan_buku(){
+    if($this->input->post('t_id', true)){
+      
+      $t_id = $this->input->post('t_id', true);
+
+      $data = $this->db->query(
+        "SELECT buku_id, buku_nama, sis_tagihan, buku_harga_beli, sis_baru_nama, sis_nama_depan, sis_nama_bel, buku_harga_beli, buku_harga_jual, penerbit_nama
+        FROM buku_terjual_baru
+        LEFT JOIN sis_baru ON buku_terjual_baru_sis_baru_id = sis_baru_id
+        LEFT JOIN buku_jual ON buku_terjual_baru_buku_jual_id = buku_jual_id
+        LEFT JOIN buku ON buku_jual_buku_id = buku_id
+        LEFT JOIN penerbit ON buku_penerbit_id = penerbit_id
+        LEFT JOIN d_s ON sis_baru_d_s_id = d_s_id
+        LEFT JOIN sis ON d_s_sis_id = sis_id
+        WHERE sis_konfirmasi = 1 AND buku_jual_t_id = $t_id
+        ORDER BY penerbit_nama, buku_nama")->result();
+
+      echo json_encode($data);
+
+    }
+  }
+
 }
