@@ -19,7 +19,9 @@
 
 .box2{
   /*align-self:start;*/
+  display: grid;
   grid-template-columns: 50% 50%;
+  margin-right: 20px;
 }
 </style>
 
@@ -31,23 +33,21 @@
     <div><?= $this->session->flashdata('message'); ?></div>
   </div>
   <div class="box1">
-    <form class="user" method="post" action="<?= base_url('Jurnal_CRUD/save'); ?>">
-      <label><b>Tahun:</b></label>
-      <select name="t_id" id="t_id_jurnal" class="form-control form-control-sm mb-2">
-        <option value="0">Select Year</option>
-        <?php foreach ($t_all as $t) : ?>
-          <option value='<?=$t['t_id'] ?>'>
-            <?= $t['t_nama'] ?>
-          </option>
-        <?php endforeach ?>
-      </select>
+    <label><b>Tahun:</b></label>
+    <select name="t_id" id="t_id_jurnal" class="form-control form-control-sm mb-2">
+      <option value="0">Pilih Tahun</option>
+      <?php foreach ($t_all as $t) : ?>
+        <option value='<?=$t['t_id'] ?>'>
+          <?= $t['t_nama'] ?>
+        </option>
+      <?php endforeach ?>
+    </select>
 
-      <div id="kelas_id_jurnal_ajax"></div>
-      <div id="mapel_id_jurnal_ajax"></div>
-      <div id="tgl_jurnal_ajax"></div>
-      <div id="isi_jurnal_ajax"></div>
+    <div id="kelas_id_jurnal_ajax"></div>
+    <div id="mapel_id_jurnal_ajax"></div>
 
-    </form>
+    <div id="daftar_jurnal_ajax"></div>
+
   </div>
 </div>
 
@@ -67,11 +67,8 @@ $(document).ready(function() {
 
     var t_id = $(this).val();
     $('#kelas_id_jurnal_ajax').html("");
-    $('#isi_jurnal_ajax').html("");
-    $('#tgl_jurnal_ajax').html("");
     $('#mapel_id_jurnal_ajax').html("");
-    // $('#mapel_tes_ajax').html("");
-    // $('#topik_tes_ajax').html("");
+    $('#daftar_jurnal_ajax').html("");
 
     $.ajax(
       {
@@ -89,9 +86,9 @@ $(document).ready(function() {
           } else {
             var html = '<label><b>Kelas:</b></label><select name="kelas_id" id="kelas_id_jurnal" class="form-control form-control-sm mb-3">';
             var i;
-            html += '<option value=0>Select Class</option>';
+            html += '<option value=0>Pilih Kelas Ajar</option>';
             for (i = 0; i < data.length; i++) {
-              html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama +  '</option>';
+              html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama +' - '+ data[i].sk_nama + '</option>';
             }
             html += '</select>';
 
@@ -108,9 +105,8 @@ $(document).ready(function() {
     $('#kelas_id_jurnal').change(function () {
       var kelas_id = $(this).val();
       //alert(flag);
-      $('#isi_jurnal_ajax').html("");
-      $('#tgl_jurnal_ajax').html("");
       $('#mapel_id_jurnal_ajax').html("");
+      $('#daftar_jurnal_ajax').html("");
       
       $.ajax(
         {
@@ -126,9 +122,9 @@ $(document).ready(function() {
             if (data.length == 0) {
               var html = '<div class="text-center mb-3 text-danger"><b>--No Subject In Class--</b></div>';
             } else {
-              var html = '<label><b>Subject:</b></label><select name="mapel_id" id="mapel_id_jurnal" class="form-control form-control-sm mb-3">';
+              var html = '<label><b>Mapel:</b></label><select name="mapel_id" id="mapel_id_jurnal" class="form-control form-control-sm mb-3">';
 
-              html += '<option value=0>Select Subject</option>';
+              html += '<option value=0>Pilih Mapel</option>';
               var i;
               for (i = 0; i < data.length; i++) {
                 html += '<option value=' + data[i].mapel_id + '>' + data[i].mapel_nama + '</option>';
@@ -142,71 +138,99 @@ $(document).ready(function() {
             }
 
             $('#mapel_id_jurnal_ajax').html(html);
-            refreshTglJurnal();
+            //refreshTglJurnal();
+            refreshDaftarJurnal();
           }
         });
     });
   }
 
-  function refreshTglJurnal() {
+  function refreshDaftarJurnal(){
     $('#mapel_id_jurnal').change(function () {
-      var kelas_id = $(this).val();
       
-      var html ="";
-      if(kelas_id > 0){
-        html+= `<label><b>Tanggal:</b></label><input type="date" name="tgl_jurnal" id="tgl_jurnal" class="form-control form-control-sm mb-4">`;
-        $('#tgl_jurnal_ajax').html(html);
-        refreshIsiJurnal();
-      }else{
-        $('#isi_jurnal_ajax').html("");
-        $('#tgl_jurnal_ajax').html("");
-      }
-
-    });
-  }
-  
-  function refreshIsiJurnal() {
-    $('#tgl_jurnal').change(function () {
-      
-      $('#isi_jurnal_ajax').html("");
-      var tgl = $(this).val();
+      $('#daftar_jurnal_ajax').html("");
       var mapel_id = $('#mapel_id_jurnal').val();
       var kelas_id = $('#kelas_id_jurnal').val();
 
-      if(tgl){
-        //alert(id);
-        $.ajax(
-        {
-          type: "post",
-          url: base_url + "API/get_jurnal_by_mapel_tgl",
-          data: {
-            'mapel_id': mapel_id,
-            'tgl': tgl,
-            'kelas_id': kelas_id
-          },
-          async: true,
-          dataType: 'json',
-          success: function (data) {
-            //console.log(data);
-            if (data.length == 0) {
-              var html = `<label><b>Isi Jurnal:</b></label><textarea name="jurnal_isi" rows="6" class="form-control" required></textarea>`;
-              html += '<button type="submit" class="btn btn-primary btn-user btn-block mt-3">';
-              html += 'Save';
-              html += '</button>';
-            } else {
-              var html = `<label><b>Isi Jurnal:</b></label><textarea name="jurnal_isi" rows="6" class="form-control" required>${data[0].jurnal_isi}</textarea>
-              <input type="hidden" name="jurnal_id" value="${data[0].jurnal_id}">`;
-              html += '<button type="submit" class="btn btn-primary btn-user btn-block mt-3">';
-              html += 'Update';
-              html += '</button>';
-              
+      $.ajax(
+      {
+        type: "post",
+        url: base_url + "API/get_daftar_jurnal_by_mapel_kelas",
+        data: {
+          'mapel_id': mapel_id,
+          'kelas_id': kelas_id
+        },
+        async: true,
+        dataType: 'json',
+        success: function (data) {
+          //console.log(data);
+          var html = 
+          `
+          <form method="post" action="${base_url}Jurnal_CRUD/add_jurnal">
+            <input type="hidden" name="mapel_id" value="${mapel_id}">
+            <input type="hidden" name="kelas_id" value="${kelas_id}">
+
+            <button type="submit" class="btn btn-primary mt-4" style="font-size:15px; height:33px;">
+              <div style="vertical-align:middle;">
+                &plus; Jurnal
+              </div>
+            </button>
+          </form>
+          <table class="table table-sm table-bordered mt-3" style="font-size:14px;">
+            <thead>
+              <th style="width:40px;">Tanggal</th>
+              <th>Outline</th>
+              <th style="width:80px;">Action</th>
+            </thead>
+            <tbody>`;
+          if (data.length == 0) {
+            html += `<tr><td colspan="3" class="text-danger text-center"> <b>- Data Jurnal belum ada -</b> </td></tr>`;
+            // html += '<button type="submit" class="btn btn-primary btn-user btn-block mt-3">';
+            // html += 'Save';
+            // html += '</button>';
+          } else {
+            var fields;
+            for (var i = 0; i < data.length; i++) {
+              tgl = data[i].jurnal_tgl.split('-');
+              html += `
+              <tr>
+                <td>${tgl[2]}/${tgl[1]}</td>
+                <td>${data[i].mapel_outline_nama}</td>
+                <td>
+                  <div class="box2">
+                    <div>
+                      <form action="${base_url}Jurnal_CRUD/edit_jurnal" method="post">
+                        <input type="hidden" name="jurnal_id" value="${data[i].jurnal_id}" method="post">
+                        <button type="submit" class="badge badge-warning">
+                          Edit
+                        </button>
+                      </form>
+                    </div>
+                    <div>
+                      <form action="${base_url}Jurnal_CRUD/add_absen" method="post">
+                        <input type="hidden" name="jurnal_id" value="${data[i].jurnal_id}" method="post">
+                        <button type="submit" class="badge badge-secondary">
+                          Absent
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                  
+                  
+                </td>
+              </tr>`;
             }
-            $('#isi_jurnal_ajax').html(html);
-
+            // var html = ``;
+            // html += '<button type="submit" class="btn btn-primary btn-user btn-block mt-3">';
+            // html += 'Update';
+            // html += '</button>';
           }
-        });
+          html += `</tbody></table>`;
+          $('#daftar_jurnal_ajax').html(html);
 
-      }
+        }
+      });
+
     });
   }
 

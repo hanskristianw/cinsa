@@ -154,8 +154,9 @@ class API extends CI_Controller
           "SELECT kelas_id, kelas_nama, sk_nama
           FROM kelas
           LEFT JOIN sk ON kelas_sk_id = sk_id
+          LEFT JOIN jenj ON kelas_jenj_id = jenj_id
           WHERE kelas_t_id = $t_id AND kelas_sk_id = $kr_sk_id
-          ORDER BY kelas_nama")->result();
+          ORDER BY sk_nama, jenj_urutan, kelas_nama")->result();
       }
       else{
         $data = $this->db->query(
@@ -164,8 +165,9 @@ class API extends CI_Controller
           LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
           LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
           LEFT JOIN sk ON kelas_sk_id = sk_id
+          LEFT JOIN jenj ON kelas_jenj_id = jenj_id
           WHERE kelas_t_id = $t_id AND d_mpl_kr_id = $kr_id
-          ORDER BY kelas_nama")->result();
+          ORDER BY sk_nama, jenj_urutan, kelas_nama")->result();
       }
 
       //$data = $this->product_model->get_sub_category($category_id)->result();
@@ -836,6 +838,24 @@ class API extends CI_Controller
     }
   }
 
+  public function get_daftar_jurnal_by_mapel_kelas(){
+    if($this->input->post('mapel_id',TRUE)){
+    
+      $mapel_id = $this->input->post('mapel_id',TRUE);
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT *
+        FROM jurnal
+        LEFT JOIN mapel_outline ON jurnal_mapel_outline_id = mapel_outline_id
+        WHERE mapel_outline_mapel_id = $mapel_id AND jurnal_kelas_id = $kelas_id
+        ORDER BY jurnal_tgl DESC")->result();
+  
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }
+  }
+
   public function get_laporan_by_kelas_mapel(){
     if($this->input->post('mapel_id',TRUE)){
     
@@ -912,5 +932,141 @@ class API extends CI_Controller
       echo json_encode($data);
     }
   }
+
+  
+  public function get_outline_detail(){
+    if($this->input->post('mapel_id',TRUE)){
+      
+      $mapel_id = $this->input->post('mapel_id',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT *
+        FROM mapel_outline
+        LEFT JOIN jenj ON mapel_outline_jenj_id = jenj_id
+        WHERE mapel_outline_mapel_id = $mapel_id
+        ORDER BY jenj_urutan, mapel_outline_nama")->result();
+        
+      echo json_encode($data);
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+
+  }
+
+  public function get_absen_by_outline_tgl(){
+    if($this->input->post('kelas_id',TRUE)){
+      
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+      $jurnal_tgl = $this->input->post('jurnal_tgl',TRUE);
+      $jurnal_mapel_outline_id = $this->input->post('jurnal_mapel_outline_id',TRUE);
+      
+      //cek apakah sudah ada
+      $cek = $this->db->query(
+        "SELECT COUNT(absen_j_d_s_id) as total
+        FROM absen_j 
+        LEFT JOIN jurnal ON absen_j_jurnal_id = jurnal_id
+        WHERE jurnal_tgl = '$jurnal_tgl' AND jurnal_mapel_outline_id = $jurnal_mapel_outline_id AND jurnal_kelas_id = $kelas_id")->result();
+
+      if($cek['total']>0){
+        //jika sudah ada
+        echo json_encode($cek);
+      }else{
+
+        $data = $this->db->query(
+          "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk
+          FROM d_s
+          LEFT JOIN sis ON d_s_sis_id = sis_id
+          WHERE d_s_kelas_id = $kelas_id
+          ORDER BY sis_nama_depan")->result();
+          
+        echo json_encode($data);
+      }
+
+
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+    }
+  }
+
+  public function cek_data_jurnal(){
+    if($this->input->post('kelas_id',TRUE)){
+      
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+      $jurnal_tgl = $this->input->post('jurnal_tgl',TRUE);
+      $mapel_id = $this->input->post('mapel_id',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT *
+        FROM jurnal
+        LEFT JOIN mapel_outline ON jurnal_mapel_outline_id = mapel_outline_id
+        WHERE jurnal_kelas_id = $kelas_id AND jurnal_tgl = '$jurnal_tgl' AND mapel_outline_mapel_id = $mapel_id")->result();
+        
+      echo json_encode($data);
+
+
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+    }
+  }
+
+  public function cek_data_jurnal_skrng(){
+    if($this->input->post('kelas_id',TRUE)){
+      
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+      $jurnal_tgl = $this->input->post('jurnal_tgl',TRUE);
+      $mapel_id = $this->input->post('mapel_id',TRUE);
+      $tgl_skrng = $this->input->post('tgl_skrng',TRUE);
+      
+      $data = $this->db->query(
+        "SELECT *
+        FROM jurnal
+        LEFT JOIN mapel_outline ON jurnal_mapel_outline_id = mapel_outline_id
+        WHERE jurnal_kelas_id = $kelas_id AND jurnal_tgl = '$jurnal_tgl' AND mapel_outline_mapel_id = $mapel_id AND jurnal_tgl <> '$tgl_skrng'")->result();
+        
+      echo json_encode($data);
+
+
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+    }
+  }
+
+  public function get_mapel_by_kr(){
+    if($this->input->post('t_id',TRUE)){
+      $t_id = $this->input->post('t_id',TRUE);
+      $kr_id = $this->session->userdata('kr_id');
+
+      $kr_jabatan = $this->session->userdata('kr_jabatan_id');
+      $kr_sk_id = $this->session->userdata('kr_sk_id');
+
+      //jika kurikulum
+      if($kr_jabatan == 4){
+        //cari mapel disekolah itu
+        $data = $this->db->query(
+          "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
+          FROM d_mpl
+          LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+          LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+          LEFT JOIN sk ON kelas_sk_id = sk_id
+          WHERE kelas_sk_id = $kr_sk_id AND kelas_t_id = $t_id
+          ORDER BY mapel_nama")->result();
+      }
+      else{
+        $data = $this->db->query(
+          "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
+          FROM d_mpl
+          LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+          LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+          LEFT JOIN sk ON kelas_sk_id = sk_id
+          WHERE kelas_t_id = $t_id AND d_mpl_kr_id = $kr_id
+          ORDER BY mapel_nama")->result();
+      }
+
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
 
 }

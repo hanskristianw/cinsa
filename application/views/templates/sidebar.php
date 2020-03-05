@@ -156,6 +156,29 @@
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">';
+            if (mapel_menu() >= 1) {
+
+              echo'<div class="sidebar-heading">
+              Menu Jurnal Guru
+              </div>
+  
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJ" aria-expanded="true" aria-controls="collapseOne">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Jurnal</span>
+                </a>
+                <div id="collapseJ" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Jurnal</h6>
+                    <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>1. Outline</a>
+                    <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>2. Input Jurnal</a>
+                    <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>3. Report Jurnal</a>
+                  </div>
+                </div>
+              </li>
+              
+              <hr class="sidebar-divider d-none d-md-block">';
+            }
 
         // echo '<div class="sidebar-heading">
         //             Suggestion/Critics
@@ -243,6 +266,30 @@
               </div>
             </li>
             <hr class="sidebar-divider d-none d-md-block">';
+
+            if (mapel_menu() >= 1) {
+
+              echo'<div class="sidebar-heading">
+              Menu Jurnal Guru
+              </div>
+  
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJ" aria-expanded="true" aria-controls="collapseOne">
+                  <i class="fas fa-fw fa-cog"></i>
+                  <span>Jurnal</span>
+                </a>
+                <div id="collapseJ" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                  <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Jurnal</h6>
+                    <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>1. Outline</a>
+                    <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>2. Input Jurnal</a>
+                    <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>3. Report Jurnal</a>
+                  </div>
+                </div>
+              </li>
+              
+              <hr class="sidebar-divider d-none d-md-block">';
+            }
       } elseif ($this->session->userdata('kr_jabatan_id') == 6 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia TU
         echo '<div class="sidebar-heading">
@@ -315,18 +362,39 @@
         //jika dia Guru
         if (mapel_menu() >= 1) {
           echo '<div class="sidebar-heading">
-            Subject Menu
+            Menu Mapel
             </div>
 
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Subject</span>
+                <span>Mapel</span>
               </a>
               <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
-                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>Topic</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>1. Topik</a>
+                </div>
+              </div>
+            </li>
+            
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <div class="sidebar-heading">
+            Menu Jurnal Guru
+            </div>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJ" aria-expanded="true" aria-controls="collapseOne">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Jurnal</span>
+              </a>
+              <div id="collapseJ" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Jurnal</h6>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>1. Outline</a>
+                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>2. Input Jurnal</a>
+                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>3. Report Jurnal</a>
                 </div>
               </div>
             </li>
@@ -334,23 +402,21 @@
             <hr class="sidebar-divider d-none d-md-block">
             
             <div class="sidebar-heading">
-              Grade Menu
+             Menu Nilai
             </div>
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-book"></i>
-                <span>Grade</span>
+                <span>Nilai</span>
               </a>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Grade</h6>
+                  <h6 class="collapse-header">Nilai</h6>
                   <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>1. Cognitive Psychomotor</a>
                   <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>2. Mid & Final</a>
                   <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>3. Affective</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>4. Grade Report</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/final_report') . '>5. Final Grade Report</a>
-                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>6. Journal</a>
-                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>7. Journal Report</a>
                 </div>
               </div>
             </li>
@@ -406,7 +472,7 @@
                         <a class="collapse-item" href=' . base_url('K_afek_CRUD') . '>1. Affective Indicator</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD') . '>2. CB Topic</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD/grade') . '>3. CB Grade</a>
-                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>5. Counseling Session</a>
+                        <a class="collapse-item" href=' . base_url('Konseling_CRUD') . '>4. Counseling Session</a>
                       </div>
                     </div>
                   </li>

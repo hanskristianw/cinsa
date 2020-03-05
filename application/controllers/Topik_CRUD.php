@@ -200,7 +200,6 @@ class Topik_CRUD extends CI_Controller
     }
   }
 
-
   public function edit_proses(){
     if($this->input->post('_id', true)){
       $data = [
@@ -219,5 +218,152 @@ class Topik_CRUD extends CI_Controller
       redirect('Topik_CRUD');
     }
   }
+
+  public function outline(){
+    $data['title'] = 'Outline';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    
+    $kr_id = $data['kr']['kr_id'];
+    
+    $data['jabatan_id'] = $this->session->userdata('kr_jabatan_id');
+
+    if($this->session->userdata('kr_jabatan_id')!=4){
+      $data['mapel_all'] = $this->db->query(
+        "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
+        FROM d_mpl 
+        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN sk ON kelas_sk_id = sk_id
+        WHERE d_mpl_kr_id = $kr_id")->result_array();
   
+      if(empty($data['mapel_all'])){
+        $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>You don't teach any class, contact curriculum for more information!</div>");
+        redirect('Profile');
+      }
+    }else{
+      $sk_id = $this->session->userdata('kr_sk_id');
+      $data['mapel_all'] = $this->db->query(
+        "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
+        FROM d_mpl 
+        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN sk ON kelas_sk_id = sk_id
+        WHERE sk_id = $sk_id
+        ORDER BY mapel_nama")->result_array();
+        
+    }
+    
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('topik_crud/outline',$data);
+    $this->load->view('templates/footer');
+  }
+
+  public function add_outline(){
+    $mapel_id = $this->input->post('mapel_id', true);
+
+    if (!$mapel_id) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+
+    $data['sk'] = $this->db->query(
+      "SELECT mapel_nama, mapel_sk_id
+      FROM mapel
+      WHERE mapel_id = $mapel_id")->row_array();
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['jenj_all'] = $this->_jenj->return_all_by_sk($data['sk']['mapel_sk_id']);
+    
+    $data['mapel_id'] = $mapel_id;
+    $data['mapel_nama'] = $data['sk']['mapel_nama'];
+    $data['title'] = 'Tambah Outline';
+
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('Topik_CRUD/add_outline',$data);
+    $this->load->view('templates/footer');
+  }
+
+  public function proses_add_outline(){
+    if($this->input->post('mapel_outline_nama', true)){
+
+      $mapel_outline_mapel_id = $this->input->post('mapel_outline_mapel_id', true);
+      $mapel_outline_nama = $this->input->post('mapel_outline_nama', true);
+      $mapel_outline_jenj_id = $this->input->post('mapel_outline_jenj_id', true);
+
+      $data = [
+        'mapel_outline_mapel_id' => $mapel_outline_mapel_id,
+        'mapel_outline_nama' => $mapel_outline_nama,
+        'mapel_outline_jenj_id' => $mapel_outline_jenj_id
+      ];
+  
+      $this->db->insert('mapel_outline', $data);
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Outline Berhasil Dibuat!</div>');
+      redirect('Topik_CRUD/outline');
+
+    }
+  }
+
+  public function edit_outline(){
+    
+    $mapel_outline_id = $this->input->post('mapel_outline_id', true);
+
+    if(!$mapel_outline_id){
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+
+    $data['title'] = 'Edit Outline';
+
+    $data['mo'] = $this->db->query(
+      "SELECT *
+      FROM mapel_outline
+      WHERE mapel_outline_id = $mapel_outline_id")->row_array();
+
+    $mapel_id = $data['mo']['mapel_outline_mapel_id'];
+
+    $data['sk'] = $this->db->query(
+      "SELECT mapel_nama, mapel_sk_id
+      FROM mapel
+      WHERE mapel_id = $mapel_id")->row_array();
+
+    $data['mapel_nama'] = $data['sk']['mapel_nama'];
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['jenj_all'] = $this->_jenj->return_all_by_sk($data['sk']['mapel_sk_id']);
+
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('Topik_CRUD/edit_outline',$data);
+    $this->load->view('templates/footer');
+
+  }
+
+  public function edit_outline_proses(){
+    if($this->input->post('mapel_outline_nama', true)){
+      
+      $mapel_outline_nama = $this->input->post('mapel_outline_nama', true);
+      $mapel_outline_jenj_id = $this->input->post('mapel_outline_jenj_id', true);
+      
+      $data = [
+        'mapel_outline_nama' => $mapel_outline_nama,
+        'mapel_outline_jenj_id' => $mapel_outline_jenj_id
+      ];
+
+      $this->db->where('mapel_outline_id', $this->input->post('mapel_outline_id', true));
+      $this->db->update('mapel_outline', $data); 
+      
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Outline berhasil dirubah!</div>');
+      redirect('Topik_CRUD/outline');
+    }
+  }
+
 }
