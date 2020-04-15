@@ -46,7 +46,8 @@ class Sekolah_CRUD extends CI_Controller
         SELECT sk_id, kr_nama_depan as wakasis
           FROM sk
           LEFT JOIN kr ON sk_wakasis = kr_id
-      )AS b ON a.sk_id = b.sk_id")->result_array();
+      )AS b ON a.sk_id = b.sk_id"
+    )->result_array();
 
     //$data['tes'] = var_dump($this->db->last_query());
 
@@ -84,7 +85,7 @@ class Sekolah_CRUD extends CI_Controller
     } else {
       $rawdate = htmlentities($this->input->post('sk_mid'));
       $sk_mid = date('Y-m-d', strtotime($rawdate));
-      
+
       $rawdate = htmlentities($this->input->post('sk_fin'));
       $sk_fin = date('Y-m-d', strtotime($rawdate));
 
@@ -110,7 +111,7 @@ class Sekolah_CRUD extends CI_Controller
     //jika bukan dari form update sendiri
     if ($sk_id) {
 
-      if($sk_type == 0){
+      if ($sk_type == 0) {
         $data['title'] = 'Update School';
 
         //data karyawan yang sedang login untuk topbar
@@ -118,25 +119,25 @@ class Sekolah_CRUD extends CI_Controller
         $data['jabatan_all'] = $this->_jabatan->return_all();
         $data['st_all'] = $this->_st->return_all();
         $data['guru_all'] = $this->_kr->return_all_teacher();
-  
-  
+
+
         $data['sk_update'] = $this->_sk->find_by_id($sk_id);
-  
+
         //load view dengan data query
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('sekolah_crud/update', $data);
         $this->load->view('templates/footer');
-      }elseif($sk_type == 1){
+      } elseif ($sk_type == 1) {
         $data['title'] = 'Update Unit';
 
         //data karyawan yang sedang login untuk topbar
         $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-  
-  
+
+
         $data['sk_update'] = $this->_sk->find_by_id($sk_id);
-  
+
         //load view dengan data query
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -144,18 +145,18 @@ class Sekolah_CRUD extends CI_Controller
         $this->load->view('sekolah_crud/update_unit', $data);
         $this->load->view('templates/footer');
       }
-
-    }else{
+    } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
   }
 
-  public function update_proses(){
+  public function update_proses()
+  {
     if ($this->input->post('sk_nama')) {
       $rawdate = htmlentities($this->input->post('sk_mid'));
       $sk_mid = date('Y-m-d', strtotime($rawdate));
-      
+
       $rawdate = htmlentities($this->input->post('sk_fin'));
       $sk_fin = date('Y-m-d', strtotime($rawdate));
       $data = [
@@ -175,14 +176,14 @@ class Sekolah_CRUD extends CI_Controller
 
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">School Updated!</div>');
       redirect('Sekolah_CRUD');
-
-    }else{
+    } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
   }
 
-  public function update_unit_proses(){
+  public function update_unit_proses()
+  {
     if ($this->input->post('sk_nama')) {
       $data = [
         'sk_nama' => $this->input->post('sk_nama'),
@@ -194,10 +195,73 @@ class Sekolah_CRUD extends CI_Controller
 
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Unit Updated!</div>');
       redirect('Sekolah_CRUD');
-
-    }else{
+    } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
+    }
+  }
+
+  public function ttd_kepsek()
+  {
+
+    if ($this->input->post('sk_id')) {
+
+      $data['title'] = 'Upload Tanda Tangan Digital Kepsek';
+
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $data['sk_id'] = $this->input->post('sk_id');
+
+      $sk_id = $this->input->post('sk_id');
+
+      $data['ttd_kepsek'] = $this->db->query(
+        "SELECT ttd_kepsek, sk_nama
+        FROM sk
+        WHERE sk_id = $sk_id"
+      )->row_array();
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('sekolah_crud/ttd_kepsek', $data);
+      $this->load->view('templates/footer');
+    }
+  }
+
+  public function save_ttd_kepsek()
+  {
+    if ($this->input->post('sk_id')) {
+
+      $config['upload_path'] = './assets/img/ttd_kepsek/';
+      $config['allowed_types'] = 'gif|jpg|png|jpeg';
+      $config['max_size'] = 10000;
+      $config['max_width'] = 3000;
+      $config['max_height'] = 3000;
+      $config['file_name'] = date('ymd') . '-' . substr(md5(rand()), 0, 10);
+      $old_image = $this->input->post('ttd_kepsek');
+      $this->load->library('upload', $config);
+
+      if (!$this->upload->do_upload('image')) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+        redirect('Profile/ttd');
+      } else {
+
+        if ($old_image != 'ttd_kepsek.png') {
+          unlink(FCPATH . '/assets/img/ttd_kepsek/' . $old_image);
+        }
+
+        $data = [
+          'ttd_kepsek' => $this->upload->data('file_name')
+        ];
+
+
+        $sk_id = $this->input->post('sk_id');
+
+        $this->db->where('sk_id', $sk_id);
+        $this->db->update('sk', $data);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Upload Success!</div>');
+        redirect('Sekolah_CRUD');
+      }
     }
   }
 }

@@ -107,11 +107,12 @@
                   <h6 class="collapse-header">Master</h6>
                   <a class="collapse-item" href=' . base_url('Jenjang_CRUD') . '>1. Jenjang</a>
                   <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>2. Mapel</a>
-                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topik</a>
-                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>4. Kelas</a>
-                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>5. Extrakurikuler</a>
-                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>6. Mapel Khusus</a>
-                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>7. Persentase</a>
+                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD') . '>3. Jadwal Pelajaran</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>4. Topik</a>
+                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>5. Kelas</a>
+                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>6. Extrakurikuler</a>
+                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>7. Mapel Khusus</a>
+                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>8. Persentase</a>
                 </div>
               </div>
             </li>
@@ -156,29 +157,7 @@
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">';
-            if (mapel_menu() >= 1) {
 
-              echo'<div class="sidebar-heading">
-              Menu Jurnal Guru
-              </div>
-  
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJ" aria-expanded="true" aria-controls="collapseOne">
-                  <i class="fas fa-fw fa-cog"></i>
-                  <span>Jurnal</span>
-                </a>
-                <div id="collapseJ" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                  <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Jurnal</h6>
-                    <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>1. Outline</a>
-                    <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>2. Input Jurnal</a>
-                    <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>3. Report Jurnal</a>
-                  </div>
-                </div>
-              </li>
-              
-              <hr class="sidebar-divider d-none d-md-block">';
-            }
 
         // echo '<div class="sidebar-heading">
         //             Suggestion/Critics
@@ -200,7 +179,7 @@
       } elseif ($this->session->userdata('kr_jabatan_id') == 5 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia Kadiv
         echo '<div class="sidebar-heading">
-              Head of Education Department
+              Divisi Pendidikan
             </div>
 
 
@@ -213,13 +192,14 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
                   <a class="collapse-item" href=' . base_url('Sekolah_CRUD') . '>1. Unit</a>
-                  <a class="collapse-item" href=' . base_url('Tahun_CRUD') . '>2. Year</a>
-                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topic</a>
-                  <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>4. Counselor</a>
-                  <a class="collapse-item" href=' . base_url('Karakter_CRUD') . '>5. Character</a>
-                  <a class="collapse-item" href=' . base_url('CB_CRUD/set_lifeskill') . '>6. Life Skill Description</a>
-                  <a class="collapse-item" href=' . base_url('Event_CRUD') . '>7. Event</a>
-                  <a class="collapse-item" href=' . base_url('Disjam_CRUD/set_beban') . '>8. Beban Jam</a>
+                  <a class="collapse-item" href=' . base_url('Tahun_CRUD') . '>2. Tahun</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topik</a>
+                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD') . '>4. Jadwal Pelajaran</a>
+                  <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>5. Konselor</a>
+                  <a class="collapse-item" href=' . base_url('Karakter_CRUD') . '>6. Karakter</a>
+                  <a class="collapse-item" href=' . base_url('CB_CRUD/set_lifeskill') . '>7. Life Skill</a>
+                  <a class="collapse-item" href=' . base_url('Event_CRUD') . '>8. Event</a>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD/set_beban') . '>9. Tambahan Beban Jam</a>
                 </div>
               </div>
             </li>
@@ -227,7 +207,7 @@
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-book"></i>
-                <span>Grade</span>
+                <span>Nilai</span>
               </a>
               <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -243,7 +223,7 @@
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-chart-bar"></i>
-                <span>Report</span>
+                <span>Laporan</span>
               </a>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -256,7 +236,7 @@
                   <a class="collapse-item" href=' . base_url('Report_CRUD') . '>6. Report Card (NSA)</a>
                   <a class="collapse-item" href=' . base_url('Report_CRUD/yppi') . '>7. Report Card (YPPI)</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/Report_life') . '>8. Life Skill</a>
-                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>9. Hours Distribution</a>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD') . '>9. Disjam</a>
                   <a class="collapse-item" href=' . base_url('Kadiv_CRUD/last_login') . '>10. Login Activity</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>11. PTS/PAS</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>12. DKN</a>
@@ -267,29 +247,23 @@
             </li>
             <hr class="sidebar-divider d-none d-md-block">';
 
-            if (mapel_menu() >= 1) {
 
-              echo'<div class="sidebar-heading">
-              Menu Jurnal Guru
-              </div>
-  
-              <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJ" aria-expanded="true" aria-controls="collapseOne">
-                  <i class="fas fa-fw fa-cog"></i>
-                  <span>Jurnal</span>
-                </a>
-                <div id="collapseJ" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                  <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Jurnal</h6>
-                    <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>1. Outline</a>
-                    <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>2. Input Jurnal</a>
-                    <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>3. Report Jurnal</a>
-                  </div>
-                </div>
-              </li>
-              
-              <hr class="sidebar-divider d-none d-md-block">';
-            }
+        ///////jurnal guru//////////
+
+
+
+        ////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
       } elseif ($this->session->userdata('kr_jabatan_id') == 6 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia TU
         echo '<div class="sidebar-heading">
@@ -380,26 +354,10 @@
             
             <hr class="sidebar-divider d-none d-md-block">
 
-            <div class="sidebar-heading">
-            Menu Jurnal Guru
-            </div>
 
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJ" aria-expanded="true" aria-controls="collapseOne">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Jurnal</span>
-              </a>
-              <div id="collapseJ" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Jurnal</h6>
-                  <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>1. Outline</a>
-                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>2. Input Jurnal</a>
-                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>3. Report Jurnal</a>
-                </div>
-              </div>
-            </li>
+
+
             
-            <hr class="sidebar-divider d-none d-md-block">
             
             <div class="sidebar-heading">
              Menu Nilai
@@ -420,6 +378,23 @@
                 </div>
               </div>
             </li>
+            
+
+            <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJ" aria-expanded="true" aria-controls="collapseOne">
+              <i class="fas fa-fw fa-cog"></i>
+              <span>Jurnal</span>
+            </a>
+            <div id="collapseJ" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Jurnal</h6>
+                <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>1. Outline</a>
+                <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>2. Input Jurnal</a>
+                <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>3. Report Jurnal</a>
+              </div>
+            </div>
+            </li>
+
             <hr class="sidebar-divider d-none d-md-block">';
         }
 
@@ -540,6 +515,19 @@
                       </div>
                     </div>
                   </li>
+
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrtu" aria-expanded="true" aria-controls="collapseTwo">
+                      <i class="fas fa-fw fa-globe"></i>
+                      <span>Rapor Online</span>
+                    </a>
+                    <div id="collapseOrtu" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Set</h6>
+                        <a class="collapse-item" href=' . base_url('Ortu_CRUD') . '>1. Hak Akses</a>
+                      </div>
+                    </div>
+                  </li>
                   <hr class="sidebar-divider d-none d-md-block">
             ';
         }
@@ -586,7 +574,7 @@
             ';
         }
 
-        
+
         // echo '<div class="sidebar-heading">
         //         Suggestion/Critics
         //       </div>
@@ -604,9 +592,8 @@
         //       </li>
         //       <hr class="sidebar-divider d-none d-md-block">
         // ';
-      }
-      elseif($this->session->userdata('kr_jabatan_id') == 8){
-          echo '<div class="sidebar-heading">
+      } elseif ($this->session->userdata('kr_jabatan_id') == 8) {
+        echo '<div class="sidebar-heading">
                   Admission
                 </div>
                 <li class="nav-item">
@@ -625,8 +612,7 @@
                 </li>
                 <hr class="sidebar-divider d-none d-md-block">
                 ';
-      }
-      elseif($this->session->userdata('kr_jabatan_id') == 9){
+      } elseif ($this->session->userdata('kr_jabatan_id') == 9) {
         //KEUANGAN
         echo '<div class="sidebar-heading">
                 Keuangan
@@ -657,7 +643,7 @@
               </li>
               <hr class="sidebar-divider d-none d-md-block">
               ';
-    }
+      }
       ?>
 
 

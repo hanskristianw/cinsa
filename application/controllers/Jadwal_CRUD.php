@@ -1,0 +1,203 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Jadwal_CRUD extends CI_Controller
+{
+  public function __construct()
+  {
+    parent::__construct();
+    $this->load->model('_kr');
+    $this->load->model('_jabatan');
+    $this->load->model('_jenj');
+    $this->load->model('_t');
+    $this->load->model('_siswa');
+    $this->load->model('_sk');
+    $this->load->model('_st');
+    $this->load->model('_d_s');
+
+
+    //jika belum login
+    if (!$this->session->userdata('kr_jabatan_id')) {
+      redirect('Auth');
+    }
+
+    //jika bukan wakakur, kadiv
+    if (
+      $this->session->userdata('kr_jabatan_id') != 4 &&
+      $this->session->userdata('kr_jabatan_id') != 5
+    ) {
+      redirect('Profile');
+    }
+  }
+
+  public function index()
+  {
+
+    $data['title'] = 'Pilih Unit';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $sk_id = $this->session->userdata('kr_sk_id');
+    if ($this->session->userdata('kr_jabatan_id') == 5) {
+      $data['sk_all'] = $this->db->query(
+        "SELECT sk_id, sk_nama
+        FROM sk 
+        WHERE sk_type = 0
+        ORDER BY sk_nama"
+      )->result_array();
+    } else if ($this->session->userdata('kr_jabatan_id') == 4) {
+      $data['sk_all'] = $this->db->query(
+        "SELECT sk_id, sk_nama
+        FROM sk 
+        WHERE sk_id = $sk_id AND sk_type = 0"
+      )->result_array();
+    }
+
+    $data['t_all'] = $this->db->query(
+      "SELECT *
+      FROM t 
+      ORDER BY t_nama DESC"
+    )->result_array();
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('jadwal_crud/index', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function jadwal_input()
+  {
+    if ($this->input->post('sk_id', true)) {
+
+      $sk_id = $this->input->post('sk_id', true);
+      $t_id = $this->input->post('t_id', true);
+      $kelas_id = $this->input->post('kelas_id', true);
+
+
+      //cek input / update
+      $cek = $this->db->query(
+        "SELECT *
+        FROM jampel 
+        WHERE jampel_kelas_id = $kelas_id
+        ORDER BY jampel_hari_ke, jampel_ke"
+      )->result_array();
+
+      $data['kelas'] = $this->db->query(
+        "SELECT kelas_id, kelas_nama
+        FROM kelas 
+        WHERE kelas_id = $kelas_id"
+      )->row_array();
+
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      if ($cek) {
+        //////////////////////////update////////////////////////
+        $data['jadwal'] = $cek;
+
+        $data['title'] = 'Update Jadwal Pelajaran';
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('jadwal_crud/jadwal_update', $data);
+        $this->load->view('templates/footer');
+      } else {
+
+        //////////////////////////input////////////////////////
+
+        $data['title'] = 'Input Jadwal Pelajaran';
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('jadwal_crud/jadwal_input', $data);
+        $this->load->view('templates/footer');
+      }
+    }
+  }
+
+  public function jadwal_input_proses()
+  {
+    if ($this->input->post('kelas_id', true)) {
+
+      //cek apa jadwal kelas sudah ada sebelumnya
+      $k_cek = $this->input->post('kelas_id', true);
+      $cek = $this->db->query(
+        "SELECT *
+        FROM jampel 
+        WHERE jampel_kelas_id = $k_cek
+        ORDER BY jampel_hari_ke, jampel_ke"
+      )->result_array();
+
+      if ($cek) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Jadwal di kelas ini sudah ada!</div>');
+        redirect('Jadwal_CRUD');
+      } else {
+
+        //5 hari
+        $indeks = 0;
+        for ($i = 1; $i <= 5; $i++) {
+          // echo "Hari: ".$i;
+          //tiap jam
+          for ($j = 1; $j <= 9; $j++) {
+
+            // echo "<br>";
+            $mapel_id = $this->input->post('m' . $i . '_' . $j, true);
+            $k_id = $this->input->post('k' . $i . '_' . $j, true);
+            $t = $this->input->post('t' . $i . '_' . $j, true);
+
+            // echo "Jam ".$j.': '.$mapel_id;
+            // echo "<br>";
+            // echo "Kr ".$j.': '.$k_id;
+            // echo "<br>";
+            // echo "T ".': '.$t;
+
+            // var_dump($k_id);
+
+            $data[$indeks] = [
+              'jampel_kelas_id' => $this->input->post('kelas_id', true),
+              'jampel_mapel_id' => $mapel_id,
+              'jampel_hari_ke' => $i,
+              'jampel_ke' => $j,
+              'jampel_jam_mulai' => $t,
+              'jampel_kr_id' => $k_id
+            ];
+
+            // var_dump($data);
+            $indeks++;
+          }
+        }
+
+        $this->db->insert_batch('jampel', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal Berhasil diinput!</div>');
+        redirect('Jadwal_CRUD');
+      }
+    }
+  }
+
+  public function jadwal_update_proses()
+  {
+    if ($this->input->post('kelas_id', true)) {
+      $jampel_id = $this->input->post('jampel_id[]', true);
+      $jampel_mapel_id = $this->input->post('jampel_mapel_id[]', true);
+      $jampel_jam_mulai = $this->input->post('jampel_jam_mulai[]', true);
+      $jampel_kr_id = $this->input->post('jampel_kr_id[]', true);
+      $jampel_id_aktif = $this->input->post('jampel_id_aktif[]', true);
+
+      //var_dump($jampel_id_aktif);
+
+      for ($j = 0; $j < count($jampel_id_aktif); $j++) {
+        $data[$j] = [
+          'jampel_id' => $jampel_id[$j],
+          'jampel_mapel_id' => $jampel_mapel_id[$j],
+          'jampel_jam_mulai' => $jampel_jam_mulai[$j],
+          'jampel_kr_id' => $jampel_kr_id[$j]
+        ];
+      }
+
+      $this->db->update_batch('jampel', $data, 'jampel_id');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jadwal Berhasil diupdate!</div>');
+      redirect('Jadwal_CRUD');
+    }
+  }
+}

@@ -25,7 +25,7 @@ class Tahun_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'Year List';
+    $data['title'] = 'Daftar Tahun';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -54,7 +54,7 @@ class Tahun_CRUD extends CI_Controller
 
 
     if ($this->form_validation->run() == false) {
-      $data['title'] = 'Create Year';
+      $data['title'] = 'Tambah Tahun';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -94,11 +94,11 @@ class Tahun_CRUD extends CI_Controller
       }
     }
 
-    $this->form_validation->set_rules('tahun_nama', 'Tahun', 'required|trim|is_unique[t.t_nama]', ['is_unique' => 'This year already exist!']);
+    $this->form_validation->set_rules('tahun_nama', 'Tahun Nama', 'required|trim');
 
     if ($this->form_validation->run() == false) {
       //jika menekan tombol edit
-      $data['title'] = 'Update Year';
+      $data['title'] = 'Update Tahun';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -117,7 +117,11 @@ class Tahun_CRUD extends CI_Controller
     } else {
       //fetch data hasil inputan
       $data = [
-        't_nama' => $this->input->post('tahun_nama')
+        't_nama' => $this->input->post('tahun_nama'),
+        't_awal' => $this->input->post('t_awal'),
+        't_akhir' => $this->input->post('t_akhir'),
+        't_sem_aktif' => $this->input->post('t_sem_aktif'),
+        't_jenis_rapor' => $this->input->post('t_jenis_rapor')
       ];
 
       //simpan ke db

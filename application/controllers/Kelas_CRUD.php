@@ -83,8 +83,8 @@ class Kelas_CRUD extends CI_Controller
       $this->db->where('d_s_id', $d_s_id);
       $this->db->delete('d_s');
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Student Deleted!</div>');
-      redirect('Kelas_CRUD/edit_student?_id='.$kelas_id );
-    }else{
+      redirect('Kelas_CRUD/edit_student?_id=' . $kelas_id);
+    } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
@@ -190,7 +190,7 @@ class Kelas_CRUD extends CI_Controller
 
     $this->db->update_batch('d_mpl', $data, 'd_mpl_id');
     //var_dump($this->db->last_query());
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Teacher(s) Updated!</div>');
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengajar berhasil diupdate!</div>');
     redirect('kelas_crud/edit_subject?_id=' . $kelas_id);
     // var_dump($kr_id[0]);
     // var_dump($kr_id[1]);
@@ -436,6 +436,13 @@ class Kelas_CRUD extends CI_Controller
       $kelas_id = $this->input->get('_id', true);
 
       $data['kelas_update'] = $this->_kelas->find_by_id($kelas_id);
+
+      //cari apa siswa sudah ada murid
+      $data['jum'] = $this->db->query(
+        "SELECT count(*) as total 
+        FROM d_s
+        WHERE d_s_kelas_id = $kelas_id"
+      )->row_array();
 
       //load view dengan data query
       $this->load->view('templates/header', $data);

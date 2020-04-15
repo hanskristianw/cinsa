@@ -366,7 +366,7 @@ class API extends CI_Controller
       $kelas_id = $this->input->post('kelas_id', true);
 
       $guru = $this->db->query("
-                  SELECT kr_nama_depan, kr_nama_belakang
+                  SELECT kr_id, kr_nama_depan, kr_nama_belakang
                   FROM d_mpl 
                   LEFT JOIN kr ON d_mpl_kr_id = kr_id 
                   WHERE d_mpl_mapel_id = $mapel_id AND d_mpl_kelas_id = $kelas_id")->result();

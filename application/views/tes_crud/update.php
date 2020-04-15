@@ -9,23 +9,23 @@
             <div class="text-center">
               <h4 class="h4 text-gray-900"><b><u><?= $kelas['sk_nama'] ?></u></b></h4>
               <h4 class="h4 text-gray-900"><b><u>Cognitive and Psychomotor <?= $kelas['kelas_nama'] ?></u></b></h4>
-              <h4 class="h4 text-gray-900 mb-4"><i><?= $mapel['mapel_nama']." ".$topik['topik_nama']." Semester ".$topik['topik_semester'] ?></i></h4>
+              <h4 class="h4 text-gray-900 mb-4"><i><?= $mapel['mapel_nama'] . " " . $topik['topik_nama'] . " Semester " . $topik['topik_semester'] ?></i></h4>
             </div>
 
             <div id="notif"></div>
-            
-            <?php 
-            
-              if(!empty($siswa_baru)):
-                echo '<div class="alert alert-danger alert-dismissible fade show">
+
+            <?php
+
+            if (!empty($siswa_baru)) :
+              echo '<div class="alert alert-danger alert-dismissible fade show">
                           <button class="close" data-dismiss="alert" type="button">
                               <span>&times;</span>
                           </button>
-                          <strong>ALERT:</strong> New student(s) in '.$kelas['kelas_nama'].' found!
+                          <strong>ALERT:</strong> New student(s) in ' . $kelas['kelas_nama'] . ' found!
                       </div>';
-              
+
             ?>
-              <form class="" action="<?= base_url('Tes_CRUD/save_new_student'); ?>" method="post" id="sub_uj" >
+              <form class="" action="<?= base_url('Tes_CRUD/save_new_student'); ?>" method="post" id="sub_uj">
                 <input type="hidden" value="<?= $kelas_id ?>" name="kelas_id">
                 <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
                 <input type="hidden" value="<?= $topik_id ?>" name="topik_id">
@@ -60,7 +60,7 @@
                   <tbody>
 
                     <?php
-                      foreach ($siswa_baru as $m) :
+                    foreach ($siswa_baru as $m) :
                     ?>
 
                       <tr>
@@ -70,8 +70,8 @@
                         </td>
                         <td style='width:250px;'>
                           <?php
-                          
-                            echo $m['sis_nama_depan']." ".$m['sis_nama_bel'];
+
+                          echo $m['sis_nama_depan'] . " " . $m['sis_nama_bel'];
                           ?>
                         </td>
                         <td><input type="number" onfocus='this.select();' required class='kin' style='width: 47px;' name="kog_quiz[]" value="0" max="100"></td>
@@ -86,11 +86,11 @@
                   </tbody>
                 </table>
                 <button type="submit" class="btn btn-success mt-2 mb-3">
-                    <i class="fa fa-save"></i>
-                    Save New Student(s)
+                  <i class="fa fa-save"></i>
+                  Save New Student(s)
                 </button>
-              </form>    
-            
+              </form>
+
               <hr>
             <?php endif; ?>
 
@@ -108,12 +108,12 @@
                     <strong>UNTUK PENGISIAN RAPORT SISIPAN:</strong><br>
                     Hanya nilai 2 topik pertama pada semester yang sama yang muncul di sisipan, cek urutan di menu topik<br>
                     Persentase TIDAK berpengaruh di sisipan<br>
-                    Isikan nilai 0 bagi siswa yang BELUM mengikuti tes <br>
-                    Isikan nilai 0 juga bagi tes yang BELUM dilakukan atau MEMANG TIDAK ADA, misalnya nilai quiz psikomotor <br>
-                    Isikan nilai -1 bagi siswa yang MENDAPAT 0 dikarenakan curang atau yang lainnya<br>
+                    Isikan nilai 0 untuk TOPIK YANG TIDAK ADA, misalnya nilai quiz psikomotor, di sisipan tidak akan muncul apapun (kosong) <br>
+                    Isikan nilai -1 bagi siswa yang MENDAPAT NOL dikarenakan curang atau yang lainnya, angka 0 (nol) akan muncul di sisipan<br>
+                    Isikan nilai -2 berarti siswa BELUM IKUT, tanda - (setrip) akan muncul di sisipan<br>
                 </div>'; ?>
 
-            <form class="" action="<?= base_url('Tes_CRUD/save_update'); ?>" method="post" id="sub_uj" >
+            <form class="" action="<?= base_url('Tes_CRUD/save_update'); ?>" method="post" id="sub_uj">
               <input type="hidden" value="<?= $kelas_id ?>" name="kelas_id">
               <input type="hidden" value="<?= $mapel_id ?>" name="mapel_id">
               <input type="hidden" value="<?= $topik_id ?>" name="topik_id">
@@ -137,18 +137,18 @@
                   </tr>
                   <?php
 
-                    function returnSelected($persen) {
-                      $opt = "";
-                      for($i=0;$i<=100;$i++){
-                        if($i == $persen){
-                          $opt .= "<option value='".$i."' selected>".$i."</option>";
-                        }
-                        else{
-                          $opt .= "<option value='".$i."'>".$i."</option>";
-                        }
+                  function returnSelected($persen)
+                  {
+                    $opt = "";
+                    for ($i = 0; $i <= 100; $i++) {
+                      if ($i == $persen) {
+                        $opt .= "<option value='" . $i . "' selected>" . $i . "</option>";
+                      } else {
+                        $opt .= "<option value='" . $i . "'>" . $i . "</option>";
                       }
-                      return $opt;
                     }
+                    return $opt;
+                  }
 
 
                   ?>
@@ -167,24 +167,24 @@
                 </thead>
                 <tbody>
                   <?php
-                    $ag_temp = "xxx";
-                    $nomor = 1;
-                    foreach ($siswa_all as $m) :
+                  $ag_temp = "xxx";
+                  $nomor = 1;
+                  foreach ($siswa_all as $m) :
                   ?>
 
                     <?php
-                        if($cek_agama == 1){
-                          $ag = $m['agama_nama'];
-                          if($ag != $ag_temp){
-                            echo '
+                    if ($cek_agama == 1) {
+                      $ag = $m['agama_nama'];
+                      if ($ag != $ag_temp) {
+                        echo '
                             <tr class="table-warning">
                               <td colspan="8" align="center">
-                                <b>'.$ag.'</b>
+                                <b>' . $ag . '</b>
                               </td>
                             </tr>';
-                          }
-                          $ag_temp = $ag;
-                        }
+                      }
+                      $ag_temp = $ag;
+                    }
                     ?>
                     <tr>
                       <td>
@@ -193,34 +193,39 @@
                       </td>
                       <td style='width:250px;'>
                         <?php
-                          echo $m['sis_nama_depan']." ".$m['sis_nama_bel'];
+                        echo $m['sis_nama_depan'] . " " . $m['sis_nama_bel'];
                         ?>
                       </td>
                       <td><input type="number" onfocus='this.select();' required class='kin kq<?= $nomor ?>' style='width: 47px;' name="kog_quiz[]" value="<?= $m['kog_quiz'] ?>" max="100"></td>
                       <td><input type="number" onfocus='this.select();' required class='kin2 kt<?= $nomor ?>' style='width: 47px;' name="kog_test[]" value="<?= $m['kog_test'] ?>" max="100"></td>
                       <td><input type="number" onfocus='this.select();' required class='kin3 ka<?= $nomor ?>' style='width: 47px;' name="kog_ass[]" value="<?= $m['kog_ass'] ?>" max="100"></td>
-                      <td><div class='r<?= $nomor ?>'></div></td>
-                      
+                      <td>
+                        <div class='r<?= $nomor ?>'></div>
+                      </td>
+
                       <td><input type="number" onfocus='this.select();' required class='kin5 pq<?= $nomor ?>' style='width: 47px;' name="psi_quiz[]" value="<?= $m['psi_quiz'] ?>" max="100"></td>
                       <td><input type="number" onfocus='this.select();' required class='kin6 pt<?= $nomor ?>' style='width: 47px;' name="psi_test[]" value="<?= $m['psi_test'] ?>" max="100"></td>
                       <td><input type="number" onfocus='this.select();' required class='kin7 pa<?= $nomor ?>' style='width: 47px;' name="psi_ass[]" value="<?= $m['psi_ass'] ?>" max="100"></td>
-                      <td><div class='p<?= $nomor ?>'></div></td>
-                     </tr>
-                  <?php $nomor++;  endforeach; ?>
+                      <td>
+                        <div class='p<?= $nomor ?>'></div>
+                      </td>
+                    </tr>
+                  <?php $nomor++;
+                  endforeach; ?>
                 </tbody>
               </table>
-              
+
               <?php
-                if(!empty($siswa_baru)){
-                  $dis = "disabled";
-                }else{
-                  $dis = "";
-                }
+              if (!empty($siswa_baru)) {
+                $dis = "disabled";
+              } else {
+                $dis = "";
+              }
               ?>
 
               <button type="submit" <?= $dis ?> class="btn btn-success mt-2" id="btn-save">
-                  <i class="fa fa-save"></i>
-                  Update All
+                <i class="fa fa-save"></i>
+                Update All
               </button>
             </form>
             <hr>
