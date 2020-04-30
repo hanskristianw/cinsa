@@ -1028,6 +1028,32 @@ class API extends CI_Controller
     }
   }
 
+  public function get_mapel_by_kr_real(){
+    if($this->input->post('t_id',TRUE)){
+      $t_id = $this->input->post('t_id',TRUE);
+      $kr_id = $this->session->userdata('kr_id');
+
+      $kr_jabatan = $this->session->userdata('kr_jabatan_id');
+      $kr_sk_id = $this->session->userdata('kr_sk_id');
+
+      
+      $data = $this->db->query(
+        "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
+        FROM d_mpl
+        LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+        LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
+        LEFT JOIN sk ON kelas_sk_id = sk_id
+        WHERE kelas_t_id = $t_id AND d_mpl_kr_id = $kr_id
+        ORDER BY mapel_nama")->result();
+
+      //$data = $this->product_model->get_sub_category($category_id)->result();
+      echo json_encode($data);
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
+      redirect('Profile');
+    }
+  }
+
   public function get_mapel_jurnal_terisi(){
     if($this->input->post('kelas_id',TRUE)){
 

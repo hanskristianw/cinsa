@@ -80,7 +80,7 @@ $(document).ready(function() {
     $.ajax(
       {
         type: "post",
-        url: base_url + "API/get_mapel_by_kr",
+        url: base_url + "API/get_mapel_by_kr_real",
         data: {
           't_id': t_id,
         },

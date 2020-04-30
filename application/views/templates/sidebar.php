@@ -108,11 +108,12 @@
                   <a class="collapse-item" href=' . base_url('Jenjang_CRUD') . '>1. Jenjang</a>
                   <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>2. Mapel</a>
                   <a class="collapse-item" href=' . base_url('Jadwal_CRUD') . '>3. Jadwal Pelajaran</a>
-                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>4. Topik</a>
-                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>5. Kelas</a>
-                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>6. Extrakurikuler</a>
-                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>7. Mapel Khusus</a>
-                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>8. Persentase</a>
+                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>4. Jurnal</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>5. Topik</a>
+                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>6. Kelas</a>
+                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>7. Extrakurikuler</a>
+                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>8. Mapel Khusus</a>
+                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>9. Persentase</a>
                 </div>
               </div>
             </li>
@@ -195,11 +196,12 @@
                   <a class="collapse-item" href=' . base_url('Tahun_CRUD') . '>2. Tahun</a>
                   <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>3. Topik</a>
                   <a class="collapse-item" href=' . base_url('Jadwal_CRUD') . '>4. Jadwal Pelajaran</a>
-                  <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>5. Konselor</a>
-                  <a class="collapse-item" href=' . base_url('Karakter_CRUD') . '>6. Karakter</a>
-                  <a class="collapse-item" href=' . base_url('CB_CRUD/set_lifeskill') . '>7. Life Skill</a>
-                  <a class="collapse-item" href=' . base_url('Event_CRUD') . '>8. Event</a>
-                  <a class="collapse-item" href=' . base_url('Disjam_CRUD/set_beban') . '>9. Tambahan Beban Jam</a>
+                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>5. Jurnal</a>
+                  <a class="collapse-item" href=' . base_url('Konselor_CRUD') . '>6. Konselor</a>
+                  <a class="collapse-item" href=' . base_url('Karakter_CRUD') . '>7. Karakter</a>
+                  <a class="collapse-item" href=' . base_url('CB_CRUD/set_lifeskill') . '>8. Life Skill</a>
+                  <a class="collapse-item" href=' . base_url('Event_CRUD') . '>9. Event</a>
+                  <a class="collapse-item" href=' . base_url('Disjam_CRUD/set_beban') . '>10. Tambahan Beban Jam</a>
                 </div>
               </div>
             </li>
@@ -248,37 +250,21 @@
             <hr class="sidebar-divider d-none d-md-block">';
 
 
-        ///////jurnal guru//////////
-
-
-
-        ////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
       } elseif ($this->session->userdata('kr_jabatan_id') == 6 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia TU
         echo '<div class="sidebar-heading">
-              School Administrative
+              Tata Usaha
             </div>
 
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Administrative</span>
+                <span>Tata Usaha</span>
               </a>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Master</h6>
-                  <a class="collapse-item" href=' . base_url('Siswa_CRUD') . '>Student</a>
+                  <a class="collapse-item" href=' . base_url('Siswa_CRUD') . '>Murid</a>
                 </div>
               </div>
             </li>
@@ -350,7 +336,6 @@
                   <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>1. Topik</a>
                   <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>2. Outline</a>
                   <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>3. Input Jurnal</a>
-                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>4. Report Jurnal</a>
                 </div>
               </div>
             </li>
