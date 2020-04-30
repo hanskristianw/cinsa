@@ -10,7 +10,7 @@
   <meta name="author" content="">
 
   <title><?= $title; ?></title>
-
+  <link rel="icon" href="<?=base_url('assets/img/profile/yppi.png')?>" type="image/gif">
   <link href="<?= base_url('assets/'); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="<?= base_url('assets/'); ?>css/nunito.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
