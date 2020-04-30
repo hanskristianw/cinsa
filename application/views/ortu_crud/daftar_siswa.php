@@ -42,6 +42,7 @@
             <th style="width:5%;" class="text-center align-middle">No Induk</th>
             <th style="height:80px;" class="text-center align-middle">Nama Siswa</th>
             <th style="height:80px;" class="text-center align-middle">Username</th>
+            <th class="text-center align-middle">Last Login</th>
             <th style="width:10%;" class="bg-danger text-white text-center align-middle">Blokir Akses Siswa?</th>
           </tr>
         </thead>
@@ -57,6 +58,7 @@
               </td>
               <td class="text-center"><?= $s['sis_nama_depan'] . ' ' . $s['sis_nama_bel'] ?></td>
               <td class="text-center"><?= $s['sis_username'] ?></td>
+              <td class="text-center"><?= $s['sis_last_login'] ?></td>
               <td class="text-center">
                 <?php if ($s['d_s_blokir'] == 0) : ?>
                   <input type="hidden" name="d_s_blokir[]" value="0"><input type="checkbox" onclick="this.previousSibling.value=1-this.previousSibling.value">
@@ -69,7 +71,7 @@
         </tbody>
       </table>
 
-      <button type="submit" class="btn btn-primary btn-user btn-block">
+      <button type="submit" class="btn btn-secondary btn-user btn-block">
         Proses
       </button>
     </form>

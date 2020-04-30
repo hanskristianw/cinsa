@@ -17,18 +17,18 @@
                     <img src="<?= base_url('assets/img/profile/yppi.png'); ?>" class="mb-4 img-fluid rounded-circle" width="50%">
                   </div>
 
-                  <div style='font-size:14px;'><?= $this->session->flashdata('message'); ?></div>
+                  <div style='font-size:13px;'><?= $this->session->flashdata('message'); ?></div>
 
                   <form class="user" method="POST" action="<?= base_url('auth'); ?>">
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="kr_username" name="kr_username" aria-describedby="emailHelp" placeholder="Enter Username..." value="<?= set_value('kr_username') ?>">
+                      <input type="text" class="form-control form-control-sm form-control-user" id="kr_username" name="kr_username" aria-describedby="emailHelp" placeholder="Username" value="<?= set_value('kr_username') ?>">
                       <?= form_error('kr_username','<small class="text-danger pl-3">','</small>'); ?>
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="kr_password" name="kr_password" placeholder="Password">
+                      <input type="password" class="form-control form-control-sm form-control-user" id="kr_password" name="kr_password" placeholder="Password">
                       <?= form_error('kr_password','<small class="text-danger pl-3">','</small>'); ?>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                    <button type="submit" class="btn btn-dark btn-user btn-block">
                       Login
                     </button>
                   </form>

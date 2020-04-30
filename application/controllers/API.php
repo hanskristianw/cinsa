@@ -34,7 +34,7 @@ class API extends CI_Controller
         FROM konseling
         LEFT JOIN konseling_kategori ON konseling_konseling_kategori_id = konseling_kategori_id
         WHERE konseling_d_s_id = $d_s_id ORDER BY konseling_tanggal DESC, konseling_konseling_kategori_id")->result();
-  
+
       echo json_encode($data);
 
     }
@@ -50,7 +50,7 @@ class API extends CI_Controller
         "SELECT *
         FROM k_afek
         WHERE k_afek_t_id = $t_id AND k_afek_bulan_id = $bulan_id AND k_afek_sk_id = $sk_id")->result();
-  
+
       echo json_encode($data);
     }
     else{
@@ -60,9 +60,9 @@ class API extends CI_Controller
 
   public function get_siswaMK(){
     if($this->input->post('mkId',TRUE)){
-    
+
       $mkId = $this->input->post('mkId',TRUE);
-      
+
       //temukan jenjang id pada kelas itu
       $data = $this->db->query(
         "SELECT kelas_nama, sis_nama_depan, sis_nama_bel, d_s_id, mk_detail_id
@@ -72,7 +72,7 @@ class API extends CI_Controller
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
         WHERE mk_detail_mk_id = $mkId
         ORDER BY sis_nama_depan")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }
@@ -80,13 +80,13 @@ class API extends CI_Controller
 
   public function get_subject_by_karakter_and_sk(){
     if($this->input->post('karakter_id',TRUE)){
-    
+
       $karakter_id = $this->input->post('karakter_id',TRUE);
       $sk_id = $this->input->post('sk_id',TRUE);
-      
+
       //temukan jenjang id pada kelas itu
       $data = $this->db->query(
-        "SELECT * FROM 
+        "SELECT * FROM
         (
           SELECT * FROM mapel
           WHERE mapel_sk_id = $sk_id
@@ -99,7 +99,7 @@ class API extends CI_Controller
           WHERE mapel_sk_id = $sk_id AND karakter_id = $karakter_id
         ) as mapel_karakter ON mapel_karakter.karakter_detail_mapel_id = mapel_awal.mapel_id
         ORDER BY mapel_nama")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }
@@ -107,9 +107,9 @@ class API extends CI_Controller
 
   public function get_siswa_by_kelas(){
     if($this->input->post('kelas_id',TRUE)){
-    
+
       $kelas_id = $this->input->post('kelas_id',TRUE);
-      
+
       //temukan jenjang id pada kelas itu
       $data = $this->db->query(
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel
@@ -117,7 +117,7 @@ class API extends CI_Controller
         LEFT JOIN sis ON d_s_sis_id = sis_id
         WHERE d_s_kelas_id = $kelas_id
         ORDER BY sis_nama_depan")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }
@@ -132,12 +132,12 @@ class API extends CI_Controller
         FROM konselor
         LEFT JOIN kr ON konselor_kr_id = kr_id
         WHERE konselor_sk_id = $sk_id ORDER BY kr_nama_depan")->result();
-  
+
       echo json_encode($data);
     }
   }
 
-  
+
   public function get_kelas_by_kr(){
 
     if($this->input->post('t_id',TRUE)){
@@ -178,14 +178,14 @@ class API extends CI_Controller
     }
 
   }
-  
+
 
   public function get_mapel_by_kr_kelas(){
     if($this->input->post('kelas_id', true)){
 
       $kelas_id = $this->input->post('kelas_id', true);
       $kr_id = $this->session->userdata('kr_id');
-      
+
       $kr_jabatan = $this->session->userdata('kr_jabatan_id');
       if($kr_jabatan == 4){
         //cari mapel dikelas itu
@@ -197,9 +197,10 @@ class API extends CI_Controller
       }
       else{
       $data = $this->db->query(
-        "SELECT DISTINCT mapel_id, mapel_nama
+        "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
         FROM d_mpl
         LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
+        LEFT JOIN sk ON mapel_sk_id = sk_id
         WHERE d_mpl_kelas_id = $kelas_id AND d_mpl_kr_id = $kr_id ORDER BY mapel_nama")->result();
       }
       echo json_encode($data);
@@ -215,7 +216,7 @@ class API extends CI_Controller
         "SELECT kelas_id, kelas_nama
         FROM kelas
         WHERE kelas_t_id = $t_id AND kelas_sk_id = $sk_id ORDER BY kelas_nama")->result();
-  
+
       echo json_encode($data);
     }
   }
@@ -230,26 +231,26 @@ class API extends CI_Controller
         FROM d_mpl
         LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
         WHERE d_mpl_kelas_id = $kelas_id ORDER BY mapel_nama")->result();
-  
+
       echo json_encode($data);
     }
   }
 
   public function get_topik_by_mapel(){
     if($this->input->post('mapel_id',TRUE)){
-    
+
       $mapel_id = $this->input->post('mapel_id',TRUE);
       $kelas_id = $this->input->post('kelas_id',TRUE);
-      
+
       //temukan jenjang id pada kelas itu
       $jenjang = $this->db->query(
         "SELECT jenj_id
         FROM kelas
         LEFT JOIN jenj ON kelas_jenj_id = jenj_id
         WHERE kelas_id = $kelas_id")->row_array();
-  
+
       //print_r($jenjang['jenj_id']);
-  
+
       $jenj_id = $jenjang['jenj_id'];
       $data = $this->db->query(
         "SELECT topik_id, topik_nama, topik_semester
@@ -257,7 +258,7 @@ class API extends CI_Controller
         LEFT JOIN jenj ON topik_jenj_id = jenj_id
         LEFT JOIN mapel ON topik_mapel_id = mapel_id
         WHERE jenj_id = $jenj_id AND mapel_id = $mapel_id")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }
@@ -272,7 +273,7 @@ class API extends CI_Controller
         "SELECT kelas_id, kelas_nama
         FROM kelas
         WHERE kelas_t_id = $t_id AND kelas_sk_id = $sk_id ORDER BY kelas_nama")->result();
-  
+
       echo json_encode($data);
     }
   }
@@ -288,7 +289,7 @@ class API extends CI_Controller
 
       $mapel_header = $this->db->query("
         SELECT DISTINCT mapel_id, mapel_sing
-        FROM d_mpl 
+        FROM d_mpl
         LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
         WHERE d_mpl_kelas_id = $kelas_id ORDER BY mapel_urutan,mapel_nama")->result();
 
@@ -305,7 +306,7 @@ class API extends CI_Controller
 
       $kriteria = $this->db->query("
       SELECT *
-      FROM k_afek 
+      FROM k_afek
       WHERE k_afek_bulan_id = $bulan_id AND k_afek_t_id = $t_id AND k_afek_sk_id = $sk_id")->result();
 
       echo json_encode($kriteria);
@@ -323,13 +324,13 @@ class API extends CI_Controller
 
       $data['k_afek'] = $this->db->query("
       SELECT *
-      FROM k_afek 
+      FROM k_afek
       WHERE k_afek_bulan_id = $bulan_id AND k_afek_t_id = $t_id AND k_afek_sk_id = $sk_id")->row_array();
 
 
       $mapel_header = $this->db->query("
         SELECT DISTINCT mapel_id, mapel_sing
-        FROM d_mpl 
+        FROM d_mpl
         LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
         WHERE d_mpl_kelas_id = $kelas_id ORDER BY mapel_urutan,mapel_nama")->result_array();
 
@@ -344,14 +345,14 @@ class API extends CI_Controller
 
       $afektif_all = $this->db->query(
       "SELECT afektif_d_s_id, sis_nama_depan, sis_nama_bel, d_s_kelas_id, sis_no_induk, kelas_nama, $query_concat
-      FROM 
+      FROM
       (SELECT afektif_d_s_id, sis_nama_depan, sis_nama_bel, d_s_kelas_id, sis_no_induk, kelas_nama,
-      (afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3+afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3+afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3)/afektif_minggu_aktif AS afektif_nilai, afektif_mapel_id 
+      (afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3+afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3+afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3+afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3+afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3)/afektif_minggu_aktif AS afektif_nilai, afektif_mapel_id
       FROM afektif
-      LEFT JOIN d_s on afektif_d_s_id = d_s_id 
-      LEFT JOIN sis on d_s_sis_id = sis_id 
-      LEFT JOIN k_afek on k_afek_id = afektif_k_afek_id 
-      LEFT JOIN kelas on d_s_kelas_id = kelas_id 
+      LEFT JOIN d_s on afektif_d_s_id = d_s_id
+      LEFT JOIN sis on d_s_sis_id = sis_id
+      LEFT JOIN k_afek on k_afek_id = afektif_k_afek_id
+      LEFT JOIN kelas on d_s_kelas_id = kelas_id
       WHERE k_afek_bulan_id = {$bulan_id} AND d_s_kelas_id = {$kelas_id}) as afektif_kelas
       GROUP BY afektif_d_s_id")->result();
 
@@ -367,8 +368,8 @@ class API extends CI_Controller
 
       $guru = $this->db->query("
                   SELECT kr_id, kr_nama_depan, kr_nama_belakang
-                  FROM d_mpl 
-                  LEFT JOIN kr ON d_mpl_kr_id = kr_id 
+                  FROM d_mpl
+                  LEFT JOIN kr ON d_mpl_kr_id = kr_id
                   WHERE d_mpl_mapel_id = $mapel_id AND d_mpl_kelas_id = $kelas_id")->result();
 
       echo json_encode($guru);
@@ -383,7 +384,7 @@ class API extends CI_Controller
       $sem = $this->input->post('semester', true);
 
       $guru = $this->db->query("
-              SELECT sis_nama_depan, sis_nama_bel, topik_nama, kog_quiz, kog_test, kog_ass, kog_quiz_persen, kog_test_persen, kog_ass_persen, 
+              SELECT sis_nama_depan, sis_nama_bel, topik_nama, kog_quiz, kog_test, kog_ass, kog_quiz_persen, kog_test_persen, kog_ass_persen,
               psi_quiz, psi_test, psi_ass, psi_quiz_persen, psi_test_persen, psi_ass_persen
               FROM tes
               LEFT JOIN topik ON tes_topik_id = topik_id
@@ -403,7 +404,7 @@ class API extends CI_Controller
       $kelas_id = $this->input->post('kelas_id', true);
 
       $guru = $this->db->query("
-              SELECT sis_nama_depan, sis_nama_bel, 
+              SELECT sis_nama_depan, sis_nama_bel,
               uj_mid1_kog, uj_mid1_kog_persen, uj_mid1_psi, uj_mid1_psi_persen, uj_fin1_kog, uj_fin1_kog_persen, uj_fin1_psi, uj_fin1_psi_persen,
               uj_mid2_kog, uj_mid2_kog_persen, uj_mid2_psi, uj_mid2_psi_persen, uj_fin2_kog, uj_fin2_kog_persen, uj_fin2_psi, uj_fin2_psi_persen
               FROM uj
@@ -460,9 +461,9 @@ class API extends CI_Controller
         FROM kelas
         LEFT JOIN jenj ON kelas_jenj_id = jenj_id
         WHERE kelas_id = $kelas_id")->row_array();
-  
+
       //print_r($jenjang['jenj_id']);
-  
+
       $jenj_id = $jenjang['jenj_id'];
 
       $topik = $this->db->query("
@@ -477,7 +478,7 @@ class API extends CI_Controller
 
   public function get_nilai_cb_by_kelas_semester(){
     if($this->input->post('kelas_id', true)){
-      
+
       $semester = $this->input->post('semester', true);
       $kelas_id = $this->input->post('kelas_id', true);
 
@@ -496,12 +497,12 @@ class API extends CI_Controller
 
   public function get_bulan_afek_terisi(){
     if($this->input->post('sk_id', true)){
-      
+
       $sk_id = $this->input->post('sk_id', true);
       $t_id = $this->input->post('t_id', true);
 
       $bulan = $this->db->query("SELECT DISTINCT k_afek_bulan_id, bulan_nama
-                                FROM afektif 
+                                FROM afektif
                                 LEFT JOIN d_s ON afektif_d_s_id = d_s_id
                                 LEFT JOIN sis ON d_s_sis_id = sis_id
                                 LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
@@ -516,7 +517,7 @@ class API extends CI_Controller
 
   public function get_detail_nilai_afek(){
     if($this->input->post('bulan_id', true) && $this->input->post('d_s_id', true)){
-      
+
       $bulan_id = $this->input->post('bulan_id', true);
       $d_s_id = $this->input->post('d_s_id', true);
       $mapel_id = $this->input->post('mapel_id', true);
@@ -635,10 +636,10 @@ class API extends CI_Controller
       $d_s_id = $this->input->post('d_s_id', true);
       $semester = $this->input->post('semester', true);
 
-      $detail = $this->db->query("SELECT 
+      $detail = $this->db->query("SELECT
         kog_quiz,kog_quiz_persen,kog_ass,kog_ass_persen,kog_test,kog_test_persen,tes_topik_id,
         psi_quiz,psi_quiz_persen,psi_ass,psi_ass_persen,psi_test,psi_test_persen, topik_nama
-        FROM tes 
+        FROM tes
         LEFT JOIN topik
         ON tes_topik_id = topik_id
         LEFT JOIN d_s
@@ -661,7 +662,7 @@ class API extends CI_Controller
       $mapel_id = $this->input->post('mapel_id', true);
       $d_s_id = $this->input->post('d_s_id', true);
 
-      $detail = $this->db->query("SELECT 
+      $detail = $this->db->query("SELECT
             uj_mid1_kog, uj_mid1_kog_persen, uj_fin1_kog, uj_fin1_kog_persen,
             uj_mid1_psi, uj_mid1_psi_persen, uj_fin1_psi, uj_fin1_psi_persen,
             uj_mid2_kog, uj_mid2_kog_persen, uj_fin2_kog, uj_fin2_kog_persen,
@@ -715,10 +716,10 @@ class API extends CI_Controller
 
       $sk_id = $this->input->post('sk_id', true);
       $event_id = $this->input->post('event_id', true);
-      
-      $detail = $this->db->query("SELECT kr_id, kr_nama_depan, kr_nama_belakang 
+
+      $detail = $this->db->query("SELECT kr_id, kr_nama_depan, kr_nama_belakang
           FROM kr
-          WHERE kr_sk_id = $sk_id AND kr_nama_depan <> 'admin' AND kr_id NOT IN 
+          WHERE kr_sk_id = $sk_id AND kr_nama_depan <> 'admin' AND kr_id NOT IN
           (SELECT kr_id
             FROM kr
             LEFT JOIN d_event ON d_event_kr_id = kr_id
@@ -736,8 +737,8 @@ class API extends CI_Controller
 
       $sk_id = $this->input->post('sk_id', true);
       $event_id = $this->input->post('event_id', true);
-      
-      $detail = $this->db->query("SELECT kr_id, kr_nama_depan, kr_nama_belakang 
+
+      $detail = $this->db->query("SELECT kr_id, kr_nama_depan, kr_nama_belakang
           FROM kr
           LEFT JOIN d_event ON d_event_kr_id = kr_id
           WHERE kr_sk_id = $sk_id AND d_event_event_id = $event_id
@@ -752,7 +753,7 @@ class API extends CI_Controller
     if($this->input->post('event_id', true)){
 
       $event_id = $this->input->post('event_id', true);
-      
+
       $detail = $this->db->query("SELECT *
           FROM event_gambar
           WHERE event_gambar_event_id = $event_id
@@ -766,7 +767,7 @@ class API extends CI_Controller
     if($this->input->post('sk_id', true)){
 
       $sk_id = $this->input->post('sk_id', true);
-      
+
       $detail = $this->db->query("SELECT kr_id, kr_nama_depan, kr_nama_belakang
           FROM kr
           WHERE kr_sk_id = $sk_id
@@ -779,10 +780,10 @@ class API extends CI_Controller
 
   public function get_absen_siswa_by_kelas(){
     if($this->input->post('kelas_id',TRUE)){
-    
+
       $kelas_id = $this->input->post('kelas_id',TRUE);
       $tgl = $this->input->post('tgl',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk
         FROM d_s
@@ -795,7 +796,7 @@ class API extends CI_Controller
           WHERE d_s_kelas_id = $kelas_id AND absen_siswa_tgl = '$tgl'
         )
         ORDER BY sis_nama_depan")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }
@@ -803,10 +804,10 @@ class API extends CI_Controller
 
   public function get_absen_siswa_tidak_masuk_by_kelas(){
     if($this->input->post('kelas_id',TRUE)){
-    
+
       $kelas_id = $this->input->post('kelas_id',TRUE);
       $tgl = $this->input->post('tgl',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, absen_siswa_id, absen_siswa_status, absen_siswa_ket
         FROM absen_siswa
@@ -814,25 +815,25 @@ class API extends CI_Controller
         LEFT JOIN sis ON d_s_sis_id = sis_id
         WHERE d_s_kelas_id = $kelas_id AND absen_siswa_tgl = '$tgl'
         ORDER BY sis_nama_depan")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }
   }
 
   public function get_jurnal_by_mapel_tgl(){
-    
+
     if($this->input->post('mapel_id',TRUE)){
-    
+
       $mapel_id = $this->input->post('mapel_id',TRUE);
       $kelas_id = $this->input->post('kelas_id',TRUE);
       $tgl = $this->input->post('tgl',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT *
         FROM jurnal
         WHERE jurnal_mapel_id = $mapel_id AND jurnal_kelas_id = $kelas_id  AND jurnal_tgl = '$tgl'")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }
@@ -840,17 +841,17 @@ class API extends CI_Controller
 
   public function get_daftar_jurnal_by_mapel_kelas(){
     if($this->input->post('mapel_id',TRUE)){
-    
+
       $mapel_id = $this->input->post('mapel_id',TRUE);
       $kelas_id = $this->input->post('kelas_id',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT *
         FROM jurnal
         LEFT JOIN mapel_outline ON jurnal_mapel_outline_id = mapel_outline_id
         WHERE mapel_outline_mapel_id = $mapel_id AND jurnal_kelas_id = $kelas_id
         ORDER BY jurnal_tgl DESC")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }
@@ -858,16 +859,16 @@ class API extends CI_Controller
 
   public function get_laporan_by_kelas_mapel(){
     if($this->input->post('mapel_id',TRUE)){
-    
+
       $mapel_id = $this->input->post('mapel_id',TRUE);
       $kelas_id = $this->input->post('kelas_id',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT *
         FROM jurnal
         WHERE jurnal_mapel_id = $mapel_id AND jurnal_kelas_id = $kelas_id
         ORDER BY jurnal_tgl DESC")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }
@@ -875,9 +876,9 @@ class API extends CI_Controller
 
   public function get_jenj_by_sk(){
     if($this->input->post('sk_id',TRUE)){
-      
+
       $sk_id = $this->input->post('sk_id',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT *
         FROM jenj
@@ -891,11 +892,11 @@ class API extends CI_Controller
 
   public function get_buku_by_jenj_sk_t(){
     if($this->input->post('sk_id',TRUE)){
-      
+
       $sk_id = $this->input->post('sk_id',TRUE);
       $jenj_id = $this->input->post('jenj_id',TRUE);
       $t_id = $this->input->post('t_id',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT *
         FROM buku
@@ -919,7 +920,7 @@ class API extends CI_Controller
       $sk_id = $this->input->post('sk_id',TRUE);
       $jenj_id = $this->input->post('jenj_id',TRUE);
       $t_id = $this->input->post('t_id',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT buku_jual_id, buku_nama
         FROM buku_jual
@@ -928,24 +929,24 @@ class API extends CI_Controller
         LEFT JOIN sk ON jenj_sk_id = sk_id
         WHERE buku_jual_jenj_id = $jenj_id AND sk_id = $sk_id AND buku_jual_t_id = $t_id
         ORDER BY buku_nama")->result();
-        
+
       echo json_encode($data);
     }
   }
 
-  
+
   public function get_outline_detail(){
     if($this->input->post('mapel_id',TRUE)){
-      
+
       $mapel_id = $this->input->post('mapel_id',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT *
         FROM mapel_outline
         LEFT JOIN jenj ON mapel_outline_jenj_id = jenj_id
         WHERE mapel_outline_mapel_id = $mapel_id
         ORDER BY jenj_urutan, mapel_outline_nama")->result();
-        
+
       echo json_encode($data);
     }else{
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
@@ -956,15 +957,15 @@ class API extends CI_Controller
 
   public function get_absen_by_outline_tgl(){
     if($this->input->post('kelas_id',TRUE)){
-      
+
       $kelas_id = $this->input->post('kelas_id',TRUE);
       $jurnal_tgl = $this->input->post('jurnal_tgl',TRUE);
       $jurnal_mapel_outline_id = $this->input->post('jurnal_mapel_outline_id',TRUE);
-      
+
       //cek apakah sudah ada
       $cek = $this->db->query(
         "SELECT COUNT(absen_j_d_s_id) as total
-        FROM absen_j 
+        FROM absen_j
         LEFT JOIN jurnal ON absen_j_jurnal_id = jurnal_id
         WHERE jurnal_tgl = '$jurnal_tgl' AND jurnal_mapel_outline_id = $jurnal_mapel_outline_id AND jurnal_kelas_id = $kelas_id")->result();
 
@@ -979,50 +980,9 @@ class API extends CI_Controller
           LEFT JOIN sis ON d_s_sis_id = sis_id
           WHERE d_s_kelas_id = $kelas_id
           ORDER BY sis_nama_depan")->result();
-          
+
         echo json_encode($data);
       }
-
-
-      //$data = $this->product_model->get_sub_category($category_id)->result();
-    }
-  }
-
-  public function cek_data_jurnal(){
-    if($this->input->post('kelas_id',TRUE)){
-      
-      $kelas_id = $this->input->post('kelas_id',TRUE);
-      $jurnal_tgl = $this->input->post('jurnal_tgl',TRUE);
-      $mapel_id = $this->input->post('mapel_id',TRUE);
-      
-      $data = $this->db->query(
-        "SELECT *
-        FROM jurnal
-        LEFT JOIN mapel_outline ON jurnal_mapel_outline_id = mapel_outline_id
-        WHERE jurnal_kelas_id = $kelas_id AND jurnal_tgl = '$jurnal_tgl' AND mapel_outline_mapel_id = $mapel_id")->result();
-        
-      echo json_encode($data);
-
-
-      //$data = $this->product_model->get_sub_category($category_id)->result();
-    }
-  }
-
-  public function cek_data_jurnal_skrng(){
-    if($this->input->post('kelas_id',TRUE)){
-      
-      $kelas_id = $this->input->post('kelas_id',TRUE);
-      $jurnal_tgl = $this->input->post('jurnal_tgl',TRUE);
-      $mapel_id = $this->input->post('mapel_id',TRUE);
-      $tgl_skrng = $this->input->post('tgl_skrng',TRUE);
-      
-      $data = $this->db->query(
-        "SELECT *
-        FROM jurnal
-        LEFT JOIN mapel_outline ON jurnal_mapel_outline_id = mapel_outline_id
-        WHERE jurnal_kelas_id = $kelas_id AND jurnal_tgl = '$jurnal_tgl' AND mapel_outline_mapel_id = $mapel_id AND jurnal_tgl <> '$tgl_skrng'")->result();
-        
-      echo json_encode($data);
 
 
       //$data = $this->product_model->get_sub_category($category_id)->result();
@@ -1065,6 +1025,22 @@ class API extends CI_Controller
     }else{
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
+    }
+  }
+
+  public function get_mapel_jurnal_terisi(){
+    if($this->input->post('kelas_id',TRUE)){
+
+      $kelas_id = $this->input->post('kelas_id',TRUE);
+
+      $data = $this->db->query(
+        "SELECT mapel_id, mapel_nama
+        FROM jurnal
+        LEFT JOIN mapel ON mapel_id = jurnal_mapel_id
+        WHERE jurnal_kelas_id = $kelas_id AND jurnal_review = 1
+        GROUP BY mapel_id")->result();
+
+        echo json_encode($data);
     }
   }
 

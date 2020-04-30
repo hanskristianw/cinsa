@@ -36,9 +36,9 @@
       $mapel = return_mapel_by_kelas($kelas['kelas_id']);
     ?>
 
-      <div class="text-center mt-4 bg-info text-white p-2 mb-4" style="border-radius: 25px;"> 
+      <div class="text-center mt-4 bg-secondary text-white p-2 mb-4" style="border-radius: 25px;">
         <h5 class="text-center"><b><u><?= $title ?></u></b></h5>
-        <img src="<?= base_url('assets/img/jadwal.png'); ?>" width="50px;">  
+        <img src="<?= base_url('assets/img/jadwal.png'); ?>" width="50px;">
         <b><?= $kelas['kelas_nama'] ?></b>
       </div>
 
@@ -48,7 +48,7 @@
         <?php for($i=0;$i<count($hari);$i++): ?>
         <div>
           <label><b><u><?= $hari[$i] ?></u></b></label>
-          
+
           <table class="rapot mb-2">
             <thead>
               <tr>
@@ -63,7 +63,7 @@
               <tr>
                 <td style="text-align:center; width:40px;"><?= $j+1 ?></td>
                 <td style="width:70px; text-align:center;">
-                
+
                   <select name="m<?= $i+1?>_<?=$j+1?>" class="mapel_id" id="<?= $i+1?>_<?=$j+1?>">
                     <option value="0">-</option>
                   <?php foreach($mapel as $m): ?>
@@ -72,11 +72,11 @@
                   </select>
                 </td>
                 <td style="text-align:center; width:200px;">
-                  
+
                   <!-- hari, jam  -->
                   <div name="k<?= $i+1?>_<?=$j+1?>" id="pengajar_<?= $i+1?>_<?=$j+1?>">
-                    
-                  
+
+
                   </div>
                 </td>
                 <td style="text-align:center;">
@@ -87,12 +87,12 @@
             </tbody>
           </table>
         </div>
-    <?php 
+    <?php
         endfor;
         echo "<br>";
     ?>
-    
-      <button type="submit" class="btn btn-primary btn-block">
+
+      <button type="submit" class="btn btn-secondary btn-block">
        <i class="fa fa-save"></i> SIMPAN
       </button>
     </form>
@@ -107,7 +107,7 @@
     $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
       $(".alert-success").slideUp(500);
     });
-    
+
     $('.mapel_id').each(function () {
       $(this).change(function () {
         //hari_jam
@@ -118,10 +118,10 @@
         // console.log(hari);
         // console.log(jam);
         //mapel_id
-        
+
 
         $('#pengajar_'+hari+'_'+jam).html('');
-        
+
         var mapel_id = $(this).val();
         var kelas_id = $('#kelas_id').val();
 
@@ -154,7 +154,7 @@
               html += '<div class="text-center text-danger mt-2"><b>--Pengajar Belum Diset, silahkan set pada halaman master - kelas--</b></div>';
             }
 
-            
+
             $('#pengajar_'+hari+'_'+jam).html(html);
 
           }

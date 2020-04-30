@@ -178,7 +178,7 @@
                                 $sum_kog_sem2 = $m['sum_kog_sem2'];
                                 $sum_psi_sem2 = $m['sum_psi_sem2'];
 
-                                //PENGETAHUAN 
+                                //PENGETAHUAN
                                 //formative 70
                                 if (isset($m['persen_forma_peng']))
                                   $persen_forma_peng = $m['persen_forma_peng'];
@@ -282,7 +282,7 @@
 
 
                     <p class='judul'><?= $kepsek['sk_ex_nama'] ?></p>
-                    <table style="width:100%; font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;">
+                    <table style="width:100%; font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;margin-top:40px;">
                       <tr>
                         <td style="width:80px;">NAME</td>
                         <td style="width:50%;">: <?= $siswa[0]['sis_nama_depan'] . " " . $siswa[0]['sis_nama_bel'] ?></td>
@@ -309,10 +309,10 @@
                     <table class='rapot'>
                       <thead>
                         <tr>
-                          <th style='width: 35px; padding: 0px 0px 0px 0px;'>NO </th>
-                          <th style='width: 200px;'>CRITERIA</th>
-                          <th style='width: 50px;'>GRADE</th>
-                          <th style='width: 350px;'>DESCRIPTION</th>
+                          <th style='width: 35px; padding: 5px 0px 5px 0px;font-size:14px;'>NO </th>
+                          <th style='width: 200px;font-size:14px;'>CRITERIA</th>
+                          <th style='width: 50px;font-size:14px;'>GRADE</th>
+                          <th style='width: 350px;font-size:14px;'>DESCRIPTION</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -321,10 +321,10 @@
                               foreach ($ssp_siswa as $m) :
                                 ?>
                           <tr>
-                            <td class='nomor'><?= $nomor_hal2 ?></td>
-                            <td style='padding: 0px 5px 0px 5px;'><?= $m['ssp_topik_nama'] ?></td>
-                            <td style='text-align: center;'><?= return_abjad_base4($m['ssp_nilai_angka']) ?></td>
-                            <td style='padding: 5px 5px 5px 5px;'>
+                            <td class='nomor' style="font-size:14px;"><?= $nomor_hal2 ?></td>
+                            <td style='padding: 0px 5px 0px 5px;font-size:14px;'><?= $m['ssp_topik_nama'] ?></td>
+                            <td style='text-align: center;font-size:14px;'><?= return_abjad_base4($m['ssp_nilai_angka']) ?></td>
+                            <td style='padding: 8px 5px 8px 5px;font-size:14px;'>
                               <?php
                                       $total += $m['ssp_nilai_angka'];
                                       if (return_abjad_base4($m['ssp_nilai_angka']) == "A") {
@@ -354,7 +354,7 @@
                     <div id='textbox'>
                       <p class='alignright_bawah'>
                         <br>Surabaya, <?= $bulan . ' ' . $tanggal . ', ' . $tahun ?><br>
-                        <?= $kepsek['sk_ex_abr'] ?> Teacher<br><br><br><br>
+                        <?= $kepsek['sk_ex_abr'] ?> Teacher<br><br><br><br><br>
                         <b><?= $guru_ssp['kr_gelar_depan'] . $guru_ssp['kr_nama_depan'] . ' ' . $guru_ssp['kr_nama_belakang'] . " " . $guru_ssp['kr_gelar_belakang'] ?></b><br>
                       </p>
                     </div>
@@ -371,7 +371,7 @@
                       if ($cb_siswa) :
                         ?>
                     <p class='judul'>CHARACTER BUILDING</p>
-                    <table style="width:100%; font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;">
+                    <table style="width:100%; font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;margin-top:40px;">
                       <tr>
                         <td style="width:80px;">NAME</td>
                         <td style="width:60%;">: <?= $siswa[0]['sis_nama_depan'] . " " . $siswa[0]['sis_nama_bel'] ?></td>
@@ -397,13 +397,13 @@
                       </tr>
                     </table>
                     <br>
-                    <table class='rapot'>
+                    <table class='rapot' style="margin-top:20px;">
                       <thead>
                         <tr>
-                          <th style='width: 35px; padding: 0px 0px 0px 0px;'>NO </th>
-                          <th style='width: 200px;'>TOPIC</th>
-                          <th style='width: 50px;'>GRADE</th>
-                          <th style='width: 350px;'>DESCRIPTION</th>
+                          <th style='width: 35px; padding: 5px 0px 5px 0px;font-size:14px;'>NO </th>
+                          <th style='width: 200px;font-size:14px;'>TOPIC</th>
+                          <th style='width: 50px;font-size:14px;'>GRADE</th>
+                          <th style='width: 350px;font-size:14px;'>DESCRIPTION</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -415,10 +415,10 @@
                               foreach ($cb_siswa as $m) :
                                 ?>
                           <tr>
-                            <td class='nomor'><?= $nomor_hal3 ?></td>
-                            <td style='padding: 0px 5px 0px 5px;'><?= $m['topik_cb_nama'] ?></td>
-                            <td style='text-align: center;'><?= return_abjad_base4($m['nilai']) ?></td>
-                            <td style='padding: 5px 5px 5px 5px;'>
+                            <td class='nomor' style="font-size:14px;"><?= $nomor_hal3 ?></td>
+                            <td style='padding: 0px 5px 0px 5px;font-size:14px;'><?= $m['topik_cb_nama'] ?></td>
+                            <td style='text-align: center;font-size:14px;'><?= return_abjad_base4($m['nilai']) ?></td>
+                            <td style='padding: 8px 5px 8px 5px;font-size:14px;'>
                               <?php
                                       $total_cb += $m['nilai'];
                                       $temp_desc_cb = "";
@@ -443,7 +443,7 @@
                                         $temp_desc_cb = str_replace("{she/he}", return_he_she($siswa[0]['sis_jk']), $temp_desc_cb);
                                         //rubah he she huruf besar
                                         $temp_desc_cb = str_replace("{SHE/HE}", ucfirst(return_he_she($siswa[0]['sis_jk'])), $temp_desc_cb);
-                                        
+
                                         //rubah himher huruf kecil
                                         $temp_desc_cb = str_replace("{her/him}", return_her_him($siswa[0]['sis_jk']), $temp_desc_cb);
                                         //rubah himher huruf besar
@@ -537,7 +537,7 @@
                     <div id='textbox'>
                       <p class='alignright_bawah'>
                         <br>Surabaya, <?= $bulan . ' ' . $tanggal . ', ' . $tahun ?><br>
-                        CB Teacher<br><br><br><br>
+                        CB Teacher<br><br><br><br><br><br>
                         <b><?= $guru_cb ?></b><br>
                       </p>
                     </div>
@@ -597,9 +597,9 @@
                                 $kata_karakter_afek = $k['karakter_c'];
                               ?>
                           <tr>
-                            <td style='text-align: center;'><?= $nomor_karakter ?></td>
-                            <td style='padding: 5px 5px 5px 5px;'><?= $k['karakter_nama'] ?></td>
-                            <td style='padding: 5px 5px 5px 10px;'><?= ucfirst(strtolower($siswa[0]['sis_nama_depan'])) . " " . $kata_karakter_afek ?></td>
+                            <td style='text-align: center;font-size:11px;'><?= $nomor_karakter ?></td>
+                            <td style='padding: 5px 5px 5px 5px;font-size:11px;'><?= $k['karakter_nama'] ?></td>
+                            <td style='padding: 5px 5px 5px 5px;font-size:11px;'><?= ucfirst(strtolower($siswa[0]['sis_nama_depan'])) . " " . $kata_karakter_afek ?></td>
                           </tr>
                       <?php
                               $nomor_karakter++;
@@ -613,8 +613,8 @@
                   <table class='rapot_rangkuman'>
                     <thead>
                       <tr>
-                        <th style='width: 30px; height: 15px; padding: 0px 0px 0px 0px;'>NO </th>
-                        <th style='width: 185px; height: 15px; padding: 0px 0px 0px 5px;'>LIFE SKILLS</th>
+                        <th style='width: 30px; height: 15px; padding: 0px 0px 0px 0px;font-size:11px;'>NO </th>
+                        <th style='width: 185px; height: 15px; padding: 0px 0px 0px 5px;font-size:11px;'>LIFE SKILLS</th>
                         <th>GRADE</th>
                       </tr>
                     </thead>
@@ -628,8 +628,8 @@
                               $pfhf_nilai = $siswa[0]['pfhf_sem2'];
                             ?>
                         <td style='text-align: center;'>1</td>
-                        <td style='padding: 0px 0px 0px 5px;'>Physical Fitness and Healthful Habit</td>
-                        <td style='padding: 0px 0px 0px 10px;'><b><?= return_abjad_base4($pfhf_nilai) ?></b></td>
+                        <td style='padding: 0px 0px 0px 5px;font-size:11px;'>Physical Fitness and Healthful Habit</td>
+                        <td style='padding: 0px 0px 0px 10px;font-size:11px;'><b><?= return_abjad_base4($pfhf_nilai) ?></b></td>
                       </tr>
                       <tr>
                         <?php
@@ -640,8 +640,8 @@
                               $mb_nilai = $siswa[0]['mb_sem2'];
                             ?>
                         <td style='text-align: center;'>2</td>
-                        <td style='padding: 0px 0px 0px 5px;'>Moral Behavior</td>
-                        <td style='padding: 0px 0px 0px 10px;'><b><?= return_abjad_base4($mb_nilai) ?></b></td>
+                        <td style='padding: 0px 0px 0px 5px;font-size:11px;'>Moral Behavior</td>
+                        <td style='padding: 0px 0px 0px 10px;font-size:11px;'><b><?= return_abjad_base4($mb_nilai) ?></b></td>
                       </tr>
                       <tr>
                         <?php
@@ -652,8 +652,8 @@
                               $emo_nilai = $siswa[0]['emo_sem2'];
                             ?>
                         <td style='text-align: center;'>3</td>
-                        <td style='padding: 0px 0px 0px 5px;'>Emotional Awareness</td>
-                        <td style='padding: 0px 0px 0px 10px;'><b><?= return_abjad_base4($emo_nilai) ?></b></td>
+                        <td style='padding: 0px 0px 0px 5px;font-size:11px;'>Emotional Awareness</td>
+                        <td style='padding: 0px 0px 0px 10px;font-size:11px;'><b><?= return_abjad_base4($emo_nilai) ?></b></td>
                       </tr>
                       <tr>
                         <?php
@@ -664,8 +664,8 @@
                               $spirit_nilai = $siswa[0]['spirit_sem2'];
                             ?>
                         <td style='text-align: center;'>4</td>
-                        <td style='padding: 0px 0px 0px 5px;'>Spirituality</td>
-                        <td style='padding: 0px 0px 0px 10px;'><b><?= return_abjad_base4($spirit_nilai) ?></b></td>
+                        <td style='padding: 0px 0px 0px 5px;font-size:11px;'>Spirituality</td>
+                        <td style='padding: 0px 0px 0px 10px;font-size:11px;'><b><?= return_abjad_base4($spirit_nilai) ?></b></td>
                       </tr>
                       <tr>
                         <?php
@@ -676,8 +676,8 @@
                               $ss_nilai = $siswa[0]['ss_sem2'];
                             ?>
                         <td style='text-align: center;'>5</td>
-                        <td style='padding: 0px 0px 0px 5px;'>Social Skill</td>
-                        <td style='padding: 0px 0px 0px 10px;'><b><?= return_abjad_base4($ss_nilai) ?></b></td>
+                        <td style='padding: 0px 0px 0px 5px;font-size:11px;'>Social Skill</td>
+                        <td style='padding: 0px 0px 0px 10px;font-size:11px;'><b><?= return_abjad_base4($ss_nilai) ?></b></td>
                       </tr>
                     </tbody>
                   </table>
@@ -701,18 +701,18 @@
                   <table class='rapot_rangkuman'>
                     <tbody>
                       <tr>
-                        <td style='text-align: center; width: 30px; padding: 0px 0px 0px 0px;'><?= $no_self_d ?></td>
-                        <td style='width: 185px; padding: 0px 0px 0px 5px;'>Character Building</td>
-                        <td style='padding: 0px 0px 0px 10px;'><b><?= $nilai_cb ?></b></td>
+                        <td style='text-align: center; width: 30px; padding: 0px 0px 0px 0px;font-size:11px;'><?= $no_self_d ?></td>
+                        <td style='width: 185px; padding: 0px 0px 0px 5px;font-size:11px;'>Character Building</td>
+                        <td style='padding: 0px 0px 0px 10px;font-size:11px;'><b><?= $nilai_cb ?></b></td>
                       </tr>
                       <?php
                           if ($checkSsp) :
                             $no_self_d++;
                             ?>
                         <tr>
-                          <td style='text-align: center;'><?= $no_self_d ?></td>
-                          <td style='padding: 0px 0px 0px 5px;'><?= $nama_ssp ?></td>
-                          <td style='padding: 0px 0px 0px 10px;'><b><?= $nilai_ssp ?></b></td>
+                          <td style='text-align: center;font-size:11px;'><?= $no_self_d ?></td>
+                          <td style='padding: 0px 0px 0px 5px;font-size:11px;'><?= $nama_ssp ?></td>
+                          <td style='padding: 0px 0px 0px 10px;font-size:11px;'><b><?= $nilai_ssp ?></b></td>
                         </tr>
                       <?php
                           endif;
@@ -726,9 +726,9 @@
                               $scout_nilai = $siswa[0]['d_s_scout_nilai2'];
                             ?>
                         <tr>
-                          <td style='text-align: center;'><?= $no_self_d ?></td>
-                          <td style='padding: 0px 0px 0px 5px;'>Scout</td>
-                          <td style='padding: 0px 0px 0px 10px;'><b><?= return_abjad_base4($scout_nilai) ?></b></td>
+                          <td style='text-align: center;font-size:11px;'><?= $no_self_d ?></td>
+                          <td style='padding: 0px 0px 0px 5px;font-size:11px;'>Scout</td>
+                          <td style='padding: 0px 0px 0px 10px;font-size:11px;'><b><?= return_abjad_base4($scout_nilai) ?></b></td>
                         </tr>
                       <?php
                           endif;
@@ -740,8 +740,8 @@
                   <table class='rapot_rangkuman'>
                     <tbody>
                       <tr>
-                        <td style='text-align: center; width: 30px; padding: 0px 0px 0px 0px;'>1</td>
-                        <td style='width: 185px; padding: 0px 0px 0px 5px;'>Sick</td>
+                        <td style='text-align: center; width: 30px; padding: 0px 0px 0px 0px;font-size:11px;'>1</td>
+                        <td style='width: 185px; padding: 0px 0px 0px 5px;font-size:11px;'>Sick</td>
                         <?php
                             $sick = "";
                             if ($semester == 1)
@@ -752,11 +752,11 @@
                             if ($sick == "0")
                               $sick = "-";
                             ?>
-                        <td style='padding: 0px 0px 0px 10px;'><?= $sick ?> day(s)</td>
+                        <td style='padding: 0px 0px 0px 10px;font-size:11px;'><?= $sick ?> day(s)</td>
                       </tr>
                       <tr>
-                        <td style='text-align: center;'>2</td>
-                        <td style='padding: 0px 0px 0px 5px;'>Absent (Including Excuse)</td>
+                        <td style='text-align: center;font-size:11px;'>2</td>
+                        <td style='padding: 0px 0px 0px 5px;font-size:11px;'>Absent (Including Excuse)</td>
                         <?php
                             $absenin = "";
                             if ($semester == 1)
@@ -767,10 +767,10 @@
                             if ($absenin == "0")
                               $absenin = "-";
                             ?>
-                        <td style='padding: 0px 0px 0px 10px;'><?= $absenin ?> day(s)</td>
+                        <td style='padding: 0px 0px 0px 10px;font-size:11px;'><?= $absenin ?> day(s)</td>
                       </tr <tr>
-                      <td style='text-align: center;'>3</td>
-                      <td style='padding: 0px 0px 0px 5px;'>Absent (Excluding Excuse)</td>
+                      <td style='text-align: center;font-size:11px;'>3</td>
+                      <td style='padding: 0px 0px 0px 5px;font-size:11px;'>Absent (Excluding Excuse)</td>
                       <?php
                           $absenex = "";
                           if ($semester == 1)
@@ -781,7 +781,7 @@
                           if ($absenex == "0")
                             $absenex = "-";
                           ?>
-                      <td style='padding: 0px 0px 0px 10px;'><?= $absenex ?> day(s)</td>
+                      <td style='padding: 0px 0px 0px 10px;font-size:11px;'><?= $absenex ?> day(s)</td>
                       </tr>
                       <tr>
                         <td style='padding: 0px 0px 0px 5px;' colspan=2><b>Homeroom Teacher's Comment</b></td>
@@ -792,7 +792,7 @@
                             elseif ($semester == 2)
                               $komen = $siswa[0]['d_s_komen_sem2'];
                             ?>
-                        <td style='padding: 5px 5px 5px 5px;'><?= $komen ?></td>
+                        <td style='padding: 5px 5px 5px 5px;font-size:11px;'><?= $komen ?></td>
                       </tr>
                       <tr>
                         <td style='padding: 0px 0px 0px 5px;' colspan=2><b>Special Note</b></td>

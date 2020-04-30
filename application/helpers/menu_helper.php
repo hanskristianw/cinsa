@@ -119,7 +119,7 @@ function return_konseling_report($d_s_id)
   $ci = &get_instance();
   $raport_konseling = $ci->db->query(
     'SELECT sis_nama_depan, sis_nama_bel, konseling_alasan, konseling_hasil, konseling_saran, konseling_tanggal, konseling_kategori_nama, kelas_nama
-    FROM konseling 
+    FROM konseling
     LEFT JOIN d_s ON konseling_d_s_id = d_s_id
     LEFT JOIN kelas ON d_s_kelas_id = kelas_id
     LEFT JOIN sis ON sis_id = d_s_sis_id
@@ -137,13 +137,13 @@ function return_raport_mid($d_s_id, $semester)
   $raport_mid = $ci->db->query(
     'SELECT * FROM
       (SELECT mapel_id, mapel_urutan, tes_d_s_id, mapel_nama,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, kelas_nama,  d_s_komen_sis, d_s_komen_sis2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2,
-      GROUP_CONCAT(kog_quiz ORDER BY topik_urutan) as kq, 
-      GROUP_CONCAT(kog_ass ORDER BY topik_urutan) as ka, 
-      GROUP_CONCAT(kog_test ORDER BY topik_urutan) as kt, 
-      GROUP_CONCAT(psi_quiz ORDER BY topik_urutan) as pq, 
-      GROUP_CONCAT(psi_ass ORDER BY topik_urutan) as pa, 
+      GROUP_CONCAT(kog_quiz ORDER BY topik_urutan) as kq,
+      GROUP_CONCAT(kog_ass ORDER BY topik_urutan) as ka,
+      GROUP_CONCAT(kog_test ORDER BY topik_urutan) as kt,
+      GROUP_CONCAT(psi_quiz ORDER BY topik_urutan) as pq,
+      GROUP_CONCAT(psi_ass ORDER BY topik_urutan) as pa,
       GROUP_CONCAT(psi_test ORDER BY topik_urutan) as pt
-      FROM tes 
+      FROM tes
       LEFT JOIN topik
       ON tes_topik_id = topik_id
       LEFT JOIN d_s
@@ -169,14 +169,14 @@ function return_raport_mid($d_s_id, $semester)
       )as summative ON formative.mapel_id = summative.mapel_id
       LEFT JOIN
       (
-        SELECT mapel_id, GROUP_CONCAT(afektif_id) as afektif_id, COUNT(mapel_id) as jum_bulan, 
-        GROUP_CONCAT(bulan_nama ORDER BY afektif_id) as bulan_nama, 
-        GROUP_CONCAT(afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3 ORDER BY afektif_id) as minggu1, 
-        GROUP_CONCAT(afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3 ORDER BY afektif_id) as minggu2, 
-        GROUP_CONCAT(afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3 ORDER BY afektif_id) as minggu3, 
-        GROUP_CONCAT(afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3 ORDER BY afektif_id) as minggu4, 
-        GROUP_CONCAT(afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3 ORDER BY afektif_id) as minggu5 
-        FROM afektif 
+        SELECT mapel_id, GROUP_CONCAT(afektif_id) as afektif_id, COUNT(mapel_id) as jum_bulan,
+        GROUP_CONCAT(bulan_nama ORDER BY afektif_id) as bulan_nama,
+        GROUP_CONCAT(afektif_minggu1a1+afektif_minggu1a2+afektif_minggu1a3 ORDER BY afektif_id) as minggu1,
+        GROUP_CONCAT(afektif_minggu2a1+afektif_minggu2a2+afektif_minggu2a3 ORDER BY afektif_id) as minggu2,
+        GROUP_CONCAT(afektif_minggu3a1+afektif_minggu3a2+afektif_minggu3a3 ORDER BY afektif_id) as minggu3,
+        GROUP_CONCAT(afektif_minggu4a1+afektif_minggu4a2+afektif_minggu4a3 ORDER BY afektif_id) as minggu4,
+        GROUP_CONCAT(afektif_minggu5a1+afektif_minggu5a2+afektif_minggu5a3 ORDER BY afektif_id) as minggu5
+        FROM afektif
         LEFT JOIN mapel ON afektif_mapel_id = mapel_id
         LEFT JOIN k_afek ON afektif_k_afek_id = k_afek_id
         LEFT JOIN bulan ON k_afek_bulan_id = bulan_id
@@ -642,7 +642,7 @@ function return_raport_fin($d_s_id, $semester, $jenjang, $t_id)
   //formative (harian) didapat dari nilai kognitif tes * persen tes
 
   $siswa = $ci->db->query(
-    "SELECT * FROM 
+    "SELECT * FROM
       (SELECT mapel_nama, mapel_id, kelas_jenj_id, mapel_urutan, tes_d_s_id,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, sis_jk, kelas_nama, COUNT(DISTINCT tes_topik_id), d_s_komen_sem, d_s_komen_sem2, d_s_scout_nilai, d_s_scout_nilai2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2,
       (pfhf_absent+pfhf_uks+pfhf_tardiness)/3 AS pfhf_sem1, (pfhf_absent2+pfhf_uks2+pfhf_tardiness2)/3 AS pfhf_sem2,
       moralb_lo AS mb_sem1, moralb_lo2 AS mb_sem2,
@@ -651,7 +651,7 @@ function return_raport_fin($d_s_id, $semester, $jenjang, $t_id)
       (ss_relationship+ss_cooperation+ss_conflict+ss_self_a)/4 AS ss_sem1, (ss_relationship2+ss_cooperation2+ss_conflict2+ss_self_a2)/4 AS ss_sem2,
       ROUND(SUM(ROUND(kog_quiz*kog_quiz_persen/100 + kog_ass*kog_ass_persen/100 + kog_test*kog_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_kog,
       ROUND(SUM(ROUND(psi_quiz*psi_quiz_persen/100 + psi_ass*psi_ass_persen/100 + psi_test*psi_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_psi
-      FROM tes 
+      FROM tes
       LEFT JOIN topik
       ON tes_topik_id = topik_id
       LEFT JOIN d_s
@@ -843,9 +843,9 @@ function returnRataMapelKelas($mapel_id, $kelas_id)
   $ci = &get_instance();
 
   $siswa = $ci->db->query(
-    "SELECT SUM(uj_mid1_kog)/COUNT(uj_mid1_kog) as ruj_mid1_kog, 
-    SUM(uj_mid2_kog)/COUNT(uj_mid2_kog) as ruj_mid2_kog, 
-    SUM(uj_fin1_kog)/COUNT(uj_fin1_kog) as ruj_fin1_kog, 
+    "SELECT SUM(uj_mid1_kog)/COUNT(uj_mid1_kog) as ruj_mid1_kog,
+    SUM(uj_mid2_kog)/COUNT(uj_mid2_kog) as ruj_mid2_kog,
+    SUM(uj_fin1_kog)/COUNT(uj_fin1_kog) as ruj_fin1_kog,
     SUM(uj_fin2_kog)/COUNT(uj_fin2_kog) as ruj_fin2_kog
     FROM uj
     LEFT JOIN mapel ON uj_mapel_id = mapel_id
@@ -951,7 +951,7 @@ function return_raport_fin_mapel($d_s_id, $semester, $jenjang, $mapel_id, $t_id)
   //formative (harian) didapat dari nilai kognitif tes * persen tes
 
   $siswa = $ci->db->query(
-    "SELECT * FROM 
+    "SELECT * FROM
       (SELECT mapel_nama, mapel_id, kelas_jenj_id, mapel_urutan, tes_d_s_id,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, sis_jk, kelas_nama, COUNT(DISTINCT tes_topik_id), d_s_komen_sem, d_s_komen_sem2, d_s_scout_nilai, d_s_scout_nilai2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2,
       (pfhf_absent+pfhf_uks+pfhf_tardiness)/3 AS pfhf_sem1, (pfhf_absent2+pfhf_uks2+pfhf_tardiness2)/3 AS pfhf_sem2,
       moralb_lo AS mb_sem1, moralb_lo2 AS mb_sem2,
@@ -960,7 +960,7 @@ function return_raport_fin_mapel($d_s_id, $semester, $jenjang, $mapel_id, $t_id)
       (ss_relationship+ss_cooperation+ss_conflict+ss_self_a)/4 AS ss_sem1, (ss_relationship2+ss_cooperation2+ss_conflict2+ss_self_a2)/4 AS ss_sem2,
       ROUND(SUM(ROUND(kog_quiz*kog_quiz_persen/100 + kog_ass*kog_ass_persen/100 + kog_test*kog_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_kog,
       ROUND(SUM(ROUND(psi_quiz*psi_quiz_persen/100 + psi_ass*psi_ass_persen/100 + psi_test*psi_test_persen/100,0))/COUNT(DISTINCT tes_topik_id),0) AS for_psi
-      FROM tes 
+      FROM tes
       LEFT JOIN topik
       ON tes_topik_id = topik_id
       LEFT JOIN d_s
@@ -1234,4 +1234,82 @@ function return_mapel_by_kelas($kelas_id)
   )->result_array();
 
   return $det;
+}
+
+function return_hari_by_kelas_mapel_kr($kr_id, $mapel_id, $kelas_id, $t_id)
+{
+  $ci = &get_instance();
+
+  $det = $ci->db->query(
+    "SELECT DISTINCT jampel_hari_ke
+    FROM jampel
+    LEFT JOIN kelas ON kelas_id = jampel_kelas_id
+    WHERE jampel_kr_id = $kr_id AND jampel_mapel_id = $mapel_id AND jampel_kelas_id = $kelas_id AND kelas_t_id = $t_id
+    ORDER BY jampel_hari_ke"
+  )->result_array();
+
+  return $det;
+}
+
+function return_jam_by_hari_kelas_mapel_kr($hari, $kr_id, $mapel_id, $kelas_id)
+{
+  $ci = &get_instance();
+
+  $det = $ci->db->query(
+    "SELECT jampel_ke
+    FROM jampel
+    WHERE jampel_hari_ke = $hari AND jampel_kr_id = $kr_id AND jampel_mapel_id = $mapel_id AND jampel_kelas_id = $kelas_id
+    ORDER BY jampel_ke"
+  )->result_array();
+
+  return $det;
+}
+
+function return_outline_by_mapel_kelas($mapel_id, $kelas_id)
+{
+  $ci = &get_instance();
+
+  $det = $ci->db->query(
+    "SELECT jenj_id
+    FROM kelas
+    LEFT JOIN jenj ON kelas_jenj_id = jenj_id
+    WHERE kelas_id = $kelas_id"
+  )->row_array();
+
+  $jenj_id = $det['jenj_id'];
+
+  $det2 = $ci->db->query(
+    "SELECT *
+    FROM mapel_outline
+    WHERE mapel_outline_mapel_id = $mapel_id AND mapel_outline_jenj_id = $jenj_id
+    ORDER BY mapel_outline_nama"
+  )->result_array();
+
+  return $det2;
+}
+
+function return_outline_siswa_tak_masuk($mapel_id, $kelas_id, $jam, $hari, $minggu, $bulan_id)
+{
+  $ci = &get_instance();
+  $det2 = $ci->db->query(
+    "SELECT *
+    FROM jurnal
+    WHERE jurnal_mapel_id = $mapel_id AND jurnal_kelas_id = $kelas_id
+    AND jurnal_bulan_id = $bulan_id AND jurnal_jam_ke = $jam
+    AND jurnal_minggu_ke = $minggu AND jurnal_hari_ke = $hari"
+  )->row_array();
+
+  return $det2;
+}
+
+function return_siswa_by_d_s_id($d_s_id){
+  $ci = &get_instance();
+  $det2 = $ci->db->query(
+    "SELECT d_s_id, sis_nama_depan, sis_nama_bel
+    FROM d_s
+    LEFT JOIN sis ON d_s_sis_id = sis_id
+    WHERE d_s_id IN ($d_s_id)"
+  )->result_array();
+
+  return $det2;
 }

@@ -1,5 +1,5 @@
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('Profile') ?>">
@@ -133,7 +133,7 @@
               </div>
             </li>
 
-            
+
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-chart-bar"></i>
@@ -219,7 +219,7 @@
               </div>
             </li>
 
-            
+
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-chart-bar"></i>
@@ -341,27 +341,20 @@
 
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                <i class="fas fa-fw fa-cog"></i>
+                <i class="fas fa-fw fa-book-open"></i>
                 <span>Mapel</span>
               </a>
               <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Set</h6>
                   <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>1. Topik</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>2. Outline</a>
+                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>3. Input Jurnal</a>
+                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>4. Report Jurnal</a>
                 </div>
               </div>
             </li>
-            
-            <hr class="sidebar-divider d-none d-md-block">
 
-
-
-
-            
-            
-            <div class="sidebar-heading">
-             Menu Nilai
-            </div>
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-book"></i>
@@ -377,22 +370,6 @@
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/final_report') . '>5. Final Grade Report</a>
                 </div>
               </div>
-            </li>
-            
-
-            <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseJ" aria-expanded="true" aria-controls="collapseOne">
-              <i class="fas fa-fw fa-cog"></i>
-              <span>Jurnal</span>
-            </a>
-            <div id="collapseJ" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-              <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Jurnal</h6>
-                <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>1. Outline</a>
-                <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>2. Input Jurnal</a>
-                <a class="collapse-item" href=' . base_url('Jurnal_CRUD/laporan') . '>3. Report Jurnal</a>
-              </div>
-            </div>
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">';
@@ -512,6 +489,8 @@
                         <a class="collapse-item" href=' . base_url('CB_CRUD/habit_index') . '>2. Habit, Social Skill</a>
                         <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Report Card</a>
                         <a class="collapse-item" href=' . base_url('Absent_CRUD') . '>4. Absent</a>
+                        <a class="collapse-item" href=' . base_url('Review_CRUD') . '>5. Jurnal Review</a>
+                        <a class="collapse-item" href=' . base_url('Review_CRUD/cancel_review') . '>6. Cancel Review</a>
                       </div>
                     </div>
                   </li>

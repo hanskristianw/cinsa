@@ -27,7 +27,7 @@
 <div class="grid-container">
 
   <div class="box1">
-    <h5 class="text-center"><b><u>Hak Akses Penerimaan Raport Online<br> <?= $title ?></u></b></h5>
+    <h5 class="text-center"><b><u>Hak Akses Penerimaan Rapor Online<br> <?= $title ?></u></b></h5>
     <div><?= $this->session->flashdata('message'); ?></div>
   </div>
   <div class="box1">
@@ -40,7 +40,7 @@
           </option>
         <?php endforeach ?>
       </select>
-      <button type="submit" class="btn btn-primary btn-user btn-block">
+      <button type="submit" class="btn btn-secondary btn-user btn-block">
         Proses
       </button>
     </form>

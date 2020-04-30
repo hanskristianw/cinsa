@@ -67,7 +67,7 @@ class Ortu_CRUD extends CI_Controller
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
       $data['sis_all'] = $this->db->query(
-        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, sis_username, d_s_blokir
+        "SELECT d_s_id, sis_nama_depan, sis_nama_bel, sis_no_induk, sis_username, d_s_blokir, sis_last_login
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         WHERE d_s_kelas_id = $kelas_id

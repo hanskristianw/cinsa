@@ -39,7 +39,7 @@
     $mapel = return_mapel_by_kelas($kelas['kelas_id']);
     ?>
 
-    <div class="text-center mt-4 bg-info text-white p-2 mb-4" style="border-radius: 25px;">
+    <div class="text-center mt-4 bg-secondary text-white p-2 mb-4" style="border-radius: 25px;">
       <h5 class="text-center"><b><u><?= $title ?></u></b></h5>
       <img src="<?= base_url('assets/img/jadwal.png'); ?>" width="50px;">
       <b><?= $kelas['kelas_nama'] ?></b>
@@ -106,7 +106,7 @@
       echo "<br>";
       ?>
 
-      <button type="submit" class="btn btn-primary btn-block">
+      <button type="submit" class="btn btn-secondary btn-block">
         <i class="fa fa-save"></i> UPDATE
       </button>
     </form>

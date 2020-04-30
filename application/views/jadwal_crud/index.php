@@ -54,9 +54,9 @@
           </option>
         <?php endforeach ?>
       </select>
-      
+
       <div id="kelas_ajax_jadwal">
-      
+
       </div>
 
     </form>
@@ -69,7 +69,7 @@
     $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
       $(".alert-success").slideUp(500);
     });
-    
+
     $('.mapel_id').each(function () {
       $(this).change(function () {
         alert($(this).attr('id'));
@@ -83,9 +83,9 @@
     $('#sk_id_jadwal').change(function () {
       var sk_id = $(this).val();
       var t_id = $('#t_id_jadwal').val();
-      
+
       $('#kelas_ajax_jadwal').html("");
-      
+
       if(sk_id>0 && t_id>0){
         $.ajax(
         {
@@ -108,7 +108,7 @@
                 html += `<option value="${data[i].kelas_id}">${data[i].kelas_nama}</option>`;
               }
               html += `</select>
-                <button type="submit" class="btn btn-primary btn-block">
+                <button type="submit" class="btn btn-secondary btn-block">
                   Proses
                 </button>
               `;
