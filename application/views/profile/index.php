@@ -11,7 +11,6 @@
   padding-top: 20px;
 }
 
-
 .box1{
   /*align-self:start;*/
   grid-column:2/3;
@@ -25,11 +24,19 @@
 }
 </style>
 
-<div class="grid-container">
 
+<div class="grid-container">
   <div class="box1">
 
-      <img src="<?= base_url('assets/img/profile/').$kr['kr_pp'] ?>" alt="Avatar" style="width:40%">
+      <?php
+        $changelog = get_changelog();
+        $date = date_create($changelog['changelog_tgl']);
+      ?>
+
+      <img src="<?= base_url('assets/img/profile/').$kr['kr_pp'] ?>" alt="Avatar" style="width:35%">
+      <div class="alert alert-secondary mt-1 text-center" role="alert" style="font-size:13px;">
+        Update fitur program dilakukan terakhir pada: <?= date_format($date,"d-m-Y"); ?>, untuk melihat daftar perubahan klik <a href="<?= base_url('Announcement_CRUD/changelog') ?>">disini</a>
+      </div>
       <div class="text-center"><?= $this->session->flashdata('message'); ?></div>
       <h3 class="text-center"><b><?= $kr['kr_nama_depan'].' '.$kr['kr_nama_belakang'] ?></b></h3>
       <p class="text-center"><?= $kr['sk_nama'] ?><br>

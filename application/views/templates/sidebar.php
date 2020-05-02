@@ -21,13 +21,12 @@
             <li class="nav-item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Master</span>
+                <span>Backend</span>
               </a>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Master:</h6>
-                  <a class="collapse-item" href=' . base_url('Sekolah_CRUD') . '>Unit</a>
-                  <a class="collapse-item" href=' . base_url('Tahun_CRUD') . '>Year</a>
+                  <h6 class="collapse-header">Master</h6>
+                  <a class="collapse-item" href=' . base_url('Changelog_CRUD') . '>Changelog</a>
                 </div>
               </div>
             </li>

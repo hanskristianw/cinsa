@@ -1313,3 +1313,26 @@ function return_siswa_by_d_s_id($d_s_id){
 
   return $det2;
 }
+
+function get_changelog(){
+  $ci = &get_instance();
+  $det2 = $ci->db->query(
+    "SELECT *
+    FROM changelog
+    ORDER BY changelog_tgl DESC"
+  )->row_array();
+
+  return $det2;
+}
+
+function get_changelog_full(){
+  $ci = &get_instance();
+  $det2 = $ci->db->query(
+    "SELECT *
+    FROM changelog
+    ORDER BY changelog_tgl DESC
+    LIMIT 10"
+  )->result_array();
+
+  return $det2;
+}
