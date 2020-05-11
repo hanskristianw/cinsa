@@ -79,25 +79,26 @@
                         <form class="" action="<?= base_url('Kelas_CRUD/update') ?>" method="get">
                           <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
                           <button type="submit" class="badge badge-warning">
-                            Edit Class
+                            Edit Kelas
                           </button>
                         </form>
                         <form class="" action="<?= base_url('Kelas_CRUD/edit_student') ?>" method="get">
                           <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
                           <button type="submit" class="badge badge-success">
-                            Edit Students
+                            Edit Siswa
                           </button>
                         </form>
                         <form class="" action="<?= base_url('Kelas_CRUD/edit_subject') ?>" method="get">
                           <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
                           <button type="submit" class="badge badge-primary">
-                            Edit Subjects
+                            Edit Mapel
                           </button>
                         </form>
-                        <form class="" action="" method="post">
-                          <input type="hidden" name="_id" value=<?= $m['kelas_id'] ?>>
+                        <form class="" action="<?= base_url('Kelas_CRUD/edit_cb') ?>" method="post">
+                          <input type="hidden" name="kelas_id" value=<?= $m['kelas_id'] ?>>
+                          <input type="hidden" name="kelas_sk_id" value=<?= $m['kelas_sk_id'] ?>>
                           <button type="submit" class="badge badge-danger">
-                            Delete
+                            Edit Guru CB
                           </button>
                         </form>
                       </div>

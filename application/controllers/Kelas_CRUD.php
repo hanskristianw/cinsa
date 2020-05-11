@@ -52,7 +52,7 @@ class Kelas_CRUD extends CI_Controller
     $sk_id = $this->session->userdata('kr_sk_id');
 
     $data['kelas_all'] = $this->db->query(
-      "SELECT kelas_nama, kelas_nama_singkat, t_nama, jenj_nama, kelas_id, kelas_kr_id, count(d_s_kelas_id) as jum_siswa
+      "SELECT kelas_nama, kelas_nama_singkat, t_nama, jenj_nama, kelas_id, kelas_kr_id, count(d_s_kelas_id) as jum_siswa, kelas_sk_id
       FROM kelas
       LEFT JOIN t ON kelas_t_id = t_id
       LEFT JOIN jenj ON kelas_jenj_id = jenj_id
@@ -465,6 +465,53 @@ class Kelas_CRUD extends CI_Controller
       $this->db->update('kelas', $data);
 
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Class Data Updated!</div>');
+      redirect('Kelas_CRUD');
+    }
+  }
+
+  public function edit_cb()
+  {
+    $data['title'] = 'Edit Guru CB';
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $kelas_id = $this->input->post('kelas_id', true);
+    $kelas_sk_id = $this->input->post('kelas_sk_id', true);
+
+    $data['k_detail'] = $this->db->query(
+      "SELECT kelas_id, kelas_nama, kr_nama_depan, kr_nama_belakang
+      FROM kelas
+      LEFT JOIN kr ON kelas_cb_kr_id = kr_id
+      WHERE kelas_id = $kelas_id"
+    )->row_array();
+
+    $data['konselor'] = $this->db->query(
+      "SELECT kr_id, kr_nama_depan, kr_nama_belakang
+      FROM konselor
+      LEFT JOIN kr ON konselor_kr_id = kr_id
+      WHERE konselor_sk_id = $kelas_sk_id"
+    )->result_array();
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('kelas_crud/edit_cb', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function edit_cb_proses()
+  {
+
+    $kelas_id = $this->input->post('kelas_id', true);
+
+    if ($kelas_id) {
+
+      $data = [
+        'kelas_cb_kr_id' => $this->input->post('kelas_cb_kr_id')
+      ];
+
+      $this->db->where('kelas_id', $kelas_id);
+      $this->db->update('kelas', $data);
+
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Konselor berhasil diupdate!</div>');
       redirect('Kelas_CRUD');
     }
   }
