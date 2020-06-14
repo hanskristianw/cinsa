@@ -800,13 +800,31 @@
                         <td style='padding: 5px 5px 5px 5px;'><?= $komen ?></td>
                       </tr>
                       <tr>
-                        <td style='padding: 0px 0px 0px 5px;height: 10px;' colspan=2><b>Special Note</b></td>
-                        <td style='padding: 5px 5px 5px 5px;height: 10px;'></td>
-                      </tr>
-                      <tr>
                         <td style='padding: 0px 0px 0px 5px;height: 10px;' colspan=2><b>Note</b></td>
                         <td style='padding: 5px 5px 5px 5px;height: 10px;'></td>
                       </tr>
+                      <?php if ($semester == 2) :
+
+                        $kata = "";
+                        if ($akhir == 1) {
+                          if ($siswa[0]['d_s_naik'] == 1) {
+                            $kata = "Retained in Grade " . $sekarang;
+                          } else {
+                            $kata = "PASS";
+                          }
+                        } else {
+                          if ($siswa[0]['d_s_naik'] == 1) {
+                            $kata = "Retained in Grade " . $sekarang;
+                          } else {
+                            $kata = "Promoted to Grade " . $nama_berikutnya;
+                          }
+                        }
+
+                      ?>
+                        <tr>
+                          <td style='padding: 5px 5px 5px 5px;height: 10px;text-align:center;' colspan=3><b><?= $kata ?></b></td>
+                        </tr>
+                      <?php endif; ?>
                     </tbody>
                   </table>
                   <div id='textbox'>

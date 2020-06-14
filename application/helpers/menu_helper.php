@@ -643,7 +643,7 @@ function return_raport_fin($d_s_id, $semester, $jenjang, $t_id)
 
   $siswa = $ci->db->query(
     "SELECT * FROM
-      (SELECT mapel_nama, mapel_id, kelas_jenj_id, mapel_urutan, tes_d_s_id,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, sis_jk, kelas_nama, COUNT(DISTINCT tes_topik_id), d_s_komen_sem, d_s_komen_sem2, d_s_scout_nilai, d_s_scout_nilai2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2,
+      (SELECT mapel_nama, mapel_id, kelas_jenj_id, mapel_urutan, tes_d_s_id,mapel_kkm, sis_nama_depan, sis_nama_bel, sis_no_induk, sis_jk, kelas_nama, COUNT(DISTINCT tes_topik_id), d_s_komen_sem, d_s_komen_sem2, d_s_scout_nilai, d_s_scout_nilai2, d_s_sick, d_s_sick2, d_s_absenin, d_s_absenin2, d_s_absenex, d_s_absenex2, d_s_naik,
       (pfhf_absent+pfhf_uks+pfhf_tardiness)/3 AS pfhf_sem1, (pfhf_absent2+pfhf_uks2+pfhf_tardiness2)/3 AS pfhf_sem2,
       moralb_lo AS mb_sem1, moralb_lo2 AS mb_sem2,
       (emo_aware_ex+emo_aware_so+emo_aware_ne)/3 AS emo_sem1, (emo_aware_ex2+emo_aware_so2+emo_aware_ne2)/3 AS emo_sem2,
@@ -1302,7 +1302,8 @@ function return_outline_siswa_tak_masuk($mapel_id, $kelas_id, $jam, $hari, $ming
   return $det2;
 }
 
-function return_siswa_by_d_s_id($d_s_id){
+function return_siswa_by_d_s_id($d_s_id)
+{
   $ci = &get_instance();
   $det2 = $ci->db->query(
     "SELECT d_s_id, sis_nama_depan, sis_nama_bel
@@ -1314,7 +1315,8 @@ function return_siswa_by_d_s_id($d_s_id){
   return $det2;
 }
 
-function get_changelog(){
+function get_changelog()
+{
   $ci = &get_instance();
   $det2 = $ci->db->query(
     "SELECT *
@@ -1325,7 +1327,8 @@ function get_changelog(){
   return $det2;
 }
 
-function get_changelog_full(){
+function get_changelog_full()
+{
   $ci = &get_instance();
   $det2 = $ci->db->query(
     "SELECT *

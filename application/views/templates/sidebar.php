@@ -247,8 +247,6 @@
               </div>
             </li>
             <hr class="sidebar-divider d-none d-md-block">';
-
-
       } elseif ($this->session->userdata('kr_jabatan_id') == 6 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia TU
         echo '<div class="sidebar-heading">
@@ -488,6 +486,7 @@
                       <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Set</h6>
                         <a class="collapse-item" href=' . base_url('Ortu_CRUD') . '>1. Hak Akses</a>
+                        <a class="collapse-item" href=' . base_url('Ortu_CRUD/naik_kelas') . '>2. Kenaikan Kelas</a>
                       </div>
                     </div>
                   </li>

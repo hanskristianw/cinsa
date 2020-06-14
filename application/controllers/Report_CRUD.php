@@ -194,6 +194,41 @@ class Report_CRUD extends CI_Controller
         WHERE kelas_id = $kelas_id"
       )->row_array();
 
+
+      //cari apakah jenjang terakhir
+      $jenj_id = $data['kelas_jenj_id']['kelas_jenj_id'];
+      $jenjang_skrng = $this->db->query(
+        "SELECT jenj_urutan, jenj_nama
+        FROM jenj
+        WHERE jenj_id = $jenj_id"
+      )->row_array();
+
+      $jenjang_terakhir = $this->db->query(
+        "SELECT jenj_urutan
+        FROM jenj
+        WHERE jenj_sk_id = $sk_id
+        ORDER BY jenj_urutan DESC"
+      )->row_array();
+
+
+      $data['akhir'] = 0;
+      $data['berikutnya'] = '';
+      $data['sekarang'] = $jenjang_skrng['jenj_nama'];
+      if ($jenjang_skrng['jenj_urutan'] == $jenjang_terakhir['jenj_urutan']) {
+        //kalau jenjang akhir
+        $data['akhir'] = 1;
+      } else {
+        //kalau bukan cari nama jenj selanjutnya
+        $temp = $jenj_id + 1;
+        $nama_berikutnya = $this->db->query(
+          "SELECT jenj_nama
+          FROM jenj
+          WHERE jenj_id = $temp"
+        )->row_array();
+
+        $data['nama_berikutnya'] = $nama_berikutnya['jenj_nama'];
+      }
+
       $t_id = $this->input->post('t', TRUE);
       $data['t_id'] = $t_id;
       $data['t'] = $this->db->query(
