@@ -113,6 +113,7 @@
                   <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>7. Extrakurikuler</a>
                   <a class="collapse-item" href=' . base_url('MK_CRUD') . '>8. Mapel Khusus</a>
                   <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>9. Persentase</a>
+                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD/pengumuman') . '>10. Pengumuman</a>
                 </div>
               </div>
             </li>

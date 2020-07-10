@@ -26,7 +26,7 @@ class Karyawan_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'Employee List';
+    $data['title'] = 'Daftar Karyawan';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -334,4 +334,37 @@ class Karyawan_CRUD extends CI_Controller
       redirect('Profile');
     }
   }
+
+  public function ubah_status(){
+
+    $kr_id = $this->input->post('kr_id', true);
+    if ($kr_id) {
+
+      $cek = $this->db->query(
+        "SELECT kr_resign
+        FROM kr
+        WHERE kr_id = $kr_id"
+      )->row_array();
+
+      if($cek['kr_resign'] == 0){
+        $val = 1;
+      }
+      else{
+        $val = 0;
+      }
+
+      $data = [
+        'kr_resign' => $val
+      ];
+
+      $this->db->where('kr_id', $kr_id);
+      $this->db->update('kr', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status berhasil dirubah!</div>');
+      redirect('Karyawan_CRUD');
+
+    } else {
+      redirect('Profile');
+    }
+  }
+
 }

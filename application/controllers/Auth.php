@@ -39,12 +39,25 @@ class Auth extends CI_Controller
 		if($user){
 			if(password_verify($kr_password, $user['kr_password'])){
 
+				$kr_id_cek = $user['kr_id'];
+
+				$cek = $this->db->query(
+	        "SELECT kr_resign
+	        FROM kr
+	        WHERE kr_id = $kr_id_cek"
+	      )->row_array();
+
+				if($cek['kr_resign'] == 1){
+					$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Gagal, Login anda tidak aktif, hubungi HRD / Div Pendidikan</div>');
+					redirect('auth');
+				}
+
 				$ip = return_ip_login();
 				$data2 = [
 					'kr_last_login' => date('Y/m/d H:i:s'),
 					'kr_last_login_ip' => $ip
 				];
-	
+
 				$this->db->where('kr_id', $user['kr_id']);
       	$this->db->update('kr', $data2);
 

@@ -41,21 +41,21 @@ class Jadwal_CRUD extends CI_Controller
     if ($this->session->userdata('kr_jabatan_id') == 5) {
       $data['sk_all'] = $this->db->query(
         "SELECT sk_id, sk_nama
-        FROM sk 
+        FROM sk
         WHERE sk_type = 0
         ORDER BY sk_nama"
       )->result_array();
     } else if ($this->session->userdata('kr_jabatan_id') == 4) {
       $data['sk_all'] = $this->db->query(
         "SELECT sk_id, sk_nama
-        FROM sk 
+        FROM sk
         WHERE sk_id = $sk_id AND sk_type = 0"
       )->result_array();
     }
 
     $data['t_all'] = $this->db->query(
       "SELECT *
-      FROM t 
+      FROM t
       ORDER BY t_nama DESC"
     )->result_array();
 
@@ -78,14 +78,14 @@ class Jadwal_CRUD extends CI_Controller
       //cek input / update
       $cek = $this->db->query(
         "SELECT *
-        FROM jampel 
+        FROM jampel
         WHERE jampel_kelas_id = $kelas_id
         ORDER BY jampel_hari_ke, jampel_ke"
       )->result_array();
 
       $data['kelas'] = $this->db->query(
         "SELECT kelas_id, kelas_nama
-        FROM kelas 
+        FROM kelas
         WHERE kelas_id = $kelas_id"
       )->row_array();
 
@@ -124,7 +124,7 @@ class Jadwal_CRUD extends CI_Controller
       $k_cek = $this->input->post('kelas_id', true);
       $cek = $this->db->query(
         "SELECT *
-        FROM jampel 
+        FROM jampel
         WHERE jampel_kelas_id = $k_cek
         ORDER BY jampel_hari_ke, jampel_ke"
       )->result_array();
@@ -200,4 +200,170 @@ class Jadwal_CRUD extends CI_Controller
       redirect('Jadwal_CRUD');
     }
   }
+
+  public function pengumuman(){
+
+    $data['title'] = 'Daftar Pengumuman';
+
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['sk_id'] = $this->session->userdata('kr_sk_id');
+
+    $sk_id = $this->session->userdata('kr_sk_id');
+
+    $data['pengumuman_all'] = $this->db->query(
+      "SELECT *
+      FROM pengumuman
+      WHERE pengumuman_sk_id = $sk_id
+      ORDER BY pengumuman_tgl DESC"
+    )->result_array();
+
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('jadwal_crud/pengumuman', $data);
+    $this->load->view('templates/footer');
+  }
+  public function pengumuman_input(){
+
+    $data['title'] = 'Input Pengumuman';
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['sk_id'] = $this->session->userdata('kr_sk_id');
+
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('jadwal_crud/pengumuman_input', $data);
+    $this->load->view('templates/footer');
+
+  }
+
+  public function pengumuman_input_proses(){
+
+    if ($this->input->post('pengumuman_sk_id', true)) {
+
+      $data = [
+        'pengumuman_judul' => $this->input->post('pengumuman_judul'),
+        'pengumuman_isi' => $this->input->post('pengumuman_isi'),
+        'pengumuman_tgl' => $this->input->post('pengumuman_tgl'),
+        'pengumuman_sk_id' => $this->input->post('pengumuman_sk_id')
+      ];
+
+      $this->db->insert('pengumuman', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengumuman berhasil dibuat!</div>');
+      redirect('jadwal_crud/pengumuman');
+    }
+  }
+
+  public function pengumuman_edit(){
+
+    if ($this->input->post('pengumuman_id', true)) {
+
+        $data['title'] = 'Update Pengumuman';
+        $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+        $pengumuman_id = $this->input->post('pengumuman_id', true);
+
+        $data['pengumuman_all'] = $this->db->query(
+          "SELECT *
+          FROM pengumuman
+          WHERE pengumuman_id = $pengumuman_id"
+        )->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('jadwal_crud/pengumuman_update', $data);
+        $this->load->view('templates/footer');
+    }
+  }
+
+  public function pengumuman_update_proses(){
+
+    if ($this->input->post('pengumuman_id', true)) {
+      $data = [
+        'pengumuman_judul' => $this->input->post('pengumuman_judul'),
+        'pengumuman_isi' => $this->input->post('pengumuman_isi'),
+        'pengumuman_tgl' => $this->input->post('pengumuman_tgl'),
+      ];
+
+      $this->db->where('pengumuman_id', $this->input->post('pengumuman_id', true));
+      $this->db->update('pengumuman', $data);
+
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengumuman berhasil dirubah!</div>');
+      redirect('jadwal_crud/pengumuman');
+    }
+  }
+
+  public function pengumuman_delete(){
+    if($this->input->post('pengumuman_id', true)){
+      $pengumuman_id = $this->input->post('pengumuman_id', true);
+
+      $this->db->where('pengumuman_id', $pengumuman_id);
+      $this->db->delete('pengumuman');
+
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengumuman berhasil dihapus!</div>');
+      redirect('jadwal_crud/pengumuman');
+    }
+  }
+
+  public function push(){
+    $data['title'] = 'Push Notification';
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('jadwal_crud/push', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function push_proses(){
+    if($this->input->post('judul', true)){
+
+      $judul = $this->input->post('judul', true);
+      $pesan = $this->input->post('pesan', true);
+
+
+      // echo $judul;
+      // echo $pesan;
+
+      $curl = curl_init();
+
+      $ids = '["eDyGx_w0qx0:APA91bH6B6rbbGxmJKcWxS9Ib8pzcwLXRnmJUEhZ01Atc-I-fgU0E2QgztLIJqF5dFmksb3CiIQV3XQutdNS3dqrktO1PFy7VNlpesT5q_giKHSFCCP0jz0Z7nHjovVem8TLJd4e2AJx"]';
+
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS =>'{
+                                "registration_ids":'.$ids.',
+                                "notification": {
+                                    "title":"'.$judul.'",
+                                    "body":"'.$pesan.'"
+                                }
+                              }',
+        CURLOPT_HTTPHEADER => array(
+          "Content-type: application/json",
+          "Authorization: key=AAAAbKcavbI:APA91bGD5dGjHcYjVVyOaI_JFK8cAsI5S9BYz5YtiK-46zRJMEp-4PXnuVVJm2OQqoQLqxzt5mosPYNvzk4AaeqLLlDjIYTnndtDirlEDRhM3Y41YkruZJfygaraD3dxsjsszvkb3Kft"
+        ),
+      ));
+
+      $response = curl_exec($curl);
+
+      curl_close($curl);
+      //echo $response;
+
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Push notification berhasil!</div>');
+      redirect('jadwal_crud/push');
+    }
+  }
+
 }
