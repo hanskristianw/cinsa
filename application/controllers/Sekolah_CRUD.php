@@ -27,7 +27,7 @@ class Sekolah_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'Unit List';
+    $data['title'] = 'Daftar Unit';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -35,8 +35,8 @@ class Sekolah_CRUD extends CI_Controller
     //data karyawan untuk konten
     $data['sk_all'] = $this->db->query(
       "SELECT * FROM
-      (   
-          Select sk_id, sk_nama, sk_mid, sk_fin, kr1.kr_nama_depan as kepsek, kr2.kr_nama_depan as guru_scout, sk_nickname, sk_type
+      (
+          Select sk_id, sk_nama, sk_mid, sk_fin, kr1.kr_nama_depan as kepsek, kr2.kr_nama_depan as guru_scout, sk_nickname, sk_type, sk_jenis_rapor
             from sk, kr kr1, kr kr2
             where kr1.kr_id = sk.sk_kepsek
             and kr2.kr_id = sk.sk_scout_kr_id
@@ -262,6 +262,38 @@ class Sekolah_CRUD extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Upload Success!</div>');
         redirect('Sekolah_CRUD');
       }
+    }
+  }
+
+  public function ubah_rapor(){
+
+    $sk_id = $this->input->post('sk_id', true);
+    if ($sk_id) {
+
+      $cek = $this->db->query(
+        "SELECT sk_jenis_rapor
+        FROM sk
+        WHERE sk_id = $sk_id"
+      )->row_array();
+
+      if($cek['sk_jenis_rapor'] == 0){
+        $val = 1;
+      }
+      else{
+        $val = 0;
+      }
+
+      $data = [
+        'sk_jenis_rapor' => $val
+      ];
+
+      $this->db->where('sk_id', $sk_id);
+      $this->db->update('sk', $data);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Jenis rapor berhasil dirubah!</div>');
+      redirect('Sekolah_CRUD');
+
+    } else {
+      redirect('Profile');
     }
   }
 }

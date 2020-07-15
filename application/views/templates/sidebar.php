@@ -458,22 +458,23 @@
 
         if (walkel_menu() >= 1) {
           echo ' <div class="sidebar-heading">
-                    Homeroom Menu
+                    Menu Walikelas
                   </div>
                   <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapseTwo">
                       <i class="fas fa-fw fa-comment"></i>
-                      <span>Homeroom</span>
+                      <span>Wali Kelas</span>
                     </a>
                     <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Homeroom</h6>
-                        <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>1. Comment</a>
+                        <h6 class="collapse-header">Wali Kelas</h6>
+                        <a class="collapse-item" href=' . base_url('Komen_CRUD') . '>1. Komentar</a>
                         <a class="collapse-item" href=' . base_url('CB_CRUD/habit_index') . '>2. Habit, Social Skill</a>
-                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Report Card</a>
-                        <a class="collapse-item" href=' . base_url('Absent_CRUD') . '>4. Absent</a>
-                        <a class="collapse-item" href=' . base_url('Review_CRUD') . '>5. Jurnal Review</a>
-                        <a class="collapse-item" href=' . base_url('Review_CRUD/cancel_review') . '>6. Cancel Review</a>
+                        <a class="collapse-item" href=' . base_url('Report_CRUD') . '>3. Rapor Siswa</a>
+                        <a class="collapse-item" href=' . base_url('Absent_CRUD') . '>4. Absensi</a>
+                        <a class="collapse-item" href=' . base_url('Review_CRUD') . '>5. Review Jurnal</a>
+                        <a class="collapse-item" href=' . base_url('Review_CRUD/cancel_review') . '>6. Batalkan Review</a>
+                        <a class="collapse-item" href=' . base_url('Komen_CRUD/upload_pdf_yppi') . '>7. Rapor PDF (YPPI)</a>
                       </div>
                     </div>
                   </li>

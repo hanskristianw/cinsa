@@ -1,94 +1,154 @@
-<div class="container">
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: 15% 15% 15% 25% 15% 15%;
+  grid-column-gap:4px;
+  padding-right:3px;
+}
+.grid-container > div{
+  text-align:left;
+}
 
-  <div class="card o-hidden border-0 shadow-lg my-5">
-    <div class="card-body p-0">
-      <!-- Nested Row within Card Body -->
-      <div class="row">
-        <div class="col-lg">
-          <div class="p-5 overflow-auto">
-            <div class="text-center">
-            </div>
+.grid-main {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+  grid-column-gap:3px;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: 5px 5px 5px 5px;
+  overflow: auto;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
 
-            <?php
-            function returnTypeUnit($no)
-            {
-              if ($no == "0")
-                return "School";
-              else
-                return "Management";
-            }
-            ?>
+.box1{
+  /*align-self:start;*/
+  grid-column:2/3;
+  overflow: auto;
+}
 
-            <h4 class="text-center mb-3"><u>Daftar Unit</u></h4>
-            <a href="<?= base_url('sekolah_crud/add') ?>" class="btn btn-primary mb-3">Tambah Unit</a>
+.box2{
+  /*align-self:start;*/
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-right: 20px;
+}
 
-            <?= $this->session->flashdata('message'); ?>
+</style>
 
-            <table class="table table-bordered table-hover table-sm" style="font-size:14px;">
-              <thead class="thead-dark">
-                <tr>
-                  <th>Name</th>
-                  <th>Principal</th>
-                  <th>Mid<br>Report Date</th>
-                  <th>Final<br>Report Date</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $temp = "";
-                foreach ($sk_all as $m) :
-                ?>
+<div class="grid-main">
 
-                  <?php if ($m['sk_type'] !== $temp) : ?>
-                    <tr>
-                      <td colspan="5" class="text-center bg-info text-white"><?= returnTypeUnit($m['sk_type']) ?></td>
-                    </tr>
-                  <?php endif; ?>
-                  <tr>
-                    <td><?= $m['sk_nama'] ?></td>
-                    <?php if ($m['sk_type'] == 0) : ?>
-                      <td><?= $m['kepsek'] ?></td>
-                      <td><?= $m['sk_mid'] ?></td>
-                      <td><?= $m['sk_fin'] ?></td>
-                    <?php else : ?>
-                      <td>-</td>
-                      <td>-</td>
-                      <td>-</td>
-                    <?php endif; ?>
-                    <td class="pl-3">
-                      <div class="form-group row p-0 m-0">
-                        <form class="" action="<?= base_url('Sekolah_CRUD/update') ?>" method="post">
-                          <input type="hidden" name="_id" value=<?= $m['sk_id'] ?>>
-                          <input type="hidden" name="sk_type" value=<?= $m['sk_type'] ?>>
-                          <button type="submit" class="badge badge-warning">
-                            Edit
-                          </button>
-                        </form>
+  <?php
+    function returnTypeUnit($no)
+    {
+      if ($no == "0")
+        return "Sekolah";
+      else
+        return "Manajemen";
+    }
 
-                        <form class="" action="<?= base_url('Sekolah_CRUD/ttd_kepsek') ?>" method="post">
-                          <input type="hidden" name="sk_id" value=<?= $m['sk_id'] ?>>
-                          <button type="submit" class="badge badge-secondary">
-                            Ttd Kepsek
-                          </button>
-                        </form>
-                      </div>
-                    </td>
-                  </tr>
-                <?php
-                  $temp = $m['sk_type'];
-                endforeach;
-                ?>
-              </tbody>
-            </table>
+    function returnTypeRapor($no)
+    {
+      if ($no == "0")
+        return "NSA";
+      else
+        return "YPPI";
+    }
 
-            <hr>
-          </div>
-        </div>
-      </div>
-    </div>
+    function returnTanggal($no)
+    {
+      $tgl = explode("-",$no);
+
+      return $tgl[2].'/'.$tgl[1].'/'.$tgl[0];
+    }
+  ?>
+
+  <div class="box1 text-center mt-4"><h4><u>Daftar Unit</u></h4></div>
+
+
+  <div class="box1">
+    <a href="<?= base_url('sekolah_crud/add') ?>" class="btn btn-primary mb-3">&plus; Unit</a>
   </div>
 
+  <div class="box1">
+    <?= $this->session->flashdata('message'); ?>
+  </div>
+
+  <div class="box1 mb-4">
+    <table class="table table-bordered table-hover table-sm" style="font-size:14px;">
+      <thead class="thead-dark">
+        <tr>
+          <th class="pt-4 pb-4 pl-2">Nama</th>
+          <th class="pt-4 pb-4 pl-2">Jenis Rapor</th>
+          <th class="pt-4 pb-4 pl-2">Kepsek</th>
+          <th class="pt-4 pb-4 pl-2">Tanggal Rapor Mid</th>
+          <th class="pt-4 pb-4 pl-2">Tanggal Rapor Final</th>
+          <th class="pt-4 pb-4 pl-2 text-center" colspan="3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        $temp = "";
+        foreach ($sk_all as $m) :
+        ?>
+
+          <?php if ($m['sk_type'] !== $temp) : ?>
+            <tr>
+              <td colspan="8" class="text-center bg-info text-white"><?= returnTypeUnit($m['sk_type']) ?></td>
+            </tr>
+          <?php endif; ?>
+          <tr>
+            <td><?= $m['sk_nama'] ?></td>
+            <?php if ($m['sk_type'] == 0) : ?>
+              <td><?= returnTypeRapor($m['sk_jenis_rapor']) ?></td>
+              <td><?= $m['kepsek'] ?></td>
+              <td><?= $m['sk_mid'] ?></td>
+              <td><?= $m['sk_fin'] ?></td>
+            <?php else : ?>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            <?php endif; ?>
+            <td class="text-center">
+              <form class="" action="<?= base_url('Sekolah_CRUD/update') ?>" method="post">
+                <input type="hidden" name="_id" value=<?= $m['sk_id'] ?>>
+                <input type="hidden" name="sk_type" value=<?= $m['sk_type'] ?>>
+                <button type="submit" class="badge badge-warning">
+                  Edit
+                </button>
+              </form>
+            </td>
+
+            <?php if ($m['sk_type'] == 0) : ?>
+              <td class="text-center">
+                <form class="" action="<?= base_url('Sekolah_CRUD/ttd_kepsek') ?>" method="post">
+                  <input type="hidden" name="sk_id" value=<?= $m['sk_id'] ?>>
+                  <button type="submit" class="badge badge-secondary">
+                    Ttd Kepsek
+                  </button>
+                </form>
+              </td>
+              <td class="text-center">
+                <form class="" action="<?= base_url('Sekolah_CRUD/ubah_rapor') ?>" method="post">
+                  <input type="hidden" name="sk_id" value=<?= $m['sk_id'] ?>>
+                  <button type="submit" class="badge badge-primary">
+                    Ubah Rapor
+                  </button>
+                </form>
+              </td>
+            <?php else : ?>
+              <td>-</td>
+              <td>-</td>
+            <?php endif; ?>
+          </tr>
+        <?php
+          $temp = $m['sk_type'];
+        endforeach;
+        ?>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script type="text/javascript">
