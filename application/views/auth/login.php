@@ -44,8 +44,9 @@
                       <button type="submit" class="btn btn-dark btn-block">
                         Login
                       </button>
+                      
                       <a href="<?= base_url('auth/auth_google'); ?>">
-                        <img src="<?= base_url('assets/img/btn_google.png'); ?>" height="63px;">
+                        <img src="<?= base_url('assets/img/btn_google.png'); ?>" style='height: 100%; width: 100%; object-fit: contain'>
                       </a>
                     </div>
 
