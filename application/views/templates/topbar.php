@@ -80,6 +80,10 @@
                <i class="fas fa-pen fa-sm fa-fw mr-2 text-gray-400"></i>
                Upload Tanda Tangan
              </a>
+             <a class="dropdown-item" href="<?= base_url('profile/email_google') ?>">
+               <i class="fas fa-envelope fa-sm fa-fw mr-2 text-gray-400"></i>
+               Edit Google Account
+             </a>
              <div class="dropdown-divider"></div>
              <a class="dropdown-item" href="<?= base_url('auth/logout') ?>" data-toggle="modal" data-target="#logoutModal">
                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

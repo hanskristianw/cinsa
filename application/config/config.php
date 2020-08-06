@@ -44,7 +44,7 @@ $config['enable_hooks'] = false;
 
 $config['subclass_prefix'] = 'MY_';
 
-$config['composer_autoload'] = false;
+$config['composer_autoload'] = true;
 
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 

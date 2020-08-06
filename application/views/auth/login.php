@@ -1,3 +1,15 @@
+<style>
+
+.box2{
+  /*align-self:start;*/
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap:5px;
+  margin-right: 20px;
+}
+
+</style>
+
 <div class="container">
 
     <!-- Outer Row -->
@@ -28,10 +40,17 @@
                       <input type="password" class="form-control form-control-sm form-control-user" id="kr_password" name="kr_password" placeholder="Password">
                       <?= form_error('kr_password','<small class="text-danger pl-3">','</small>'); ?>
                     </div>
-                    <button type="submit" class="btn btn-dark btn-user btn-block">
-                      Login
-                    </button>
+                    <div class="box2">
+                      <button type="submit" class="btn btn-dark btn-block">
+                        Login
+                      </button>
+                      <a href="<?= base_url('auth/auth_google'); ?>">
+                        <img src="<?= base_url('assets/img/btn_google.png'); ?>" height="63px;">
+                      </a>
+                    </div>
+
                   </form>
+
                   <hr>
                     <div class="text-center" style='font-size:13px;'>
                       &copy; 2018<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Yayasan Pendidikan dan Pengajaran Indonesia.

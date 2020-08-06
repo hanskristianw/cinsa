@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Profile extends CI_Controller
+class Profile extends MY_Controller
 {
   public function __construct()
   {
@@ -16,6 +16,30 @@ class Profile extends CI_Controller
 
   public function index()
   {
+
+    // $accessToken = $this->session->userdata('token');
+    //
+    // $client = $this->get_client();
+    // $client->setAccessToken($accessToken);
+    // //$oAuth = new Google_Service_Oauth2($client);
+    // $service = new Google_Service_Classroom($client);
+    //
+    // $optParams = array(
+    //   'pageSize' => 10
+    // );
+    // $results = $service->courses->listCourses($optParams);
+    //
+    // if (count($results->getCourses()) == 0) {
+    //   echo "No courses found.";
+    // } else {
+    //   echo "Courses:<br>";
+    //   foreach ($results->getCourses() as $course) {
+    //     echo("<br>".$course->getName().$course->getId());
+    //   }
+    // }
+
+    //var_dump($service);
+
     $data['title'] = 'Employee Profile';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
@@ -154,6 +178,66 @@ class Profile extends CI_Controller
 
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Upload Success!</div>');
       redirect('Profile/ttd');
+    }
+  }
+
+  public function email_google(){
+
+    $data['title'] = 'Google account';
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['kr_id'] = $this->session->userdata('kr_id');
+
+    $kr_id = $this->session->userdata('kr_id');
+
+    $data['kr_email'] = $this->db->query(
+      "SELECT kr_email
+      FROM kr
+      WHERE kr_id = $kr_id"
+    )->row_array();
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('profile/email_google', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function save_email_google(){
+    if ($this->input->post('kr_email')) {
+      $kr_email = $this->input->post('kr_email');
+      $kr_id = $this->session->userdata('kr_id');
+
+      $cek_lama = $this->db->query(
+        "SELECT kr_email
+        FROM kr
+        WHERE kr_email = '$kr_email' AND kr_id = $kr_id"
+      )->row_array();
+
+      if($cek_lama['kr_email'] == $kr_email){
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Google account baru dan lama tidak boleh sama!</div>');
+        redirect('Profile/email_google');
+      }
+
+      $cek = $this->db->query(
+        "SELECT kr_email
+        FROM kr
+        WHERE kr_email = '$kr_email'"
+      )->row_array();
+
+      if($cek){
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Google account sudah terdaftar pada account lain!</div>');
+        redirect('Profile/email_google');
+      }else{
+        $data = [
+          'kr_email' => $kr_email
+        ];
+
+        $this->db->where('kr_id', $kr_id);
+        $this->db->update('kr', $data);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil merubah google account!</div>');
+        redirect('Profile/email_google');
+      }
     }
   }
 }

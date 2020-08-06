@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends CI_Controller
+class Auth extends MY_Controller
 {
 
 	public function __construct()
@@ -11,6 +11,8 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
+
+		//echo $this->get_theme();
 
 		if($this->session->userdata('kr_jabatan_id')){
 			redirect('Profile');
@@ -81,9 +83,86 @@ class Auth extends CI_Controller
 	}
 
 	public function logout(){
+
+		if(!$this->session->userdata('kr_id')){
+			redirect('Auth');
+		}
+
+		$this->session->unset_userdata('token');
+
 		$this->session->unset_userdata('kr_username');
 		$this->session->unset_userdata('kr_jabatan_id');
+		$this->session->unset_userdata('kr_sk_id');
+		$this->session->unset_userdata('kr_id');
 		$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Logout Success!</div>');
 		redirect('Auth');
 	}
+
+	public function auth_google(){
+
+		if($this->session->userdata('kr_id')){
+			redirect('Profile');
+		}
+
+		//ambil google client dari class global
+		$gc = $this->get_client();
+
+		//ambil code dari method get
+		$code = $this->input->get('code',true);
+
+		//jika dapat code
+		if($code){
+			//set access token
+			$token = $gc->fetchAccessTokenWithAuthCode($this->input->get('code',true));
+			$oAuth = new Google_Service_Oauth2($gc);
+			$userData = $oAuth->userinfo_v2_me->get();
+
+			//ambil google account dari user data
+			$email_google = $userData["email"];
+
+			//cek apakah ada email terdaftar dan karyawan belum resign
+			$cek = $this->db->query(
+	      "SELECT *
+	      FROM kr
+	      WHERE kr_email = '$email_google' AND kr_resign = 0"
+	    )->row_array();
+
+			if($cek){
+				//jika ada dan belum resign, mulai proses login
+				$ip = return_ip_login();
+				$data2 = [
+					'kr_last_login' => date('Y/m/d H:i:s'),
+					'kr_last_login_ip' => $ip
+				];
+				$this->db->where('kr_id', $cek['kr_id']);
+      	$this->db->update('kr', $data2);
+
+				$data = [
+					'kr_username' => $cek['kr_username'],
+					'kr_id' => $cek['kr_id'],
+					'kr_jabatan_id' => $cek['kr_jabatan_id'],
+					'kr_sk_id' => $cek['kr_sk_id'],
+					'token' => $token
+				];
+
+				$this->session->set_userdata($data);
+				redirect('Profile');
+
+			}else{
+				//jika tidak ada email terdaftar atau sudah resign, hapus token dan kembalikan user ke auth
+				$gc->revokeToken($token);
+				$this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Email google anda belum terdaftar atau user anda tidak aktif, masuk ke account anda, lalu lengkapi profile google account!</div>');
+				redirect('Auth');
+			}
+
+		}else{
+			//jika belum ada code minta permission dulu ke user
+		  $gc->addScope("https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/classroom.courses.readonly https://www.googleapis.com/auth/classroom.coursework.students.readonly https://www.googleapis.com/auth/classroom.rosters.readonly");
+			$loginurl = $gc->createAuthUrl();
+
+			redirect($loginurl);
+		}
+
+	}
+
 }
