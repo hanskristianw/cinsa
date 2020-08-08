@@ -34,7 +34,15 @@ class Siswa_CRUD extends CI_Controller
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     //data karyawan untuk konten
-    $data['sis_all'] = $this->_siswa->return_all_by_sk($this->session->userdata('kr_sk_id'));
+    $sk_id = $this->session->userdata('kr_sk_id');
+    $data['sis_all'] = $this->db->query(
+      "SELECT *
+      FROM sis
+      LEFT JOIN agama ON agama_id = sis_agama_id
+      LEFT JOIN t ON sis_t_id = t_id
+      WHERE sis_sk_id = $sk_id AND sis_alumni = 0
+      ORDER BY sis_nama_depan"
+    )->result_array();
 
     //$data['tes'] = var_dump($this->db->last_query());
 

@@ -347,7 +347,7 @@ class Kelas_CRUD extends CI_Controller
         redirect('Kelas_CRUD');
       }
 
-      $data['title'] = 'All Students';
+      $data['title'] = 'Semua siswa';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -360,8 +360,35 @@ class Kelas_CRUD extends CI_Controller
 
       //var_dump($data['kelas_all']['kelas_t_id']);
 
+      $kelas_t_id = $data['kelas_all']['kelas_t_id'];
+
+      //cari tahun ajaran semua
+      $t_all = $this->db->query(
+        "SELECT * FROM t
+        ORDER BY t_nama DESC"
+      )->result_array();
+
+      //cari id tahun ajaran sebelumnya
+      $t_fix = array();
+      $t_fix2 = array();
+      $index = 0;
+      foreach ($t_all as $t) {
+        $t_fix[$t['t_id']] = $index;
+        $t_fix2[$index] = $t['t_id'];
+        $index++;
+      }
+
+      // var_dump($t_fix);
+      // var_dump($t_fix2);
+
+      $t_id_sebelum = $t_fix2[$t_fix[$kelas_t_id]+1];
+      //var_dump($t_id_sebelum);
+
+      $data['t_sebelum'] = $t_id_sebelum;
+
       $data['sis_all'] = $this->db->query(
-        "SELECT * FROM sis
+        "SELECT sis_nama_depan, sis_nama_bel, sis_no_induk, t_nama, sis_id, t_id
+        FROM sis
         LEFT JOIN agama ON sis_agama_id = agama_id
         LEFT JOIN t ON sis_t_id = t_id
         LEFT JOIN sk ON sis_sk_id = sk_id
@@ -370,7 +397,7 @@ class Kelas_CRUD extends CI_Controller
         AND sis_id NOT IN (SELECT d_s_sis_id FROM d_s
                             LEFT JOIN sis ON d_s_sis_id = sis_id
                             LEFT JOIN kelas ON d_s_kelas_id = kelas_id
-                            WHERE sis_sk_id = $sk_id AND kelas_t_id = " . $data['kelas_all']['kelas_t_id'] . ")
+                            WHERE sis_sk_id = $sk_id AND kelas_t_id = $kelas_t_id)
         ORDER BY sis_t_id DESC, sis_nama_depan ASC"
       )->result_array();
 
@@ -439,7 +466,7 @@ class Kelas_CRUD extends CI_Controller
 
       //cari apa siswa sudah ada murid
       $data['jum'] = $this->db->query(
-        "SELECT count(*) as total 
+        "SELECT count(*) as total
         FROM d_s
         WHERE d_s_kelas_id = $kelas_id"
       )->row_array();

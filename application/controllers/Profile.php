@@ -40,7 +40,7 @@ class Profile extends MY_Controller
 
     //var_dump($service);
 
-    $data['title'] = 'Employee Profile';
+    $data['title'] = 'Profil Karyawan';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     $data['jabatan'] = $this->_kr->find_jabatan_by_kr_id($this->session->userdata('kr_id'));

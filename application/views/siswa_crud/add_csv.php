@@ -45,7 +45,7 @@
   </div>
   <div class="box1">
     <div class="alert alert-primary pt-4" role="alert">
-      <b>Silahkan import murid dengan tahun ajaran yang sama, misal semua kelas X, semua kelas VII, semua kelas 1</b><br><br>
+      <b>Silahkan import siswa dengan tahun ajaran yang sama, misal semua kelas X, semua kelas VII, semua kelas 1</b><br><br>
       <b>Yang harus ada:</b>
       <ul>
         <li>No Induk</li>

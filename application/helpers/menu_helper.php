@@ -1339,3 +1339,19 @@ function get_changelog_full()
 
   return $det2;
 }
+
+function get_kelas_t_sebelumnya($sis_id, $t_id){
+  $ci = &get_instance();
+  $det2 = $ci->db->query(
+    "SELECT kelas_nama
+    FROM d_s
+    LEFT JOIN kelas ON d_s_kelas_id = kelas_id
+    WHERE d_s_sis_id = $sis_id AND kelas_t_id = $t_id
+    "
+  )->row_array();
+
+  if(isset($det2['kelas_nama']))
+    return $det2['kelas_nama'];
+  else
+    return "-";
+}

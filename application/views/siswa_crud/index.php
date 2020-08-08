@@ -39,7 +39,7 @@
 <div class="grid-main">
 
   <div class="box1 text-center">
-    <h1 class="h4 text-gray-900 mb-4"><u>Daftar Murid</u></h1>
+    <h1 class="h4 text-gray-900 mb-4"><u>Daftar Siswa</u></h1>
   </div>
 
   <div class="box1">
@@ -47,8 +47,8 @@
   </div>
 
   <div class="box1">
-    <a href="<?= base_url('siswa_crud/add') ?>" class="btn btn-sm btn-primary mb-3">&plus; Murid</a>
-    <a href="<?= base_url('siswa_crud/add_csv') ?>" class="btn btn-sm btn-success mb-3">&plus; Murid dari CSV</a>
+    <a href="<?= base_url('siswa_crud/add') ?>" class="btn btn-sm btn-primary mb-3">&plus; Siswa</a>
+    <a href="<?= base_url('siswa_crud/add_csv') ?>" class="btn btn-sm btn-success mb-3">&plus; Siswa dari CSV</a>
   </div>
 
   <div class="box1 mb-4">
@@ -98,7 +98,7 @@
             <td>
                 <form class="" action="<?= base_url('Siswa_CRUD/delete') ?>" method="post">
                   <input type="hidden" name="sis_id" value=<?= $m['sis_id'] ?>>
-                  <button onclick="return confirm('Murid tidak akan dapat dihapus jika sudah ada dalam kelas, coba untuk melakukan penghapusan?')" type="submit" class="badge badge-danger">
+                  <button onclick="return confirm('Siswa tidak akan dapat dihapus jika sudah ada dalam kelas, coba untuk melakukan penghapusan?')" type="submit" class="badge badge-danger">
                     Del
                   </button>
                 </form>

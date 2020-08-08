@@ -7,13 +7,13 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4">Daftar Kelas</h1>
+              <h1 class="h4 text-gray-900 mb-4"><u>Daftar Kelas</u></h1>
             </div>
 
 
             <?= $this->session->flashdata('message'); ?>
 
-            <a href="<?= base_url('kelas_crud/add') ?>" class="btn btn-primary mb-3">Tambah Kelas</a>
+            <a href="<?= base_url('kelas_crud/add') ?>" class="btn btn-primary mb-3">&plus; Kelas</a>
 
             <table class="table table-bordered table-sm display compact table-hover dt" style="font-size:14px;">
               <thead>
