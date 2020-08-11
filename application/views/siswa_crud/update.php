@@ -28,7 +28,7 @@
                 </div>
                 <?php if($cek_siswa['jum'] == 0): ?>
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <label><b>Tahun Ajaran Siswa:</b></label>
+                    <label><b>Angkatan siswa:</b></label>
                     <select name="sis_t_id" id="sis_t_id" class="form-control">
                       <?php
                         $_selected = set_value('sis_t_id', $siswa_update['sis_t_id']);
@@ -98,6 +98,13 @@
                       endforeach
                     ?>
                   </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm mb-3 mb-sm-0">
+                  <label><b>Email Gsuite Siswa:</b></label>
+                  <input type="hidden" name="sis_email_lama" value="<?= $siswa_update['sis_email'] ?>">
+                  <input type="text" class="form-control form-control-sm" value="<?= $siswa_update['sis_email'] ?>" name="sis_email" pattern="[^' ']+@nationstaracademy.sch.id" title="Tidak boleh ada spasi, harus account nationstaracademy.sch.id" required>
                 </div>
               </div>
               <button type="submit" class="btn btn-primary btn-user btn-block">

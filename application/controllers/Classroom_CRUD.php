@@ -176,13 +176,12 @@ class Classroom_CRUD extends MY_Controller
         redirect('Profile');
       }
 
+      //membuat array keyNya profile id, value nya email address
       $siswa_classroom = array();
       for ($i=0; $i < count($response->students); $i++) {
-        $siswa_classroom[$response->students[$i]->profile->id] = $response->students[$i]->profile->name->givenName.$response->students[$i]->profile->name->familyName;
+        $siswa_classroom[$response->students[$i]->profile->id] = $response->students[$i]->profile->emailAddress;
       }
       curl_close($curl);
-
-      //var_dump($siswa_classroom);
 
       //dapatkan nilai
       $curl = curl_init();
@@ -238,7 +237,7 @@ class Classroom_CRUD extends MY_Controller
 
       if($uj_count>0){
         $data['siswa_all'] = $this->db->query(
-          "SELECT uj_id, d_s_id, sis_nama_depan, sis_nama_bel, $jenis
+          "SELECT uj_id, d_s_id, sis_nama_depan, sis_email, sis_nama_bel, $jenis
           FROM uj
           LEFT JOIN d_s ON uj_d_s_id = d_s_id
           LEFT JOIN sis ON sis_id = d_s_sis_id
@@ -247,7 +246,7 @@ class Classroom_CRUD extends MY_Controller
           ORDER BY sis_nama_depan")->result_array();
       }else{
         $data['siswa_all'] = $this->db->query(
-          "SELECT d_s_id, sis_nama_depan, sis_nama_bel
+          "SELECT d_s_id, sis_nama_depan, sis_email, sis_nama_bel
           FROM d_s
           LEFT JOIN sis ON d_s_sis_id = sis_id
           WHERE d_s_kelas_id = $kelas_id

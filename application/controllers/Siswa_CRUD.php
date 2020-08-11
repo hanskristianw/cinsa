@@ -28,7 +28,7 @@ class Siswa_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'Daftar Murid';
+    $data['title'] = 'Daftar Siswa';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -66,11 +66,11 @@ class Siswa_CRUD extends CI_Controller
       $t_count = $this->db->count_all('t');
 
       if($t_count == 0){
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Please inform ADMIN to year first!</div>');
-        redirect('Kelas_CRUD');
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Silahkan tambah tahun ajaran terlebih dahulu!</div>');
+        redirect('Siswa_CRUD');
       }
 
-      $data['title'] = 'Tambah Murid';
+      $data['title'] = 'Tambah Siswa';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -84,6 +84,19 @@ class Siswa_CRUD extends CI_Controller
       $this->load->view('templates/footer');
     }
     else {
+
+      $sis_email = $this->input->post('sis_email');
+
+      $cekEmail = $this->db->query(
+        "SELECT *
+        FROM sis
+        WHERE sis_email = '$sis_email'")->result_array();
+
+      if($cekEmail){
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Gagal, email gsuite sudah terdaftar pada siswa lain!</div>');
+        redirect('Siswa_CRUD');
+      }
+
       $data = [
         'sis_nama_depan' => $this->input->post('sis_nama_depan'),
         'sis_nama_bel' => $this->input->post('sis_nama_bel'),
@@ -92,11 +105,12 @@ class Siswa_CRUD extends CI_Controller
         'sis_sk_id' => $this->session->userdata('kr_sk_id'),
         'sis_jk' => $this->input->post('sis_jk'),
         'sis_agama_id' => $this->input->post('sis_agama_id'),
-        'sis_t_id' => $this->input->post('sis_t_id')
+        'sis_t_id' => $this->input->post('sis_t_id'),
+        'sis_email' => $sis_email
       ];
 
       $this->db->insert('sis', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Murid berhasil dibuat!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Siswa berhasil dibuat!</div>');
       redirect('siswa_crud/add');
     }
   }
@@ -132,7 +146,7 @@ class Siswa_CRUD extends CI_Controller
 
     if ($this->form_validation->run() == false) {
       //jika menekan tombol edit
-      $data['title'] = 'Update Murid';
+      $data['title'] = 'Update Siswa';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -158,23 +172,48 @@ class Siswa_CRUD extends CI_Controller
       $this->load->view('siswa_crud/update', $data);
       $this->load->view('templates/footer');
     } else {
-      //fetch data hasil inputan
-      $data = [
-        'sis_nama_depan' => $this->input->post('sis_nama_depan'),
-        'sis_nama_bel' => $this->input->post('sis_nama_bel'),
-        'sis_no_induk' => $this->input->post('sis_no_induk'),
-        'sis_nisn' => $this->input->post('sis_nisn'),
-        'sis_jk' => $this->input->post('sis_jk'),
-        'sis_agama_id' => $this->input->post('sis_agama_id'),
-        'sis_t_id' => $this->input->post('sis_t_id')
-      ];
 
-      //simpan ke db
+      //email lama
+      $sis_email_lama = $this->input->post('sis_email_lama');
+      $sis_email = $this->input->post('sis_email');
+
+      if($sis_email_lama == $sis_email){
+        $data = [
+          'sis_nama_depan' => $this->input->post('sis_nama_depan'),
+          'sis_nama_bel' => $this->input->post('sis_nama_bel'),
+          'sis_no_induk' => $this->input->post('sis_no_induk'),
+          'sis_nisn' => $this->input->post('sis_nisn'),
+          'sis_jk' => $this->input->post('sis_jk'),
+          'sis_agama_id' => $this->input->post('sis_agama_id'),
+          'sis_t_id' => $this->input->post('sis_t_id')
+        ];
+      }else{
+        $cekEmail = $this->db->query(
+          "SELECT *
+          FROM sis
+          WHERE sis_email = '$sis_email'")->result_array();
+
+        if($cekEmail){
+          $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Gagal, email gsuite sudah terdaftar pada siswa lain!</div>');
+          redirect('Siswa_CRUD');
+        }
+
+        $data = [
+          'sis_nama_depan' => $this->input->post('sis_nama_depan'),
+          'sis_nama_bel' => $this->input->post('sis_nama_bel'),
+          'sis_no_induk' => $this->input->post('sis_no_induk'),
+          'sis_nisn' => $this->input->post('sis_nisn'),
+          'sis_jk' => $this->input->post('sis_jk'),
+          'sis_agama_id' => $this->input->post('sis_agama_id'),
+          'sis_t_id' => $this->input->post('sis_t_id'),
+          'sis_email' => $sis_email
+        ];
+      }
 
       $this->db->where('sis_id', $this->input->post('_id'));
       $this->db->update('sis', $data);
 
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data murid berhasil diupdate!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data siswa berhasil diupdate!</div>');
       redirect('Siswa_CRUD');
     }
   }

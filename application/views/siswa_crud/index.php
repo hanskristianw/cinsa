@@ -52,11 +52,12 @@
   </div>
 
   <div class="box1 mb-4">
-    <table class="table table-sm table-bordered display compact table-hover dt" style="font-size:14px;">
+    <table class="table table-sm table-bordered display compact table-hover dt" style="font-size:13px;">
       <thead>
         <tr class="bg-dark text-white text-center">
           <th class="p-3" rowspan="2">Nama</th>
           <th style='width: 50px;' class="p-3" rowspan="2">No Induk</th>
+          <th class="p-3" rowspan="2">Email</th>
           <th class="p-3" rowspan="2">NISN</th>
           <th class="p-3" rowspan="2">Gender</th>
           <th class="p-3" rowspan="2">Agama</th>
@@ -73,6 +74,7 @@
           <tr>
             <td><?= $m['sis_nama_depan'] ?> <?= $m['sis_nama_bel'] ?></td>
             <td><?= $m['sis_no_induk'] ?></td>
+            <td><?= $m['sis_email'] ?></td>
             <td><?= $m['sis_nisn'] ?></td>
             <td>
               <?php

@@ -27,7 +27,7 @@
 
 <div class="grid-container">
   <div class="box1 mt-4 ">
-    <div class="alert alert-warning" role="alert">Nilai akan ditransfer berdasarkan urutan nama depan siswa, harap menghapus data siswa ganda pada google classroom jika jumlahnya tidak sesuai, atau lakukan edit manual di kolom "nilai setelah"</div>
+    <div class="alert alert-warning" role="alert"><b>Perhatian:</b><br>Nilai akan ditransfer berdasarkan email gsuite siswa, email gsuite siswa dapat diedit oleh TU masing-masing unit</div>
     <div class="box2">
       <div class="">
         <h6 class="text-center"><b><u>Nilai Pada Classroom</u></b></h6>
@@ -42,14 +42,13 @@
             </tr>
           </thead>
           <tbody>
-            <?php
-              $temp = array();
-              foreach ($n_class as $key => $value):
-                $temp[] = $value;
-            ?>
+            <?php foreach ($n_class as $key => $value): ?>
             <tr>
               <td><?= $key ?></td>
-              <td class="p-3"><?= $value ?></td>
+              <td class="p-3">
+                <input type="hidden" class="nil_class" value="<?= $value ?>" id="<?= $key ?>">
+                <?= $value ?>
+              </td>
             </tr>
             <?php endforeach; ?>
           </tbody>
@@ -78,9 +77,10 @@
                 foreach ($siswa_all as $s):
               ?>
               <tr>
-                <td><?= $s['sis_nama_depan'].' '.$s['sis_nama_bel'] ?></td>
+                <td><?= '<b>'.$s['sis_nama_depan'].' '.$s['sis_nama_bel'].'</b><br><i>'.$s['sis_email'].'</i>' ?></td>
                 <td>
                   <?php
+                    //nilai sebelum
                     if(isset($s[$jenis]))
                       echo $s[$jenis];
                     else
@@ -89,14 +89,27 @@
                </td>
                 <td>
                   <input type="hidden" name="d_s_id[]" value="<?= $s['d_s_id'] ?>">
-                  <?php if(isset($temp[$index])): ?>
-                    <?php if(isset($s['uj_id'])): ?>
-                      <input type="hidden" name="uj_id[]" value="<?= $s['uj_id'] ?>">
-                    <?php endif; ?>
-                    <input type="number" name="nil[]" value="<?= $temp[$index] ?>" style='width: 47px;height: 20px;' min="0" max="100" required>
-                  <?php else: ?>
-                    <input type="number" name="nil[]" value="0" style='width: 47px;height: 20px;' min="0" max="100" required>
+                  <?php if(isset($s['uj_id'])): ?>
+                    <input type="hidden" name="uj_id[]" value="<?= $s['uj_id'] ?>">
                   <?php endif; ?>
+
+                  <?php
+                    $ketemu = 0;
+                    foreach ($n_class as $key => $value):
+                  ?>
+                    <?php
+                      if($key == $s['sis_email'] ):
+                        $ketemu = 1;
+                    ?>
+                      <input type="number" name="nil[]" value="<?= $value ?>" style='width: 47px;height: 20px;' min="0" max="100" required>
+                    <?php endif; ?>
+                  <?php endforeach; ?>
+
+
+                <?php if($ketemu == 0 ): ?>
+                  <input type="number" name="nil[]" value="0" style='width: 47px;height: 20px;' min="0" max="100" required>
+                <?php endif; ?>
+
                 </td>
               </tr>
               <?php $index++; endforeach; ?>
@@ -105,7 +118,6 @@
           <button type="submit" class="btn btn-success btn-sm">
             Simpan
           </button>
-
         </form>
       </div>
     </div>
