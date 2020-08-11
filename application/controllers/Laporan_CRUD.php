@@ -52,7 +52,7 @@ class Laporan_CRUD extends CI_Controller
     //   }else{
     //     $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
     //   }
-      
+
     // }
 
     // $this->load->view('templates/header',$data);
@@ -85,11 +85,11 @@ class Laporan_CRUD extends CI_Controller
           "SELECT *
           FROM sk
           WHERE sk_kepsek = $kr_id")->result_array();
-          
+
       }else{
         $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
       }
-      
+
     }
 
     $this->load->view('templates/header',$data);
@@ -107,7 +107,7 @@ class Laporan_CRUD extends CI_Controller
       redirect('Profile');
     }
 
-    $data['title'] = 'Summary';
+    $data['title'] = 'Rangkuman Nilai';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -138,7 +138,7 @@ class Laporan_CRUD extends CI_Controller
           LEFT JOIN sk ON mapel_sk_id = sk_id
           WHERE d_mpl_kr_id = $kr_id")->result_array();
       }
-      
+
     }
 
     $this->load->view('templates/header',$data);
@@ -148,17 +148,17 @@ class Laporan_CRUD extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  
+
   public function summary_show(){
     if($this->input->post('sk_id',TRUE)){
 
       $sk_id = $this->input->post('sk_id',TRUE);
       $t_id = $this->input->post('t',TRUE);
 
-      $data['title'] = 'Summary Detail';
+      $data['title'] = 'Detail Rangkuman';
       $data['sk_id'] = $sk_id;
       $data['t_id'] = $t_id;
-      
+
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
       $kr_id = $this->session->userdata('kr_id');
@@ -182,7 +182,7 @@ class Laporan_CRUD extends CI_Controller
         GROUP BY kelas_id
         ORDER BY kelas_nama")->result_array();
       }
-      
+
 
       $data['bulan_aktif'] = $this->db->query
                     ("SELECT *
@@ -215,7 +215,7 @@ class Laporan_CRUD extends CI_Controller
     }
     elseif(konselor_menu()>0){
       $data['sk_all'] = $this->db->query("SELECT sk_id, sk_nama
-                                          FROM konselor 
+                                          FROM konselor
                                           LEFT JOIN sk ON konselor_sk_id = sk_id
                                           WHERE konselor_kr_id = $kr_id")->result_array();
     }elseif(return_menu_kepsek()){
@@ -233,7 +233,7 @@ class Laporan_CRUD extends CI_Controller
     $this->load->view('laporan_crud/afektif_new', $data);
     $this->load->view('templates/footer');
   }
-  
+
   public function show_report_by_subject()
   {
     if($this->input->post('t_id', true) && $this->input->post('sk_id', true) && $this->input->post('bulan_check[]', true)){
@@ -265,7 +265,7 @@ class Laporan_CRUD extends CI_Controller
       $this->load->view('templates/topbar', $data);
       $this->load->view('laporan_crud/show_report_by_subject', $data);
       $this->load->view('templates/footer');
-      
+
     }
     else{
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
@@ -286,7 +286,7 @@ class Laporan_CRUD extends CI_Controller
     }
     elseif(konselor_menu()>0){
       $data['sk_all'] = $this->db->query("SELECT sk_id, sk_nama
-                                          FROM konselor 
+                                          FROM konselor
                                           LEFT JOIN sk ON konselor_sk_id = sk_id
                                           WHERE konselor_kr_id = $kr_id")->result_array();
     }elseif(return_menu_kepsek()){
@@ -337,7 +337,7 @@ class Laporan_CRUD extends CI_Controller
       $this->load->view('templates/topbar', $data);
       $this->load->view('laporan_crud/show_report_by_month', $data);
       $this->load->view('templates/footer');
-      
+
     }
     else{
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
@@ -386,7 +386,7 @@ class Laporan_CRUD extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
         redirect('Profile');
       }
-      
+
     }
 
     $this->load->view('templates/header',$data);
@@ -405,13 +405,13 @@ class Laporan_CRUD extends CI_Controller
       $data['title'] = 'Summary Detail';
       $data['sk_id'] = $sk_id;
       $data['t_id'] = $t_id;
-      
+
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
       $kr_id = $this->session->userdata('kr_id');
       //mapel di sekolah
 
-      //kalau dia pengajar ssp dan dia bukan wakakur atau kadiv 
+      //kalau dia pengajar ssp dan dia bukan wakakur atau kadiv
       if (ssp_menu() >= 1 && $this->session->userdata('kr_jabatan_id')!=5 && $this->session->userdata('kr_jabatan_id')!=4) {
         $data['ssp_all'] = $this->db->query
         ("SELECT ssp_id, ssp_nama, COUNT(ssp_peserta_id) as jumlah_siswa
@@ -430,7 +430,7 @@ class Laporan_CRUD extends CI_Controller
         GROUP BY ssp_id
         ORDER BY ssp_nama")->result_array();
       }
-      
+
 
       $this->load->view('templates/header',$data);
       $this->load->view('templates/sidebar',$data);
@@ -463,7 +463,7 @@ class Laporan_CRUD extends CI_Controller
     if(konselor_menu()>0){
       $data['sk_all'] = $this->db->query("
         SELECT sk_id, sk_nama
-        FROM konselor 
+        FROM konselor
         LEFT JOIN sk ON konselor_sk_id = sk_id
         WHERE konselor_kr_id = $kr_id")->result_array();
     }
@@ -492,7 +492,7 @@ class Laporan_CRUD extends CI_Controller
       $sk_id = $this->input->post('sk_id',true);
       $t_id = $this->input->post('t_id',true);
 
-      
+
       $data['title'] = 'Life Skill Report';
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
@@ -519,7 +519,7 @@ class Laporan_CRUD extends CI_Controller
       redirect('Profile');
     }
 
-    $data['title'] = 'PTS & PAS Analysis';
+    $data['title'] = 'Analisis PTS & PAS';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -551,8 +551,8 @@ class Laporan_CRUD extends CI_Controller
 
     if($this->input->post('sk_ptspas',true) && $this->input->post('t_ptspas',true)){
 
-      
-      $data['title'] = 'PTS & PAS Analysis';
+
+      $data['title'] = 'Analisis PTS & PAS';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -583,15 +583,15 @@ class Laporan_CRUD extends CI_Controller
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
-    
+
 
   }
 
   public function final_report(){
-    
+
     $data['t_all'] = $this->_t->return_all();
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-    $data['title'] = 'Final Grade Report';
+    $data['title'] = 'Laporan Nilai Akhir';
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar', $data);
@@ -606,7 +606,7 @@ class Laporan_CRUD extends CI_Controller
       $t_id = $this->input->post('t',true);
       $semester = $this->input->post('semester',true);
 
-      $data['title'] = 'Final Grade';
+      $data['title'] = 'Nilai Akhir';
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
       $kr_id = $this->session->userdata('kr_id');
@@ -623,7 +623,7 @@ class Laporan_CRUD extends CI_Controller
 
       $data['semester'] = $semester;
       $data['t_id'] = $t_id;
-      
+
       $data['kr_id'] = $kr_id;
 
       $this->load->view('templates/header', $data);
@@ -767,8 +767,8 @@ class Laporan_CRUD extends CI_Controller
   }
 
   public function grade_history(){
-    
-    $data['title'] = 'Grade History';
+
+    $data['title'] = 'History Nilai';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
     $data['t_all'] = $this->_t->return_all();
 
@@ -794,12 +794,12 @@ class Laporan_CRUD extends CI_Controller
 
   }
 
-  
+
   public function grade_history_show(){
 
     if($this->input->post('sk_id',true) && $this->input->post('t_id',true)){
 
-      $data['title'] = 'Grade History';
+      $data['title'] = 'History Nilai';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));

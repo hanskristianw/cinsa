@@ -48,12 +48,12 @@
             </div>
 
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4"><u>Final Grade Report</u></h1>
+              <h1 class="h4 text-gray-900 mb-4"><u>Laporan Nilai Akhir</u></h1>
             </div>
 
             <?= $this->session->flashdata('message'); ?>
 
-            <?php foreach($kelas_all as $n): 
+            <?php foreach($kelas_all as $n):
               $siswa = show_siswa_by_kelas($n['kelas_id']);
 
               $mapel_ajar = get_mapel_ajar_kelas_kr($n['kelas_id'], $kr_id);
@@ -81,24 +81,35 @@
                   </tr>
                 </thead>
                 <tbody>
-                <?php 
+                <?php
                   foreach($siswa as $o) :
                     //$uts_uas = showutsuas();
                 ?>
                   <tr>
                     <td style="padding: 0px 0px 0px 5px; width: 50px;"><?= $o['sis_no_induk'] ?></td>
                     <td style="padding: 0px 0px 0px 5px; width: 230px;"><?= $o['sis_nama_depan'] .' '. $o['sis_nama_bel'] ?></td>
-                    <?php foreach($mapel_ajar as $m) : 
+                    <?php foreach($mapel_ajar as $m) :
                       $nil_fin = return_raport_fin_mapel($o['d_s_id'], $semester, $n['kelas_jenj_id'], $m['mapel_id'], $t_id);
 
-                      $for_kog = $nil_fin['for_kog'];
-                      $for_psi = $nil_fin['for_psi'];
-                      $sum_kog_sem1 = $nil_fin['sum_kog_sem1'];
-                      $sum_psi_sem1 = $nil_fin['sum_psi_sem1'];
-                      $sum_kog_sem2 = $nil_fin['sum_kog_sem2'];
-                      $sum_psi_sem2 = $nil_fin['sum_psi_sem2'];
+                      if(isset($nil_fin)){
+                        $for_kog = $nil_fin['for_kog'];
+                        $for_psi = $nil_fin['for_psi'];
+                        $sum_kog_sem1 = $nil_fin['sum_kog_sem1'];
+                        $sum_psi_sem1 = $nil_fin['sum_psi_sem1'];
+                        $sum_kog_sem2 = $nil_fin['sum_kog_sem2'];
+                        $sum_psi_sem2 = $nil_fin['sum_psi_sem2'];
+                      }
+                      else{
+                        $for_kog = 0;
+                        $for_psi = 0;
+                        $sum_kog_sem1 = 0;
+                        $sum_psi_sem1 = 0;
+                        $sum_kog_sem2 = 0;
+                        $sum_psi_sem2 = 0;
+                      }
 
-                      //PENGETAHUAN 
+
+                      //PENGETAHUAN
                       //formative 70
                       if (isset($nil_fin['persen_forma_peng']))
                         $persen_forma_peng = $nil_fin['persen_forma_peng'];
@@ -149,7 +160,7 @@
                       }
 
                     ?>
-                      
+
                       <!-- cognitive -->
                       <td style='text-align: center;'>
                         <a class='link-kog' style="text-decoration : none; color: inherit;" rel="<?= $m['mapel_id'] ?>" rel2="<?= $o['d_s_id'] ?>" rel3="<?= $semester ?>" rel4="<?= $persen_forma_peng ?>" rel5="<?= $persen_summa_peng ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2">
@@ -170,12 +181,21 @@
                           <?= $n_akhir ?>
                         </a>
                       </td>
-                      
+
                       <!-- affective -->
-                      <td style='text-align: center;'><?= return_abjad_afek($nil_fin['total']) ?></td>
+                      <td style='text-align: center;'>
+                        <?php
+                          if(isset($nil_fin['total'])){
+                            echo return_abjad_afek($nil_fin['total']);
+                          }
+                          else{
+                            echo "-";
+                          }
+                         ?>
+                      </td>
                     <?php endforeach; ?>
                   </tr>
-                <?php 
+                <?php
                   endforeach;
                 ?>
                 </tbody>

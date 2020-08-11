@@ -410,7 +410,8 @@ class API extends CI_Controller
               FROM uj
               LEFT JOIN d_s ON uj_d_s_id = d_s_id
               LEFT JOIN sis ON d_s_sis_id = sis_id
-              WHERE d_s_kelas_id = $kelas_id AND uj_mapel_id = $mapel_id")->result();
+              WHERE d_s_kelas_id = $kelas_id AND uj_mapel_id = $mapel_id
+              ORDER BY sis_nama_depan")->result();
 
       echo json_encode($guru);
     }
@@ -1036,7 +1037,7 @@ class API extends CI_Controller
       $kr_jabatan = $this->session->userdata('kr_jabatan_id');
       $kr_sk_id = $this->session->userdata('kr_sk_id');
 
-      
+
       $data = $this->db->query(
         "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
         FROM d_mpl

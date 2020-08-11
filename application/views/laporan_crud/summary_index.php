@@ -7,16 +7,16 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900"><u><b>Summary Report</b></u></h1>
-              <h5 class="text-gray-900 mb-4">Select School and Year</h5>
+              <h1 class="h4 text-gray-900"><u><b>Rangkuman Nilai</b></u></h1>
+              <h5 class="text-gray-900 mb-4">Pilih Sekolah dan Tahun</h5>
             </div>
 
             <?= $this->session->flashdata('message'); ?>
-            
+
             <input type="hidden" id="laporan_flag" value="0">
 
             <form class="user" action="<?= base_url('Laporan_CRUD/summary_show') ?>" method="POST">
-              
+
               <div class="form-group row">
                 <div class="col-sm mb-sm-0">
                   <select name="sk_id" id="laporan_sk" class="form-control">
@@ -37,11 +37,11 @@
                   </select>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary btn-user btn-block">
-                Show Summary
+              <button type="submit" class="btn btn-secondary btn-user btn-block">
+                Proses
               </button>
             </form>
-            
+
 
           </div>
         </div>

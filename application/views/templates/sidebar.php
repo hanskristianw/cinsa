@@ -350,7 +350,7 @@
                   <a class="collapse-item" href=' . base_url('Tes_CRUD') . '>1. Kognitif Psikomotor</a>
                   <a class="collapse-item" href=' . base_url('Uj_CRUD') . '>2. PTS & PAS</a>
                   <a class="collapse-item" href=' . base_url('Afek_CRUD') . '>3. Afektif</a>
-                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>4. Laporan Nilai</a>
+                  <a class="collapse-item" href=' . base_url('Laporan_CRUD/summary_index') . '>4. Rangkuman Nilai</a>
                   <a class="collapse-item" href=' . base_url('Laporan_CRUD/final_report') . '>5. Laporan Nilai Akhir</a>
                 </div>
               </div>

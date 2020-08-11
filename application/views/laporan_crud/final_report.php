@@ -7,13 +7,13 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4">Select Year & Semester</h1>
+              <h1 class="h4 text-gray-900 mb-4">Pilih Tahun dan Semester</h1>
             </div>
 
             <?= $this->session->flashdata('message'); ?>
 
             <form class="user" action="<?= base_url('Laporan_CRUD/final_report_show'); ?>" method="POST">
-              
+
               <div class="form-group row">
                 <div class="col-sm mb-sm-0">
                   <select name="t" id="t" class="form-control">
@@ -26,13 +26,13 @@
                 </div>
                 <div class="col-sm mb-sm-0">
                   <select name="semester" id="semester" class="form-control">
-                    <option value="1">Odd Semester</option>
-                    <option value="2">Even Semester</option>
+                    <option value="1">Ganjil</option>
+                    <option value="2">Genap</option>
                   </select>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary btn-user btn-block">
-                  Final Grade Report
+              <button type="submit" class="btn btn-secondary btn-user btn-block">
+                  Proses
               </button>
             </form>
 
