@@ -542,4 +542,38 @@ class Kelas_CRUD extends CI_Controller
       redirect('Kelas_CRUD');
     }
   }
+  public function delete(){
+    if($this->input->post('kelas_id', true)){
+      $kelas_id = $this->input->post('kelas_id', true);
+
+      //cek apakah sudah ada siswa
+      $cek_siswa = $this->db->query(
+        "SELECT *
+        FROM d_s
+        WHERE d_s_kelas_id = $kelas_id"
+      )->result_array();
+
+      if($cek_siswa){
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal, kelas sudah punya siswa!</div>');
+        redirect('Kelas_CRUD');
+      }
+
+      //cek apakah sudah ada guru pengajar
+      $cek_pengajar = $this->db->query(
+        "SELECT *
+        FROM d_mpl
+        WHERE d_mpl_kelas_id = $kelas_id"
+      )->result_array();
+
+      if($cek_pengajar){
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal, kelas sudah punya pengajar!</div>');
+        redirect('Kelas_CRUD');
+      }
+
+      $this->db->where('kelas_id', $kelas_id);
+      $this->db->delete('kelas');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kelas berhasil dihapus!</div>');
+      redirect('Kelas_CRUD');
+    }
+  }
 }

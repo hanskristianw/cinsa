@@ -97,8 +97,14 @@
                         <form class="" action="<?= base_url('Kelas_CRUD/edit_cb') ?>" method="post">
                           <input type="hidden" name="kelas_id" value=<?= $m['kelas_id'] ?>>
                           <input type="hidden" name="kelas_sk_id" value=<?= $m['kelas_sk_id'] ?>>
-                          <button type="submit" class="badge badge-danger">
+                          <button type="submit" class="badge badge-secondary">
                             Edit Guru CB
+                          </button>
+                        </form>
+                        <form class="" action="<?= base_url('Kelas_CRUD/delete') ?>" method="post">
+                          <input type="hidden" name="kelas_id" value=<?= $m['kelas_id'] ?>>
+                          <button type="submit" onclick="return confirm('Kelas akan dihapus, lanjutkan?')" class="badge badge-danger">
+                            Del
                           </button>
                         </form>
                       </div>
