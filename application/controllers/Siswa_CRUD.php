@@ -53,50 +53,30 @@ class Siswa_CRUD extends CI_Controller
     $this->load->view('templates/footer');
   }
 
-  public function add()
-  {
-
-    $this->form_validation->set_rules('sis_nama_depan', 'First Name', 'required|trim');
-    $this->form_validation->set_rules('sis_nama_bel', 'Last Name', 'trim');
-    $this->form_validation->set_rules('sis_no_induk', 'Registration number', 'required|trim');
-    $this->form_validation->set_rules('sis_nisn', 'NISN number', 'trim|is_unique[sis.sis_nisn]', ['is_unique' => 'NISN already exist!']);
-
-    if ($this->form_validation->run() == false) {
-      //jika belum ada tahun ajaran sama sekali
-      $t_count = $this->db->count_all('t');
-
-      if($t_count == 0){
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Silahkan tambah tahun ajaran terlebih dahulu!</div>');
-        redirect('Siswa_CRUD');
-      }
-
-      $data['title'] = 'Tambah Siswa';
-
-      //data karyawan yang sedang login untuk topbar
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['tahun_all'] = $this->_t->return_all();
-      $data['agama_all'] = $this->_agama->return_all();
-
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('siswa_crud/add', $data);
-      $this->load->view('templates/footer');
+  public function add_baru(){
+    //cek apakah sudah ada tahun ajaran
+    $t_count = $this->db->count_all('t');
+    if($t_count == 0){
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Silahkan tambah tahun ajaran terlebih dahulu!</div>');
+      redirect('Siswa_CRUD');
     }
-    else {
 
-      $sis_email = $this->input->post('sis_email');
+    $data['title'] = 'Tambah Siswa';
 
-      $cekEmail = $this->db->query(
-        "SELECT *
-        FROM sis
-        WHERE sis_email = '$sis_email'")->result_array();
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['tahun_all'] = $this->_t->return_all();
+    $data['agama_all'] = $this->_agama->return_all();
 
-      if($cekEmail){
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Gagal, email gsuite sudah terdaftar pada siswa lain!</div>');
-        redirect('Siswa_CRUD');
-      }
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('siswa_crud/add', $data);
+    $this->load->view('templates/footer');
+  }
 
+  public function add_baru_proses(){
+    if($this->input->post('sis_nama_depan')){
       $data = [
         'sis_nama_depan' => $this->input->post('sis_nama_depan'),
         'sis_nama_bel' => $this->input->post('sis_nama_bel'),
@@ -106,12 +86,15 @@ class Siswa_CRUD extends CI_Controller
         'sis_jk' => $this->input->post('sis_jk'),
         'sis_agama_id' => $this->input->post('sis_agama_id'),
         'sis_t_id' => $this->input->post('sis_t_id'),
-        'sis_email' => $sis_email
+        'sis_email' => $this->input->post('sis_email')
       ];
 
       $this->db->insert('sis', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Siswa berhasil dibuat!</div>');
-      redirect('siswa_crud/add');
+      redirect('siswa_crud');
+    }else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Akses ditolak!</div>');
+      redirect('Profile');
     }
   }
 
@@ -142,16 +125,6 @@ class Siswa_CRUD extends CI_Controller
   public function update_baru_proses(){
 
     if($this->input->post('sis_id')){
-      $data = [
-        'sis_nama_depan' => $this->input->post('sis_nama_depan'),
-        'sis_nama_bel' => $this->input->post('sis_nama_bel'),
-        'sis_no_induk' => $this->input->post('sis_no_induk'),
-        'sis_nisn' => $this->input->post('sis_nisn'),
-        'sis_jk' => $this->input->post('sis_jk'),
-        'sis_agama_id' => $this->input->post('sis_agama_id'),
-        'sis_t_id' => $this->input->post('sis_t_id'),
-        'sis_email' => $this->input->post('sis_email')
-      ];
 
       //cek lagi apakah siswa sudah didalam kelas
       $sis_id = $this->input->post('sis_id');
@@ -162,6 +135,18 @@ class Siswa_CRUD extends CI_Controller
       )->row_array();
 
       if($cek['jum'] == 0){
+        //kalau tidak ada dalam kelas rubah tahun ajaran sesuai input user
+        $data = [
+          'sis_nama_depan' => $this->input->post('sis_nama_depan'),
+          'sis_nama_bel' => $this->input->post('sis_nama_bel'),
+          'sis_no_induk' => $this->input->post('sis_no_induk'),
+          'sis_nisn' => $this->input->post('sis_nisn'),
+          'sis_jk' => $this->input->post('sis_jk'),
+          'sis_agama_id' => $this->input->post('sis_agama_id'),
+          'sis_t_id' => $this->input->post('sis_t_id'),
+          'sis_email' => $this->input->post('sis_email')
+        ];
+
         $this->db->where('sis_id', $this->input->post('sis_id'));
         $this->db->update('sis', $data);
 
@@ -169,7 +154,21 @@ class Siswa_CRUD extends CI_Controller
         redirect('Siswa_CRUD');
       }
       else{
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data siswa baru saja dirubah oleh wakakur, silahkan ulangi proses edit sekali lagi!</div>');
+        //kalau ada dalam kelas tidak perlu rubah tahun ajaran
+        $data = [
+          'sis_nama_depan' => $this->input->post('sis_nama_depan'),
+          'sis_nama_bel' => $this->input->post('sis_nama_bel'),
+          'sis_no_induk' => $this->input->post('sis_no_induk'),
+          'sis_nisn' => $this->input->post('sis_nisn'),
+          'sis_jk' => $this->input->post('sis_jk'),
+          'sis_agama_id' => $this->input->post('sis_agama_id'),
+          'sis_email' => $this->input->post('sis_email')
+        ];
+
+        $this->db->where('sis_id', $this->input->post('sis_id'));
+        $this->db->update('sis', $data);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data siswa berhasil diupdate!</div>');
         redirect('Siswa_CRUD');
       }
 

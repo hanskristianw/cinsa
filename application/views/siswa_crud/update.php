@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-sm mb-3 mb-sm-0">
                   <label><b>NISN:</b></label>
-                  <input type="number" class="form-control form-control-sm" name="sis_nisn" min="1" value="<?= $siswa_update['sis_nisn'] ?>">
+                  <input type="text" class="form-control form-control-sm" name="sis_nisn" value="<?= $siswa_update['sis_nisn'] ?>">
                 </div>
                 <?php if($cek_siswa['jum'] == 0): ?>
                   <div class="col-sm-6 mb-3 mb-sm-0">

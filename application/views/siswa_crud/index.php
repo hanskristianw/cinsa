@@ -47,7 +47,7 @@
   </div>
 
   <div class="box1">
-    <a href="<?= base_url('siswa_crud/add') ?>" class="btn btn-sm btn-primary mb-3">&plus; Siswa</a>
+    <a href="<?= base_url('siswa_crud/add_baru') ?>" class="btn btn-sm btn-primary mb-3">&plus; Siswa</a>
     <a href="<?= base_url('siswa_crud/add_csv') ?>" class="btn btn-sm btn-success mb-3">&plus; Siswa dari CSV</a>
   </div>
 
