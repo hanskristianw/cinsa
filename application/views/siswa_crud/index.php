@@ -90,12 +90,12 @@
             <td><?= $m['agama_nama'] ?></td>
             <td><?= $m['t_nama'] ?></td>
             <td>
-                <form class="" action="<?= base_url('Siswa_CRUD/update') ?>" method="get">
-                  <input type="hidden" name="_id" value=<?= $m['sis_id'] ?>>
-                  <button type="submit" class="badge badge-warning">
-                    Edit
-                  </button>
-                </form>
+              <form class="" action="<?= base_url('Siswa_CRUD/update_baru') ?>" method="post">
+                <input type="hidden" name="sis_id" value=<?= $m['sis_id'] ?>>
+                <button type="submit" class="badge badge-warning">
+                  Edit
+                </button>
+              </form>
             </td>
             <td>
                 <form class="" action="<?= base_url('Siswa_CRUD/delete') ?>" method="post">

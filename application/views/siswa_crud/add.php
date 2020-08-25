@@ -81,7 +81,7 @@
               <div class="form-group row">
                 <div class="col-sm mb-3 mb-sm-0">
                   <label><b>Email Gsuite Siswa:</b></label>
-                  <input type="text" class="form-control form-control-sm" name="sis_email" pattern="[^' ']+@nationstaracademy.sch.id" title="Tidak boleh ada spasi, harus account nationstaracademy.sch.id" required>
+                  <input type="text" class="form-control form-control-sm" name="sis_email" pattern="[^' ']+@nationstaracademy.sch.id" title="Tidak boleh ada spasi, harus account nationstaracademy.sch.id">
                 </div>
               </div>
               <button type="submit" class="btn btn-primary btn-user btn-block">
