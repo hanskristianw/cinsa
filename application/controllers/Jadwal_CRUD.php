@@ -272,15 +272,17 @@ class Jadwal_CRUD extends CI_Controller
       $count = 1;
       foreach ($device as $d) {
         if(count($device) != $count)
-          $id .= $d['token_text'].",";
+          $id .= '"'.$d['token_text'].'",';
         else
-          $id .= $d['token_text'];
+          $id .= '"'.$d['token_text'].'"';
+
+        $count++;
       }
 
       $curl = curl_init();
 
-      $ids = '["'.$id.'"]';
-      //echo $ids;
+      $ids = '['.$id.']';
+      //echo $ids . "<br>";
 
       curl_setopt_array($curl, array(
         CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
@@ -312,7 +314,9 @@ class Jadwal_CRUD extends CI_Controller
 
       //var_dump($response);
 
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengumuman berhasil dibuat!</div>');
+      $res = json_decode($response);
+
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil mengirimkan pesan ke '.$res->success.' perangkat, gagal mengirimkan ke '.$res->failure.' perangkat</div>');
       redirect('jadwal_crud/pengumuman');
     }
   }

@@ -51,7 +51,8 @@
         <button class="close" data-dismiss="alert" type="button">
             <span>&times;</span>
         </button>
-        <strong>Perhatian:</strong> Orang tua/siswa mungkin saja melakukan login di 1 atau lebih perangkat android
+        <strong>Mengapa ada siswa yang terdeteksi lebih dari 1 kali?</strong><br><br>1. Orang tua/siswa mungkin saja melakukan login di 1 atau lebih perangkat android<br>2. Instalasi ulang aplikasi juga akan menambah jumlah perangkat yang terdeteksi
+        <br><br>Menghapus device yang tidak aktif, dapat mengurangi beban server untuk mengirimkan pesan
     </div>
 
     <table class="table table-sm table-bordered" style="font-size:14px;">
