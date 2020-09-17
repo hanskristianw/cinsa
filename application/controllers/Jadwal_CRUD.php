@@ -252,6 +252,66 @@ class Jadwal_CRUD extends CI_Controller
       ];
 
       $this->db->insert('pengumuman', $data);
+
+      //cari daftar token
+      $sk_id = $this->input->post('pengumuman_sk_id');
+      $judul = $this->input->post('pengumuman_judul');
+      $pesan = $this->input->post('pengumuman_isi');
+
+      $device = $this->db->query(
+        "SELECT token_text
+        FROM token
+        LEFT JOIN sis ON sis_id = token_sis_id
+        WHERE sis_sk_id = $sk_id AND sis_alumni = 0"
+      )->result_array();
+
+      $id = "";
+
+      //echo count($device);
+
+      $count = 1;
+      foreach ($device as $d) {
+        if(count($device) != $count)
+          $id .= $d['token_text'].",";
+        else
+          $id .= $d['token_text'];
+      }
+
+      $curl = curl_init();
+
+      $ids = '["'.$id.'"]';
+      //echo $ids;
+
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS =>'{
+                                "registration_ids":'.$ids.',
+                                "notification": {
+                                    "title":"'.$judul.'",
+                                    "body":"'.$pesan.'"
+                                }
+                              }',
+        CURLOPT_HTTPHEADER => array(
+          "Content-type: application/json",
+          "Authorization: key=AAAAbKcavbI:APA91bGD5dGjHcYjVVyOaI_JFK8cAsI5S9BYz5YtiK-46zRJMEp-4PXnuVVJm2OQqoQLqxzt5mosPYNvzk4AaeqLLlDjIYTnndtDirlEDRhM3Y41YkruZJfygaraD3dxsjsszvkb3Kft"
+        ),
+      ));
+
+      $response = curl_exec($curl);
+
+      curl_close($curl);
+
+      //echo $id;
+
+      //var_dump($response);
+
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pengumuman berhasil dibuat!</div>');
       redirect('jadwal_crud/pengumuman');
     }
@@ -309,60 +369,35 @@ class Jadwal_CRUD extends CI_Controller
     }
   }
 
-  public function push(){
-    $data['title'] = 'Push Notification';
+  public function daftar_siswa(){
+    $sk_id = $this->session->userdata('kr_sk_id');
+
+    $data['title'] = 'Daftar perangkat yang akan mendapat pengumuman';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['device_all'] = $this->db->query(
+      "SELECT sis_nama_depan, sis_nama_bel, token_device, token_last_seen, token_id
+      FROM token
+      LEFT JOIN sis ON sis_id = token_sis_id
+      WHERE sis_sk_id = $sk_id AND sis_alumni = 0
+      ORDER BY sis_nama_depan"
+    )->result_array();
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('templates/topbar', $data);
-    $this->load->view('jadwal_crud/push', $data);
+    $this->load->view('jadwal_crud/daftar_siswa', $data);
     $this->load->view('templates/footer');
   }
 
-  public function push_proses(){
-    if($this->input->post('judul', true)){
+  public function token_delete(){
+    if($this->input->post('token_id', true)){
+      $token_id = $this->input->post('token_id', true);
 
-      $judul = $this->input->post('judul', true);
-      $pesan = $this->input->post('pesan', true);
+      $this->db->where('token_id', $token_id);
+      $this->db->delete('token');
 
-
-      // echo $judul;
-      // echo $pesan;
-
-      $curl = curl_init();
-
-      $ids = '["eDyGx_w0qx0:APA91bH6B6rbbGxmJKcWxS9Ib8pzcwLXRnmJUEhZ01Atc-I-fgU0E2QgztLIJqF5dFmksb3CiIQV3XQutdNS3dqrktO1PFy7VNlpesT5q_giKHSFCCP0jz0Z7nHjovVem8TLJd4e2AJx"]';
-
-      curl_setopt_array($curl, array(
-        CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS =>'{
-                                "registration_ids":'.$ids.',
-                                "notification": {
-                                    "title":"'.$judul.'",
-                                    "body":"'.$pesan.'"
-                                }
-                              }',
-        CURLOPT_HTTPHEADER => array(
-          "Content-type: application/json",
-          "Authorization: key=AAAAbKcavbI:APA91bGD5dGjHcYjVVyOaI_JFK8cAsI5S9BYz5YtiK-46zRJMEp-4PXnuVVJm2OQqoQLqxzt5mosPYNvzk4AaeqLLlDjIYTnndtDirlEDRhM3Y41YkruZJfygaraD3dxsjsszvkb3Kft"
-        ),
-      ));
-
-      $response = curl_exec($curl);
-
-      curl_close($curl);
-      //echo $response;
-
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Push notification berhasil!</div>');
-      redirect('jadwal_crud/push');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Device berhasil dihapus!</div>');
+      redirect('jadwal_crud/pengumuman');
     }
   }
 

@@ -47,17 +47,21 @@
   <div class="box1">
 
 
-    <?php echo '<div class="alert alert-warning alert-dismissible fade show">
+    <div class="alert alert-warning alert-dismissible fade show">
             <button class="close" data-dismiss="alert" type="button">
                 <span>&times;</span>
             </button>
             <br>
-            <strong>Perhatian:</strong><br>
+            Pengumuman adalah berita internal unit yang terhubung dengan aplikasi android orang tua <br><br>
+            <strong>Contoh pengumuman:</strong><br>
 
             <ul>
-              <li>Halaman ini masih dalam tahap pengembangan, nantinya seluruh pengumuman akan langsung terhubung dengan perangkat android orang tua</li>
+              <li>UTS dimulai tanggal dd-mm-yyyy</li>
+              <li>Pengambilan rapor dilakukan di kelas masing-masing</li>
             </ul>
-        </div>'; ?>
+
+            Daftar perangkat orang tua yang sudah terinstall aplikasi dan akan mendapat pengumuman <a href="<?= base_url('jadwal_crud/daftar_siswa') ?>">klik disini</a>
+        </div>
 
     <a href="<?= base_url('jadwal_crud/pengumuman_input') ?>" class="btn btn-primary mb-3">&#43; Pengumuman</a>
 
