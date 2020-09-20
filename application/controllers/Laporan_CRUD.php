@@ -828,4 +828,48 @@ class Laporan_CRUD extends CI_Controller
 
   }
 
+  public function login_siswa_sekolah(){
+    $data['title'] = 'Pilih Unit';
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+    if($this->session->userdata('kr_jabatan_id')==5){
+      //Div pendidikan
+      $data['sk_all'] = $this->_sk->return_all();
+    }
+    else if($this->session->userdata('kr_jabatan_id')==4){
+      //Wakakur
+      $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
+    }
+    else {
+      redirect("Profile");
+    }
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('templates/topbar', $data);
+    $this->load->view('laporan_crud/login_siswa_sekolah', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function login_siswa(){
+    if($this->input->post('sk_id',true)){
+
+      $data['title'] = 'Daftar Siswa';
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $sk_id = $this->input->post('sk_id',true);
+
+      $data['siswa_all'] = $this->db->query
+        ("SELECT sis_id, sis_no_induk, sis_nama_depan, sis_nama_bel, sis_username
+        FROM sis
+        WHERE sis_sk_id = $sk_id AND sis_alumni = 0
+        ORDER BY sis_nama_depan, sis_nama_bel")->result_array();
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('laporan_crud/login_siswa', $data);
+      $this->load->view('templates/footer');
+    }
+  }
+
 }

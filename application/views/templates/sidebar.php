@@ -154,6 +154,7 @@
                   <a class="collapse-item" href=' . base_url('laporan_crud/ptspas') . '>8. PTS & PAS</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>9. DKN</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/bi') . '>10. Buku Induk</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/login_siswa_sekolah') . '>11. Login Siswa</a>
                 </div>
               </div>
             </li>
@@ -245,6 +246,7 @@
                   <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>12. DKN</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/bi') . '>13. Buku Induk</a>
                   <a class="collapse-item" href=' . base_url('Event_crud/laporan') . '>14. Event</a>
+                  <a class="collapse-item" href=' . base_url('laporan_crud/login_siswa_sekolah') . '>15. Login Siswa</a>
                 </div>
               </div>
             </li>
