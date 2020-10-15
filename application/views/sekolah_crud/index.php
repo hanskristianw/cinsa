@@ -59,7 +59,7 @@
     {
       $tgl = explode("-",$no);
 
-      return $tgl[2].'/'.$tgl[1].'/'.$tgl[0];
+      return $tgl[2].' '.return_nama_bulan_indo($tgl[1]).' '.$tgl[0];
     }
   ?>
 
@@ -75,7 +75,7 @@
   </div>
 
   <div class="box1 mb-4">
-    <table class="table table-bordered table-hover table-sm" style="font-size:14px;">
+    <table class="table table-bordered table-hover table-sm" style="font-size:12px;">
       <thead class="thead-dark">
         <tr>
           <th class="pt-4 pb-4 pl-2">Nama</th>
@@ -83,6 +83,7 @@
           <th class="pt-4 pb-4 pl-2">Kepsek</th>
           <th class="pt-4 pb-4 pl-2">Tanggal Rapor Mid</th>
           <th class="pt-4 pb-4 pl-2">Tanggal Rapor Final</th>
+          <th class="pt-4 pb-4 pl-2">Instagram</th>
           <th class="pt-4 pb-4 pl-2 text-center" colspan="3">Action</th>
         </tr>
       </thead>
@@ -94,7 +95,7 @@
 
           <?php if ($m['sk_type'] !== $temp) : ?>
             <tr>
-              <td colspan="8" class="text-center bg-info text-white"><?= returnTypeUnit($m['sk_type']) ?></td>
+              <td colspan="9" class="text-center bg-info text-white"><?= returnTypeUnit($m['sk_type']) ?></td>
             </tr>
           <?php endif; ?>
           <tr>
@@ -102,9 +103,11 @@
             <?php if ($m['sk_type'] == 0) : ?>
               <td><?= returnTypeRapor($m['sk_jenis_rapor']) ?></td>
               <td><?= $m['kepsek'] ?></td>
-              <td><?= $m['sk_mid'] ?></td>
-              <td><?= $m['sk_fin'] ?></td>
+              <td><?= returnTanggal($m['sk_mid']) ?></td>
+              <td><?= returnTanggal($m['sk_fin']) ?></td>
+              <td><?= $m['sk_insta'] ?></td>
             <?php else : ?>
+              <td>-</td>
               <td>-</td>
               <td>-</td>
               <td>-</td>

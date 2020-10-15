@@ -36,7 +36,7 @@ class Sekolah_CRUD extends CI_Controller
     $data['sk_all'] = $this->db->query(
       "SELECT * FROM
       (
-          Select sk_id, sk_nama, sk_mid, sk_fin, kr1.kr_nama_depan as kepsek, kr2.kr_nama_depan as guru_scout, sk_nickname, sk_type, sk_jenis_rapor
+          Select sk_id, sk_nama, sk_mid, sk_fin, CONCAT(kr1.kr_nama_depan, ' ', kr1.kr_nama_belakang) as kepsek, kr2.kr_nama_depan as guru_scout, sk_nickname, sk_type, sk_jenis_rapor, sk_insta
             from sk, kr kr1, kr kr2
             where kr1.kr_id = sk.sk_kepsek
             and kr2.kr_id = sk.sk_scout_kr_id
@@ -46,7 +46,8 @@ class Sekolah_CRUD extends CI_Controller
         SELECT sk_id, kr_nama_depan as wakasis
           FROM sk
           LEFT JOIN kr ON sk_wakasis = kr_id
-      )AS b ON a.sk_id = b.sk_id"
+      )AS b ON a.sk_id = b.sk_id
+      ORDER BY sk_type, sk_jenis_rapor, sk_nama"
     )->result_array();
 
     //$data['tes'] = var_dump($this->db->last_query());
@@ -70,7 +71,7 @@ class Sekolah_CRUD extends CI_Controller
     $this->form_validation->set_rules('sk_nickname', 'School Nickname', 'required|trim');
 
     if ($this->form_validation->run() == false) {
-      $data['title'] = 'Create School';
+      $data['title'] = 'Tambah Unit';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -112,7 +113,7 @@ class Sekolah_CRUD extends CI_Controller
     if ($sk_id) {
 
       if ($sk_type == 0) {
-        $data['title'] = 'Update School';
+        $data['title'] = 'Update Unit';
 
         //data karyawan yang sedang login untuk topbar
         $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -168,6 +169,7 @@ class Sekolah_CRUD extends CI_Controller
         'sk_wakasis' => $this->input->post('sk_wakasis'),
         'sk_ex_nama' => $this->input->post('sk_ex_nama'),
         'sk_ex_abr' => $this->input->post('sk_ex_abr'),
+        'sk_insta' => $this->input->post('sk_insta'),
         'sk_fin' => $sk_fin
       ];
 
