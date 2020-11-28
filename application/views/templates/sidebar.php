@@ -32,6 +32,22 @@
             </li>
 
             <hr class="sidebar-divider">';
+
+        echo '<div class="sidebar-heading">KPI</div>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Master</span>
+          </a>
+          <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Master</h6>
+              <a class="collapse-item" href=' . base_url('Jabatan_KPI_CRUD') . '>1. Jabatan</a>
+            </div>
+          </div>
+        </li>
+
+        <hr class="sidebar-divider">';
       } elseif ($this->session->userdata('kr_jabatan_id') == 2 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia karyawan
         echo '<div class="sidebar-heading">

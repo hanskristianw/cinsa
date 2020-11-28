@@ -64,7 +64,7 @@ class Report_CRUD extends CI_Controller
         $kr_id = $this->session->userdata('kr_id');
         $data['sk_all'] = $this->db->query("
                       SELECT sk_id, sk_nama
-                      FROM konselor 
+                      FROM konselor
                       LEFT JOIN sk ON konselor_sk_id = sk_id
                       WHERE konselor_kr_id = $kr_id")->result_array();
       } else {
@@ -147,6 +147,8 @@ class Report_CRUD extends CI_Controller
         redirect('Report_CRUD');
       }
 
+
+
       $data['title'] = 'Report Page';
 
       //data karyawan yang sedang login untuk topbar
@@ -159,7 +161,7 @@ class Report_CRUD extends CI_Controller
       $sk_id = $this->input->post('sk', TRUE);
       $jenis = $this->input->post('pJenis', TRUE);
 
-
+      $data['checkFinalScore'] = $this->input->post('checkFinalScore', TRUE);
       $data['checkSsp'] = $this->input->post('checkSsp', TRUE);
       $data['checkScout'] = $this->input->post('checkScout', TRUE);
 
@@ -298,7 +300,7 @@ class Report_CRUD extends CI_Controller
         $kr_id = $this->session->userdata('kr_id');
         $data['sk_all'] = $this->db->query(
           "SELECT sk_id, sk_nama
-          FROM konselor 
+          FROM konselor
           LEFT JOIN sk ON konselor_sk_id = sk_id
           WHERE konselor_kr_id = $kr_id"
         )->result_array();

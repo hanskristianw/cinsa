@@ -1224,7 +1224,7 @@ $(document).ready(function () {
               var i;
               html = "";
 
-              html += '<hr><div class="form-group d-flex justify-content-center"><label class="checkbox-inline mr-2"><input class="checkAll" type="checkbox"> <b><u>CHECK ALL</u></b></label><label class="checkbox-inline mr-2"><input class="checkSsp" name="checkSsp" checked type="checkbox"> <b><u>SHOW SSP</u></b></label><label class="checkbox-inline "><input class="checkSsp" name="checkScout" checked type="checkbox"> <b><u>SHOW SCOUT</u></b></label></div><hr>';
+              html += '<hr><div class="form-group d-flex justify-content-center"><label class="checkbox-inline mr-2"><input class="checkAll" type="checkbox"> <b><u>CHECK ALL</u></b></label><label class="checkbox-inline mr-2"><input name="checkFinalScore" type="checkbox" checked> <b><u>SHOW FINAL SCORE</u></b></label><label class="checkbox-inline mr-2"><input class="checkSsp" name="checkSsp" checked type="checkbox"> <b><u>SHOW SSP</u></b></label><label class="checkbox-inline "><input class="checkSsp" name="checkScout" checked type="checkbox"> <b><u>SHOW SCOUT</u></b></label></div><hr>';
 
 
               for (i = 0; i < data.length; i++) {

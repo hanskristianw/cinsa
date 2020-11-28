@@ -101,7 +101,13 @@
                   return "she";
               }
 
-              //var_dump($t_id);
+              // var_dump($checkFinalScore);
+              if($checkFinalScore){
+                $kolom = 5;
+              }else{
+                $kolom = 4;
+              }
+
               for ($i = 0; $i < count($sis_arr); $i++) :
 
                 //echo $sis_arr[$i]."<br>".$kelas_jenj_id['kelas_jenj_id'];
@@ -154,13 +160,15 @@
                         <th rowspan='2'>NO.</th>
                         <th rowspan='2'>SUBJECT</th>
                         <th rowspan='2'>PASSING <br>GRADE</th>
-                        <th colspan='5'>ACHIEVEMENT REPORT</th>
+                        <th colspan='<?= $kolom ?>'>ACHIEVEMENT REPORT</th>
                       </tr>
                       <tr>
                         <th>Cognitive</th>
                         <th>Psychomotor</th>
                         <th>Affective</th>
-                        <th>Final <br>Score</th>
+                        <?php if($kolom == 5): ?>
+                          <th>Final <br>Score</th>
+                        <?php endif; ?>
                         <th>Grading</th>
                       </tr>
                     </thead>
@@ -243,11 +251,13 @@
                             </a>
                           </td>
                           <td class='biasa' style='width:60px;'><?= return_abjad_afek($m['total']) ?></td>
-                          <td class='biasa'>
-                            <a class='link-akhir' style="text-decoration : none; color: inherit;" rel="<?= $kognitif ?>" rel2="<?= $psikomotor ?>" rel3="<?= $persen_peng_akhir ?>" rel4="<?= $persen_ket_akhir ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2">
-                              <?= $n_akhir ?>
-                            </a>
-                          </td>
+                          <?php if($kolom == 5): ?>
+                            <td class='biasa'>
+                              <a class='link-akhir' style="text-decoration : none; color: inherit;" rel="<?= $kognitif ?>" rel2="<?= $psikomotor ?>" rel3="<?= $persen_peng_akhir ?>" rel4="<?= $persen_ket_akhir ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2">
+                                <?= $n_akhir ?>
+                              </a>
+                            </td>
+                          <?php endif; ?>
                           <td class='biasa'><?= grading($n_akhir - $m['mapel_kkm']) ?></td>
                         </tr>
                       <?php
