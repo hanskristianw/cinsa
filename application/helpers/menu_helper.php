@@ -1355,3 +1355,18 @@ function get_kelas_t_sebelumnya($sis_id, $t_id){
   else
     return "-";
 }
+
+function kpi_menu(){
+  $ci = &get_instance();
+
+  $kr_id = $ci->session->userdata('kr_id');
+
+  $cek = $ci->db->query(
+    "SELECT COUNT(jabatan_kpi_id) AS jum
+    FROM d_jabatan_kpi
+    LEFT JOIN jabatan_kpi ON jabatan_kpi_id = d_jabatan_kpi_jabatan_kpi_id
+    WHERE d_jabatan_kpi_kr_id = $kr_id"
+  )->row_array();
+
+  return $cek['jum'];
+}

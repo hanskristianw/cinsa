@@ -35,9 +35,16 @@
     <form class="" action="<?= base_url('KPI_CRUD/add_indi_proses'); ?>" method="post">
 
       <input type="hidden" name="kompe_kpi_id" value="<?= $kompe_kpi_id ?>">
+      <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
 
       <label style="font-size:14px;"><b>Nama Indikator:</b></label>
       <input type="text" class="form-control form-control-sm mb-3" name="indi_kpi_nama" value="" required>
+
+      <label style="font-size:14px;"><b>Target:</b></label>
+      <input type="number" class="form-control form-control-sm mb-3" name="indi_kpi_target" min="0" required>
+
+      <label style="font-size:14px;"><b>Bobot Indikator (%) Dalam Kompetensi:</b></label>
+      <input type="number" class="form-control form-control-sm mb-3" name="indi_kpi_bobot" min="0" required>
 
       <button type="submit" class="btn btn-secondary btn-user btn-block mt-3">
         Simpan
@@ -65,6 +72,7 @@
             <td class="text-center">
               <form class="" action="<?= base_url('KPI_CRUD/edit_indi') ?>" method="post">
                 <input type="hidden" name="indi_kpi_id" value=<?= $m['indi_kpi_id'] ?>>
+                <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
                 <button type="submit" class="badge badge-warning">
                   Edit
                 </button>

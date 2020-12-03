@@ -15,6 +15,27 @@
       <!-- MANAJEMEN MENU -->
       <?php
 
+      var_dump(kpi_menu());
+
+      if(kpi_menu()>0 && $this->session->userdata('kr_jabatan_id')){
+        echo '<div class="sidebar-heading">KPI</div>
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwokpi" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-book"></i>
+                <span>Penilai PA & KPI</span>
+              </a>
+              <div id="collapseTwokpi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Nilai</h6>
+                  <a class="collapse-item" href=' . base_url('KPI_penilai_CRUD') . '>1. KPI</a>
+                  <a class="collapse-item" href=' . base_url('PA_penilai_CRUD') . '>2. PA</a>
+                </div>
+              </div>
+            </li>
+
+            <hr class="sidebar-divider">';
+      }
+
       if ($this->session->userdata('kr_jabatan_id') == 1 && $this->session->userdata('kr_jabatan_id')) {
         //Administrator atau Super Admin
         echo '<div class="sidebar-heading">Administrator</div>

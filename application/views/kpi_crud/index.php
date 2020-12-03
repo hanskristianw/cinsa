@@ -97,6 +97,7 @@
             <td class="text-center">
               <form class="" action="<?= base_url('KPI_CRUD/add_indi') ?>" method="post">
                 <input type="hidden" name="kompe_kpi_id" value=<?= $m['kompe_kpi_id'] ?>>
+                <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
                 <button type="submit" class="badge badge-success">
                   Indikator
                 </button>

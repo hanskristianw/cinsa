@@ -54,7 +54,7 @@ class KPI_CRUD extends CI_Controller
         LEFT JOIN indi_kpi ON indi_kpi_kompe_kpi_id = kompe_kpi_id
         WHERE kompe_kpi_jabatan_kpi_id = $jabatan_kpi_id
         GROUP BY kompe_kpi_id
-        ORDER BY kompe_kpi_nama"
+        ORDER BY kompe_kpi_id"
       )->result_array();
 
       $this->load->view('templates/header', $data);
@@ -170,6 +170,7 @@ class KPI_CRUD extends CI_Controller
       $data['title'] = 'Tambah Indikator '.$cek['kompe_kpi_nama'];
 
       $data['kompe_kpi_id'] = $kompe_kpi_id;
+      $data['jabatan_kpi_id'] = $this->input->post('jabatan_kpi_id');
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
@@ -189,11 +190,13 @@ class KPI_CRUD extends CI_Controller
       $data = [
         'indi_kpi_kompe_kpi_id' => $this->input->post('kompe_kpi_id'),
         'indi_kpi_nama' => $this->input->post('indi_kpi_nama'),
+        'indi_kpi_target' => $this->input->post('indi_kpi_target'),
+        'indi_kpi_bobot' => $this->input->post('indi_kpi_bobot'),
       ];
 
       $this->db->insert('indi_kpi', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Indikator berhasil dibuat!</div>');
-      redirect('KPI_CRUD');
+      redirect('KPI_CRUD?jabatan_kpi_id='.$this->input->post('jabatan_kpi_id'));
     }
   }
 
@@ -207,7 +210,7 @@ class KPI_CRUD extends CI_Controller
         WHERE indi_kpi_id = $indi_kpi_id"
       )->row_array();
 
-
+      $data['jabatan_kpi_id'] = $this->input->post('jabatan_kpi_id');
       $data['title'] = 'Edit Indikator';
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -237,7 +240,7 @@ class KPI_CRUD extends CI_Controller
       $this->db->update('indi_kpi', $data);
 
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Indikator berhasil diupdate!</div>');
-      redirect('KPI_CRUD');
+      redirect('KPI_CRUD?jabatan_kpi_id='.$this->input->post('jabatan_kpi_id'));
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
