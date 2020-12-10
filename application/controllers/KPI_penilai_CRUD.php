@@ -130,6 +130,22 @@ class KPI_penilai_CRUD extends CI_Controller
       if($cek_nilai){
         //sudah ada nilai
 
+        //cek apakah ada indikator baru yang tidak ada di daftar update
+        $data['new_indi'] = $this->db->query(
+          "SELECT indi_kpi_nama, indi_kpi_target, kompe_kpi_nama, indi_kpi_id
+          FROM indi_kpi
+          LEFT JOIN kompe_kpi ON indi_kpi_kompe_kpi_id = kompe_kpi_id
+          WHERE kompe_kpi_jabatan_kpi_id = $jabatan_kpi_id
+          AND indi_kpi_id NOT IN (
+            SELECT indi_kpi_id
+            FROM nilai_kpi
+            LEFT JOIN indi_kpi ON indi_kpi_id = nilai_kpi_indi_kpi_id
+            LEFT JOIN kompe_kpi ON kompe_kpi_id = indi_kpi_kompe_kpi_id
+            WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $kr_penilai AND nilai_kpi_dinilai_kr_id = $kr_dinilai
+          )
+          ORDER BY kompe_kpi_id, indi_kpi_id"
+        )->result_array();
+
         $data['update'] = $cek_nilai;
 
         $this->load->view('templates/header', $data);
@@ -155,6 +171,65 @@ class KPI_penilai_CRUD extends CI_Controller
         $this->load->view('KPI_penilai_CRUD/input', $data);
         $this->load->view('templates/footer');
       }
+    }
+  }
+
+  public function input_new_proses(){
+    if($this->input->post('indi_kpi_id[]')){
+      $data = array();
+      $indi_kpi_id = $this->input->post('indi_kpi_id[]');
+      $t_id = $this->input->post('t_id');
+      $nilai_kpi_hasil = $this->input->post('nilai_kpi_hasil[]');
+      $nilai_kpi_penilai_kr_id = $this->input->post('nilai_kpi_penilai_kr_id');
+      $nilai_kpi_dinilai_kr_id = $this->input->post('nilai_kpi_dinilai_kr_id');
+
+      $indi_kpi_str = "";
+
+      for ($i=0; $i < count($indi_kpi_id); $i++) {
+        $indi_kpi_str .= $indi_kpi_id[$i];
+        if($i != count($indi_kpi_id) - 1){
+          $indi_kpi_str .= ",";
+        }
+      }
+
+      //var_dump($indi_kpi_str);
+
+      $cek_nilai = $this->db->query(
+        "SELECT indi_kpi_id
+        FROM nilai_kpi
+        LEFT JOIN indi_kpi ON indi_kpi_id = nilai_kpi_indi_kpi_id
+        LEFT JOIN kompe_kpi ON kompe_kpi_id = indi_kpi_kompe_kpi_id
+        WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $nilai_kpi_penilai_kr_id AND nilai_kpi_dinilai_kr_id = $nilai_kpi_dinilai_kr_id
+        AND indi_kpi_id IN ($indi_kpi_str)
+        ORDER BY kompe_kpi_id, indi_kpi_id"
+      )->result_array();
+
+      // var_dump($cek_nilai);
+      //
+      // if($cek_nilai)
+      //   echo "ada";
+      // else
+      //   echo "gak ada";
+
+
+      if($cek_nilai){
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Nilai sudah ada!</div>');
+        redirect('KPI_penilai_CRUD');
+      }
+
+      for($i=0;$i<count($indi_kpi_id);$i++){
+          $data[$i] = [
+            'nilai_kpi_hasil' => $nilai_kpi_hasil[$i],
+            'nilai_kpi_t_id' => $t_id,
+            'nilai_kpi_penilai_kr_id' => $nilai_kpi_penilai_kr_id,
+            'nilai_kpi_dinilai_kr_id' => $nilai_kpi_dinilai_kr_id,
+            'nilai_kpi_indi_kpi_id' => $indi_kpi_id[$i]
+          ];
+      }
+
+      $this->db->insert_batch('nilai_kpi', $data);
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input Sukses!</div>');
+      redirect('KPI_penilai_CRUD');
     }
   }
 

@@ -75,6 +75,60 @@
 
 
   <div class="box1 mb-4 mt-4">
+    <?php
+      if($new_indi):
+    ?>
+      <div class="alert alert-danger alert-dismissible fade show">
+          <button class="close" data-dismiss="alert" type="button">
+              <span>&times;</span>
+          </button>
+          <strong>Perhatian:</strong> Indikator baru ditemukan, silahkan simpan indikator sebelum melakukan proses edit
+      </div>
+
+      <form class="" action="<?= base_url('KPI_penilai_CRUD/input_new_proses'); ?>" method="post">
+
+        <input type="hidden" name="nilai_kpi_penilai_kr_id" value="<?= $kr_penilai['kr_id'] ?>">
+        <input type="hidden" name="nilai_kpi_dinilai_kr_id" value="<?= $kr_dinilai['kr_id'] ?>">
+        <input type="hidden" name="t_id" value="<?= $t_id ?>">
+
+        <table class="table table-bordered table-hover table-sm" style="font-size:14px;">
+          <thead class="thead-dark">
+            <th class="pt-3 pb-3">FAKTOR PENILAIAN (KPI)</th>
+            <th class="pt-3 pb-3">Target</th>
+            <th class="pt-3 pb-3">Hasil</th>
+          </thead>
+          <tbody>
+          <?php
+            $temp = "";
+            foreach ($new_indi as $i) :
+              if($temp != $i['kompe_kpi_nama']):
+          ?>
+            <tr>
+              <td colspan="3" class="pt-2 pb-2 bg-secondary text-white"><b><?= $i['kompe_kpi_nama'] ?></b></td>
+            </tr>
+          <?php endif; ?>
+            <tr>
+              <td class="pt-2 pb-1"><?= $i['indi_kpi_nama'] ?> <input type="hidden" name="indi_kpi_id[]" value="<?= $i['indi_kpi_id'] ?>"> </td>
+              <td class="pt-2 pb-1"><?= $i['indi_kpi_target'] ?></td>
+              <td> <input type="number" min="0" name="nilai_kpi_hasil[]" value="<?= $i['indi_kpi_target'] ?>" style='width: 47px; height: 18px;font-size: 12px;'> </td>
+            </tr>
+          <?php
+              $temp = $i['kompe_kpi_nama'];
+            endforeach;
+          ?>
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-success btn-user btn-block mt-3 mb-4">
+          Simpan indikator baru
+        </button>
+
+      </form>
+      <hr>
+    <?php
+      endif;
+    ?>
+
+
     <form class="" action="<?= base_url('KPI_penilai_CRUD/update_proses'); ?>" method="post">
 
       <input type="hidden" name="nilai_kpi_penilai_kr_id" value="<?= $kr_penilai['kr_id'] ?>">
@@ -108,20 +162,23 @@
         ?>
         </tbody>
       </table>
+      <?php
+        if(!$new_indi):
+      ?>
       <button type="submit" class="btn btn-success btn-user btn-block mt-3">
         Update
       </button>
-
+      <?php
+        endif;
+      ?>
     </form>
+
+
   </div>
 </div>
 
 <script type="text/javascript">
   $(document).ready(function() {
-
-    $(".alert-danger").fadeTo(2000, 500).slideUp(500, function() {
-      $(".alert-danger").slideUp(500);
-    });
     $(".alert-success").fadeTo(2000, 500).slideUp(500, function() {
       $(".alert-success").slideUp(500);
     });

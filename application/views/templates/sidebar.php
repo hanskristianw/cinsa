@@ -15,7 +15,7 @@
       <!-- MANAJEMEN MENU -->
       <?php
 
-      var_dump(kpi_menu());
+      //var_dump(kpi_menu());
 
       if(kpi_menu()>0 && $this->session->userdata('kr_jabatan_id')){
         echo '<div class="sidebar-heading">KPI</div>
@@ -64,6 +64,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Master</h6>
               <a class="collapse-item" href=' . base_url('Jabatan_KPI_CRUD') . '>1. Jabatan</a>
+              <a class="collapse-item" href=' . base_url('Jabatan_KPI_CRUD') . '>2. Persentase KPI</a>
             </div>
           </div>
         </li>

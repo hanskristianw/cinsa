@@ -161,7 +161,6 @@ class Report_CRUD extends CI_Controller
       $sk_id = $this->input->post('sk', TRUE);
       $jenis = $this->input->post('pJenis', TRUE);
 
-      $data['checkFinalScore'] = $this->input->post('checkFinalScore', TRUE);
       $data['checkSsp'] = $this->input->post('checkSsp', TRUE);
       $data['checkScout'] = $this->input->post('checkScout', TRUE);
 
@@ -248,11 +247,23 @@ class Report_CRUD extends CI_Controller
         $this->load->view('Report_CRUD/sisipan', $data);
         $this->load->view('templates/footer');
       } elseif ($jenis == 1) {
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('Report_CRUD/semester', $data);
-        $this->load->view('templates/footer');
+
+        if($this->input->post('checkFinalScore', TRUE) == "off"){
+          $this->load->view('templates/header', $data);
+          $this->load->view('templates/sidebar', $data);
+          $this->load->view('templates/topbar', $data);
+          $this->load->view('Report_CRUD/semester', $data);
+          $this->load->view('templates/footer');
+        }elseif($this->input->post('checkFinalScore', TRUE) == "on"){
+          $this->load->view('templates/header', $data);
+          $this->load->view('templates/sidebar', $data);
+          $this->load->view('templates/topbar', $data);
+          $this->load->view('Report_CRUD/semester2021', $data);
+          $this->load->view('templates/footer');
+        }
+
+
+
       }
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Do not access page directly!</div>');
