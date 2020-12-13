@@ -1,3 +1,13 @@
+<style>
+.grid-logo {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-column-gap: 2%;
+  padding-right: 1%;
+  margin-bottom: 30px;
+}
+</style>
+
 <div class="container">
 
 
@@ -112,9 +122,19 @@
 
                 if (isset($siswa[0]['sis_nama_depan'])) :
 
-                  echo "<p class='judul'>REPORT CARD<br>NATION STAR ACADEMY " . strtoupper($kepsek['sk_nickname']) . "</p>";
-
               ?>
+                  <div class="grid-logo mb-4">
+                    <div style="text-align:center;">
+                      <img src="<?= base_url('assets/img/') ?>nsa.png" alt="NSA Student" class="brand-image img-circle elevation-3"
+                       style="opacity: 1;width: 100%;max-width: 100px;height: auto;">
+                    </div>
+
+                    <div style="text-align: left;" class="sekolah">
+                      <div style="display: inline-block; text-align: center;">
+                        <p class='judul mt-4'>NATION STAR ACADEMY <?= strtoupper($kepsek['sk_nickname']) ?><br>REPORT CARD</p>
+                      </div>
+                    </div>
+                  </div>
 
 
                   <table style="width:100%; font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;">
@@ -151,7 +171,7 @@
                     <thead>
                       <tr>
                         <th style='width: 40px; height: 15px;'>NO </th>
-                        <th style='width: 200px; height: 15px;'>LIFE SKILLS</th>
+                        <th style='width: 200px; height: 15px;'>ASPECT</th>
                         <th>GRADE</th>
                       </tr>
                     </thead>
@@ -166,7 +186,7 @@
                         ?>
                         <td style='text-align: center;height: 20px;'>1</td>
                         <td style='padding: 0px 5px 0px 5px;height: 10px;'>Spirituality</td>
-                        <td style='padding: 0px 5px 0px 10px;height: 10px;'><b><?= return_abjad_base4($spirit_nilai) ?></b></td>
+                        <td style='text-align: center;height: 10px;'><b><?= return_abjad_base4($spirit_nilai) ?></b></td>
                       </tr>
                       <tr>
                         <?php
@@ -178,7 +198,7 @@
                         ?>
                         <td style='text-align: center;height: 20px;'>2</td>
                         <td style='padding: 0px 5px 0px 5px;height: 10px;'>Social Skill</td>
-                        <td style='padding: 0px 5px 0px 10px;height: 10px;'><b><?= return_abjad_base4($ss_nilai) ?></b></td>
+                        <td style='text-align: center;height: 10px;'><b><?= return_abjad_base4($ss_nilai) ?></b></td>
                       </tr>
                     </tbody>
                   </table>
@@ -196,9 +216,9 @@
                       </tr>
                       <tr>
                         <th>Score</th>
-                        <th>Grading</th>
+                        <th>Remarks</th>
                         <th>Score</th>
-                        <th>Grading</th>
+                        <th>Remarks</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -304,9 +324,9 @@
                       <thead>
                         <tr>
                           <th style='width: 40px;'>NO </th>
-                          <th style='width: 200px;'>CRITERIA</th>
+                          <th style='width: 200px;'>COURSE</th>
                           <th style='width: 60px;'>GRADE</th>
-                          <th>DESCRIPTION</th>
+                          <th>COURSE UNIT</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -358,9 +378,9 @@
                     <thead>
                       <tr>
                         <th style='width: 40px; height: 15px; padding: 0px 0px 0px 0px;'>NO </th>
-                        <th style='width: 200px; height: 15px; padding: 0px 0px 0px 5px;'>AFFECTIVE</th>
+                        <th style='width: 200px; height: 15px; padding: 0px 0px 0px 5px;'>ASPECT</th>
                         <th style='width: 60px; height: 15px; padding: 0px 0px 0px 5px;'>GRADE</th>
-                        <th style='height: 15px;'>DESCRIPTION</th>
+                        <th style='height: 15px;'>DESCRIPTOR</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -582,7 +602,13 @@
                     $komen = $siswa[0]['d_s_komen_sem2'];
                   ?>
                   <br>
-                  <label style="font-family:Cambria, sans-serif;font-size:14px;"><?= $komen ?></label>
+                  <table class='rapot'>
+                    <tbody>
+                      <tr>
+                        <td style="padding: 10px 5px 10px 5px;"><?= $komen ?></td>
+                      </tr>
+                    </tbody>
+                  </table>
 
                   <?php if ($semester == 2) :
 
@@ -609,7 +635,7 @@
                   <label style="font-weight:bold;font-family:Cambria, sans-serif;font-size:14px;padding: 0px 0px 0px 15px;"><?= $kata ?></label>
 
                   <?php endif; ?>
-                  <br>
+                  <br><br><br><br>
 
 
 
