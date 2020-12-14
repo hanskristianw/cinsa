@@ -1185,8 +1185,8 @@ $(document).ready(function () {
           if (data.length == 0) {
             var html = '<div class="text-center mb-3 text-danger"><b>--No Class, Add Class First--</b></div>';
           } else {
-            var html = '<select name="kelas_id" id="kelas_id" class="form-control mb-3 kelas_id">';
-            html += '<option value="0">Select Class</option>';
+            var html = '<select name="kelas_id" id="kelas_id" class="form-control form-control-sm mb-3 kelas_id">';
+            html += '<option value="0">Pilih Kelas</option>';
             var i;
             for (i = 0; i < data.length; i++) {
               html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama + '</option>';
@@ -1219,13 +1219,25 @@ $(document).ready(function () {
           dataType: 'json',
           success: function (data) {
             if (data.length == 0) {
-              var html = '<div class="text-center mb-3 text-danger"><b>--No Student(s), please add 1 or more student--</b></div>';
+              var html = '<div class="text-center mb-3 text-danger"><b>--Pilih setidaknya 1 siswa--</b></div>';
             } else {
               var i;
               html = "";
 
-              html += '<hr><div class="form-group d-flex justify-content-center"><label class="checkbox-inline mr-2"><input class="checkAll" type="checkbox"> <b><u>CHECK ALL</u></b></label><label class="checkbox-inline mr-2"><input name="checkFinalScore" type="checkbox" checked> <b><u>Versi 2020/2021</u></b></label><label class="checkbox-inline mr-2"><input class="checkSsp" name="checkSsp" checked type="checkbox"> <b><u>SHOW SSP</u></b></label><label class="checkbox-inline "><input class="checkSsp" name="checkScout" checked type="checkbox"> <b><u>SHOW SCOUT</u></b></label></div><hr>';
+              html += `<hr>
+              <div class="form-group d-flex justify-content-center"><label class="checkbox-inline mr-2">
+              <input class="checkAll" type="checkbox"> <b><u>CHECK ALL</u></b></label>
+              <label class="checkbox-inline mr-2"><input name="checkFinalScore" type="checkbox" checked> <b><u>Versi 2020/2021</u></b></label>
+              <label class="checkbox-inline mr-2"><input class="checkSsp" name="checkSsp" checked type="checkbox"> <b><u>SHOW SSP</u></b></label>
+              <label class="checkbox-inline "><input class="checkSsp" name="checkScout" checked type="checkbox"> <b><u>SHOW SCOUT (versi lama)</u></b></label>
+              </div>
+              <hr>`;
 
+              html += `<label style="font-size:14px;"><b><u>SSP pada halaman? (hanya untuk report final versi 2020/2021)</u></b></label>
+              <select class="form-control form-control-sm" name="ssphalaman">
+                <option value ="0"> Halaman 1</option>
+                <option value ="1"> Halaman 2</option>
+              </select><br><br>`;
 
               for (i = 0; i < data.length; i++) {
                 html += '<div class="checkbox ml-2">';
@@ -1233,8 +1245,8 @@ $(document).ready(function () {
                 html += '</div>';
               }
 
-              html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
-              html += 'Show Report';
+              html += '<button type="submit" class="btn btn-secondary btn-user btn-block">';
+              html += 'Tampilkan';
               html += '</button>';
 
             }

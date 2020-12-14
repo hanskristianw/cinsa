@@ -7,7 +7,7 @@
         <div class="col-lg">
           <div class="p-5 overflow-auto">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4">Select Year, Class and Students</h1>
+              <h1 class="h4 text-gray-900 mb-4">Pilih Unit, Tahun dan Kelas</h1>
             </div>
 
             <?= $this->session->flashdata('message'); ?>
@@ -17,7 +17,7 @@
               <div class="form-group row">
                 <div class="col-sm mb-sm-0">
                   <select name="sk" id="sk_id_report" class="form-control form-control-sm sk_id_report">
-                    <option value="0">Select School</option>
+                    <option value="0">Pilih Unit</option>
                     <?php foreach ($sk_all as $m) : ?>
                       <option value='<?= $m['sk_id'] ?>'>
                         <?= $m['sk_nama']; ?>
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-sm mb-sm-0">
                   <select name="t" id="t" class="form-control form-control-sm">
-                    <option value="0">Select Year</option>
+                    <option value="0">Pilih Tahun</option>
                     <?php foreach ($t_all as $m) : ?>
                       <option value='<?= $m['t_id'] ?>'>
                         <?= $m['t_nama']; ?>

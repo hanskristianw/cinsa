@@ -125,8 +125,8 @@
               ?>
                   <div class="grid-logo mb-4">
                     <div style="text-align:center;">
-                      <img src="<?= base_url('assets/img/') ?>nsa.png" alt="NSA Student" class="brand-image img-circle elevation-3"
-                       style="opacity: 1;width: 100%;max-width: 100px;height: auto;">
+                      <img src="<?= base_url('assets/img/') ?>nsa2.jpeg" alt="NSA Student"
+                       style="opacity: 1; max-width: 60px;height: auto;-moz-border-radius: 0px;-webkit-border-radius: 0px;border-radius: 0px;">
                     </div>
 
                     <div style="text-align: left;" class="sekolah">
@@ -136,32 +136,32 @@
                     </div>
                   </div>
 
-
-                  <table style="width:100%; font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;">
+                  <table class="atas" style="width:100%; margin-top: 30px;font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;">
                     <tr>
-                      <td style="width:80px;">NAME</td>
+                      <td style="width:10%">NAME</td>
                       <td style="width:60%;">: <?= $siswa[0]['sis_nama_depan'] . " " . $siswa[0]['sis_nama_bel'] ?></td>
-                      <td style="width:100px;">SEMESTER</td>
-                      <td>: <?= returnNamaSemester($semester) ?></td>
+                      <td style="width:10%">SEMESTER</td>
+                      <td style="width:20%">: <?= returnNamaSemester($semester) ?></td>
                     </tr>
                     <tr>
-                      <td>ID NUMBER</td>
+                      <td>ID</td>
                       <td>: <?= $siswa[0]['sis_no_induk'] ?></td>
-                      <td>SCHOOL YEAR</td>
+                      <td>YEAR</td>
                       <td>: <?= $t['t_nama'] ?></td>
                     </tr>
                     <tr>
                       <td>CLASS</td>
                       <td>: <?= $siswa[0]['kelas_nama'] ?> </td>
                       <?php
-                      $program = explode(" ", $siswa[0]['kelas_nama']);
-                      if (isset($program[1])) :
-                      ?>
+                          $program = explode(" ", $siswa[0]['kelas_nama']);
+                          if (isset($program[1])) :
+                            ?>
                         <td>PROGRAM</td>
                         <td>: <?= $program[1] ?></td>
                       <?php endif; ?>
                     </tr>
                   </table>
+
                   <hr style="height:5px; visibility:hidden;" />
 
                   <!-- HALAMAN 1 Kognitif Psikomotor -->
@@ -289,18 +289,18 @@
                             $n_akhir = round($kognitif * $persen_peng_akhir / 100 + $psikomotor * $persen_ket_akhir / 100);
                           }
                           ?>
-                          <td class='biasa' style='width:80px;'>
+                          <td class='biasa' style='width:50px;'>
                             <a class='link-kog' style="text-decoration : none; color: inherit;" rel="<?= $m['mapel_id'] ?>" rel2="<?= $sis_arr[$i] ?>" rel3="<?= $semester ?>" rel4="<?= $persen_forma_peng ?>" rel5="<?= $persen_summa_peng ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2">
                               <?= $kognitif ?>
                             </a>
                           </td>
-                          <td class='biasa'><?= grading($kognitif - $m['mapel_kkm']) ?></td>
-                          <td class='biasa' style='width:80px;'>
+                          <td class='biasa' style="padding: 0px 5px 0px 5px;"><?= grading($kognitif - $m['mapel_kkm']) ?></td>
+                          <td class='biasa' style='width:50px;'>
                             <a class='link-psi' style="text-decoration : none; color: inherit;" rel="<?= $m['mapel_id'] ?>" rel2="<?= $sis_arr[$i] ?>" rel3="<?= $semester ?>" rel4="<?= $persen_forma_ket ?>" rel5="<?= $persen_summa_ket ?>" href='javascript:void(0)' data-toggle="myModal2" data-target="#myModal2">
                               <?= $psikomotor ?>
                             </a>
                           </td>
-                          <td class='biasa'><?= grading($psikomotor - $m['mapel_kkm']) ?></td>
+                          <td class='biasa' style="padding: 0px 5px 0px 5px;"><?= grading($psikomotor - $m['mapel_kkm']) ?></td>
                         </tr>
                       <?php
                         $nomor_hal1++;
@@ -308,6 +308,10 @@
                       ?>
                     </tbody>
                   </table>
+
+                  <?php if($ssphalaman == 1): ?>
+                    <p style="page-break-after: always;">&nbsp;</p>
+                  <?php endif; ?>
 
                   <?php
                   $ssp_siswa = returnNilaiSspFinal($sis_arr[$i], $semester);
@@ -317,7 +321,9 @@
                     $huruf += 1;
                   ?>
 
-                    <hr style="height:5px; visibility:hidden;" />
+                    <?php if($ssphalaman == 0): ?>
+                      <hr style="height:5px; visibility:hidden;" />
+                    <?php endif; ?>
                     <label style="font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;"><?= chr($huruf) ?>. <?= $kepsek['sk_ex_nama'] ?></label>
 
                     <table class='rapot'>
@@ -364,14 +370,21 @@
                         </tr>
                       </tbody>
                     </table>
+                    
+                    <?php if($ssphalaman == 1): ?>
+                      <hr style="height:5px; visibility:hidden;" />
+                    <?php endif; ?>
 
                   <?php
                   endif;
                   ?>
 
-                  <p style="page-break-after: always;">&nbsp;</p>
+                  <?php if($ssphalaman == 0): ?>
+                    <p style="page-break-after: always;">&nbsp;</p>
+                  <?php endif; ?>
 
                   <!-- HALAMAN 2 CHARACTER BUILDING -->
+
                   <label style="font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;"><?= chr($huruf+1) ?>. CHARACTER BUILDING</label>
 
                   <table class='rapot'>
@@ -641,7 +654,7 @@
 
                   <div id='textbox'>
                     <p class='alignleft_bawah'>
-                      <br>Acknowledged by<br>
+                      <br><br><br>
                       Parents / Guardian<br><br><br><br><br><br>
                       ............................................
                     </p>

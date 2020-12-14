@@ -27,7 +27,7 @@ class Report_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'Class List';
+    $data['title'] = 'Report Menu';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -163,6 +163,8 @@ class Report_CRUD extends CI_Controller
 
       $data['checkSsp'] = $this->input->post('checkSsp', TRUE);
       $data['checkScout'] = $this->input->post('checkScout', TRUE);
+
+      $data['ssphalaman'] = $this->input->post('ssphalaman', TRUE);
 
       $kelas_id = $this->input->post('kelas_id', TRUE);
 
