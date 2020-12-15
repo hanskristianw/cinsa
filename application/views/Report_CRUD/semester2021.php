@@ -348,11 +348,23 @@
                               <?php
                               $total += $m['ssp_nilai_angka'];
                               if (return_abjad_base4($m['ssp_nilai_angka']) == "A") {
-                                echo $m['ssp_topik_a'];
+                                $komen = str_replace("Students",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $m['ssp_topik_a']);
+                                $komen = str_replace("students",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $komen);
+                                $komen = str_replace("Student",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $komen);
+                                $komen = str_replace("student",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $komen);
+                                echo $komen;
                               } elseif (return_abjad_base4($m['ssp_nilai_angka']) == "B") {
-                                echo $m['ssp_topik_b'];
+                                $komen = str_replace("Students",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $m['ssp_topik_b']);
+                                $komen = str_replace("students",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $komen);
+                                $komen = str_replace("Student",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $komen);
+                                $komen = str_replace("student",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $komen);
+                                echo $komen;
                               } elseif (return_abjad_base4($m['ssp_nilai_angka']) == "C") {
-                                echo $m['ssp_topik_b'];
+                                $komen = str_replace("Students",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $m['ssp_topik_c']);
+                                $komen = str_replace("students",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $komen);
+                                $komen = str_replace("Student",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $komen);
+                                $komen = str_replace("student",  ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $komen);
+                                echo $komen;
                               } else {
                                 echo "-";
                               }
@@ -417,136 +429,14 @@
                       endforeach;
                       //$siswa_karakter = returnNilaiKarakter($sis_arr[$i],$semester);
                       ?>
-                      <?php
-                        $cb_siswa = returnNilaiCB($sis_arr[$i], $semester);
-                        if ($cb_siswa) :
-                      ?>
-                        <?php
-                          foreach ($cb_siswa as $m) :
-                        ?>
-                          <tr>
-                            <td class='nomor'><?= $nomor_karakter ?></td>
-                            <td style='padding: 0px 5px 0px 5px;'><?= $m['topik_cb_nama'] ?></td>
-                            <td style='text-align: center;'><?= return_abjad_base4($m['nilai']) ?></td>
-                            <td style='padding: 5px 5px 5px 5px;'>
-                              <?php
-                              $temp_desc_cb = "";
-                              if (return_abjad_base4($m['nilai']) == "A") {
-                                //rubah nama jadi nama siswa
-                                $temp_desc_cb = str_replace("{s}", ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $m['topik_cb_a']);
-
-                                //rubah his her huruf kecil
-                                $temp_desc_cb = str_replace("{his/her}", return_his_her($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah his her huruf besar
-                                $temp_desc_cb = str_replace("{HIS/HER}", ucfirst(return_his_her($siswa[0]['sis_jk'])), $temp_desc_cb);
-                                //rubah his her huruf kecil
-                                $temp_desc_cb = str_replace("{her/his}", return_his_her($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah his her huruf besar
-                                $temp_desc_cb = str_replace("{HER/HIS}", ucfirst(return_his_her($siswa[0]['sis_jk'])), $temp_desc_cb);
-
-                                //rubah he she huruf kecil
-                                $temp_desc_cb = str_replace("{he/she}", return_he_she($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah he she huruf besar
-                                $temp_desc_cb = str_replace("{HE/SHE}", ucfirst(return_he_she($siswa[0]['sis_jk'])), $temp_desc_cb);
-                                //rubah he she huruf kecil
-                                $temp_desc_cb = str_replace("{she/he}", return_he_she($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah he she huruf besar
-                                $temp_desc_cb = str_replace("{SHE/HE}", ucfirst(return_he_she($siswa[0]['sis_jk'])), $temp_desc_cb);
-
-                                //rubah himher huruf kecil
-                                $temp_desc_cb = str_replace("{her/him}", return_her_him($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah himher huruf besar
-                                $temp_desc_cb = str_replace("{HER/HIM}", ucfirst(return_her_him($siswa[0]['sis_jk'])), $temp_desc_cb);
-                                //rubah himher huruf kecil
-                                $temp_desc_cb = str_replace("{him/her}", return_her_him($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah himher huruf besar
-                                $temp_desc_cb = str_replace("{HIM/HER}", ucfirst(return_her_him($siswa[0]['sis_jk'])), $temp_desc_cb);
-
-                                echo $temp_desc_cb;
-                              } elseif (return_abjad_base4($m['nilai']) == "B") {
-                                $temp_desc_cb = str_replace("{s}", ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $m['topik_cb_b']);
-
-                                //rubah his her huruf kecil
-                                $temp_desc_cb = str_replace("{his/her}", return_his_her($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah his her huruf besar
-                                $temp_desc_cb = str_replace("{HIS/HER}", ucfirst(return_his_her($siswa[0]['sis_jk'])), $temp_desc_cb);
-                                //rubah his her huruf kecil
-                                $temp_desc_cb = str_replace("{her/his}", return_his_her($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah his her huruf besar
-                                $temp_desc_cb = str_replace("{HER/HIS}", ucfirst(return_his_her($siswa[0]['sis_jk'])), $temp_desc_cb);
-
-                                //rubah he she huruf kecil
-                                $temp_desc_cb = str_replace("{he/she}", return_he_she($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah he she huruf besar
-                                $temp_desc_cb = str_replace("{HE/SHE}", ucfirst(return_he_she($siswa[0]['sis_jk'])), $temp_desc_cb);
-                                //rubah he she huruf kecil
-                                $temp_desc_cb = str_replace("{she/he}", return_he_she($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah he she huruf besar
-                                $temp_desc_cb = str_replace("{SHE/HE}", ucfirst(return_he_she($siswa[0]['sis_jk'])), $temp_desc_cb);
-
-                                //rubah herself himher huruf kecil
-                                $temp_desc_cb = str_replace("{her/him}", return_her_him($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah herself himher huruf besar
-                                $temp_desc_cb = str_replace("{HER/HIM}", ucfirst(return_her_him($siswa[0]['sis_jk'])), $temp_desc_cb);
-                                //rubah himher huruf kecil
-                                $temp_desc_cb = str_replace("{him/her}", return_her_him($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah himher huruf besar
-                                $temp_desc_cb = str_replace("{HIM/HER}", ucfirst(return_her_him($siswa[0]['sis_jk'])), $temp_desc_cb);
-
-                                echo $temp_desc_cb;
-                              } elseif (return_abjad_base4($m['nilai']) == "C") {
-                                $temp_desc_cb = str_replace("{s}", ucfirst(strtolower($siswa[0]['sis_nama_depan'])), $m['topik_cb_c']);
-
-                                //rubah his her huruf kecil
-                                $temp_desc_cb = str_replace("{his/her}", return_his_her($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah his her huruf besar
-                                $temp_desc_cb = str_replace("{HIS/HER}", ucfirst(return_his_her($siswa[0]['sis_jk'])), $temp_desc_cb);
-                                //rubah his her huruf kecil
-                                $temp_desc_cb = str_replace("{her/his}", return_his_her($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah his her huruf besar
-                                $temp_desc_cb = str_replace("{HER/HIS}", ucfirst(return_his_her($siswa[0]['sis_jk'])), $temp_desc_cb);
-
-                                //rubah he she huruf kecil
-                                $temp_desc_cb = str_replace("{he/she}", return_he_she($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah he she huruf besar
-                                $temp_desc_cb = str_replace("{HE/SHE}", ucfirst(return_he_she($siswa[0]['sis_jk'])), $temp_desc_cb);
-                                //rubah he she huruf kecil
-                                $temp_desc_cb = str_replace("{she/he}", return_he_she($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah he she huruf besar
-                                $temp_desc_cb = str_replace("{SHE/HE}", ucfirst(return_he_she($siswa[0]['sis_jk'])), $temp_desc_cb);
-
-                                //rubah herself himher huruf kecil
-                                $temp_desc_cb = str_replace("{her/him}", return_her_him($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah herself himher huruf besar
-                                $temp_desc_cb = str_replace("{HER/HIM}", ucfirst(return_her_him($siswa[0]['sis_jk'])), $temp_desc_cb);
-                                //rubah himher huruf kecil
-                                $temp_desc_cb = str_replace("{him/her}", return_her_him($siswa[0]['sis_jk']), $temp_desc_cb);
-                                //rubah himher huruf besar
-                                $temp_desc_cb = str_replace("{HIM/HER}", ucfirst(return_her_him($siswa[0]['sis_jk'])), $temp_desc_cb);
-
-                                echo $temp_desc_cb;
-                              } else {
-                                echo "-";
-                              }
-                              ?>
-                            </td>
-                          </tr>
-                        <?php
-                            $nomor_karakter++;
-                          endforeach;
-                        ?>
-
-                      <?php
-                      endif;
-                      ?>
 
                     </tbody>
                   </table>
 
-                  <p style="page-break-after: always;">&nbsp;</p>
+                  <!-- <p style="page-break-after: always;">&nbsp;</p> -->
 
                   <!-- HALAMAN 3 ATTENDANCE-->
-
+                  <hr style="height:5px; visibility:hidden;" />
                   <label style="font-weight:bold;font-family:Cambria, sans-serif;font-size:13px;"><?= chr($huruf+2) ?>. ATTENDANCE RECORD</label>
                   <table class='rapot'>
                     <tbody>
@@ -643,9 +533,7 @@
                   <label style="font-weight:bold;font-family:Cambria, sans-serif;font-size:14px;padding: 0px 0px 0px 15px;"><?= $kata ?></label>
 
                   <?php endif; ?>
-                  <br><br><br><br>
-
-
+                  <br>
 
                   <div id='textbox'>
                     <p class='alignleft_bawah'>
