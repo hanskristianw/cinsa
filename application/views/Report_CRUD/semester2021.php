@@ -363,14 +363,9 @@
                           $nomor_hal2++;
                         endforeach;
                         ?>
-
-                        <tr>
-                          <td style='text-align: center; font-weight:bold; height: 20px;' colspan='2'>FINAL SCORE</td>
-                          <td style='text-align: center; font-weight:bold;' colspan='2'><?= return_abjad_base4($total / ($nomor_hal2 - 1)) ?></td>
-                        </tr>
                       </tbody>
                     </table>
-                    
+
                     <?php if($ssphalaman == 1): ?>
                       <hr style="height:5px; visibility:hidden;" />
                     <?php endif; ?>

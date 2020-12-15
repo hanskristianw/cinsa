@@ -250,17 +250,17 @@ class Report_CRUD extends CI_Controller
         $this->load->view('templates/footer');
       } elseif ($jenis == 1) {
 
-        if($this->input->post('checkFinalScore', TRUE) == "off"){
-          $this->load->view('templates/header', $data);
-          $this->load->view('templates/sidebar', $data);
-          $this->load->view('templates/topbar', $data);
-          $this->load->view('Report_CRUD/semester', $data);
-          $this->load->view('templates/footer');
-        }elseif($this->input->post('checkFinalScore', TRUE) == "on"){
+        if($this->input->post('checkFinalScore', TRUE) == "on"){
           $this->load->view('templates/header', $data);
           $this->load->view('templates/sidebar', $data);
           $this->load->view('templates/topbar', $data);
           $this->load->view('Report_CRUD/semester2021', $data);
+          $this->load->view('templates/footer');
+        }else{
+          $this->load->view('templates/header', $data);
+          $this->load->view('templates/sidebar', $data);
+          $this->load->view('templates/topbar', $data);
+          $this->load->view('Report_CRUD/semester', $data);
           $this->load->view('templates/footer');
         }
 
