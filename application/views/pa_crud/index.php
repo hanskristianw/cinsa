@@ -38,11 +38,16 @@
 
 <div class="grid-main">
 
-  <div class="box1 text-center mt-4"><h4><u>Daftar Kompetensi PA</u></h4></div>
+  <div class="box1 text-center mt-4"><h4><u><?= $title ?></u></h4></div>
 
 
   <div class="box1">
-    <a href="<?= base_url('PA_CRUD/add') ?>" class="btn btn-primary mb-3">&plus; Kompetensi PA</a>
+    <form action="<?= base_url('PA_CRUD/add') ?>" method="post">
+      <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
+      <button type="submit" class="btn btn-primary mb-3">
+        &plus; Kompetensi PA
+      </button>
+    </form>
   </div>
 
   <div class="box1">
@@ -81,6 +86,7 @@
             <td class="text-center">
               <form class="" action="<?= base_url('PA_CRUD/edit') ?>" method="post">
                 <input type="hidden" name="kompe_pa_id" value=<?= $m['kompe_pa_id'] ?>>
+                <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
                 <button type="submit" class="badge badge-warning">
                   Edit
                 </button>
@@ -89,6 +95,7 @@
             <td class="text-center">
               <form class="" action="<?= base_url('PA_CRUD/add_indi') ?>" method="post">
                 <input type="hidden" name="kompe_pa_id" value=<?= $m['kompe_pa_id'] ?>>
+                <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
                 <button type="submit" class="badge badge-success">
                   Indikator
                 </button>

@@ -1370,3 +1370,61 @@ function kpi_menu(){
 
   return $cek['jum'];
 }
+
+function detail_pegawai($kr_id){
+  $ci = &get_instance();
+
+  $cek = $ci->db->query(
+    "SELECT kr_id, kr_gelar_depan, kr_nama_depan, kr_nama_belakang, kr_gelar_belakang, kr_mulai_tgl, sk_nama
+    FROM kr
+    LEFT JOIN sk ON sk_id = kr_sk_id
+    WHERE kr_id = $kr_id"
+  )->row_array();
+
+  return $cek;
+}
+
+function detail_penilai_pa($kr_id, $t_id){
+  $ci = &get_instance();
+
+  $cek = $ci->db->query(
+    "SELECT kr_id, kr_gelar_depan, kr_nama_depan, kr_nama_belakang, kr_gelar_belakang
+    FROM nilai_pa
+    LEFT JOIN kr ON kr_id = nilai_pa_penilai_kr_id
+    WHERE nilai_pa_dinilai_kr_id = $kr_id AND nilai_pa_t_id = $t_id
+    GROUP BY nilai_pa_penilai_kr_id
+    ORDER BY kr_nama_depan"
+  )->result_array();
+
+  return $cek;
+}
+
+function detail_nil_pa($kr_penilai, $kr_dinilai, $t_id){
+  $ci = &get_instance();
+
+  $cek = $ci->db->query(
+    "SELECT nilai_pa_id, kompe_pa_nama, indi_pa_nama, nilai_pa_hasil
+    FROM nilai_pa
+    LEFT JOIN indi_pa ON indi_pa_id = nilai_pa_indi_pa_id
+    LEFT JOIN kompe_pa ON kompe_pa_id = indi_pa_kompe_pa_id
+    WHERE nilai_pa_t_id = $t_id AND nilai_pa_penilai_kr_id = $kr_penilai AND nilai_pa_dinilai_kr_id = $kr_dinilai
+    ORDER BY kompe_pa_id, indi_pa_id"
+  )->result_array();
+
+  return $cek;
+}
+
+function detail_nil_kpi($kr_penilai, $kr_dinilai, $t_id){
+  $ci = &get_instance();
+
+  $cek = $ci->db->query(
+    "SELECT nilai_kpi_id, kompe_kpi_nama, indi_kpi_nama, indi_kpi_target, indi_kpi_bobot, nilai_kpi_hasil, kompe_kpi_bobot, kompe_kpi_id
+    FROM nilai_kpi
+    LEFT JOIN indi_kpi ON indi_kpi_id = nilai_kpi_indi_kpi_id
+    LEFT JOIN kompe_kpi ON kompe_kpi_id = indi_kpi_kompe_kpi_id
+    WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $kr_penilai AND nilai_kpi_dinilai_kr_id = $kr_dinilai
+    ORDER BY kompe_kpi_id, indi_kpi_id"
+  )->result_array();
+
+  return $cek;
+}

@@ -35,6 +35,8 @@
     <form class="" action="<?= base_url('PA_CRUD/edit_proses'); ?>" method="post">
 
       <input type="hidden" name="kompe_pa_id" value="<?= $a['kompe_pa_id'] ?>" required>
+      <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>" required>
+      
       <label style="font-size:14px;"><b>Nama Kompetensi PA:</b></label>
       <input type="text" class="form-control form-control-sm mb-3" name="kompe_pa_nama" value="<?= $a['kompe_pa_nama'] ?>" required>
 

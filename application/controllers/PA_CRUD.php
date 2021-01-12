@@ -22,49 +22,86 @@ class PA_CRUD extends CI_Controller
 
   public function index()
   {
+    if($this->input->get('jabatan_kpi_id')){
 
-    $data['title'] = 'Kompetensi PA';
+      $jabatan_kpi_id = $this->input->get('jabatan_kpi_id');
 
-    //data karyawan yang sedang login untuk topbar
-    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $cek = $this->db->query(
+        "SELECT COUNT(*) AS jum
+        FROM jabatan_kpi
+        WHERE jabatan_kpi_id = $jabatan_kpi_id"
+      )->row_array();
 
-    $data['kpi_all'] = $this->db->query(
-      "SELECT kompe_pa_id, kompe_pa_nama, GROUP_CONCAT(indi_pa_nama SEPARATOR ';;') as indi_pa_nama
-      FROM kompe_pa
-      LEFT JOIN indi_pa ON indi_pa_kompe_pa_id = kompe_pa_id
-      GROUP BY kompe_pa_id
-      ORDER BY kompe_pa_nama"
-    )->result_array();
+      if($cek['jum'] == 0){
+        redirect('Profile');
+      }
 
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('PA_CRUD/index', $data);
-    $this->load->view('templates/footer');
+      $jb = $this->db->query(
+        "SELECT jabatan_kpi_nama
+        FROM jabatan_kpi
+        WHERE jabatan_kpi_id = $jabatan_kpi_id"
+      )->row_array();
+
+      $data['title'] = 'Kompetensi PA untuk '.$jb['jabatan_kpi_nama'];
+      $data['jabatan_kpi_id'] = $jabatan_kpi_id;
+
+      //data karyawan yang sedang login untuk topbar
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $data['kpi_all'] = $this->db->query(
+        "SELECT kompe_pa_id, kompe_pa_nama, GROUP_CONCAT(indi_pa_nama SEPARATOR ';;') as indi_pa_nama
+        FROM kompe_pa
+        LEFT JOIN indi_pa ON indi_pa_kompe_pa_id = kompe_pa_id
+        WHERE kompe_pa_jabatan_kpi_id = $jabatan_kpi_id
+        GROUP BY kompe_pa_id
+        ORDER BY kompe_pa_nama"
+      )->result_array();
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('PA_CRUD/index', $data);
+      $this->load->view('templates/footer');
+    }else {
+      redirect('Profile');
+    }
   }
 
   public function add(){
-    $data['title'] = 'Tambah Kompetensi';
+    if($this->input->post('jabatan_kpi_id')){
 
-    //data karyawan yang sedang login untuk topbar
-    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $jabatan_kpi_id = $this->input->post('jabatan_kpi_id');
+      $jb = $this->db->query(
+        "SELECT jabatan_kpi_nama
+        FROM jabatan_kpi
+        WHERE jabatan_kpi_id = $jabatan_kpi_id"
+      )->row_array();
 
-    $this->load->view('templates/header', $data);
-    $this->load->view('templates/sidebar', $data);
-    $this->load->view('templates/topbar', $data);
-    $this->load->view('PA_CRUD/add', $data);
-    $this->load->view('templates/footer');
+      $data['title'] = 'Tambah Kompetensi PA '.$jb['jabatan_kpi_nama'];
+
+      $data['jabatan_kpi_id'] = $this->input->post('jabatan_kpi_id');
+
+      //data karyawan yang sedang login untuk topbar
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('PA_CRUD/add', $data);
+      $this->load->view('templates/footer');
+    }
   }
 
   public function add_proses(){
     if($this->input->post('kompe_pa_nama')){
       $data = [
         'kompe_pa_nama' => $this->input->post('kompe_pa_nama'),
+        'kompe_pa_jabatan_kpi_id' => $this->input->post('jabatan_kpi_id'),
       ];
 
       $this->db->insert('kompe_pa', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kompetensi berhasil dibuat!</div>');
-      redirect('PA_CRUD/add');
+      redirect('PA_CRUD?jabatan_kpi_id='.$this->input->post('jabatan_kpi_id'));
     }
   }
 
@@ -76,6 +113,7 @@ class PA_CRUD extends CI_Controller
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
       $kompe_pa_id = $this->input->post('kompe_pa_id');
+      $data['jabatan_kpi_id'] = $this->input->post('jabatan_kpi_id');
 
       $data['a'] = $this->db->query(
         "SELECT * FROM
@@ -105,7 +143,7 @@ class PA_CRUD extends CI_Controller
       $this->db->update('kompe_pa', $data);
 
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kompetensi berhasil diupdate!</div>');
-      redirect('PA_CRUD');
+      redirect('PA_CRUD?jabatan_kpi_id='.$this->input->post('jabatan_kpi_id'));
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
@@ -131,6 +169,7 @@ class PA_CRUD extends CI_Controller
       $data['title'] = 'Tambah Indikator '.$cek['kompe_pa_nama'];
 
       $data['kompe_pa_id'] = $kompe_pa_id;
+      $data['jabatan_kpi_id'] = $this->input->post('jabatan_kpi_id');
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
@@ -154,7 +193,7 @@ class PA_CRUD extends CI_Controller
 
       $this->db->insert('indi_pa', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Indikator berhasil dibuat!</div>');
-      redirect('PA_CRUD');
+      redirect('PA_CRUD?jabatan_kpi_id='.$this->input->post('jabatan_kpi_id'));
     }
   }
 
@@ -170,6 +209,7 @@ class PA_CRUD extends CI_Controller
 
 
       $data['title'] = 'Edit Indikator';
+      $data['jabatan_kpi_id'] = $this->input->post('jabatan_kpi_id');
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
@@ -196,7 +236,7 @@ class PA_CRUD extends CI_Controller
       $this->db->update('indi_pa', $data);
 
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Indikator berhasil diupdate!</div>');
-      redirect('PA_CRUD');
+      redirect('PA_CRUD?jabatan_kpi_id='.$this->input->post('jabatan_kpi_id'));
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');

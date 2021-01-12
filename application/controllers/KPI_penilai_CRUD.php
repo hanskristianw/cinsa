@@ -75,7 +75,7 @@ class KPI_penilai_CRUD extends CI_Controller
         LEFT JOIN kr ON kr_id = d_jabatan_kpi_kr_id
         LEFT JOIN sk ON kr_sk_id = sk_id
         WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id
-        ORDER BY kr_nama_depan")->result();
+        ORDER BY kr_nama_depan, kr_nama_belakang")->result();
 
       echo json_encode($data);
 

@@ -53,9 +53,9 @@
     <table class="table table-bordered table-hover table-sm" style="font-size:14px;">
       <thead class="thead-dark">
         <tr>
-          <th class="pt-4 pb-4 pl-2 text-center" colspan="3">Jabatan</th>
+          <th class="pt-4 pb-4 pl-2 text-center" colspan="4">Jabatan</th>
           <th class="pt-4 pb-4 pl-2 text-center" colspan="2">Penilai</th>
-          <th class="pt-4 pb-4 pl-2 text-center" colspan="2" style="width:20%;">Action</th>
+          <th class="pt-4 pb-4 pl-2 text-center" colspan="3" style="width:20%;">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -68,7 +68,7 @@
               <form class="" action="<?= base_url('Jabatan_KPI_CRUD/edit_peserta') ?>" method="post">
                 <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>
                 <button type="submit" class="badge badge-info">
-                  Edit Peserta
+                  Edit Pegawai
                 </button>
               </form>
             </td>
@@ -76,7 +76,15 @@
               <form class="" action="<?= base_url('Jabatan_KPI_CRUD/edit') ?>" method="post">
                 <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>
                 <button type="submit" class="badge badge-success">
-                  Edit Nama Jabatan
+                  Edit Nama
+                </button>
+              </form>
+            </td>
+            <td class="text-center">
+              <form class="" action="<?= base_url('Laporan_KPI_CRUD') ?>" method="get">
+                <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>
+                <button type="submit" class="badge badge-secondary">
+                  Dapat melihat laporan
                 </button>
               </form>
             </td>
@@ -85,7 +93,7 @@
               <form class="" action="<?= base_url('Jabatan_KPI_CRUD/edit_penilai') ?>" method="post">
                 <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>
                 <button type="submit" class="badge badge-primary">
-                  Edit Jabatan Penilai
+                  Edit Penilai
                 </button>
               </form>
             </td>
@@ -94,6 +102,14 @@
                 <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>
                 <button type="submit" class="badge badge-secondary">
                   Edit KPI
+                </button>
+              </form>
+            </td>
+            <td class="text-center">
+              <form class="" action="<?= base_url('PA_CRUD') ?>" method="get">
+                <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>
+                <button type="submit" class="badge badge-secondary">
+                  Edit PA
                 </button>
               </form>
             </td>

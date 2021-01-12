@@ -33,6 +33,8 @@
   <div class="box1">
 
     <form class="" action="<?= base_url('PA_CRUD/add_proses'); ?>" method="post">
+      
+      <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
 
       <label style="font-size:14px;"><b>Nama Kompetensi:</b></label>
       <input type="text" class="form-control form-control-sm mb-3" name="kompe_pa_nama" value="" required>

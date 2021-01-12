@@ -29,6 +29,7 @@
                   <h6 class="collapse-header">Nilai</h6>
                   <a class="collapse-item" href=' . base_url('KPI_penilai_CRUD') . '>1. KPI</a>
                   <a class="collapse-item" href=' . base_url('PA_penilai_CRUD') . '>2. PA</a>
+                  <a class="collapse-item" href=' . base_url('Hasil_KPI_CRUD') . '>3. Laporan</a>
                 </div>
               </div>
             </li>
@@ -64,7 +65,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Master</h6>
               <a class="collapse-item" href=' . base_url('Jabatan_KPI_CRUD') . '>1. Jabatan</a>
-              <a class="collapse-item" href=' . base_url('Jabatan_KPI_CRUD') . '>2. Persentase KPI</a>
+              <a class="collapse-item" href=' . base_url('Persen_KPI_CRUD') . '>2. Persentase</a>
             </div>
           </div>
         </li>

@@ -35,6 +35,7 @@
     <form class="" action="<?= base_url('PA_CRUD/edit_indi_proses'); ?>" method="post">
 
       <input type="hidden" name="indi_pa_id" value="<?= $indi['indi_pa_id'] ?>" required>
+      <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
       <label style="font-size:14px;"><b>Nama Indikator:</b></label>
       <input type="text" class="form-control form-control-sm mb-3" name="indi_pa_nama" value="<?= $indi['indi_pa_nama'] ?>" required>
 

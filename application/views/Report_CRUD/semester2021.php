@@ -70,7 +70,7 @@
 
               function grading($grading_akhir)
               {
-                if ($grading_akhir > 16)
+                if ($grading_akhir > 15)
                   return "EXCELLENT";
                 elseif ($grading_akhir >= 11)
                   return "GOOD";

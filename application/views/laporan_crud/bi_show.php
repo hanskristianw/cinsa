@@ -10,7 +10,7 @@
             <?= $this->session->flashdata('message'); ?>
 
             <div id="print_area">
-            <?php foreach($kelas_all as $n): 
+            <?php foreach($kelas_all as $n):
               $siswa = show_siswa_by_sis_arr($sis_arr);
 
               $mapel_ajar = show_mapel_header_summary_urut_raport($n['kelas_id']);
@@ -28,7 +28,7 @@
                 </p>
                 <p class='alignright'>
                     NISN &nbsp&nbsp&nbsp&emsp;&thinsp;&emsp;: <?= $s['sis_nisn'] ?><br>
-                    <?php 
+                    <?php
                       $program = explode(" ", $n['kelas_nama']);
                       if(isset($program[1]))
                         echo "PROGRAM ST ".$program[1];
@@ -78,9 +78,9 @@
                   <td style='text-align: center;'>Angka</td>
                   <td style='text-align: center;'>Predikat</td>
                 </tr>
-                <?php 
+                <?php
                   $no = 1;
-                  foreach($mapel_ajar as $m): 
+                  foreach($mapel_ajar as $m):
                     $nil_fin = return_raport_fin_mapel($s['d_s_id'], 1, $n['kelas_jenj_id'], $m['mapel_id'], $t_id);
 
                     $for_kog = $nil_fin['for_kog'];
@@ -90,7 +90,7 @@
                     $sum_kog_sem2 = $nil_fin['sum_kog_sem2'];
                     $sum_psi_sem2 = $nil_fin['sum_psi_sem2'];
 
-                    //PENGETAHUAN 
+                    //PENGETAHUAN
                     //formative 70
                     if (isset($nil_fin['persen_forma_peng']))
                       $persen_forma_peng = $nil_fin['persen_forma_peng'];
@@ -157,7 +157,7 @@
                     <td style='text-align: center;'><?= $n_akhir2 ?></td>
                     <td style='text-align: center;'><?= return_abjad_afek($nil_fin2['total']) ?></td>
                   </tr>
-                <?php 
+                <?php
                   $no++;
                   endforeach;
                 ?>
@@ -172,12 +172,12 @@
                 <?php
                   $ssp = returnSSPSiswa($s['d_s_id']);
                   $nossp = 1;
-                  foreach($ssp as $ss): 
+                  foreach($ssp as $ss):
                 ?>
                 <tr>
                   <td><?= $nossp ?></td>
                   <td><?= $ss['ssp_nama'] ?></td>
-                  <?php 
+                  <?php
                     $sspsem1 = returnnilSSPSiswa($s['d_s_id'],1,$ss['ssp_id']);
                     $sspsem2 = returnnilSSPSiswa($s['d_s_id'],2,$ss['ssp_id']);
                   ?>
@@ -230,8 +230,8 @@
                   $karakter = returnNilaiKarakter($s['d_s_id'],1);
 
                   $nok = 1;
-                  
-                  foreach($karakter as $k): 
+
+                  foreach($karakter as $k):
                     if($k['karakter_id']):
                 ?>
                 <tr>
@@ -241,7 +241,7 @@
                   <?php
                     $k_nil = returnNilaiKarakterbyID($s['d_s_id'], 2, $k['karakter_id']);
                   ?>
-                  <td colspan='5' style='text-align: center;'><?= $k_nil['total'] ?></td>
+                  <td colspan='5' style='text-align: center;'><?= return_abjad_afek($k_nil['total']) ?></td>
                 </tr>
                 <?php $nok++; endif; endforeach; ?>
                 <tr>
@@ -293,11 +293,11 @@
               </div>
               <div style='clear: both;'></div>
               <p style="page-break-after: always;"></p>
-              
+
               <?php endforeach;?>
             <?php endforeach;?>
             </div>
-            
+
             <input type="button" name="export_excel" id="export_excel" class="btn btn-primary" value="Export To Excel">
             <input type="button" name="print_rekap" id="print_rekap" class="btn btn-success" value="Print">
           </div>
