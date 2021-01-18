@@ -123,16 +123,9 @@
                 if (isset($siswa[0]['sis_nama_depan'])) :
 
               ?>
-                  <div class="grid-logo mb-4">
-                    <div style="text-align:center;">
-                      <img src="<?= base_url('assets/img/') ?>nsa2.jpeg" alt="NSA Student"
-                       style="opacity: 1; max-width: 60px;height: auto;-moz-border-radius: 0px;-webkit-border-radius: 0px;border-radius: 0px;">
-                    </div>
-
-                    <div style="text-align: left;" class="sekolah">
-                      <div style="display: inline-block; text-align: center;">
-                        <p class='judul mt-4'>NATION STAR ACADEMY <?= strtoupper($kepsek['sk_nickname']) ?><br>REPORT CARD</p>
-                      </div>
+                  <div style="text-align: center;" class="sekolah">
+                    <div style="display: inline-block; text-align: center;">
+                      <p class='judul mt-4'>NATION STAR ACADEMY <?= strtoupper($kepsek['sk_nickname']) ?><br>REPORT CARD</p>
                     </div>
                   </div>
 
