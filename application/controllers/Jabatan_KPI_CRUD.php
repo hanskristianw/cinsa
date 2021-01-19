@@ -267,4 +267,19 @@ class Jabatan_KPI_CRUD extends CI_Controller
     }
   }
 
+  public function delete_penilai(){
+    if($this->input->post('dkpi_id')){
+
+      $dkpi_id = $this->input->post('dkpi_id');
+
+      $this->db->where('dkpi_id', $dkpi_id);
+      $this->db->delete('dkpi');
+
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Delete Sukses!</div>');
+      redirect('Jabatan_KPI_CRUD');
+
+    }
+
+  }
+
 }
