@@ -50,7 +50,7 @@
       <thead class="thead-dark">
         <tr>
           <th class="pt-4 pb-4 pl-2">Indikator</th>
-          <th class="pt-4 pb-4 pl-2 text-center" colspan="3" style="width:20%;">Action</th>
+          <th class="pt-4 pb-4 pl-2 text-center" colspan="2" style="width:20%;">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -65,6 +65,15 @@
                 <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
                 <button type="submit" class="badge badge-warning">
                   Edit
+                </button>
+              </form>
+            </td>
+            <td>
+              <form class="" action="<?= base_url('PA_CRUD/delete_indi') ?>" method="post">
+                <input type="hidden" name="indi_pa_id" value=<?= $m['indi_pa_id'] ?>>
+                <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
+                <button type="submit" class="badge badge-danger" onclick="return confirm('Menghapus indikator akan menghapus SEMUA nilai indikator pada setiap tahun, lanjutkan?')">
+                  delete
                 </button>
               </form>
             </td>
