@@ -247,4 +247,18 @@ class KPI_CRUD extends CI_Controller
     }
   }
 
+  public function delete_indi(){
+    if($this->input->post('indi_kpi_id')){
+
+      $indi_kpi_id = $this->input->post('indi_kpi_id');
+
+      $this->db->where('indi_kpi_id', $indi_kpi_id);
+      $this->db->delete('indi_kpi');
+
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Indikator berhasil dihapus!</div>');
+      redirect('KPI_CRUD?jabatan_kpi_id='.$this->input->post('jabatan_kpi_id'));
+
+    }
+  }
+
 }
