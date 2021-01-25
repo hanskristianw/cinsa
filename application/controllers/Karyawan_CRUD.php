@@ -230,9 +230,9 @@ class Karyawan_CRUD extends CI_Controller
 
       if ($err['code'] == "1451") {
         $msg_type = "danger";
-        $msg = "Cannot Delete Employee if employee have score, is counselor, is homeroom teacher, is ssp teacher or principal";
+        $msg = "Gagal menghapus karyawan, tidak bisa menghapus karyawan jika karyawan masih tercatat sebagai kepsek, punya nilai kpi, konselor, dan atau wali kelas, silahkan non aktifkan karyawan";
       }
-      //var_dump($err);
+
       $this->session->set_flashdata('message', '<div class="alert alert-' . $msg_type . '" role="alert">' . $msg . '</div>');
       redirect('karyawan_crud');
     } else {
