@@ -104,7 +104,8 @@
             <td class="text-center">
               <form class="" action="<?= base_url('PA_CRUD/delete') ?>" method="post">
                 <input type="hidden" name="kompe_pa_id" value=<?= $m['kompe_pa_id'] ?>>
-                <button type="submit" class="badge badge-danger">
+                <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
+                <button type="submit" class="badge badge-danger" onclick="return confirm('Menghapus Kompetensi akan menghapus SEMUA indikator dan nilai pada setiap tahun, lanjutkan?')">
                   Delete
                 </button>
               </form>

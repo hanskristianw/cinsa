@@ -257,4 +257,18 @@ class PA_CRUD extends CI_Controller
     }
   }
 
+  public function delete(){
+    if($this->input->post('kompe_pa_id')){
+
+      $kompe_pa_id = $this->input->post('kompe_pa_id');
+
+      $this->db->where('kompe_pa_id', $kompe_pa_id);
+      $this->db->delete('kompe_pa');
+
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Kompetensi berhasil dihapus!</div>');
+      redirect('PA_CRUD?jabatan_kpi_id='.$this->input->post('jabatan_kpi_id'));
+
+    }
+  }
+
 }
