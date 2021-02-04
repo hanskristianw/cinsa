@@ -131,14 +131,16 @@ class Jabatan_KPI_CRUD extends CI_Controller
       $data['jabatan_all'] = $this->db->query(
         "SELECT * FROM
         jabatan_kpi
-        WHERE jabatan_kpi_id != $jabatan_kpi_id"
+        WHERE jabatan_kpi_id != $jabatan_kpi_id
+        ORDER BY jabatan_kpi_nama"
       )->result_array();
 
       $data['penilai_all'] = $this->db->query(
         "SELECT dkpi_id, jabatan_kpi_nama
         FROM dkpi
         LEFT JOIN jabatan_kpi ON jabatan_kpi_id = dkpi_penilai_jabatan_kpi_id
-        WHERE dkpi_responden_jabatan_kpi_id = $jabatan_kpi_id"
+        WHERE dkpi_responden_jabatan_kpi_id = $jabatan_kpi_id
+        ORDER BY jabatan_kpi_nama"
       )->result_array();
 
       if(count($data['jabatan_all'])>0){
