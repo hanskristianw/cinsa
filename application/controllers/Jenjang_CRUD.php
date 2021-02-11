@@ -64,7 +64,7 @@ class Jenjang_CRUD extends CI_Controller
       $this->load->view('templates/topbar', $data);
       $this->load->view('Jenjang_crud/add', $data);
       $this->load->view('templates/footer');
-    } 
+    }
     else {
 
       $data = [
@@ -72,7 +72,7 @@ class Jenjang_CRUD extends CI_Controller
         'jenj_sk_id' => $this->session->userdata('kr_sk_id')
       ];
 
-      
+
       $this->db->insert('jenj', $data);
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Level Created!</div>');
       redirect('jenjang_crud/add');
@@ -132,6 +132,31 @@ class Jenjang_CRUD extends CI_Controller
 
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Level Updated!</div>');
       redirect('Jenjang_CRUD');
+    }
+  }
+
+  public function delete(){
+    $jenj_id = $this->input->post('jenj_id', true);
+
+    if($jenj_id){
+      $cek = $this->db->query(
+        "SELECT *
+        FROM kelas
+        WHERE kelas_jenj_id = $jenj_id"
+      )->result_array();
+
+      if($cek){
+        $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Gagal menghapus, jenjang sudah memiliki kelas!</div>');
+        redirect('Jenjang_CRUD');
+      }else{
+        $this->db->where('jenj_id', $jenj_id);
+        $this->db->delete('jenj');
+
+        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Delete Sukses!</div>');
+        redirect('Jenjang_CRUD');
+      }
+
+
     }
   }
 }
