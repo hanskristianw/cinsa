@@ -768,7 +768,7 @@ function returnNilaiKarakter($d_s_id, $semester)
     LEFT JOIN mapel ON afektif_mapel_id = mapel_id
     LEFT JOIN karakter_detail ON karakter_detail_mapel_id = mapel_id
     LEFT JOIN karakter ON karakter_detail_karakter_id = karakter_id
-    WHERE afektif_d_s_id = $d_s_id AND bulan_semester = $semester
+    WHERE afektif_d_s_id = $d_s_id AND bulan_semester = $semester AND karakter_nama != 'NULL'
     )AS karakter
     GROUP BY karakter_id
     ORDER BY karakter_urutan"
