@@ -24,7 +24,7 @@ class Jadwal_CRUD extends CI_Controller
     //jika bukan wakakur, kadiv
     if (
       $this->session->userdata('kr_jabatan_id') != 4 &&
-      $this->session->userdata('kr_jabatan_id') != 5
+      $this->session->userdata('kr_jabatan_id') != 5 && !return_menu_kepsek()
     ) {
       redirect('Profile');
     }
@@ -39,6 +39,7 @@ class Jadwal_CRUD extends CI_Controller
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
     $sk_id = $this->session->userdata('kr_sk_id');
     if ($this->session->userdata('kr_jabatan_id') == 5) {
+      //pendidikan
       $data['sk_all'] = $this->db->query(
         "SELECT sk_id, sk_nama
         FROM sk
@@ -46,6 +47,14 @@ class Jadwal_CRUD extends CI_Controller
         ORDER BY sk_nama"
       )->result_array();
     } else if ($this->session->userdata('kr_jabatan_id') == 4) {
+      //wakakur
+      $data['sk_all'] = $this->db->query(
+        "SELECT sk_id, sk_nama
+        FROM sk
+        WHERE sk_id = $sk_id AND sk_type = 0"
+      )->result_array();
+    }else if (return_menu_kepsek()) {
+      //wakakur
       $data['sk_all'] = $this->db->query(
         "SELECT sk_id, sk_nama
         FROM sk
