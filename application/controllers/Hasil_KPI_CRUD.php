@@ -74,6 +74,9 @@ class Hasil_KPI_CRUD extends CI_Controller
 
       $data['kr_id'] = $this->input->post('kr_id', true);
       $data['t_id'] = $this->input->post('t_id', true);
+
+      $t_id = $this->input->post('t_id', true);
+
       $jabatan_kpi_id = $this->input->post('jabatan_kpi_id', true);
 
       $data['jab'] = $this->db->query(
@@ -84,8 +87,13 @@ class Hasil_KPI_CRUD extends CI_Controller
 
       $data['per'] = $this->db->query(
         "SELECT *
-        FROM persen_master"
+        FROM persen_master WHERE persen_master_t_id = $t_id"
       )->row_array();
+
+      if(!$data['per']){
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Persentase master belum diset untuk tahun ini, hubungi admin!</div>');
+        redirect('Hasil_KPI_CRUD');
+      }
 
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
