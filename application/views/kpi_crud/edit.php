@@ -36,7 +36,8 @@
 
       <input type="hidden" name="kompe_kpi_id" value="<?= $a['kompe_kpi_id'] ?>" required>
       <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>" required>
-      
+      <input type="hidden" name="t_id" value="<?= $t_id ?>">
+
       <label style="font-size:14px;"><b>Nama Kompetensi KPI:</b></label>
       <input type="text" class="form-control form-control-sm mb-3" name="kompe_kpi_nama" value="<?= $a['kompe_kpi_nama'] ?>" required>
 

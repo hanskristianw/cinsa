@@ -38,31 +38,27 @@
 
 <div class="grid-main">
 
-  <div class="box1 text-center mt-4"><h4><u><?= $title ?></u></h4></div>
+  <div class="box1 text-center mt-4"><h4><u><?= $title .' '. $t_nama['t_nama']?> </u></h4></div>
 
   <div class="box1">
     <?= $this->session->flashdata('message'); ?>
   </div>
 
   <div class="box1 mb-4">
+    <form class="" action="<?= base_url('Persen_KPI_CRUD/persen_update_proses'); ?>" method="post">
 
+      <input type="hidden" name="persen_master_id" value="<?= $p_master['persen_master_id'] ?>">
 
-    <form class="" action="<?= base_url('Persen_KPI_CRUD/persen'); ?>" method="post">
+      <b><u>Persentase KPI</u>:</b>
+      <input type="number" name="persen_master_kpi" value="<?= $p_master['persen_master_kpi'] ?>" max="100" min="0" class="form-control form-control-sm mt-1 mb-2 kpi">
 
-      <b><u>Pilih Tahun</u>:</b>
-      <select name="t_id" class="form-control form-control-sm mt-2">
-        <?php foreach ($t_all as $m) : ?>
-          <option value='<?= $m['t_id'] ?>'>
-            <?= $m['t_nama'] ?>
-          </option>
-        <?php endforeach ?>
-      </select>
+      <b><u>Persentase PA</u>:</b>
+      <input type="number" name="persen_master_pa" value="<?= $p_master['persen_master_pa'] ?>" max="100" min="0" class="form-control form-control-sm mt-1 pa">
 
       <button type="submit" class="btn btn-secondary btn-user btn-block mt-3">
-        Proses
+        Update
       </button>
     </form>
-
   </div>
 </div>
 
@@ -74,6 +70,14 @@
     });
     $(".alert-success").fadeTo(2000, 500).slideUp(500, function() {
       $(".alert-success").slideUp(500);
+    });
+
+    $(".pa").change(function() {
+      $(".kpi").val(100-$(this).val());
+    });
+
+    $(".kpi").change(function() {
+      $(".pa").val(100-$(this).val());
     });
 
   });

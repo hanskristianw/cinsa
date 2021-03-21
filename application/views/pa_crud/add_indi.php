@@ -37,6 +37,8 @@
       <input type="hidden" name="kompe_pa_id" value="<?= $kompe_pa_id ?>">
       <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
 
+      <input type="hidden" name="t_id" value="<?= $t_id ?>">
+
       <label style="font-size:14px;"><b>Nama Indikator:</b></label>
       <input type="text" class="form-control form-control-sm mb-3" name="indi_pa_nama" value="" required>
 
@@ -63,6 +65,7 @@
               <form class="" action="<?= base_url('PA_CRUD/edit_indi') ?>" method="post">
                 <input type="hidden" name="indi_pa_id" value=<?= $m['indi_pa_id'] ?>>
                 <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
+                <input type="hidden" name="t_id" value="<?= $t_id ?>">
                 <button type="submit" class="badge badge-warning">
                   Edit
                 </button>
@@ -72,7 +75,8 @@
               <form class="" action="<?= base_url('PA_CRUD/delete_indi') ?>" method="post">
                 <input type="hidden" name="indi_pa_id" value=<?= $m['indi_pa_id'] ?>>
                 <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
-                <button type="submit" class="badge badge-danger" onclick="return confirm('Menghapus indikator akan menghapus SEMUA nilai indikator pada setiap tahun, lanjutkan?')">
+                <input type="hidden" name="t_id" value="<?= $t_id ?>">
+                <button type="submit" class="badge badge-danger" onclick="return confirm('Menghapus indikator akan menghapus SEMUA nilai indikator pada tahun ini, lanjutkan?')">
                   delete
                 </button>
               </form>

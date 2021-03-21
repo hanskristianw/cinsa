@@ -93,7 +93,7 @@
 
         <table class="table table-bordered table-hover table-sm" style="font-size:14px;">
           <thead class="thead-dark">
-            <th class="pt-3 pb-3">FAKTOR PENILAIAN (KPI)</th>
+            <th class="pt-3 pb-3">FAKTOR PENILAIAN (PA)</th>
             <th class="pt-3 pb-3">Hasil</th>
           </thead>
           <tbody>

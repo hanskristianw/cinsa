@@ -44,6 +44,7 @@
   <div class="box1">
     <form action="<?= base_url('KPI_CRUD/add') ?>" method="post">
       <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
+      <input type="hidden" name="t_id" value="<?= $t_id ?>">
       <button type="submit" class="btn btn-primary mb-3">
         &plus; Kompetensi KPI
       </button>
@@ -89,6 +90,7 @@
               <form class="" action="<?= base_url('KPI_CRUD/edit') ?>" method="post">
                 <input type="hidden" name="kompe_kpi_id" value=<?= $m['kompe_kpi_id'] ?>>
                 <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
+                <input type="hidden" name="t_id" value="<?= $t_id ?>">
                 <button type="submit" class="badge badge-warning">
                   Edit
                 </button>
@@ -98,6 +100,7 @@
               <form class="" action="<?= base_url('KPI_CRUD/add_indi') ?>" method="post">
                 <input type="hidden" name="kompe_kpi_id" value=<?= $m['kompe_kpi_id'] ?>>
                 <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
+                <input type="hidden" name="t_id" value="<?= $t_id ?>">
                 <button type="submit" class="badge badge-success">
                   Indikator
                 </button>
@@ -107,7 +110,8 @@
               <form class="" action="<?= base_url('KPI_CRUD/delete') ?>" method="post">
                 <input type="hidden" name="kompe_kpi_id" value=<?= $m['kompe_kpi_id'] ?>>
                 <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
-                <button type="submit" class="badge badge-danger" onclick="return confirm('Menghapus Kompetensi akan menghapus SEMUA indikator dan nilai pada setiap tahun, lanjutkan?')">
+                <input type="hidden" name="t_id" value="<?= $t_id ?>">
+                <button type="submit" class="badge badge-danger" onclick="return confirm('Menghapus Kompetensi akan menghapus SEMUA indikator dan nilai, lanjutkan?')">
                   Delete
                 </button>
               </form>

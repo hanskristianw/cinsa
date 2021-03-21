@@ -47,7 +47,9 @@
   <div class="box1 mb-4">
 
 
-    <form class="" action="<?= base_url('Persen_KPI_CRUD/persen'); ?>" method="post">
+    <form class="" action="<?= base_url('PA_CRUD/index'); ?>" method="get">
+
+      <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
 
       <b><u>Pilih Tahun</u>:</b>
       <select name="t_id" class="form-control form-control-sm mt-2">

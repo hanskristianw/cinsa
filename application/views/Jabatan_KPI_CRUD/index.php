@@ -98,7 +98,7 @@
               </form>
             </td>
             <td class="text-center">
-              <form class="" action="<?= base_url('KPI_CRUD') ?>" method="get">
+              <form class="" action="<?= base_url('KPI_CRUD/tahun') ?>" method="get">
                 <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>
                 <button type="submit" class="badge badge-secondary">
                   Edit KPI
@@ -106,7 +106,7 @@
               </form>
             </td>
             <td class="text-center">
-              <form class="" action="<?= base_url('PA_CRUD') ?>" method="get">
+              <form class="" action="<?= base_url('PA_CRUD/tahun') ?>" method="get">
                 <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>
                 <button type="submit" class="badge badge-secondary">
                   Edit PA

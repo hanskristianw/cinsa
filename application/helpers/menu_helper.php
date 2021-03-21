@@ -1407,7 +1407,7 @@ function detail_nil_pa($kr_penilai, $kr_dinilai, $t_id){
     FROM nilai_pa
     LEFT JOIN indi_pa ON indi_pa_id = nilai_pa_indi_pa_id
     LEFT JOIN kompe_pa ON kompe_pa_id = indi_pa_kompe_pa_id
-    WHERE nilai_pa_t_id = $t_id AND nilai_pa_penilai_kr_id = $kr_penilai AND nilai_pa_dinilai_kr_id = $kr_dinilai
+    WHERE nilai_pa_t_id = $t_id AND nilai_pa_penilai_kr_id = $kr_penilai AND nilai_pa_dinilai_kr_id = $kr_dinilai AND kompe_pa_t_id = $t_id
     ORDER BY kompe_pa_id, indi_pa_id"
   )->result_array();
 
@@ -1422,7 +1422,7 @@ function detail_nil_kpi($kr_penilai, $kr_dinilai, $t_id){
     FROM nilai_kpi
     LEFT JOIN indi_kpi ON indi_kpi_id = nilai_kpi_indi_kpi_id
     LEFT JOIN kompe_kpi ON kompe_kpi_id = indi_kpi_kompe_kpi_id
-    WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $kr_penilai AND nilai_kpi_dinilai_kr_id = $kr_dinilai
+    WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $kr_penilai AND nilai_kpi_dinilai_kr_id = $kr_dinilai AND kompe_kpi_t_id = $t_id
     ORDER BY kompe_kpi_id, indi_kpi_id"
   )->result_array();
 

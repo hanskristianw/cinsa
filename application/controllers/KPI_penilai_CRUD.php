@@ -123,7 +123,7 @@ class KPI_penilai_CRUD extends CI_Controller
         FROM nilai_kpi
         LEFT JOIN indi_kpi ON indi_kpi_id = nilai_kpi_indi_kpi_id
         LEFT JOIN kompe_kpi ON kompe_kpi_id = indi_kpi_kompe_kpi_id
-        WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $kr_penilai AND nilai_kpi_dinilai_kr_id = $kr_dinilai
+        WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $kr_penilai AND nilai_kpi_dinilai_kr_id = $kr_dinilai AND kompe_kpi_t_id = $t_id
         ORDER BY kompe_kpi_id, indi_kpi_id"
       )->result_array();
 
@@ -135,13 +135,13 @@ class KPI_penilai_CRUD extends CI_Controller
           "SELECT indi_kpi_nama, indi_kpi_target, kompe_kpi_nama, indi_kpi_id
           FROM indi_kpi
           LEFT JOIN kompe_kpi ON indi_kpi_kompe_kpi_id = kompe_kpi_id
-          WHERE kompe_kpi_jabatan_kpi_id = $jabatan_kpi_id
+          WHERE kompe_kpi_jabatan_kpi_id = $jabatan_kpi_id AND kompe_kpi_t_id = $t_id
           AND indi_kpi_id NOT IN (
             SELECT indi_kpi_id
             FROM nilai_kpi
             LEFT JOIN indi_kpi ON indi_kpi_id = nilai_kpi_indi_kpi_id
             LEFT JOIN kompe_kpi ON kompe_kpi_id = indi_kpi_kompe_kpi_id
-            WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $kr_penilai AND nilai_kpi_dinilai_kr_id = $kr_dinilai
+            WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $kr_penilai AND nilai_kpi_dinilai_kr_id = $kr_dinilai AND kompe_kpi_t_id = $t_id
           )
           ORDER BY kompe_kpi_id, indi_kpi_id"
         )->result_array();
@@ -161,15 +161,21 @@ class KPI_penilai_CRUD extends CI_Controller
           "SELECT indi_kpi_nama, indi_kpi_target, kompe_kpi_nama, indi_kpi_id
           FROM indi_kpi
           LEFT JOIN kompe_kpi ON indi_kpi_kompe_kpi_id = kompe_kpi_id
-          WHERE kompe_kpi_jabatan_kpi_id = $jabatan_kpi_id
+          WHERE kompe_kpi_jabatan_kpi_id = $jabatan_kpi_id AND kompe_kpi_t_id = $t_id
           ORDER BY kompe_kpi_id, indi_kpi_id"
         )->result_array();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('KPI_penilai_CRUD/input', $data);
-        $this->load->view('templates/footer');
+        if($data['indi']){
+          $this->load->view('templates/header', $data);
+          $this->load->view('templates/sidebar', $data);
+          $this->load->view('templates/topbar', $data);
+          $this->load->view('KPI_penilai_CRUD/input', $data);
+          $this->load->view('templates/footer');
+        }else{
+          $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Belum terdapat indikator KPI, hubungi admin!</div>');
+          redirect('KPI_penilai_CRUD');
+        }
+
       }
     }
   }
@@ -199,7 +205,7 @@ class KPI_penilai_CRUD extends CI_Controller
         FROM nilai_kpi
         LEFT JOIN indi_kpi ON indi_kpi_id = nilai_kpi_indi_kpi_id
         LEFT JOIN kompe_kpi ON kompe_kpi_id = indi_kpi_kompe_kpi_id
-        WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $nilai_kpi_penilai_kr_id AND nilai_kpi_dinilai_kr_id = $nilai_kpi_dinilai_kr_id
+        WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $nilai_kpi_penilai_kr_id AND nilai_kpi_dinilai_kr_id = $nilai_kpi_dinilai_kr_id  AND kompe_kpi_t_id = $t_id
         AND indi_kpi_id IN ($indi_kpi_str)
         ORDER BY kompe_kpi_id, indi_kpi_id"
       )->result_array();
@@ -247,7 +253,7 @@ class KPI_penilai_CRUD extends CI_Controller
         FROM nilai_kpi
         LEFT JOIN indi_kpi ON indi_kpi_id = nilai_kpi_indi_kpi_id
         LEFT JOIN kompe_kpi ON kompe_kpi_id = indi_kpi_kompe_kpi_id
-        WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $nilai_kpi_penilai_kr_id AND nilai_kpi_dinilai_kr_id = $nilai_kpi_dinilai_kr_id
+        WHERE nilai_kpi_t_id = $t_id AND nilai_kpi_penilai_kr_id = $nilai_kpi_penilai_kr_id AND nilai_kpi_dinilai_kr_id = $nilai_kpi_dinilai_kr_id AND kompe_kpi_t_id = $t_id
         ORDER BY kompe_kpi_id, indi_kpi_id"
       )->result_array();
 
@@ -289,145 +295,6 @@ class KPI_penilai_CRUD extends CI_Controller
       $this->db->update_batch('nilai_kpi',$data, 'nilai_kpi_id');
       $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Update Sukses!</div>');
       redirect('KPI_penilai_CRUD');
-    }
-  }
-
-  public function edit(){
-    if($this->input->post('kompe_kpi_id')){
-      $data['title'] = 'Edit Kompetensi KPI';
-
-      //data karyawan yang sedang login untuk topbar
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-
-      $kompe_kpi_id = $this->input->post('kompe_kpi_id');
-      $data['jabatan_kpi_id'] = $this->input->post('jabatan_kpi_id');
-
-      $data['a'] = $this->db->query(
-        "SELECT * FROM
-        kompe_kpi
-        WHERE kompe_kpi_id = $kompe_kpi_id"
-      )->row_array();
-
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('KPI_CRUD/edit', $data);
-      $this->load->view('templates/footer');
-    }else{
-      redirect('KPI_CRUD');
-    }
-  }
-
-  public function edit_proses()
-  {
-    if ($this->input->post('kompe_kpi_id')) {
-
-      $data = [
-        'kompe_kpi_nama' => $this->input->post('kompe_kpi_nama'),
-        'kompe_kpi_bobot' => $this->input->post('kompe_kpi_bobot'),
-      ];
-
-      $this->db->where('kompe_kpi_id', $this->input->post('kompe_kpi_id'));
-      $this->db->update('kompe_kpi', $data);
-
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Kompetensi berhasil diupdate!</div>');
-      redirect('KPI_CRUD?jabatan_kpi_id='.$this->input->post('jabatan_kpi_id'));
-    } else {
-      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
-      redirect('Profile');
-    }
-  }
-
-  public function add_indi(){
-    if ($this->input->post('kompe_kpi_id')) {
-
-      $kompe_kpi_id = $this->input->post('kompe_kpi_id');
-      $cek = $this->db->query(
-        "SELECT * FROM
-        kompe_kpi
-        WHERE kompe_kpi_id = $kompe_kpi_id"
-      )->row_array();
-
-      $data['all_indi'] = $this->db->query(
-        "SELECT * FROM
-        indi_kpi
-        WHERE indi_kpi_kompe_kpi_id = $kompe_kpi_id"
-      )->result_array();
-
-      $data['title'] = 'Tambah Indikator '.$cek['kompe_kpi_nama'];
-
-      $data['kompe_kpi_id'] = $kompe_kpi_id;
-      //data karyawan yang sedang login untuk topbar
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('KPI_CRUD/add_indi', $data);
-      $this->load->view('templates/footer');
-    }else {
-      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
-      redirect('Profile');
-    }
-  }
-
-  public function add_indi_proses(){
-    if($this->input->post('kompe_kpi_id')){
-      $data = [
-        'indi_kpi_kompe_kpi_id' => $this->input->post('kompe_kpi_id'),
-        'indi_kpi_nama' => $this->input->post('indi_kpi_nama'),
-      ];
-
-      $this->db->insert('indi_kpi', $data);
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Indikator berhasil dibuat!</div>');
-      redirect('KPI_CRUD');
-    }
-  }
-
-  public function edit_indi(){
-    if ($this->input->post('indi_kpi_id')) {
-
-      $indi_kpi_id = $this->input->post('indi_kpi_id');
-      $data['indi'] = $this->db->query(
-        "SELECT * FROM
-        indi_kpi
-        WHERE indi_kpi_id = $indi_kpi_id"
-      )->row_array();
-
-
-      $data['title'] = 'Edit Indikator';
-      //data karyawan yang sedang login untuk topbar
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('KPI_CRUD/edit_indi', $data);
-      $this->load->view('templates/footer');
-    }else {
-      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
-      redirect('Profile');
-    }
-  }
-
-  public function edit_indi_proses()
-  {
-    if ($this->input->post('indi_kpi_id')) {
-
-      $data = [
-        'indi_kpi_nama' => $this->input->post('indi_kpi_nama'),
-        'indi_kpi_target' => $this->input->post('indi_kpi_target'),
-        'indi_kpi_bobot' => $this->input->post('indi_kpi_bobot'),
-      ];
-
-      $this->db->where('indi_kpi_id', $this->input->post('indi_kpi_id'));
-      $this->db->update('indi_kpi', $data);
-
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Indikator berhasil diupdate!</div>');
-      redirect('KPI_CRUD');
-    } else {
-      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
-      redirect('Profile');
     }
   }
 
