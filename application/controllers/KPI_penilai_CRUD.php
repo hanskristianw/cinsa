@@ -68,14 +68,87 @@ class KPI_penilai_CRUD extends CI_Controller
   public function get_guru_dinilai(){
     if($this->input->post('jabatan_kpi_id', true)){
       $jabatan_kpi_id = $this->input->post('jabatan_kpi_id', true);
+      $jabatan_penilai = $this->input->post('jabatan_penilai', true);
 
-      $data = $this->db->query(
-        "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama
-        FROM d_jabatan_kpi
-        LEFT JOIN kr ON kr_id = d_jabatan_kpi_kr_id
-        LEFT JOIN sk ON kr_sk_id = sk_id
-        WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id
-        ORDER BY kr_nama_depan, kr_nama_belakang")->result();
+      $kr_id = $this->session->userdata('kr_id');
+
+      //cek hak jabatan penilai
+      $cek = $this->db->query(
+        "SELECT jabatan_kpi_hak_penilai
+        FROM jabatan_kpi
+        WHERE jabatan_kpi_id = $jabatan_penilai")->row_array();
+
+      if($cek['jabatan_kpi_hak_penilai'] == 1){
+        //hanya unit yang sama dengan penilai
+        $cek_unit = $this->db->query(
+          "SELECT kr_sk_id
+          FROM kr
+          WHERE kr_id = $kr_id")->row_array();
+
+        $kr_sk_id = $cek_unit['kr_sk_id'];
+
+        $data = $this->db->query(
+          "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama
+          FROM d_jabatan_kpi
+          LEFT JOIN kr ON kr_id = d_jabatan_kpi_kr_id
+          LEFT JOIN sk ON kr_sk_id = sk_id
+          WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id AND kr_sk_id = $kr_sk_id
+          ORDER BY kr_nama_depan, kr_nama_belakang")->result();
+      }else{
+        //semua unit
+        $data = $this->db->query(
+          "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama
+          FROM d_jabatan_kpi
+          LEFT JOIN kr ON kr_id = d_jabatan_kpi_kr_id
+          LEFT JOIN sk ON kr_sk_id = sk_id
+          WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id
+          ORDER BY kr_nama_depan, kr_nama_belakang")->result();
+      }
+
+      echo json_encode($data);
+
+    }
+  }
+
+  public function get_guru_dinilai_laporan(){
+    if($this->input->post('jabatan_kpi_id', true)){
+      $jabatan_kpi_id = $this->input->post('jabatan_kpi_id', true);
+      $jabatan_penilai = $this->input->post('jabatan_penilai', true);
+
+      $kr_id = $this->session->userdata('kr_id');
+
+      //cek hak jabatan penilai
+      $cek = $this->db->query(
+        "SELECT jabatan_kpi_hak
+        FROM jabatan_kpi
+        WHERE jabatan_kpi_id = $jabatan_penilai")->row_array();
+
+      if($cek['jabatan_kpi_hak'] == 1){
+        //hanya unit yang sama dengan penilai
+        $cek_unit = $this->db->query(
+          "SELECT kr_sk_id
+          FROM kr
+          WHERE kr_id = $kr_id")->row_array();
+
+        $kr_sk_id = $cek_unit['kr_sk_id'];
+
+        $data = $this->db->query(
+          "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama
+          FROM d_jabatan_kpi
+          LEFT JOIN kr ON kr_id = d_jabatan_kpi_kr_id
+          LEFT JOIN sk ON kr_sk_id = sk_id
+          WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id AND kr_sk_id = $kr_sk_id
+          ORDER BY kr_nama_depan, kr_nama_belakang")->result();
+      }else{
+        //semua unit
+        $data = $this->db->query(
+          "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama
+          FROM d_jabatan_kpi
+          LEFT JOIN kr ON kr_id = d_jabatan_kpi_kr_id
+          LEFT JOIN sk ON kr_sk_id = sk_id
+          WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id
+          ORDER BY kr_nama_depan, kr_nama_belakang")->result();
+      }
 
       echo json_encode($data);
 

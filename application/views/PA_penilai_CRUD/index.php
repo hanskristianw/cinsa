@@ -129,6 +129,7 @@
         $('#guru_dinilai_ajax').html("");
 
         var jabatan_kpi_id = $(this).val();
+        var jabatan_penilai = $('#jabatan_kpi_id').val();
 
         if (jabatan_kpi_id > 0) {
           $.ajax(
@@ -136,7 +137,8 @@
               type: "post",
               url: base_url + "KPI_penilai_CRUD/get_guru_dinilai",
               data: {
-                'jabatan_kpi_id': jabatan_kpi_id
+                'jabatan_kpi_id': jabatan_kpi_id,
+                'jabatan_penilai': jabatan_penilai
               },
               async: true,
               dataType: 'json',

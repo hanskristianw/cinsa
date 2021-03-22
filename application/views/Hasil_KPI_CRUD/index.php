@@ -130,21 +130,25 @@
         $('#guru_dinilai_ajax').html("");
 
         var jabatan_kpi_id = $(this).val();
+        var jabatan_penilai = $('#jabatan_kpi_id').val();
+
+        //alert(jabatan_penilai);
 
         if (jabatan_kpi_id > 0) {
           $.ajax(
             {
               type: "post",
-              url: base_url + "KPI_penilai_CRUD/get_guru_dinilai",
+              url: base_url + "KPI_penilai_CRUD/get_guru_dinilai_laporan",
               data: {
-                'jabatan_kpi_id': jabatan_kpi_id
+                'jabatan_kpi_id': jabatan_kpi_id,
+                'jabatan_penilai': jabatan_penilai
               },
               async: true,
               dataType: 'json',
               success: function (data) {
                 //alert(data);
                 if (data.length == 0) {
-                  var html = '<div class="text-center mt-3 mb-3 text-danger"><b>--Belum ada karyawan yang terdaftar pada jabatan ini--</b></div>';
+                  var html = '<div class="text-center mt-3 mb-3 text-danger"><b>--Belum ada karyawan yang dapat anda lihat--</b></div>';
                 } else {
                   var html = ``;
                   var i;
