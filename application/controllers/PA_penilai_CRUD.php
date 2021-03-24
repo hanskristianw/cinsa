@@ -97,7 +97,7 @@ class PA_penilai_CRUD extends CI_Controller
       $data['t_id'] = $t_id;
 
       $data['kr_dinilai'] = $this->db->query(
-        "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama
+        "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama, kr_google_drive
         FROM kr
         LEFT JOIN sk ON kr_sk_id = sk_id
         WHERE kr_id = $kr_dinilai"
