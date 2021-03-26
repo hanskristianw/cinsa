@@ -1,51 +1,79 @@
-<div class="container">
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: 15% 15% 15% 25% 15% 15%;
+  grid-column-gap:4px;
+  padding-right:3px;
+}
+.grid-container > div{
+  text-align:left;
+}
 
-  <div class="card o-hidden border-0 shadow-lg my-5">
-    <div class="card-body p-0">
-      <!-- Nested Row within Card Body -->
-      <div class="row">
-        <div class="col-lg">
-          <div class="p-5 overflow-auto">
-            <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4">List of Class, Subject & Affective Topic</h1>
-            </div>
+.grid-main {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+  grid-column-gap:3px;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: 5px 5px 5px 5px;
+  overflow: auto;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
 
-            <?= $this->session->flashdata('message'); ?>
+.box1{
+  /*align-self:start;*/
+  grid-column:2/3;
+  overflow: auto;
+}
 
-            <form class="user" action="Afek_CRUD/input" method="POST">
-              <div class="form-group row">
-                <div class="col-sm mb-sm-0">
-                  <select name="t_id" id="afek_t_id" class="form-control">
-                    <option value="0">Select Year</option>
-                    <?php foreach ($t_all as $m) : ?>
-                      <option value='<?= $m['t_id'] ?>'>
-                        <?= $m['t_nama'] ?>
-                      </option>
-                    <?php endforeach ?>
-                  </select>
-                </div>
-                <div class="col-sm mb-sm-0">
-                  <select name="cek_agama" class="form-control">
-                      <option value='0'>Order By Name</option>
-                      <option value='1'>Group By Religion</option>
-                  </select>
-                </div>
-              </div>
-              <div id="kelas_afek_ajax">
+.box2{
+  /*align-self:start;*/
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap:3px;
+}
 
-              </div>
-              <div id="mapel_afek_ajax">
+</style>
 
-              </div>
-              <div id="topik_afek_ajax">
-              
-              </div>
-            </form>
+<div class="grid-main">
 
-          </div>
-        </div>
-      </div>
+  <div class="box1 mb-4">
+    <div class="text-center">
+      <h1 class="h4 text-gray-900 mb-4 mt-4"><u>Pilih tahun ajaran, kelas dan topik afektif</u></h1>
     </div>
+
+    <?= $this->session->flashdata('message'); ?>
+
+    <form class="user" action="Afek_CRUD/input" method="POST">
+
+      <label style="font-size:15px;" class="ml-1"><b><u>Urutan data:</u></b></label>
+      <select name="cek_agama" class="form-control form-control-sm mb-2">
+        <option value='0'>Urutkan berdasarkan nama</option>
+        <option value='1'>Kelompokkan berdasarkan agama</option>
+      </select>
+
+      <label style="font-size:15px;" class="ml-1"><b><u>Tahun Ajaran:</u></b></label>
+      <select name="t_id" id="afek_t_id" class="form-control form-control-sm">
+        <option value="0">Pilih Tahun</option>
+        <?php foreach ($t_all as $m) : ?>
+          <option value='<?= $m['t_id'] ?>'>
+            <?= $m['t_nama'] ?>
+          </option>
+        <?php endforeach ?>
+      </select>
+
+      <div id="kelas_afek_ajax" class="mt-2">
+
+      </div>
+      <div id="mapel_afek_ajax">
+
+      </div>
+      <div id="topik_afek_ajax">
+
+      </div>
+    </form>
+
   </div>
 
 </div>

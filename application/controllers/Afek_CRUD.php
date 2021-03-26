@@ -70,19 +70,19 @@ class Afek_CRUD extends CI_Controller
   public function get_topik(){
 
     if($this->input->post('mapel_id',TRUE)){
-    
+
       $mapel_id = $this->input->post('mapel_id',TRUE);
       $kelas_id = $this->input->post('kelas_id',TRUE);
-      
+
       //temukan jenjang id pada kelas itu
       $tahun = $this->db->query(
         "SELECT t_id, kelas_sk_id
         FROM kelas
         LEFT JOIN t ON kelas_t_id = t_id
         WHERE kelas_id = $kelas_id")->row_array();
-  
+
       //print_r($jenjang['jenj_id']);
-  
+
       $t_id = $tahun['t_id'];
       $sk_id = $tahun['kelas_sk_id'];
       $data = $this->db->query(
@@ -90,14 +90,14 @@ class Afek_CRUD extends CI_Controller
         FROM k_afek
         LEFT JOIN bulan ON k_afek_bulan_id = bulan_id
         WHERE k_afek_t_id = $t_id AND k_afek_sk_id = $sk_id ORDER BY k_afek_t_id DESC, bulan_id")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }else{
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
-    
+
   }
 
   public function input(){
@@ -113,7 +113,7 @@ class Afek_CRUD extends CI_Controller
 
     $data['title'] = 'Affective';
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-    
+
     $data['sk'] = $this->_sk->find_sk_nama($this->session->userdata('kr_sk_id'));
 
     //untuk header
@@ -167,7 +167,7 @@ class Afek_CRUD extends CI_Controller
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         LEFT JOIN agama ON sis_agama_id = agama_id
-        WHERE d_s_kelas_id = $kelas_id AND d_s_id NOT IN 
+        WHERE d_s_kelas_id = $kelas_id AND d_s_id NOT IN
           (SELECT d_s_id
           FROM afektif
           LEFT JOIN d_s ON afektif_d_s_id = d_s_id
@@ -243,10 +243,10 @@ class Afek_CRUD extends CI_Controller
         }
 
         $this->db->insert_batch('afektif', $data);
-        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input Success!</div>');
+        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input Berhasil!</div>');
         redirect('Afek_CRUD');
       }else{
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Failed, already have score!</div>');
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Gagal, sudah ada nilai!</div>');
         redirect('Afek_CRUD');
       }
 
@@ -311,13 +311,13 @@ class Afek_CRUD extends CI_Controller
         }
 
         $this->db->insert_batch('afektif', $data);
-        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input New Student(s) Success!</div>');
+        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input siswa baru sukses!</div>');
         redirect('Afek_CRUD');
       }else{
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">New Student(s) Grade Already Exist!</div>');
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Nilai siswa baru sudah ada!</div>');
         redirect('Afek_CRUD');
       }
-      
+
     }
   }
 
@@ -370,7 +370,7 @@ class Afek_CRUD extends CI_Controller
         ];
       }
       $this->db->update_batch('afektif',$data, 'afektif_id');
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Update Success!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Update sukses!</div>');
       redirect('Afek_CRUD');
     }
   }

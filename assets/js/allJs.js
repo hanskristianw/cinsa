@@ -759,6 +759,17 @@ $(document).ready(function () {
     var total_aktif = parseInt($("#option_minggu1").val()) + parseInt($("#option_minggu2").val()) + parseInt($("#option_minggu3").val()) + parseInt($("#option_minggu4").val()) + parseInt($("#option_minggu5").val());
 
     $('#afek_minggu_aktif').val(total_aktif);
+
+    if(total_aktif == "0"){
+      $('.btnsimpafektif').prop("disabled",true);
+      $('#pesanafek').html(`<label style="font-size:12px; color:red;">*Jumlah minggu aktif harus lebih dari 0, jika dalam 1 bulan tidak ada pelajaran, tidak perlu mengisi afektif untuk bulan ini</label>`);
+    }else{
+      $('.btnsimpafektif').removeAttr('disabled');
+      $('#pesanafek').html(``);
+    }
+
+    $('#mingaktif').html(`<label style="font-size:14px;"><b>Jumlah minggu aktif: ${total_aktif}</b></label><br><label style="font-size:12px;">*Jika jumlah minggu tidak sama dengan pilihan, silahkan aktifkan dan noaktifkan kembali sampai jumlah sesuai</label>`);
+
   }
 
   $('#afek_t_id').change(function () {
@@ -783,9 +794,9 @@ $(document).ready(function () {
           if (data.length == 0) {
             var html = '<div class="text-center mb-3 text-danger"><b>--No Class, Please add Class--</b></div>';
           } else {
-            var html = '<select name="kelas_id" id="kelas_afek_id" class="form-control mb-3">';
+            var html = '<label style="font-size:15px;" class="ml-1"><b><u>Kelas:</u></b></label><select name="kelas_id" id="kelas_afek_id" class="form-control form-control-sm mb-2">';
             var i;
-            html += '<option value=0>Select Class</option>';
+            html += '<option value=0>Pilih Kelas</option>';
             for (i = 0; i < data.length; i++) {
               html += '<option value=' + data[i].kelas_id + '>' + data[i].kelas_nama + '-' + data[i].sk_nama + '</option>';
             }
@@ -818,10 +829,10 @@ $(document).ready(function () {
           success: function (data) {
             //console.log(data);
             if (data.length == 0) {
-              var html = '<div class="text-center mb-3 text-danger"><b>--No Class--</b></div>';
+              var html = '<div class="text-center mb-3 text-danger"><b>--Tidak ada kelas--</b></div>';
             } else {
-              var html = '<select name="mapel_id" id="afek_mapel_id" class="form-control mb-3">';
-              html += '<option value=0>Select Subject</option>';
+              var html = '<label style="font-size:15px;" class="ml-1"><b><u>Mata Pelajaran:</u></b></label><select name="mapel_id" id="afek_mapel_id" class="form-control form-control-sm mb-2">';
+              html += '<option value=0>Pilih Mapel</option>';
               var i;
               for (i = 0; i < data.length; i++) {
                 html += '<option value=' + data[i].mapel_id + '>' + data[i].mapel_nama + '</option>';
@@ -858,17 +869,17 @@ $(document).ready(function () {
           success: function (data) {
             //console.log(data);
             if (data.length == 0) {
-              var html = '<div class="text-center mb-3 text-danger"><b>--No Affective Topic, Contact Counselor--</b></div>';
+              var html = '<div class="text-center mb-3 text-danger"><b>--Tidak ada topik afektif, hubungi guru BK--</b></div>';
             } else {
-              var html = '<select name="k_afek_id" id="k_afek_id" class="form-control mb-3">';
+              var html = '<label style="font-size:15px;" class="ml-1"><b><u>Bulan Afektif:</u></b></label><select name="k_afek_id" id="k_afek_id" class="form-control form-control-sm mb-3">';
               var i;
               for (i = 0; i < data.length; i++) {
                 html += '<option value=' + data[i].k_afek_id + '>' + data[i].bulan_nama + ' (' + data[i].k_afek_topik_nama + ')</option>';
               }
               html += '</select>';
 
-              html += '<button type="submit" class="btn btn-primary btn-user btn-block">';
-              html += 'Insert Affective';
+              html += '<button type="submit" class="btn btn-secondary btn-user btn-block">';
+              html += 'Lihat nilai';
               html += '</button>';
             }
 
