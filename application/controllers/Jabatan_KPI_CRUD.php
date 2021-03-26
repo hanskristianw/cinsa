@@ -104,7 +104,9 @@ class Jabatan_KPI_CRUD extends CI_Controller
     if ($this->input->post('jabatan_kpi_id')) {
 
       $data = [
-        'jabatan_kpi_nama' => $this->input->post('jabatan_kpi_nama')
+        'jabatan_kpi_nama' => $this->input->post('jabatan_kpi_nama'),
+        'jabatan_kpi_hak' => $this->input->post('jabatan_kpi_hak'),
+        'jabatan_kpi_hak_penilai' => $this->input->post('jabatan_kpi_hak_penilai')
       ];
 
       $this->db->where('jabatan_kpi_id', $this->input->post('jabatan_kpi_id'));

@@ -76,7 +76,7 @@
               <form class="" action="<?= base_url('Jabatan_KPI_CRUD/edit') ?>" method="post">
                 <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>
                 <button type="submit" class="badge badge-success">
-                  Edit Nama
+                  Edit
                 </button>
               </form>
             </td>

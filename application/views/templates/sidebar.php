@@ -200,6 +200,25 @@
 
             <hr class="sidebar-divider d-none d-md-block">';
 
+            echo '<div class="sidebar-heading">
+                    Google
+                  </div>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse556" aria-expanded="true" aria-controls="collapseTwo">
+                      <i class="fas fa-fw fa-envelope"></i>
+                      <span>Media</span>
+                    </a>
+                    <div id="collapse556" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Input</h6>
+                        <a class="collapse-item" href=' . base_url('Classroom_CRUD') . '>1. Classroom</a>
+                        <a class="collapse-item" href=' . base_url('Pembelajaran_CRUD') . '>2. Pembelajaran</a>
+                      </div>
+                    </div>
+                  </li>
+                  <hr class="sidebar-divider d-none d-md-block">
+            ';
+
 
         // echo '<div class="sidebar-heading">
         //             Suggestion/Critics
@@ -290,6 +309,24 @@
               </div>
             </li>
             <hr class="sidebar-divider d-none d-md-block">';
+
+            echo '<div class="sidebar-heading">
+                    Google
+                  </div>
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse556" aria-expanded="true" aria-controls="collapseTwo">
+                      <i class="fas fa-fw fa-envelope"></i>
+                      <span>Media</span>
+                    </a>
+                    <div id="collapse556" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                      <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Set</h6>
+                        <a class="collapse-item" href=' . base_url('Pembelajaran_CRUD') . '>Pembelajaran</a>
+                      </div>
+                    </div>
+                  </li>
+                  <hr class="sidebar-divider d-none d-md-block">
+            ';
       } elseif ($this->session->userdata('kr_jabatan_id') == 6 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia TU
         echo '<div class="sidebar-heading">
@@ -598,12 +635,13 @@
               <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse556" aria-expanded="true" aria-controls="collapseTwo">
                   <i class="fas fa-fw fa-envelope"></i>
-                  <span>Classroom</span>
+                  <span>Media</span>
                 </a>
                 <div id="collapse556" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                   <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Input</h6>
-                    <a class="collapse-item" href=' . base_url('Classroom_CRUD') . '>Classroom</a>
+                    <a class="collapse-item" href=' . base_url('Classroom_CRUD') . '>1. Classroom</a>
+                    <a class="collapse-item" href=' . base_url('Pembelajaran_CRUD') . '>2. Pembelajaran</a>
                   </div>
                 </div>
               </li>

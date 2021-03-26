@@ -51,6 +51,13 @@
   </div>
 
   <div class="box1">
+
+    <?php if($kr_dinilai['kr_google_drive']!="#"): ?>
+      <div class="alert alert-warning mt-1 text-center" role="alert" style="font-size:13px;">
+        Link media pembelajaran klik <a href="<?= $kr_dinilai['kr_google_drive'] ?>" target="_blank">disini</a>
+      </div>
+    <?php endif; ?>
+
     <div class="box2">
       <div class="box3 mt-1 mb-1">
         <div><b>Nama Karyawan</b></div>
