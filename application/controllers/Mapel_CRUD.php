@@ -25,7 +25,7 @@ class Mapel_CRUD extends CI_Controller
 
   public function index(){
 
-    $data['title'] = 'Subject List';
+    $data['title'] = 'Daftar Mapel';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -46,7 +46,7 @@ class Mapel_CRUD extends CI_Controller
   public function delete(){
     if($this->input->post('mapel_id',TRUE)){
       $mapel_id = $this->input->post('mapel_id',TRUE);
-    
+
       $this->db->where('mapel_id', $mapel_id);
       $this->db->delete('mapel');
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Successfully delete subject</div>');
@@ -60,29 +60,24 @@ class Mapel_CRUD extends CI_Controller
 
   public function add(){
 
-		$this->form_validation->set_rules('mapel_nama', 'Subject Name', 'required|trim');
-    $this->form_validation->set_rules('mapel_kkm', 'Passing Grade', 'required|trim|greater_than[0]|less_than[101])');
-    $this->form_validation->set_rules('mapel_sing', 'Abbreviation', 'required|trim');
-    $this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim');
-    //$this->form_validation->set_rules('mapel_urutan', 'Order', 'required|trim|is_unique[mapel.mapel_urutan]', ['is_unique' => 'This order number already exist!']);
+    $data['title'] = 'Tambah Mapel';
 
+    //data karyawan yang sedang login untuk topbar
+    $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+    $data['mapel_all'] = $this->_mapel->return_all();
+    $data['sk_all'] = $this->_sk->return_all();
 
-		if($this->form_validation->run() == false){
-			$data['title'] = 'Create Subject';
+    $this->load->view('templates/header',$data);
+    $this->load->view('templates/sidebar',$data);
+    $this->load->view('templates/topbar',$data);
+    $this->load->view('mapel_crud/add',$data);
+    $this->load->view('templates/footer');
 
-      //data karyawan yang sedang login untuk topbar
-      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-      $data['mapel_all'] = $this->_mapel->return_all();
-      $data['sk_all'] = $this->_sk->return_all();
+  }
 
-      $this->load->view('templates/header',$data);
-      $this->load->view('templates/sidebar',$data);
-      $this->load->view('templates/topbar',$data);
-      $this->load->view('mapel_crud/add',$data);
-      $this->load->view('templates/footer');
-		}
-		else{
-			$data = [
+  public function add_proses(){
+    if($this->input->post('mapel_nama', true)){
+      $data = [
 				'mapel_nama' => $this->input->post('mapel_nama'),
         'mapel_kkm' => $this->input->post('mapel_kkm'),
 				'mapel_sing' => $this->input->post('mapel_sing'),
@@ -91,12 +86,11 @@ class Mapel_CRUD extends CI_Controller
 			];
 
 			$this->db->insert('mapel', $data);
-			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Subject Created!</div>');
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Mapel berhasil dibuat!</div>');
 			redirect('mapel_crud/add');
-		}
-
+    }
   }
-  
+
   public function update(){
 
     //dari method post

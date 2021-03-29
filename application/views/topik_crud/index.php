@@ -1,51 +1,83 @@
-<div class="container">
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: 15% 15% 15% 25% 15% 15%;
+  grid-column-gap:4px;
+  padding-right:3px;
+}
+.grid-container > div{
+  text-align:left;
+}
 
-  <div class="card o-hidden border-0 shadow-lg my-5">
-    <div class="card-body p-0">
-      <!-- Nested Row within Card Body -->
-      <div class="row">
-        <div class="col-lg">
-          <div class="p-5 overflow-auto">
-            
-            <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4">Select Subject</h1>
-            </div>
-            <?php echo '<div class="alert alert-danger alert-dismissible fade show">
-                    <button class="close" data-dismiss="alert" type="button">
-                        <span>&times;</span>
-                    </button>
-                    <strong>PERHATIAN:</strong> <br><br>
-                    1. TIDAK perlu membuat topik baru jika topik sudah ada, topik <b>HANYA PERLU DIBUAT 1 KALI</b> <br>
-                    2. DELETE topik hanya bisa dilakukan oleh wakakur.
-                </div>'; ?>
-            <?= $this->session->flashdata('message'); ?>
-            
-            <input type="hidden" id="topik_jabatan_id" value="<?= $jabatan_id ?>">
-            
-            <form method="post" action="topik_CRUD/add">
-              <select name="topik_mapel" id="topik_mapel" class="form-control">
-                <option value="0">SELECT SUBJECT</option>
-                <?php
-                  foreach($mapel_all as $m) :
-                    echo "<option value=".$m['mapel_id'].">".$m['mapel_nama']." - ".$m['sk_nama']."</option>";
-                  endforeach
-                ?>
-              </select>
-              <div id="sub_topik_crud">
-                <button type="submit" class="btn btn-primary btn-user mt-4">
-                  Add Topic
-                </button>
-              </div>
-            </form>
+.grid-main {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+  grid-column-gap:3px;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: 5px 5px 5px 5px;
+  overflow: auto;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
 
-            <div id="topik_mapel_ajax">
-            
-            </div>
-            <hr>
-          </div>
-        </div>
-      </div>
+.box1{
+  /*align-self:start;*/
+  grid-column:2/3;
+  overflow: auto;
+}
+
+.box2{
+  /*align-self:start;*/
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-column-gap:3px;
+}
+
+</style>
+
+<div class="grid-main">
+
+  <div class="box1 mb-4">
+    <div class="text-center">
+      <h1 class="h4 text-gray-900 mb-4 mt-4"><u><?= $title ?></u></h1>
     </div>
+    <div class="alert alert-danger alert-dismissible fade show">
+        <button class="close" data-dismiss="alert" type="button">
+            <span>&times;</span>
+        </button>
+        <strong>PERHATIAN:</strong><br><br>
+
+        <ul>
+          <li>TIDAK PERLU membuat topik baru jika topik sudah ada, topik <b>HANYA PERLU DIBUAT 1 KALI.</b></li>
+          <li>DELETE topik hanya bisa dilakukan oleh wakakur.</li>
+        </ul>
+
+    </div>
+    <?= $this->session->flashdata('message'); ?>
+
+    <input type="hidden" id="topik_jabatan_id" value="<?= $jabatan_id ?>">
+
+    <form method="post" action="topik_CRUD/add">
+      <select name="topik_mapel" id="topik_mapel" class="form-control form-control-sm">
+        <option value="0">Pilih Mapel</option>
+        <?php
+          foreach($mapel_all as $m) :
+            echo "<option value=".$m['mapel_id'].">".$m['mapel_nama']." - ".$m['sk_nama']."</option>";
+          endforeach
+        ?>
+      </select>
+      <div id="sub_topik_crud">
+        <button type="submit" class="btn btn-primary btn-user mt-4">
+          Tambah topik
+        </button>
+      </div>
+    </form>
+
+    <div id="topik_mapel_ajax">
+
+    </div>
+    <hr>
   </div>
 
 </div>
@@ -77,14 +109,18 @@
           success: function (data) {
             //console.log(data);
 
-            var html = '<table class="table table-bordered table-sm mt-2">';
+            var html = '<table class="table table-bordered table-sm mt-2" style="font-size:13px;">';
             html += '<thead class="thead-dark">';
             html += '<tr>';
-            html += '<th>Semester</th>';
-            html += '<th>Topic Name</th>';
-            html += '<th>Total Grade</th>';
-            html += '<th>Order Number</th>';
-            html += '<th>Action</th>';
+            html += '<th style="width:70px;">Semester</th>';
+            html += '<th>Nama Topik</th>';
+            html += '<th style="width:70px;">Total Nilai</th>';
+            html += '<th style="width:70px;">Urutan topik</th>';
+            if (topik_jabatan_id == 4) {
+              html += '<th colspan="2">Action</th>';
+            }else{
+              html += '<th>Action</th>';
+            }
             html += '</tr>';
             html += '</thead>';
 
@@ -92,19 +128,26 @@
             if (data.length != 0) {
               var jnama = "";
               for (var i = 0; i < data.length; i++) {
-                if(jnama != data[i].jenj_nama){
-                  html += '<tr>';
-                  html += '<td class="bg-info text-light text-center" colspan="5">' + data[i].jenj_nama + '</td>';
-                  html += '</tr>';
+                if (topik_jabatan_id == 4) {
+                  if(jnama != data[i].jenj_nama){
+                    html += '<tr>';
+                    html += '<td class="bg-info text-light text-center" colspan="6">' + data[i].jenj_nama + '</td>';
+                    html += '</tr>';
+                  }
+                }else{
+                  if(jnama != data[i].jenj_nama){
+                    html += '<tr>';
+                    html += '<td class="bg-info text-light text-center" colspan="5">' + data[i].jenj_nama + '</td>';
+                    html += '</tr>';
+                  }
                 }
 
                 html += '<tr>';
-                html += '<td>' + data[i].topik_semester + '</td>';
+                html += '<td class="text-center">' + data[i].topik_semester + '</td>';
                 html += '<td>' + data[i].topik_nama + '</td>';
                 html += '<td>' + data[i].jum_tes + '</td>';
                 html += '<td>' + data[i].topik_urutan + '</td>';
-                html += '<td>';
-                html += '<div class="form-group row pl-3">';
+                html += '<td style="width:50px;">';
                 html += '<form method="post" action="' + base_url + 'topik_CRUD/edit">';
                 html += '<input type="hidden" value="' + data[i].jum_tes + '" name="jum_tes">';
                 html += '<input type="hidden" value="' + data[i].topik_id + '" name="topik_id">';
@@ -114,8 +157,10 @@
                 html += '</button>';
 
                 html += '</form>';
+                html += '</td>';
 
                 if (topik_jabatan_id == 4) {
+                  html += '<td style="width:50px;">';
                   html += '<form method="post" action="' + base_url + 'topik_CRUD/delete">';
 
                   html += '<input type="hidden" value="' + data[i].topik_id + '" name="topik_id">';
@@ -124,16 +169,15 @@
                   html += '</button>';
 
                   html += '</form>';
+                  html += '</td>';
                 }
-                html += '</div>';
-                html += '</td>';
                 html += '</tr>';
 
                 jnama = data[i].jenj_nama;
 
               }
             } else {
-              html += '<td colspan="6" class="text-center table-danger"><b>--No Topic(s), please add 1 or more topic--</b></td>';
+              html += '<td colspan="6" class="text-center table-danger"><b>--Tidak ada topik, silahkan tambahkan topik--</b></td>';
             }
             html += '</tbody>';
             html += '</table>';

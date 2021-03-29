@@ -28,7 +28,7 @@ class Topik_CRUD extends CI_Controller
 
   public function index(){
 
-    $data['title'] = 'Topic';
+    $data['title'] = 'Pilih mapel';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -45,21 +45,21 @@ class Topik_CRUD extends CI_Controller
     if($this->session->userdata('kr_jabatan_id')!=4){
       $data['mapel_all'] = $this->db->query(
         "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
-        FROM d_mpl 
+        FROM d_mpl
         LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
         LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
         LEFT JOIN sk ON kelas_sk_id = sk_id
         WHERE d_mpl_kr_id = $kr_id")->result_array();
-  
+
       if(empty($data['mapel_all'])){
-        $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>You don't teach any class, contact curriculum for more information!</div>");
+        $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>Tidak ada kelas yang anda ajar!</div>");
         redirect('Profile');
       }
     }else{
       $sk_id = $this->session->userdata('kr_sk_id');
       $data['mapel_all'] = $this->db->query(
         "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
-        FROM d_mpl 
+        FROM d_mpl
         LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
         LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
         LEFT JOIN sk ON kelas_sk_id = sk_id
@@ -70,7 +70,7 @@ class Topik_CRUD extends CI_Controller
     }
 
     //var_dump($this->session->userdata('kr_jabatan_id'));
-    
+
 
     //var_dump($this->db->last_query());
     $this->load->view('templates/header',$data);
@@ -83,9 +83,9 @@ class Topik_CRUD extends CI_Controller
 
   public function get_topik_detail(){
     if($this->input->post('id',TRUE)){
-      
+
       $mapel_id = $this->input->post('id',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT topik_nama, topik_id, jenj_nama, topik_mapel_id, topik_urutan, topik_semester, count(tes_id) as jum_tes
         FROM topik
@@ -94,7 +94,7 @@ class Topik_CRUD extends CI_Controller
         WHERE topik_mapel_id = $mapel_id
         GROUP BY topik_id
         ORDER BY jenj_id, topik_semester, topik_urutan, topik_nama")->result();
-  
+
       //var_dump($data);
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
@@ -119,14 +119,14 @@ class Topik_CRUD extends CI_Controller
         'topik_jenj_id' => $this->input->post('jenj_id'),
         'topik_mapel_id' => $this->input->post('mapel_id')
       ];
-  
+
       $this->db->insert('topik', $data);
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Topic Created!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Topik Berhasil Dibuat!</div>');
       redirect('Topik_CRUD');
     }
 
   }
-  
+
   public function add(){
 
 
@@ -145,9 +145,9 @@ class Topik_CRUD extends CI_Controller
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
     $data['jenj_all'] = $this->_jenj->return_all_by_sk($data['sk']['mapel_sk_id']);
-    
+
     $data['mapel_id'] = $mapel_id;
-    $data['title'] = 'Create Topic';
+    $data['title'] = 'Tambah Topik';
 
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);
@@ -158,7 +158,7 @@ class Topik_CRUD extends CI_Controller
   }
 
   public function edit(){
-    
+
     $topik_id = $this->input->post('topik_id', true);
     $mapel_id = $this->input->post('mapel_id', true);
 
@@ -167,7 +167,7 @@ class Topik_CRUD extends CI_Controller
       redirect('Profile');
     }
 
-    $data['title'] = 'Edit Topic';
+    $data['title'] = 'Edit Topik';
 
     $data['sk'] = $this->db->query(
       "SELECT mapel_sk_id
@@ -187,7 +187,7 @@ class Topik_CRUD extends CI_Controller
     $this->load->view('templates/footer');
 
   }
-  
+
   public function delete(){
     if($this->input->post('topik_id', true) || $this->session->userdata('kr_jabatan_id')!=4){
       $topik_id = $this->input->post('topik_id', true);
@@ -195,7 +195,7 @@ class Topik_CRUD extends CI_Controller
       $this->db->where('topik_id', $topik_id);
       $this->db->delete('topik');
 
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Topic Deleted!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Topik Dihapus!</div>');
       redirect('topik_crud');
     }
   }
@@ -212,9 +212,9 @@ class Topik_CRUD extends CI_Controller
       //simpan ke db
 
       $this->db->where('topik_id', $this->input->post('_id', true));
-      $this->db->update('topik', $data); 
-      
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Topic Updated!</div>');
+      $this->db->update('topik', $data);
+
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Topik Berhasil Diupdate!</div>');
       redirect('Topik_CRUD');
     }
   }
@@ -224,37 +224,37 @@ class Topik_CRUD extends CI_Controller
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
-    
+
     $kr_id = $data['kr']['kr_id'];
-    
+
     $data['jabatan_id'] = $this->session->userdata('kr_jabatan_id');
 
     if($this->session->userdata('kr_jabatan_id')!=4){
       $data['mapel_all'] = $this->db->query(
         "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
-        FROM d_mpl 
+        FROM d_mpl
         LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
         LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
         LEFT JOIN sk ON kelas_sk_id = sk_id
         WHERE d_mpl_kr_id = $kr_id")->result_array();
-  
+
       if(empty($data['mapel_all'])){
-        $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>You don't teach any class, contact curriculum for more information!</div>");
+        $this->session->set_flashdata("message","<div class='alert alert-danger' role='alert'>Anda tidak mengajar kelas, hubungi kurikulum untuk informasi lebih lanjut!</div>");
         redirect('Profile');
       }
     }else{
       $sk_id = $this->session->userdata('kr_sk_id');
       $data['mapel_all'] = $this->db->query(
         "SELECT DISTINCT mapel_id, mapel_nama, sk_nama
-        FROM d_mpl 
+        FROM d_mpl
         LEFT JOIN mapel ON d_mpl_mapel_id = mapel_id
         LEFT JOIN kelas ON d_mpl_kelas_id = kelas_id
         LEFT JOIN sk ON kelas_sk_id = sk_id
         WHERE sk_id = $sk_id
         ORDER BY mapel_nama")->result_array();
-        
+
     }
-    
+
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);
     $this->load->view('templates/topbar',$data);
@@ -278,7 +278,7 @@ class Topik_CRUD extends CI_Controller
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
     $data['jenj_all'] = $this->_jenj->return_all_by_sk($data['sk']['mapel_sk_id']);
-    
+
     $data['mapel_id'] = $mapel_id;
     $data['mapel_nama'] = $data['sk']['mapel_nama'];
     $data['title'] = 'Tambah Outline';
@@ -302,7 +302,7 @@ class Topik_CRUD extends CI_Controller
         'mapel_outline_nama' => $mapel_outline_nama,
         'mapel_outline_jenj_id' => $mapel_outline_jenj_id
       ];
-  
+
       $this->db->insert('mapel_outline', $data);
       $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Outline Berhasil Dibuat!</div>');
       redirect('Topik_CRUD/outline');
@@ -311,7 +311,7 @@ class Topik_CRUD extends CI_Controller
   }
 
   public function edit_outline(){
-    
+
     $mapel_outline_id = $this->input->post('mapel_outline_id', true);
 
     if(!$mapel_outline_id){
@@ -349,18 +349,18 @@ class Topik_CRUD extends CI_Controller
 
   public function edit_outline_proses(){
     if($this->input->post('mapel_outline_nama', true)){
-      
+
       $mapel_outline_nama = $this->input->post('mapel_outline_nama', true);
       $mapel_outline_jenj_id = $this->input->post('mapel_outline_jenj_id', true);
-      
+
       $data = [
         'mapel_outline_nama' => $mapel_outline_nama,
         'mapel_outline_jenj_id' => $mapel_outline_jenj_id
       ];
 
       $this->db->where('mapel_outline_id', $this->input->post('mapel_outline_id', true));
-      $this->db->update('mapel_outline', $data); 
-      
+      $this->db->update('mapel_outline', $data);
+
       $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Outline berhasil dirubah!</div>');
       redirect('Topik_CRUD/outline');
     }

@@ -145,15 +145,16 @@
                   <h6 class="collapse-header">Master</h6>
                   <a class="collapse-item" href=' . base_url('Jenjang_CRUD') . '>1. Jenjang</a>
                   <a class="collapse-item" href=' . base_url('Mapel_CRUD') . '>2. Mapel</a>
-                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD') . '>3. Jadwal Pelajaran</a>
-                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>4. Jurnal</a>
-                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>5. Topik</a>
-                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>6. Kelas</a>
-                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>7. Extrakurikuler</a>
-                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>8. Mapel Khusus</a>
-                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>9. Persentase</a>
-                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD/pengumuman') . '>10. Pengumuman</a>
-                  <a class="collapse-item" href=' . base_url('Kelulusan_CRUD') . '>11. Kelulusan</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD/outline') . '>3. Outline</a>
+                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD') . '>4. Jadwal Pelajaran</a>
+                  <a class="collapse-item" href=' . base_url('Jurnal_CRUD') . '>5. Jurnal</a>
+                  <a class="collapse-item" href=' . base_url('Topik_CRUD') . '>6. Topik</a>
+                  <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>7. Kelas</a>
+                  <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>8. Extrakurikuler</a>
+                  <a class="collapse-item" href=' . base_url('MK_CRUD') . '>9. Mapel Khusus</a>
+                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>10. Persentase</a>
+                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD/pengumuman') . '>11. Pengumuman</a>
+                  <a class="collapse-item" href=' . base_url('Kelulusan_CRUD') . '>12. Kelulusan</a>
                 </div>
               </div>
             </li>
