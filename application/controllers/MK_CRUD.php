@@ -28,14 +28,14 @@ class MK_CRUD extends CI_Controller
 
   public function index(){
 
-    $data['title'] = 'Special Subject List';
+    $data['title'] = 'Mapel Khusus';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     //data karyawan untuk konten
     $data['mk_all'] = $this->_mk->return_all_by_sk_id($this->session->userdata('kr_sk_id'));
-    
+
 
     //$data['tes'] = var_dump($this->db->last_query());
 
@@ -80,7 +80,7 @@ class MK_CRUD extends CI_Controller
 		}
 
   }
-  
+
   public function update(){
 
     //dari method post
@@ -99,7 +99,7 @@ class MK_CRUD extends CI_Controller
     }
 
     $this->form_validation->set_rules('mk_nama', 'Subject Name', 'required|trim');
-    
+
 
     if($this->form_validation->run() == false){
       //jika menekan tombol edit
@@ -146,17 +146,17 @@ class MK_CRUD extends CI_Controller
     if($this->input->post('siswa_check[]',TRUE)){
       $d_s_id = $this->input->post('siswa_check[]',TRUE);
       $mk_id = $this->input->post('mkId',TRUE);
-    
-      
+
+
       for($i=0;$i<count($d_s_id);$i++){
         $data[] = array(
           'mk_detail_d_s_id' => $d_s_id[$i],
 				  'mk_detail_mk_id' => $mk_id
         );
       }
-      
+
 			$this->db->insert_batch('mk_detail', $data);
-  
+
       //$this->db->last_query();
 
       //$data = $this->product_model->get_sub_category($category_id)->result();
@@ -171,7 +171,7 @@ class MK_CRUD extends CI_Controller
 
     if($this->input->post('mk_detail_id',TRUE)){
       $mk_detail_id = $this->input->post('mk_detail_id',TRUE);
-    
+
       $this->db->where('mk_detail_id', $mk_detail_id);
       $this->db->delete('mk_detail');
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Successfully delete Student</div>');
@@ -203,11 +203,11 @@ class MK_CRUD extends CI_Controller
         FROM d_s
         LEFT JOIN sis ON d_s_sis_id = sis_id
         WHERE d_s_kelas_id = $kelas_id AND d_s_id NOT IN (
-          SELECT mk_detail_d_s_id FROM mk_detail 
+          SELECT mk_detail_d_s_id FROM mk_detail
           LEFT JOIN mk ON mk_detail_mk_id = mk_id
           WHERE mk_t_id = $t_id AND mk_mapel_id = $mk_mapel_id
         )")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }else{
@@ -246,13 +246,13 @@ class MK_CRUD extends CI_Controller
       "SELECT kelas_id, kelas_nama
       FROM kelas
       WHERE kelas_t_id = $mk_t_id AND kelas_sk_id = $sk_id ORDER BY kelas_nama")->result_array();
-      
+
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);
     $this->load->view('templates/topbar',$data);
     $this->load->view('mk_crud/edit_student',$data);
     $this->load->view('templates/footer');
-    
+
   }
 
 }

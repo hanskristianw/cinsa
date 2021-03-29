@@ -27,7 +27,7 @@ class SSP_CRUD extends CI_Controller
 
   public function index(){
 
-    $data['title'] = 'Extracurricular List';
+    $data['title'] = 'Daftar SSP/NSP';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -42,7 +42,7 @@ class SSP_CRUD extends CI_Controller
       LEFT JOIN ssp_peserta ON ssp_peserta_ssp_id = ssp_id
       WHERE ssp_sk_id = $sk_id
       GROUP BY ssp_id
-      ORDER BY t_nama, ssp_nama")->result_array();
+      ORDER BY t_nama DESC, ssp_nama")->result_array();
 
     //$data['tes'] = var_dump($this->db->last_query());
 
@@ -64,7 +64,7 @@ class SSP_CRUD extends CI_Controller
 
       $data['topik_all'] = $this->db->query(
         "SELECT *
-        FROM ssp_topik 
+        FROM ssp_topik
         WHERE ssp_topik_ssp_id = $ssp_id")->result_array();
 
       if($data['topik_all']){
@@ -122,7 +122,7 @@ class SSP_CRUD extends CI_Controller
       $this->db->where('ssp_id', $ssp_id);
       $this->db->delete('ssp');
 
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">SSP Deleted!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">SSP Dihapus!</div>');
       redirect('SSP_CRUD');
 
     }else{
@@ -139,7 +139,7 @@ class SSP_CRUD extends CI_Controller
       $this->db->where('ssp_nilai_id', $ssp_nilai_id);
       $this->db->delete('ssp_nilai');
 
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Grade Deleted!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Nilai Dihapus!</div>');
       redirect('SSP_CRUD');
 
     }else{
@@ -182,12 +182,12 @@ class SSP_CRUD extends CI_Controller
 			];
 
 			$this->db->insert('ssp', $data);
-			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Extracurricular Created!</div>');
+			$this->session->set_flashdata('message','<div class="alert alert-success" role="alert">SSP/NSP berhasil dibuat!</div>');
 			redirect('ssp_crud/add');
 		}
 
   }
-  
+
   public function update(){
 
     //dari method post
@@ -206,7 +206,7 @@ class SSP_CRUD extends CI_Controller
     }
 
     $this->form_validation->set_rules('ssp_nama', 'SSP Name', 'required|trim');
-    
+
 
     if($this->form_validation->run() == false){
       //jika menekan tombol edit
@@ -241,7 +241,7 @@ class SSP_CRUD extends CI_Controller
       $this->db->where('ssp_id', $this->input->post('_id'));
       $this->db->update('ssp', $data);
 
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Extracurricular Updated!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">SSP/NSP berhasil diupdate!</div>');
       redirect('SSP_CRUD');
     }
 
@@ -252,17 +252,17 @@ class SSP_CRUD extends CI_Controller
     if($this->input->post('siswa_check[]',TRUE)){
       $d_s_id = $this->input->post('siswa_check[]',TRUE);
       $ssp_id = $this->input->post('sspId',TRUE);
-    
-      
+
+
       for($i=0;$i<count($d_s_id);$i++){
         $data[] = array(
           'ssp_peserta_d_s_id' => $d_s_id[$i],
 				  'ssp_peserta_ssp_id' => $ssp_id
         );
       }
-      
+
 			$this->db->insert_batch('ssp_peserta', $data);
-  
+
       //$this->db->last_query();
 
       //$data = $this->product_model->get_sub_category($category_id)->result();
@@ -282,7 +282,7 @@ class SSP_CRUD extends CI_Controller
       //cek apakah siswa sudah punya nilai pada ssp ini
       $data = $this->db->query(
         "SELECT *
-        FROM ssp_nilai 
+        FROM ssp_nilai
         LEFT JOIN ssp_topik ON ssp_nilai_ssp_topik_id = ssp_topik_id
         LEFT JOIN ssp ON ssp_topik_ssp_id = ssp_id
         WHERE ssp_id = $ssp_id AND ssp_nilai_d_s_id = $d_s_id")->result_array();
@@ -303,7 +303,7 @@ class SSP_CRUD extends CI_Controller
 
       // echo $ssp_id."<br>";
       // echo $d_s_id;
-      
+
     }
     else{
       $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
@@ -314,7 +314,7 @@ class SSP_CRUD extends CI_Controller
   public function get_siswaKelas(){
     if($this->input->post('id',TRUE)){
       $kelas_id = $this->input->post('id',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT d_s_id, sis_nama_depan, sis_nama_bel
         FROM d_s
@@ -322,11 +322,11 @@ class SSP_CRUD extends CI_Controller
         WHERE d_s_kelas_id = $kelas_id AND d_s_id NOT IN (
           SELECT ssp_peserta_d_s_id FROM ssp_peserta
         )")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }else{
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Whoopsie doopsie, what are you doing there!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
   }
@@ -334,7 +334,7 @@ class SSP_CRUD extends CI_Controller
   public function get_siswaSSP(){
     if($this->input->post('sspId',TRUE)){
       $sspId = $this->input->post('sspId',TRUE);
-      
+
       $data = $this->db->query(
         "SELECT ssp_peserta_id, d_s_id, sis_nama_depan, sis_nama_bel, kelas_nama, ssp_peserta_ssp_id
         FROM ssp_peserta
@@ -343,11 +343,11 @@ class SSP_CRUD extends CI_Controller
         LEFT JOIN kelas ON d_s_kelas_id = kelas_id
         WHERE ssp_peserta_ssp_id = $sspId
         ORDER BY sis_nama_depan")->result();
-  
+
       //$data = $this->product_model->get_sub_category($category_id)->result();
       echo json_encode($data);
     }else{
-      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Whoopsie doopsie, what are you doing there!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Access Denied!</div>');
       redirect('Profile');
     }
   }
@@ -381,13 +381,13 @@ class SSP_CRUD extends CI_Controller
       "SELECT kelas_id, kelas_nama
       FROM kelas
       WHERE kelas_t_id = $ssp_t_id AND kelas_sk_id = $sk_id")->result_array();
-      
+
     $this->load->view('templates/header',$data);
     $this->load->view('templates/sidebar',$data);
     $this->load->view('templates/topbar',$data);
     $this->load->view('ssp_crud/edit_student',$data);
     $this->load->view('templates/footer');
-    
+
   }
 
 }
