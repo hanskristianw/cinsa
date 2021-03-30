@@ -165,7 +165,6 @@ class Sekolah_CRUD extends CI_Controller
         'sk_nickname' => $this->input->post('sk_nickname'),
         'sk_mid' => $sk_mid,
         'sk_kepsek' => $this->input->post('kr_id'),
-        'sk_scout_kr_id' => $this->input->post('scout_id'),
         'sk_wakasis' => $this->input->post('sk_wakasis'),
         'sk_ex_nama' => $this->input->post('sk_ex_nama'),
         'sk_ex_abr' => $this->input->post('sk_ex_abr'),
@@ -176,7 +175,7 @@ class Sekolah_CRUD extends CI_Controller
       $this->db->where('sk_id', $this->input->post('_id'));
       $this->db->update('sk', $data);
 
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">School Updated!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil melakukan update!</div>');
       redirect('Sekolah_CRUD');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
@@ -195,7 +194,7 @@ class Sekolah_CRUD extends CI_Controller
       $this->db->where('sk_id', $this->input->post('_id'));
       $this->db->update('sk', $data);
 
-      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Unit Updated!</div>');
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Berhasil melakukan update!</div>');
       redirect('Sekolah_CRUD');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');

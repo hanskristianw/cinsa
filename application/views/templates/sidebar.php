@@ -131,6 +131,7 @@
         //     ';
       } elseif ($this->session->userdata('kr_jabatan_id') == 4 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia wakakur
+        //<a class="collapse-item" href=' . base_url('Percent_CRUD') . '>10. Persentase</a>
         echo '<div class="sidebar-heading">
               Wakakur
             </div>
@@ -152,9 +153,8 @@
                   <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>7. Kelas</a>
                   <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>8. Extrakurikuler</a>
                   <a class="collapse-item" href=' . base_url('MK_CRUD') . '>9. Mapel Khusus</a>
-                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>10. Persentase</a>
-                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD/pengumuman') . '>11. Pengumuman</a>
-                  <a class="collapse-item" href=' . base_url('Kelulusan_CRUD') . '>12. Kelulusan</a>
+                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD/pengumuman') . '>10. Pengumuman</a>
+                  <a class="collapse-item" href=' . base_url('Kelulusan_CRUD') . '>11. Kelulusan</a>
                 </div>
               </div>
             </li>

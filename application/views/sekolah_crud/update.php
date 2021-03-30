@@ -88,22 +88,22 @@
         ?>
       </select>
 
-      <label for="scout_id"><b><u>Pengajar Pramuka</u>:</b></label>
-      <select name="scout_id" id="scout_id" class="form-control form-control-sm mb-3">
+      <!-- <label for="scout_id"><b><u>Pengajar Pramuka</u>:</b></label>
+      <select name="scout_id" id="scout_id" class="form-control form-control-sm mb-3"> -->
         <?php
-          $_selected = set_value(kr_id,$sk_update['sk_scout_kr_id']);
-
-          echo "<option value= '4'> Admin</option>";
-          foreach ($guru_all as $n) :
-              if ($_selected == $n['kr_id']) {
-                  $s = "selected";
-              } else {
-                  $s = "";
-              }
-              echo "<option value=" . $n['kr_id'] . " " . $s . ">" . $n['kr_nama_depan'] . " " . $n['kr_nama_belakang'] . "</option>";
-          endforeach
+          // $_selected = set_value(kr_id,$sk_update['sk_scout_kr_id']);
+          //
+          // echo "<option value= '4'> Admin</option>";
+          // foreach ($guru_all as $n) :
+          //     if ($_selected == $n['kr_id']) {
+          //         $s = "selected";
+          //     } else {
+          //         $s = "";
+          //     }
+          //     echo "<option value=" . $n['kr_id'] . " " . $s . ">" . $n['kr_nama_depan'] . " " . $n['kr_nama_belakang'] . "</option>";
+          // endforeach
         ?>
-        </select>
+        <!-- </select> -->
 
         <label for="sk_mid"><b><u>ID Instagram Sekolah</u>:</b></label>
         <input type="text" name="sk_insta" class="form-control form-control-sm mb-3" value="<?= $sk_update['sk_insta'] ?>" required>

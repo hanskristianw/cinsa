@@ -72,27 +72,45 @@
     /* border:1px solid #333; */
   }
 
+  .grid-main {
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+    grid-column-gap:3px;
+    padding: 10px;
+    margin: 20px;
+    box-shadow: 5px 5px 5px 5px;
+    overflow: auto;
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+
+  .box1{
+    /*align-self:start;*/
+    grid-column:2/3;
+    overflow: auto;
+  }
+
 </style>
 
 
-<div class="container">
+<div class="grid-main">
 
-  <div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="box1">
     <div class="top">
-      <h4><u>Event List</u></h4>
+      <h4><u>Daftar Event</u></h4>
     </div>
     <div class="top_left">
-      <a href="<?= base_url('Event_CRUD/add') ?>" class="btn btn-sm btn-primary">Add New Event</a>
+      <a href="<?= base_url('Event_CRUD/add') ?>" class="btn btn-sm btn-secondary">&plus; Event</a>
     </div>
     <div class="wrapper">
       <div class="bottom_center">
-        
+
         <?= $this->session->flashdata('message'); ?>
         <table class="dt2 cell-border compact stripe" style="font-size:14px;">
           <thead>
             <tr>
-              <th>Event Name</th>
-              <th>Date</th>
+              <th>Nama Event</th>
+              <th>Tanggal</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -114,12 +132,12 @@
                         </button>
                       </form>
                     </div>
-                    
+
                     <div>
                       <form class="" action="<?= base_url('Event_CRUD/absent') ?>" method="post">
                         <input type="hidden" name="event_id" value=<?= $m['event_id'] ?>>
                         <button type="submit" class="badge badge-success">
-                          Add Abs
+                          &plus; Abs
                         </button>
                       </form>
                     </div>
@@ -128,7 +146,7 @@
                       <form class="" action="<?= base_url('Event_CRUD/add_pic') ?>" method="post">
                         <input type="hidden" name="event_id" value=<?= $m['event_id'] ?>>
                         <button type="submit" class="badge badge-secondary">
-                          Add Pic
+                          &plus; Pic
                         </button>
                       </form>
                     </div>
@@ -136,7 +154,7 @@
                     <div>
                       <form class="" action="<?= base_url('Event_CRUD/del_absent') ?>" method="post">
                         <input type="hidden" name="event_id" value=<?= $m['event_id'] ?>>
-                        <button type="submit" class="badge badge-danger">
+                        <button type="submit" class="badge badge-danger" onclick="return confirm('Event akan dihapus, lanjutkan?')">
                           Del Abs
                         </button>
                       </form>
@@ -189,7 +207,7 @@
             var i;
             for (i = 0; i < data.length; i++) {
               html += '<div><img src="'+base_url+'assets/img/event/'+data[i].event_gambar_path+'" width="200px"></div>';
-              
+
               html += '<div><form method="post" action="' + base_url + 'Event_CRUD/deleteimg">';
               html += '<input type="hidden" value="'+data[i].event_gambar_path+'" name="event_gambar_path">';
               html += '<input type="hidden" value="'+data[i].event_gambar_id+'" name="event_gambar_id">';
@@ -199,9 +217,9 @@
               html += "</form></div>";
             }
             html += '</div>';
-            
+
           }
-          
+
           $("#judul_modal").html("Image");
 
           $(".modal-dialog").removeClass("modal-dialog-custom");

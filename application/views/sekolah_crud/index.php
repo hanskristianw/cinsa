@@ -65,6 +65,19 @@
 
   <div class="box1 text-center mt-4"><h4><u>Daftar Unit</u></h4></div>
 
+  <div class="box1">
+    <div class="alert alert-warning alert-dismissible fade show">
+        <button class="close" data-dismiss="alert" type="button">
+            <span>&times;</span>
+        </button>
+        <strong>Perhatian:</strong>
+        <br><br>
+        <ul>
+          <li>Ubah rapor digunakan untuk merubah jenis rapor, jika sekolah NSA gunakan rapor jenis NSA dan sebaliknya</li>
+          <li>Upload TTD kepsek sebaiknya menggunakan gambar dengan dimensi yang sama, misal 200px x 200px</li>
+        </ul>
+    </div>
+  </div>
 
   <div class="box1">
     <a href="<?= base_url('sekolah_crud/add') ?>" class="btn btn-primary mb-3">&plus; Unit</a>

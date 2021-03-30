@@ -26,7 +26,7 @@ class Karakter_CRUD extends CI_Controller
 
   public function index(){
 
-    $data['title'] = 'Character List';
+    $data['title'] = 'Daftar Karakter';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -52,7 +52,7 @@ class Karakter_CRUD extends CI_Controller
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
     $data['sk_all'] = $this->_sk->return_all();
-    
+
     $data['karakter'] = $this->_karakter->find_by_id($karakter_id);
 
     $this->load->view('templates/header',$data);
@@ -91,7 +91,7 @@ class Karakter_CRUD extends CI_Controller
 
     //var_dump($arr_karakter_detail_id);
 
-    
+
 
     if($mapel){
       if(count($arr_karakter_detail_id) > 0){
@@ -156,7 +156,7 @@ class Karakter_CRUD extends CI_Controller
 		}
 
   }
-  
+
   public function update(){
 
     //dari method post
