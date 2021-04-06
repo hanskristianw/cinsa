@@ -36,6 +36,18 @@
 
 </style>
 
+<?php
+  function returnsktamb($sk_tamb){
+    if(strlen($sk_tamb) > 15){
+      return "<div style='margin-top:0px;margin-bottom:0px;font-size:12px;' data-toggle='tooltip' data-placement='top' title='".$sk_tamb."'>".substr($sk_tamb, 0, 15)."... </div>";
+    }else{
+      return "<div style='margin-top:0px;margin-bottom:0px;font-size:12px;' data-toggle='tooltip' data-placement='top' title='".$sk_tamb."'>".$sk_tamb."</div>";
+    }
+
+
+  }
+?>
+
 <div class="grid-main">
 
   <div class="box1 text-center">
@@ -59,7 +71,7 @@
           <th style='padding: 5px 5px 5px 5px;' rowspan="2">History<br>Status</th>
           <th style='padding: 5px 5px 5px 5px;' rowspan="2">Jabatan</th>
           <th style='padding: 5px 5px 5px 5px; width: 150px;' rowspan="2">Unit Utama</th>
-          <th style='padding: 5px 5px 5px 5px; width: 150px;' rowspan="2">Unit Tambahan</th>
+          <th style='padding: 5px 5px 5px 5px; width: 130px;' rowspan="2">Unit Tambahan</th>
           <th style='padding: 5px 5px 5px 5px; text-align:center;' colspan="7" width="20%">Action</th>
         </tr>
         <tr>
@@ -80,7 +92,7 @@
             <td style='padding: 2px 5px 2px 5px;'><?= $m['st_nama'] ?></td>
             <td style='padding: 2px 5px 2px 5px;'><?= $m['jabatan_nama'] ?></td>
             <td style='padding: 2px 5px 2px 5px;'><?= ucfirst(strtolower($m['sk_nama'])) ?></td>
-            <td style='padding: 2px 5px 2px 5px;'></td>
+            <td style='padding: 2px 5px 2px 5px;'><?= returnsktamb($m['sk_tamb']) ?></td>
 
             <td style='padding: 0px 0px 0px 0px;'>
               <form class="text-center" action="<?= base_url('Karyawan_CRUD/update') ?>" method="get">

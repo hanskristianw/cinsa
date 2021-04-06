@@ -33,14 +33,23 @@ class Karyawan_CRUD extends CI_Controller
 
     //data karyawan untuk konten
     $data['kr_all'] = $this->db->query(
-      "SELECT kr_id,kr_nama_depan,kr_nama_belakang,kr_username,jabatan_nama,sk_nama,kr_resign,
-      GROUP_CONCAT(st_nama ORDER BY kr_h_status_tanggal DESC) as st_nama
-      FROM kr
-      LEFT JOIN jabatan ON kr_jabatan_id = jabatan_id
-      LEFT JOIN sk ON kr_sk_id = sk_id
-      LEFT JOIN kr_h_status ON kr_h_status_kr_id = kr_id
-      LEFT JOIN st ON kr_h_status_status_id = st_id
-      GROUP BY kr_id
+      "SELECT * FROM (
+      	SELECT kr_id,kr_nama_depan,kr_nama_belakang,kr_username,jabatan_nama,sk_nama,kr_resign,
+          GROUP_CONCAT(st_nama ORDER BY kr_h_status_tanggal DESC) as st_nama
+          FROM kr
+          LEFT JOIN jabatan ON kr_jabatan_id = jabatan_id
+          LEFT JOIN sk ON kr_sk_id = sk_id
+          LEFT JOIN kr_h_status ON kr_h_status_kr_id = kr_id
+          LEFT JOIN st ON kr_h_status_status_id = st_id
+          GROUP BY kr_id
+      ) as a
+      LEFT JOIN (
+      	SELECT kr_id, GROUP_CONCAT(sk_nama) AS sk_tamb
+      	FROM kr
+      	LEFT JOIN kr_sk_tam ON kr_sk_tam_kr_id = kr_id
+      	LEFT JOIN sk ON kr_sk_tam_sk_id = sk_id
+      	GROUP BY kr_id
+      ) as b ON a.kr_id = b.kr_id
       ORDER BY kr_nama_depan")->result_array();
 
     //$data['tes'] = var_dump($this->db->last_query());
