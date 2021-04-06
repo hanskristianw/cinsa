@@ -87,6 +87,7 @@ class KPI_penilai_CRUD extends CI_Controller
 
         $kr_sk_id = $cek_unit['kr_sk_id'];
 
+        //karyawan yang sama dengan penilai
         $data = $this->db->query(
           "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama
           FROM d_jabatan_kpi
@@ -94,7 +95,22 @@ class KPI_penilai_CRUD extends CI_Controller
           LEFT JOIN sk ON kr_sk_id = sk_id
           WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id AND kr_sk_id = $kr_sk_id
           ORDER BY kr_nama_depan, kr_nama_belakang")->result();
-      }else{
+
+        //karyawan yang unit tambahannya sama dengan penilai tetapi jabatannya yang dinilai
+        $data2 = $this->db->query(
+          "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama
+          FROM d_jabatan_kpi
+          LEFT JOIN kr ON kr_id = d_jabatan_kpi_kr_id
+          LEFT JOIN sk ON kr_sk_id = sk_id
+          LEFT JOIN kr_sk_tam ON kr_sk_tam_kr_id = kr_id
+          WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id AND kr_sk_tam_sk_id = $kr_sk_id
+          ORDER BY kr_nama_depan, kr_nama_belakang")->result();
+
+        $query = array_merge($data,$data2);
+
+        echo json_encode($query);
+
+      }else if($cek['jabatan_kpi_hak_penilai'] == 0){
         //semua unit
         $data = $this->db->query(
           "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama
@@ -103,9 +119,10 @@ class KPI_penilai_CRUD extends CI_Controller
           LEFT JOIN sk ON kr_sk_id = sk_id
           WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id
           ORDER BY kr_nama_depan, kr_nama_belakang")->result();
+
+        echo json_encode($data);
       }
 
-      echo json_encode($data);
 
     }
   }
@@ -139,6 +156,20 @@ class KPI_penilai_CRUD extends CI_Controller
           LEFT JOIN sk ON kr_sk_id = sk_id
           WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id AND kr_sk_id = $kr_sk_id
           ORDER BY kr_nama_depan, kr_nama_belakang")->result();
+
+        //karyawan yang unit tambahannya sama dengan penilai tetapi jabatannya yang dinilai
+        $data2 = $this->db->query(
+          "SELECT kr_id, kr_nama_depan, kr_nama_belakang, sk_nama
+          FROM d_jabatan_kpi
+          LEFT JOIN kr ON kr_id = d_jabatan_kpi_kr_id
+          LEFT JOIN sk ON kr_sk_id = sk_id
+          LEFT JOIN kr_sk_tam ON kr_sk_tam_kr_id = kr_id
+          WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id AND kr_sk_tam_sk_id = $kr_sk_id
+          ORDER BY kr_nama_depan, kr_nama_belakang")->result();
+
+        $query = array_merge($data,$data2);
+
+        echo json_encode($query);
       }else{
         //semua unit
         $data = $this->db->query(
@@ -148,9 +179,10 @@ class KPI_penilai_CRUD extends CI_Controller
           LEFT JOIN sk ON kr_sk_id = sk_id
           WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id
           ORDER BY kr_nama_depan, kr_nama_belakang")->result();
+
+        echo json_encode($data);
       }
 
-      echo json_encode($data);
 
     }
   }

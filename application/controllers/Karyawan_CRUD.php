@@ -33,7 +33,8 @@ class Karyawan_CRUD extends CI_Controller
 
     //data karyawan untuk konten
     $data['kr_all'] = $this->db->query(
-      "SELECT *, GROUP_CONCAT(st_nama ORDER BY kr_h_status_tanggal DESC) as st_nama
+      "SELECT kr_id,kr_nama_depan,kr_nama_belakang,kr_username,jabatan_nama,sk_nama,kr_resign,
+      GROUP_CONCAT(st_nama ORDER BY kr_h_status_tanggal DESC) as st_nama
       FROM kr
       LEFT JOIN jabatan ON kr_jabatan_id = jabatan_id
       LEFT JOIN sk ON kr_sk_id = sk_id
@@ -152,7 +153,7 @@ class Karyawan_CRUD extends CI_Controller
 
     if ($this->form_validation->run() == false) {
       //jika menekan tombol edit
-      $data['title'] = 'Update Employee';
+      $data['title'] = 'Update Data Karyawan';
 
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -364,6 +365,97 @@ class Karyawan_CRUD extends CI_Controller
 
     } else {
       redirect('Profile');
+    }
+  }
+
+  public function unit_tambahan(){
+    $kr_id = $this->input->post('kr_id', true);
+    if($kr_id){
+
+      $nama= $this->db->query(
+        "SELECT kr_nama_depan, kr_nama_belakang, kr_sk_id
+        FROM kr
+        WHERE kr_id = $kr_id"
+      )->row_array();
+
+      $data['title'] = 'Unit Tambahan '.$nama['kr_nama_depan'].' '.$nama['kr_nama_belakang'];
+
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+
+      $data['kr_id'] = $kr_id;
+
+      $kr_sk_id = $nama['kr_sk_id'];
+
+      $data['utama']= $this->db->query(
+        "SELECT sk_nama
+        FROM sk
+        WHERE sk_id = $kr_sk_id"
+      )->row_array();
+
+      $data['tambah']= $this->db->query(
+        "SELECT sk_id, sk_nama
+        FROM sk
+        WHERE sk_id NOT IN
+          (SELECT kr_sk_id
+          FROM kr
+          WHERE kr_id = $kr_id)
+        AND sk_id NOT IN
+          (SELECT kr_sk_tam_sk_id
+          FROM kr_sk_tam
+          WHERE kr_sk_tam_kr_id = $kr_id)"
+      )->result_array();
+
+      $data['terdaftar']= $this->db->query(
+        "SELECT kr_sk_tam_id, sk_nama
+        FROM kr_sk_tam
+        LEFT JOIN sk ON sk_id = kr_sk_tam_sk_id
+        WHERE kr_sk_tam_kr_id = $kr_id"
+      )->result_array();
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('karyawan_crud/unit_tambahan', $data);
+      $this->load->view('templates/footer');
+
+    }else {
+      redirect('Profile');
+    }
+  }
+
+  public function unit_tambahan_proses(){
+    $sk_id = $this->input->post('sk_id[]', true);
+    if($sk_id){
+
+      $kr_id = $this->input->post('kr_id', true);
+
+      $data = array();
+
+      for($i=0;$i<count($sk_id);$i++){
+        $data[$i] = [
+          'kr_sk_tam_sk_id' => $sk_id[$i],
+          'kr_sk_tam_kr_id' => $kr_id
+        ];
+      }
+
+      $this->db->insert_batch('kr_sk_tam', $data);
+
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Berhasil menambahkan unit!</div>');
+			redirect('karyawan_crud');
+
+    }else {
+      redirect('Profile');
+    }
+  }
+
+  public function delete_tambahan(){
+    $kr_sk_tam_id = $this->input->post('kr_sk_tam_id', true);
+    if($kr_sk_tam_id){
+      $this->db->where('kr_sk_tam_id', $kr_sk_tam_id);
+      $this->db->delete('kr_sk_tam');
+
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Berhasil menghapus unit tambahan!</div>');
+			redirect('karyawan_crud');
     }
   }
 

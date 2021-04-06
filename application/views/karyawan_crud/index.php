@@ -47,7 +47,7 @@
   </div>
 
   <div class="box1">
-    <a href="<?= base_url('karyawan_crud/add') ?>" class="btn btn-primary mb-3">&plus; Karyawan</a>
+    <a href="<?= base_url('karyawan_crud/add') ?>" class="btn btn-secondary mb-3">&plus; Karyawan</a>
   </div>
 
   <div class="box1 mb-4">
@@ -56,12 +56,14 @@
         <tr>
           <th style='padding: 5px 5px 5px 5px;' rowspan="2" width="20%">Nama</th>
           <th style='padding: 5px 5px 5px 5px; width: 120px;' rowspan="2">Username</th>
-          <th style='padding: 5px 5px 5px 5px;' rowspan="2">Status</th>
-          <th style='padding: 5px 5px 5px 5px;' rowspan="2">Department</th>
-          <th style='padding: 5px 5px 5px 5px; width: 150px;' rowspan="2">Unit</th>
-          <th style='padding: 5px 5px 5px 5px; text-align:center;' colspan="6" width="20%">Action</th>
+          <th style='padding: 5px 5px 5px 5px;' rowspan="2">History<br>Status</th>
+          <th style='padding: 5px 5px 5px 5px;' rowspan="2">Jabatan</th>
+          <th style='padding: 5px 5px 5px 5px; width: 150px;' rowspan="2">Unit Utama</th>
+          <th style='padding: 5px 5px 5px 5px; width: 150px;' rowspan="2">Unit Tambahan</th>
+          <th style='padding: 5px 5px 5px 5px; text-align:center;' colspan="7" width="20%">Action</th>
         </tr>
         <tr>
+          <th></th>
           <th></th>
           <th></th>
           <th></th>
@@ -78,6 +80,7 @@
             <td style='padding: 2px 5px 2px 5px;'><?= $m['st_nama'] ?></td>
             <td style='padding: 2px 5px 2px 5px;'><?= $m['jabatan_nama'] ?></td>
             <td style='padding: 2px 5px 2px 5px;'><?= ucfirst(strtolower($m['sk_nama'])) ?></td>
+            <td style='padding: 2px 5px 2px 5px;'></td>
 
             <td style='padding: 0px 0px 0px 0px;'>
               <form class="text-center" action="<?= base_url('Karyawan_CRUD/update') ?>" method="get">
@@ -91,8 +94,19 @@
             <td style='padding: 0px 0px 0px 0px;'>
               <div class="text-center">
                 <button id="<?= $m['kr_id'] ?>" class="update-status badge badge-dark">
-                  Status
+                  &plus; Status
                 </button>
+              </div>
+            </td>
+
+            <td style='padding: 0px 0px 0px 0px;'>
+              <div class="text-center">
+                <form action="<?= base_url('Karyawan_CRUD/unit_tambahan') ?>" method="post">
+                  <input type="hidden" name="kr_id" value="<?= $m['kr_id'] ?>">
+                  <button class="badge badge-dark">
+                    &plus; Unit Tambahan
+                  </button>
+                </form>
               </div>
             </td>
 
@@ -101,7 +115,7 @@
                 <form action="<?= base_url('Karyawan_CRUD/reset') ?>" method="post">
                   <input type="hidden" name="kr_id" value="<?= $m['kr_id'] ?>">
                   <button type="submit" class="badge badge-info">
-                    Reset
+                    Reset Pass
                   </button>
                 </form>
               </div>
