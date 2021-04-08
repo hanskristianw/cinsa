@@ -14,7 +14,7 @@ class Hasil_KPI_CRUD extends CI_Controller
       redirect('Auth');
     }
 
-    if(kpi_menu()<=0 && $this->session->userdata('kr_jabatan_id')){
+    if(kpi_menu()==0 && cek_nilai_kpi_ada() == 0){
       redirect('Profile');
     }
 

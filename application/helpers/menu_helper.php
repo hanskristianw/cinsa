@@ -1428,3 +1428,17 @@ function detail_nil_kpi($kr_penilai, $kr_dinilai, $t_id){
 
   return $cek;
 }
+
+function cek_nilai_kpi_ada(){
+  $ci = &get_instance();
+
+  $kr_id = $ci->session->userdata('kr_id');
+
+  $cek = $ci->db->query(
+    "SELECT COUNT(nilai_kpi_id) AS jum
+    FROM nilai_kpi
+    WHERE nilai_kpi_dinilai_kr_id = $kr_id"
+  )->row_array();
+
+  return $cek['jum'];
+}
