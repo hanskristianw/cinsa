@@ -77,11 +77,17 @@ class Review_CRUD extends CI_Controller
         WHERE jurnal_kelas_id = $kelas_id AND jurnal_review = 0
         ORDER BY jurnal_bulan_id, jurnal_kelas_id, jurnal_minggu_ke, jurnal_hari_ke")->result_array();
 
-      $this->load->view('templates/header', $data);
-      $this->load->view('templates/sidebar', $data);
-      $this->load->view('templates/topbar', $data);
-      $this->load->view('review_crud/view_review', $data);
-      $this->load->view('templates/footer');
+      if($data['review_all']){
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('review_crud/view_review', $data);
+        $this->load->view('templates/footer');
+      }else{
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Belum ada yang harus direview!</div>');
+        redirect('Review_CRUD');
+      }
+
     }
   }
 
@@ -119,8 +125,12 @@ class Review_CRUD extends CI_Controller
 
       //insert tabel absen_j
       $this->db->insert_batch('absen_j', $data2);
-      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input Success!</div>');
+      $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Input Sukses!</div>');
       redirect('Review_CRUD');
+    }
+    else {
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Gagal!</div>');
+      redirect('Profile');
     }
   }
 

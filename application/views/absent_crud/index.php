@@ -29,6 +29,18 @@
   <div class="box1">
     <h5 class="text-center"><b><u><?= $title ?></u></b></h5>
     <div><?= $this->session->flashdata('message'); ?></div>
+
+    <div class="alert alert-secondary alert-dismissible fade show">
+        <button class="close" data-dismiss="alert" type="button">
+            <span>&times;</span>
+        </button>
+        <strong>PERHATIAN:</strong><br><br>
+
+        <ul>
+          <li>Menu absensi ini digunakan untuk absen di pagi hari oleh wali kelas pada saat jam wali kelas, jika ingin absensi per mapel ajar silahkan gunakan menu mapel- input jurnal.</b></li>
+        </ul>
+
+    </div>
   </div>
   <div class="box1">
     <form class="user" method="post" action="<?= base_url('Absent_CRUD/save'); ?>">
@@ -43,17 +55,16 @@
       <label><b>Tanggal:</b></label>
       <input type="date" name="tgl_absen" id="tgl_absen" class="form-control form-control-sm mb-4">
 
-      <div id="absen_kelas_tidak_masuk"></div>
-
       <div id="absen_kelas"></div>
     </form>
+    <div id="absen_kelas_tidak_masuk" class="mt-4"></div>
   </div>
 </div>
 
 <script>
 
 $(document).ready(function() {
-  
+
   function status_siswa(st_id){
     if(st_id==1)
       return "Sakit";
@@ -101,7 +112,7 @@ $(document).ready(function() {
           } else {
             var html = `
             <h5 class="text-center text-danger"><b><u>Murid yang tidak masuk, ijin atau alpha</u></b></h5>
-            <table class="table table-sm table-bordered table-striped" style="font-size: 10px;">
+            <table class="table table-sm table-bordered table-striped" style="font-size: 12px;">
               <thead>
                 <tr>
                   <th>NIS</th>
@@ -151,12 +162,12 @@ $(document).ready(function() {
         success: function (data) {
           //console.log(data);
           if (data.length == 0) {
-            var html = '<div class="text-center mb-3 text-danger"><b>--No Student--</b></div>';
+            var html = '<div class="text-center mb-3 text-danger"><b>--Tidak ada siswa di kelas--</b></div>';
           } else {
             var html = `
             <h5 class="text-center text-success"><b><u>Murid yang MASUK</u></b></h5>
             <label style="font-size: 12px;"><b>M: Masuk</b>; <b>S: Sakit</b>; <b>I: Ijin</b>; <b>A: Alpha</b></label>
-            <table class="table table-sm table-bordered table-striped" style="font-size: 10px;">
+            <table class="table table-sm table-bordered table-striped" style="font-size: 12px;">
               <thead>
                 <tr>
                   <th>NIS</th>
@@ -185,8 +196,8 @@ $(document).ready(function() {
             }
             html += `</tbody>
             </table>`;
-            html += `<button type="submit" class="btn btn-primary btn-user btn-block">
-                  Save
+            html += `<button type="submit" class="btn btn-secondary btn-user btn-block">
+                  Simpan
                 </button>`;
             //console.log(html);
           }
