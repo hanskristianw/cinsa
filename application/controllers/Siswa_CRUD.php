@@ -249,4 +249,69 @@ class Siswa_CRUD extends CI_Controller
 
     }
   }
+
+  public function tambah_foto(){
+
+    $sis_id = $this->input->post('sis_id', true);
+
+    if($sis_id){
+
+      $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $data['kr_id'] = $this->session->userdata('kr_id');
+
+      $siswa = $this->db->query(
+        "SELECT sis_id, sis_nama_depan, sis_nama_bel
+        FROM sis
+        WHERE sis_id = $sis_id"
+      )->row_array();
+
+      $data['title'] = 'Upload Foto '.$siswa['sis_nama_depan'].' '.$siswa['sis_nama_bel'];
+
+      $data['sis_pp'] = $this->db->query(
+        "SELECT sis_id,sis_pp
+        FROM sis
+        WHERE sis_id = $sis_id"
+      )->row_array();
+
+      $this->load->view('templates/header', $data);
+      $this->load->view('templates/sidebar', $data);
+      $this->load->view('templates/topbar', $data);
+      $this->load->view('Siswa_CRUD/tambah_foto', $data);
+      $this->load->view('templates/footer');
+    }
+  }
+
+  public function save_foto()
+  {
+    $config['upload_path'] = './assets/img/siswa/';
+    $config['allowed_types'] = 'gif|jpg|png|jpeg';
+    $config['max_size'] = 1024;
+    $config['max_width'] = 3000;
+    $config['max_height'] = 3000;
+    $config['file_name'] = date('ymd') . '-' . substr(md5(rand()), 0, 10);
+    $old_image = $this->input->post('sis_pp');
+    $this->load->library('upload', $config);
+
+    if (!$this->upload->do_upload('image')) {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+      redirect('Siswa_CRUD');
+    } else {
+
+      if ($old_image != 'avatar.png') {
+        unlink(FCPATH . '/assets/img/siswa/' . $old_image);
+      }
+
+      $data = [
+        'sis_pp' => $this->upload->data('file_name')
+      ];
+
+      $sis_id = $this->input->post('sis_id');
+
+      $this->db->where('sis_id', $sis_id);
+      $this->db->update('sis', $data);
+
+      $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Upload Success!</div>');
+      redirect('Siswa_CRUD');
+    }
+  }
 }

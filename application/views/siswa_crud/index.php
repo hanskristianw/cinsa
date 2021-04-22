@@ -62,9 +62,10 @@
           <th class="p-3" rowspan="2">Gender</th>
           <th class="p-3" rowspan="2">Agama</th>
           <th class="p-3" rowspan="2">Tahun Masuk</th>
-          <th class="p-3" colspan="2">Action</th>
+          <th class="p-3" colspan="3">Action</th>
         </tr>
         <tr class="bg-dark text-white text-center">
+          <th></th>
           <th></th>
           <th></th>
         </tr>
@@ -94,6 +95,14 @@
                 <input type="hidden" name="sis_id" value=<?= $m['sis_id'] ?>>
                 <button type="submit" class="badge badge-warning">
                   Edit
+                </button>
+              </form>
+            </td>
+            <td>
+              <form class="" action="<?= base_url('Siswa_CRUD/tambah_foto') ?>" method="post">
+                <input type="hidden" name="sis_id" value=<?= $m['sis_id'] ?>>
+                <button type="submit" class="badge badge-primary">
+                  &plus; foto
                 </button>
               </form>
             </td>
