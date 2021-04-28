@@ -46,7 +46,7 @@
       <thead class="bg-secondary text-white text-center">
         <th style="width:45px;">
             Setujui? <br><br>
-            <input type="checkbox" id="checkAll">
+            <!-- <input type="checkbox" id="checkAll"> -->
         </th>
         <th style="width:25px;">Minggu ke</th>
         <th style="width:25px;">Jam ke</th>
