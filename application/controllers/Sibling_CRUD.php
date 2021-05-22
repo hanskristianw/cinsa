@@ -36,7 +36,7 @@ class Sibling_CRUD extends CI_Controller
       FROM sis
       LEFT JOIN t ON sis_t_id = t_id
       LEFT JOIN sk ON sis_sk_id = sk_id
-      ORDER BY sis_nama_depan"
+      ORDER BY sis_nama_depan, sis_nama_bel"
     )->result_array();
 
     //$data['tes'] = var_dump($this->db->last_query());
