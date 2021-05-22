@@ -36,7 +36,8 @@ class Siswa_CRUD extends CI_Controller
     //data karyawan untuk konten
     $sk_id = $this->session->userdata('kr_sk_id');
     $data['sis_all'] = $this->db->query(
-      "SELECT *
+      "SELECT sis_id, sis_nama_depan, sis_nama_bel, sis_no_induk,
+              sis_email, sis_nisn, sis_jk, agama_nama, t_nama, sis_ayah, sis_ibu
       FROM sis
       LEFT JOIN agama ON agama_id = sis_agama_id
       LEFT JOIN t ON sis_t_id = t_id
@@ -86,7 +87,9 @@ class Siswa_CRUD extends CI_Controller
         'sis_jk' => $this->input->post('sis_jk'),
         'sis_agama_id' => $this->input->post('sis_agama_id'),
         'sis_t_id' => $this->input->post('sis_t_id'),
-        'sis_email' => $this->input->post('sis_email')
+        'sis_email' => $this->input->post('sis_email'),
+        'sis_ayah' => $this->input->post('sis_ayah'),
+        'sis_ibu' => $this->input->post('sis_ibu')
       ];
 
       $this->db->insert('sis', $data);
@@ -144,7 +147,9 @@ class Siswa_CRUD extends CI_Controller
           'sis_jk' => $this->input->post('sis_jk'),
           'sis_agama_id' => $this->input->post('sis_agama_id'),
           'sis_t_id' => $this->input->post('sis_t_id'),
-          'sis_email' => $this->input->post('sis_email')
+          'sis_email' => $this->input->post('sis_email'),
+          'sis_ayah' => $this->input->post('sis_ayah'),
+          'sis_ibu' => $this->input->post('sis_ibu')
         ];
 
         $this->db->where('sis_id', $this->input->post('sis_id'));
@@ -162,7 +167,9 @@ class Siswa_CRUD extends CI_Controller
           'sis_nisn' => $this->input->post('sis_nisn'),
           'sis_jk' => $this->input->post('sis_jk'),
           'sis_agama_id' => $this->input->post('sis_agama_id'),
-          'sis_email' => $this->input->post('sis_email')
+          'sis_email' => $this->input->post('sis_email'),
+          'sis_ayah' => $this->input->post('sis_ayah'),
+          'sis_ibu' => $this->input->post('sis_ibu')
         ];
 
         $this->db->where('sis_id', $this->input->post('sis_id'));

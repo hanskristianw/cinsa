@@ -687,25 +687,45 @@
         //       <hr class="sidebar-divider d-none d-md-block">
         // ';
       } elseif ($this->session->userdata('kr_jabatan_id') == 8) {
+        // echo '<div class="sidebar-heading">
+        //           Admission
+        //         </div>
+        //         <li class="nav-item">
+        //           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsead" aria-expanded="true" aria-controls="collapseTwo">
+        //             <i class="fas fa-fw fa-book"></i>
+        //             <span>Buku</span>
+        //           </a>
+        //           <div id="collapsead" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        //             <div class="bg-white py-2 collapse-inner rounded">
+        //               <h6 class="collapse-header">Set</h6>
+        //               <a class="collapse-item" href=' . base_url('Admission_CRUD/penerbit') . '>1. Penerbit</a>
+        //               <a class="collapse-item" href=' . base_url('Admission_CRUD/buku') . '>2. Buku</a>
+        //               <a class="collapse-item" href=' . base_url('Admission_CRUD/penjualan') . '>3. Penjualan Buku</a>
+        //             </div>
+        //           </div>
+        //         </li>
+        //         <hr class="sidebar-divider d-none d-md-block">
+        //         ';
+
         echo '<div class="sidebar-heading">
                   Admission
                 </div>
                 <li class="nav-item">
                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsead" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-book"></i>
-                    <span>Buku</span>
+                    <span>Siswa</span>
                   </a>
                   <div id="collapsead" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                      <h6 class="collapse-header">Set</h6>
-                      <a class="collapse-item" href=' . base_url('Admission_CRUD/penerbit') . '>1. Penerbit</a>
-                      <a class="collapse-item" href=' . base_url('Admission_CRUD/buku') . '>2. Buku</a>
-                      <a class="collapse-item" href=' . base_url('Admission_CRUD/penjualan') . '>3. Penjualan Buku</a>
+                      <h6 class="collapse-header">Lihat</h6>
+                      <a class="collapse-item" href=' . base_url('Sibling_CRUD') . '>Sibling</a>
                     </div>
                   </div>
                 </li>
-                <hr class="sidebar-divider d-none d-md-block">
-                ';
+                <hr class="sidebar-divider d-none d-md-block">';
+
+
+
       } elseif ($this->session->userdata('kr_jabatan_id') == 9) {
         //KEUANGAN
         echo '<div class="sidebar-heading">
