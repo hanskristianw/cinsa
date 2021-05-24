@@ -38,7 +38,7 @@
 
 <div class="grid-main">
 
-  <div class="box1 text-center mt-4"><h4><u>Daftar Jabatan KPI</u></h4></div>
+  <div class="box1 text-center mt-4"><h4><u><?= $title ?></u></h4></div>
 
 
   <div class="box1">
@@ -63,7 +63,7 @@
         foreach ($jabatan_all as $m) :
         ?>
           <tr>
-            <td><?= $m['responden'] ?></td>
+            <td style="color: black"><?= $m['responden'] ?></td>
             <td class="text-center">
               <form class="" action="<?= base_url('Jabatan_KPI_CRUD/edit_peserta') ?>" method="post">
                 <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>
@@ -88,7 +88,7 @@
                 </button>
               </form>
             </td>
-            <td><?= $m['penilai'] ?></td>
+            <td style="color: black"><?= $m['penilai'] ?></td>
             <td class="text-center">
               <form class="" action="<?= base_url('Jabatan_KPI_CRUD/edit_penilai') ?>" method="post">
                 <input type="hidden" name="jabatan_kpi_id" value=<?= $m['jabatan_kpi_id'] ?>>

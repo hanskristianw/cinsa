@@ -23,7 +23,7 @@ class Jabatan_KPI_CRUD extends CI_Controller
   public function index()
   {
 
-    $data['title'] = 'Jabatan KPI';
+    $data['title'] = 'Daftar Jabatan';
 
     //data karyawan yang sedang login untuk topbar
     $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
