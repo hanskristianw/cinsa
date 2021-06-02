@@ -29,9 +29,8 @@
               <div id="collapseTwokpi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                   <h6 class="collapse-header">Nilai</h6>
-                  <a class="collapse-item" href=' . base_url('KPI_penilai_CRUD') . '>1. KPI</a>
-                  <a class="collapse-item" href=' . base_url('PA_penilai_CRUD') . '>2. PA</a>
-                  <a class="collapse-item" href=' . base_url('Hasil_KPI_CRUD') . '>3. Laporan</a>
+                  <a class="collapse-item" href=' . base_url('PA_penilai_CRUD') . '>1. PA</a>
+                  <a class="collapse-item" href=' . base_url('Hasil_KPI_CRUD') . '>2. Laporan</a>
                 </div>
               </div>
             </li>
@@ -75,7 +74,7 @@
 
             <hr class="sidebar-divider">';
 
-        echo '<div class="sidebar-heading">KPI</div>
+        echo '<div class="sidebar-heading">KPI - PA</div>
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
@@ -86,6 +85,20 @@
               <h6 class="collapse-header">Master</h6>
               <a class="collapse-item" href=' . base_url('Jabatan_KPI_CRUD') . '>1. Jabatan</a>
               <a class="collapse-item" href=' . base_url('Persen_KPI_CRUD') . '>2. Persentase</a>
+            </div>
+          </div>
+        </li>';
+
+        echo '<div class="sidebar-heading">Laporan</div>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo33" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-book"></i>
+            <span>KPI - PA</span>
+          </a>
+          <div id="collapseTwo33" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Rekap</h6>
+              <a class="collapse-item" href=' . base_url('Rekap_KPI') . '>1. PA - jabatan</a>
             </div>
           </div>
         </li>
@@ -173,8 +186,9 @@
                   <a class="collapse-item" href=' . base_url('Kelas_CRUD') . '>7. Kelas</a>
                   <a class="collapse-item" href=' . base_url('SSP_CRUD') . '>8. Extrakurikuler</a>
                   <a class="collapse-item" href=' . base_url('MK_CRUD') . '>9. Mapel Khusus</a>
-                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD/pengumuman') . '>10. Pengumuman</a>
-                  <a class="collapse-item" href=' . base_url('Kelulusan_CRUD') . '>11. Kelulusan</a>
+                  <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>10. Persentase</a>
+                  <a class="collapse-item" href=' . base_url('Jadwal_CRUD/pengumuman') . '>11. Pengumuman</a>
+                  <a class="collapse-item" href=' . base_url('Kelulusan_CRUD') . '>12. Kelulusan</a>
                 </div>
               </div>
             </li>

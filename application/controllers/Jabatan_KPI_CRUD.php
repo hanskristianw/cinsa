@@ -206,6 +206,9 @@ class Jabatan_KPI_CRUD extends CI_Controller
 
       $data['title'] = 'Edit Peserta '.$cek['jabatan_kpi_nama'];
 
+
+      $data['nama_jabatan'] = $cek['jabatan_kpi_nama'];
+
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
 
@@ -216,7 +219,7 @@ class Jabatan_KPI_CRUD extends CI_Controller
         FROM kr
         LEFT JOIN sk ON sk_id = kr_sk_id
         WHERE kr_resign = 0 AND kr_id NOT IN (SELECT d_jabatan_kpi_kr_id FROM d_jabatan_kpi WHERE d_jabatan_kpi_id = $jabatan_kpi_id)
-        ORDER BY kr_nama_depan"
+        ORDER BY kr_sk_id, kr_nama_depan, kr_nama_belakang"
       )->result_array();
 
       $data['kr_all2'] = $this->db->query(
@@ -225,7 +228,7 @@ class Jabatan_KPI_CRUD extends CI_Controller
         LEFT JOIN d_jabatan_kpi ON d_jabatan_kpi_kr_id = kr_id
         LEFT JOIN sk ON sk_id = kr_sk_id
         WHERE d_jabatan_kpi_jabatan_kpi_id = $jabatan_kpi_id
-        ORDER BY kr_nama_depan"
+        ORDER BY kr_sk_id, kr_nama_depan, kr_nama_belakang"
       )->result_array();
 
 
@@ -241,6 +244,7 @@ class Jabatan_KPI_CRUD extends CI_Controller
 
   }
   public function edit_peserta_proses(){
+
     if($this->input->post('kr_id[]')){
 
       $kr_id = $this->input->post('kr_id[]');
@@ -256,6 +260,9 @@ class Jabatan_KPI_CRUD extends CI_Controller
       $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">'.count($kr_id).' Peserta berhasil diinput!</div>');
       redirect('Jabatan_KPI_CRUD');
 
+    }else{
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Pilih setidaknya 1 karyawan!</div>');
+      redirect('Jabatan_KPI_CRUD');
     }
   }
 

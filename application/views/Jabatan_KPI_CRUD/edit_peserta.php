@@ -48,26 +48,30 @@
 
     <?php if($kr_all2): ?>
 
-    <div class="box1 text-center mt-4 text-success"><h4><u>Daftar Peserta</u></h4></div>
-    <table class="table table-bordered table-hover table-sm" style="font-size:14px;">
+    <div class="box1 text-center mt-4 text-success"><h4><u>Daftar <?= $nama_jabatan ?></u></h4></div>
+    <table class="table table-bordered table-hover table-sm" style="font-size:12px;">
       <thead class="thead-dark">
         <tr>
           <th style="width:5%;" class="pt-4 pb-4 pl-2 text-center">No</th>
           <th class="pt-4 pb-4 pl-2">Nama</th>
-          <th class="pt-4 pb-4 pl-2">Unit</th>
           <th style="width:10%;" class="pt-4 pb-4 pl-2 text-center">Action</th>
         </tr>
       </thead>
       <tbody>
         <?php
         $no = 1;
+        $temp = "";
         foreach ($kr_all2 as $m) :
         ?>
+        <?php if ($m['sk_nama'] !== $temp) : ?>
           <tr>
-            <td class="text-center"><?= $no ?></td>
-            <td><?= $m['kr_nama_depan'].' '.$m['kr_nama_belakang'] ?></td>
-            <td><?= $m['sk_nama'] ?></td>
-            <td class="text-center">
+            <td colspan="3" class="text-center bg-info text-white pt-2 pb-2"><?= $m['sk_nama'] ?></td>
+          </tr>
+        <?php endif; ?>
+          <tr>
+            <td class="text-center m-0 pt-1 pb-0"><?= $no ?></td>
+            <td class="m-0 pt-1 pb-0"><?= $m['kr_nama_depan'].' '.$m['kr_nama_belakang'] ?></td>
+            <td class="text-center m-0 p-0">
               <form class="" action="<?= base_url('Jabatan_KPI_CRUD/delete_peserta') ?>" method="post">
                 <input type="hidden" name="d_jabatan_kpi_id" value=<?= $m['d_jabatan_kpi_id'] ?>>
                 <button type="submit" class="badge badge-danger">
@@ -78,38 +82,42 @@
           </tr>
         <?php
         $no++;
+        $temp = $m['sk_nama'];
         endforeach;
         ?>
       </tbody>
     </table>
 
-    <hr>
-    
     <?php endif; ?>
 
 
-    <div class="box1 text-center mt-4"><h4><u><?= $title ?></u></h4></div>
+    <div class="box1 text-center text-danger mt-4"><h4><u>Daftar Karyawan yang TIDAK Terdaftar sebagai <?= $nama_jabatan ?></u></h4></div>
 
     <form class="" action="<?= base_url('Jabatan_KPI_CRUD/edit_peserta_proses'); ?>" method="post">
       <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
-      <table class="table table-bordered table-hover table-sm" style="font-size:14px;">
+      <table class="table table-bordered table-hover table-sm" style="font-size:12px;">
         <thead class="thead-dark">
           <tr>
-            <th style="width:10%;" class="pt-4 pb-4 pl-2 text-center">Pilih?</th>
+            <th style="width:10%;" class="pt-4 pb-4 pl-2 text-center">Daftarkan?</th>
             <th class="pt-4 pb-4 pl-2">Nama</th>
-            <th class="pt-4 pb-4 pl-2">Unit</th>
           </tr>
         </thead>
         <tbody>
           <?php
+          $temp = "";
           foreach ($kr_all as $m) :
           ?>
+          <?php if ($m['sk_nama'] !== $temp) : ?>
             <tr>
-              <td class="text-center"> <input type="checkbox" name="kr_id[]" value="<?= $m['kr_id'] ?>">  </td>
-              <td><?= $m['kr_nama_depan'].' '.$m['kr_nama_belakang'] ?></td>
-              <td><?= $m['sk_nama'] ?></td>
+              <td colspan="2" class="text-center bg-secondary text-white"><?= $m['sk_nama'] ?></td>
+            </tr>
+          <?php endif; ?>
+            <tr>
+              <td class="text-center m-0 pt-1 pb-0"> <input type="checkbox" name="kr_id[]" value="<?= $m['kr_id'] ?>">  </td>
+              <td class="m-0 pt-1 pb-0"><?= $m['kr_nama_depan'].' '.$m['kr_nama_belakang'] ?></td>
             </tr>
           <?php
+            $temp = $m['sk_nama'];
           endforeach;
           ?>
         </tbody>

@@ -24,7 +24,7 @@
 .box1{
   /*align-self:start;*/
   grid-column:2/3;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 .box2{
@@ -55,6 +55,30 @@
   </div>
 
   <div class="box1">
+    <div class="alert alert-warning alert-dismissible fade show mb-4">
+      <button class="close" data-dismiss="alert" type="button">
+        <span>&times;</span>
+      </button>
+
+      <h4><u><b>Fungsi tombol</b></u></h4>
+
+      <ul>
+        <li><b>Edit</b>: untuk melakukan edit data karyawan</li>
+        <li><b>Status</b>: untuk history status kepegawaian, dari GTT - GTY (atau sebaliknya) dan tahun bergantinya status</li>
+        <li><b>Unit Tambahan</b>: unit tambahan karyawan, misalkan mengajar 3 tempat, 1 unit utama SMP NSA, dengan unit tambahan SD NSA dan SMP sutorejo, berfungsi untuk penilaian KPI dan PA oleh atasan</li>
+        <li><b>Reset Pass</b>: Reset password jika karyawan lupa login, <b>BUKAN</b> untuk generate password karyawan baru, karyawan baru password akan diinputkan pada saat menambahkan karyawan</li>
+        <li><b>Nonaktifkan/Aktifkan</b>: Bila karyawan <b>RESIGN</b> ubah dengan menekan tombol biru agar menjadi hijau (nonaktifkan), bila karyawan masih aktif biarkan tombol tetap biru</li>
+        <li><b>Print</b>: Untuk melakukan print laporan status kepegawaian</li>
+        <li><b>Del</b>: Untuk delete karyawan, <b>PASTIKAN USERNAME</b> tidak mempunyai nilai sebagai guru, pernah menjabat wali kelas, menjabat kepsek, tidak mempunyai nilai KPI atau PA</li>
+      </ul>
+
+      <div style="font-family:Cambria, sans-serif;font-size:14px;color:red;" class="mb-2">**Bila terdapat data karyawan ganda, <b>tanyakan kepada karyawan bersangkutan USERNAME mana yang dipakai</b>, dan nonaktifkan atau edit sisanya.</div>
+
+
+    </div>
+  </div>
+
+  <div class="box1">
     <?= $this->session->flashdata('message'); ?>
   </div>
 
@@ -62,10 +86,11 @@
     <a href="<?= base_url('karyawan_crud/add') ?>" class="btn btn-secondary mb-3">&plus; Karyawan</a>
   </div>
 
-  <div class="box1 mb-4">
+  <div class="box1 mb-4 p-0">
     <table class="table table-hover table-bordered dt2" style="font-size:13px;">
       <thead>
         <tr>
+          <th style='padding: 5px 5px 5px 5px; width:"20px;"' rowspan="2">No</th>
           <th style='padding: 5px 5px 5px 5px;' rowspan="2" width="20%">Nama</th>
           <th style='padding: 5px 5px 5px 5px; width: 120px;' rowspan="2">Username</th>
           <th style='padding: 5px 5px 5px 5px;' rowspan="2">History<br>Status</th>
@@ -85,8 +110,9 @@
         </tr>
       </thead>
       <tbody>
-        <?php foreach($kr_all as $m) : ?>
+        <?php $no=1;foreach($kr_all as $m) : ?>
           <tr>
+            <td style='padding: 2px 5px 2px 5px'><?= $no; ?></td>
             <td style='padding: 2px 5px 2px 5px;'><?= $m['kr_nama_depan'].' '.$m['kr_nama_belakang'] ?></td>
             <td style='padding: 2px 5px 2px 5px;'><?= $m['kr_username'] ?></td>
             <td style='padding: 2px 5px 2px 5px;'><?= $m['st_nama'] ?></td>
@@ -139,7 +165,7 @@
                   <input type="hidden" name="kr_id" value="<?= $m['kr_id'] ?>">
                     <?php if($m['kr_resign'] == 0) : ?>
                       <button onclick="return confirm('Karyawan yang dinonaktifkan tidak akan dapat mengakses SAS, lanjutkan?')" type="submit" class="badge badge-primary">
-                        Nonaktif
+                        Nonaktifkan
                       </button>
                     <?php else: ?>
                       <button onclick="return confirm('Karyawan yang diaktifkan akan dapat mengakses SAS, Aktifkan kembali karyawan?')" type="submit" class="badge badge-success">
@@ -172,7 +198,7 @@
               </div>
             </td>
           </tr>
-        <?php endforeach ?>
+        <?php $no++; endforeach; ?>
       </tbody>
     </table>
   </div>
@@ -185,7 +211,10 @@
   $(document).ready(function () {
 
     $('.dt2').DataTable({
-      "pageLength": 50
+      "pageLength": 50,
+      dom: "<'row'<'col-sm-2 mt-2'l><'col-sm-7'p><'col-sm-3 mt-2'f>>" +
+          "<'row'<'col-sm-12'tr>>" +
+          "<'row'<'col-sm-5'i><'col-sm-7'p>>",
     });
 
     $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
