@@ -33,7 +33,7 @@
   <div class="box1">
 
     <?php if($jabatan_all): ?>
-      <form class="user" id="frmTest" method="post" action="<?= base_url('Rekap_KPI/view_kr2'); ?>">
+      <form class="user" id="frmTest" method="post" action="<?= base_url('Rekap_PA_jabatan/view_kr2'); ?>">
 
         <input type="hidden" id="t_id" name="t_id" value="<?= $t_id ?>">
 
@@ -59,38 +59,6 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-    // $.ajax(
-    //   {
-    //     type: "post",
-    //     url: base_url + "Rekap_KPI/get_sekolah",
-    //     async: true,
-    //     dataType: 'json',
-    //     success: function (data) {
-    //       if (data.length == 0) {
-    //         var html2 = '<div class="text-center mt-3 mb-3 text-danger"><b>--Belum ada pilihan unit --</b></div>';
-    //       } else {
-    //
-    //         var html2 = `<div class="card mt-2">
-    //                       <div class="card-header">
-    //                         <input class="checkAllpeni" id="checkAllpeni" type="checkbox">
-    //                         <label for="checkAllpeni"><b><u>Pilih Semua Karyawan</u></b></label>
-    //                       </div>
-    //                       <div class="card-body">`;
-    //         var i;
-    //         for (i = 0; i < data.length; i++) {
-    //           html2 += `<input class="penic" type=checkbox value="${data[i].sk_id}" id="${data[i].sk_id}">
-    //                    <label for="${data[i].sk_id}">${data[i].sk_nama}</label><br>`;
-    //         }
-    //
-    //         html2 += `</div>
-    //                 </div>`;
-    //
-    //       }
-    //
-    //     }
-    //   });
-
-
     $('#jabatan_kpi_id').change(function () {
 
       $('#guru_ajax').html("");
@@ -102,7 +70,7 @@
         $.ajax(
           {
             type: "post",
-            url: base_url + "Rekap_KPI/get_karyawan_by_jabatan",
+            url: base_url + "Rekap_PA_jabatan/get_karyawan_by_jabatan",
             data: {
               'jabatan_kpi_id': jabatan_kpi_id,
               't_id': t_id

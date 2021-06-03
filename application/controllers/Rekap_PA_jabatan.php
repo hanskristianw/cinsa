@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Rekap_KPI extends CI_Controller
+class Rekap_PA_jabatan extends CI_Controller
 {
   public function __construct()
   {
@@ -37,7 +37,7 @@ class Rekap_KPI extends CI_Controller
     $this->load->view('templates/header', $data);
     $this->load->view('templates/sidebar', $data);
     $this->load->view('templates/topbar', $data);
-    $this->load->view('Rekap_KPI/index', $data);
+    $this->load->view('Rekap_PA_jabatan/index', $data);
     $this->load->view('templates/footer');
 
   }
@@ -74,7 +74,7 @@ class Rekap_KPI extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('templates/topbar', $data);
-      $this->load->view('Rekap_KPI/view_kr', $data);
+      $this->load->view('Rekap_PA_jabatan/view_kr', $data);
       $this->load->view('templates/footer');
     }
     else {
@@ -113,7 +113,7 @@ class Rekap_KPI extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('templates/topbar', $data);
-      $this->load->view('Rekap_KPI/view_kr2', $data);
+      $this->load->view('Rekap_PA_jabatan/view_kr2', $data);
       $this->load->view('templates/footer');
     }
     else {
@@ -153,7 +153,7 @@ class Rekap_KPI extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
       $this->load->view('templates/topbar', $data);
-      $this->load->view('Rekap_KPI/hasil', $data);
+      $this->load->view('Rekap_PA_jabatan/hasil', $data);
       $this->load->view('templates/footer');
     }
 

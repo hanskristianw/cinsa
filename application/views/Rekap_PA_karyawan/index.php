@@ -27,12 +27,12 @@
 <div class="grid-container">
 
   <div class="box1">
-    <h5 class="text-center"><b><u>Laporan PA</u></b></h5>
+    <h5 class="text-center"><b><u>Laporan PA (karyawan)</u></b></h5>
     <h6 class="text-center"><b><u><?= $title ?></u></b></h6>
     <div><?= $this->session->flashdata('message'); ?></div>
   </div>
   <div class="box1">
-    <form class="user" method="post" action="<?= base_url('Rekap_KPI/view_kr'); ?>">
+    <form class="user" method="post" action="<?= base_url('Rekap_PA_karyawan/view_kr'); ?>">
       <label><b>Tahun Ajaran:</b></label>
       <select name="t_id" class="form-control form-control-sm mb-2">
         <?php foreach ($t_all as $t) : ?>

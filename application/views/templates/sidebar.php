@@ -98,7 +98,8 @@
           <div id="collapseTwo33" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Rekap</h6>
-              <a class="collapse-item" href=' . base_url('Rekap_KPI') . '>1. PA - jabatan</a>
+              <a class="collapse-item" href=' . base_url('Rekap_PA_jabatan') . '>1. PA - jabatan</a>
+              <a class="collapse-item" href=' . base_url('Rekap_PA_karyawan') . '>2. PA - karyawan</a>
             </div>
           </div>
         </li>

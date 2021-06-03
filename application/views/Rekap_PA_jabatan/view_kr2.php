@@ -33,7 +33,7 @@
   <div class="box1">
 
     <?php if($penilai_all): ?>
-      <form class="user" id="frmTest" method="post" action="<?= base_url('Rekap_KPI/hasil'); ?>">
+      <form class="user" id="frmTest" method="post" action="<?= base_url('Rekap_PA_jabatan/hasil'); ?>">
 
         <input type="hidden" name="kr_dinilai" value="<?= $dinilai ?>">
         <input type="hidden" name="t_id" value="<?= $t_id; ?>">
