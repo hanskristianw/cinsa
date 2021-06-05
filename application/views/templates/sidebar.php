@@ -31,6 +31,7 @@
                   <h6 class="collapse-header">Nilai</h6>
                   <a class="collapse-item" href=' . base_url('PA_penilai_CRUD') . '>1. PA</a>
                   <a class="collapse-item" href=' . base_url('Hasil_KPI_CRUD') . '>2. Laporan</a>
+                  <a class="collapse-item" href=' . base_url('Hasil_KPI_CRUD/rata') . '>3. Pribadi</a>
                 </div>
               </div>
             </li>
@@ -107,25 +108,25 @@
         <hr class="sidebar-divider">';
       } elseif ($this->session->userdata('kr_jabatan_id') == 2 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia karyawan
-        echo '<div class="sidebar-heading">
-              Employee
-            </div>
-
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Master</span>
-              </a>
-              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Master</h6>
-                  <a class="collapse-item" href=""></a>
-                  <a class="collapse-item" href=""></a>
-                </div>
-              </div>
-            </li>
-
-            <hr class="sidebar-divider d-none d-md-block">';
+        // echo '<div class="sidebar-heading">
+        //       Employee
+        //     </div>
+        //
+        //     <li class="nav-item">
+        //       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        //         <i class="fas fa-fw fa-cog"></i>
+        //         <span>Master</span>
+        //       </a>
+        //       <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        //         <div class="bg-white py-2 collapse-inner rounded">
+        //           <h6 class="collapse-header">Master</h6>
+        //           <a class="collapse-item" href=""></a>
+        //           <a class="collapse-item" href=""></a>
+        //         </div>
+        //       </div>
+        //     </li>
+        //
+        //     <hr class="sidebar-divider d-none d-md-block">';
       } elseif ($this->session->userdata('kr_jabatan_id') == 3 && $this->session->userdata('kr_jabatan_id')) {
         //jika dia HRD
         echo '<div class="sidebar-heading">
