@@ -38,27 +38,27 @@
       <label style="font-size:14px;"><b>Nama Jabatan:</b></label>
       <input type="text" class="form-control form-control-sm mb-3" name="jabatan_kpi_nama" value="<?= $jabatan_all['jabatan_kpi_nama'] ?>" required>
 
-      <label style="font-size:14px;"><b>Dapat melihat laporan untuk:</b></label>
-      <select class="form-control form-control-sm mb-2" name="jabatan_kpi_hak">
+      <!-- <label style="font-size:14px;"><b>Dapat melihat laporan untuk:</b></label>
+      <select class="form-control form-control-sm mb-2" name="jabatan_kpi_hak"> -->
         <?php
-          if($jabatan_all['jabatan_kpi_hak'] == 0)
-            echo "<option value = '0' selected>Semua unit</option>
-                  <option value = '1'>Hanya unit yang sama</option>";
-          elseif($jabatan_all['jabatan_kpi_hak'] == 1)
-            echo "<option value = '0'>Semua unit</option>
-                  <option value = '1' selected>Hanya unit yang sama</option>";
+          // if($jabatan_all['jabatan_kpi_hak'] == 0)
+          //   echo "<option value = '0' selected>Semua unit</option>
+          //         <option value = '1'>Hanya unit yang sama</option>";
+          // elseif($jabatan_all['jabatan_kpi_hak'] == 1)
+          //   echo "<option value = '0'>Semua unit</option>
+          //         <option value = '1' selected>Hanya unit yang sama</option>";
         ?>
-      </select>
+      <!-- </select> -->
 
       <label style="font-size:14px;"><b>Dapat menilai:</b></label>
       <select class="form-control form-control-sm" name="jabatan_kpi_hak_penilai">
         <?php
           if($jabatan_all['jabatan_kpi_hak_penilai'] == 0)
             echo "<option value = '0' selected>Semua unit</option>
-                  <option value = '1'>Hanya unit yang sama</option>";
+                  <option value = '1'>Hanya unit yang sama + unit tambahan</option>";
           elseif($jabatan_all['jabatan_kpi_hak_penilai'] == 1)
             echo "<option value = '0'>Semua unit</option>
-                  <option value = '1' selected>Hanya unit yang sama</option>";
+                  <option value = '1' selected>Hanya unit yang sama + unit tambahan</option>";
         ?>
       </select>
 

@@ -244,7 +244,10 @@
 
     <p style="page-break-after: always;">&nbsp;</p>
 
-
+  <?php
+    else:
+  ?>
+    <h5 class="text-center text-danger">-Belum ada nilai oleh <?= $kr['kr_nama_depan'].' '.$kr['kr_nama_belakang'] ?>-</h5>
   <?php
       endif;
   ?>

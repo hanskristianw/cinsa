@@ -56,10 +56,10 @@
 
           <input type="hidden" name="is_update" value="1">
 
-          <label for="kr_nama_depan"><b><u>Nama Depan</u>:</b></label>
+          <label for="kr_nama_depan"><b><u>Nama Depan (TANPA gelar, gelar dapat diisikan diinformasi tambahan)</u>:</b></label>
           <input type="text" class="form-control form-control-sm mb-2" id="kr_nama_depan" name="kr_nama_depan" value="<?= set_value('kr_nama_depan', $kr_update['kr_nama_depan']); ?>" required>
 
-          <label for="kr_nama_belakang"><b><u>Nama Belakang</u>:</b></label>
+          <label for="kr_nama_belakang"><b><u>Nama Belakang (TANPA gelar, gelar dapat diisikan diinformasi tambahan)</u>:</b></label>
           <input type="text" class="form-control form-control-sm mb-2" id="kr_nama_belakang" name="kr_nama_belakang" value="<?= set_value('kr_nama_belakang', $kr_update['kr_nama_belakang']); ?>">
 
           <label for="kr_jabatan"><b><u>Jabatan</u>:</b></label>

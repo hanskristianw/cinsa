@@ -31,7 +31,7 @@
                   <h6 class="collapse-header">Nilai</h6>
                   <a class="collapse-item" href=' . base_url('PA_penilai_CRUD') . '>1. PA</a>
                   <a class="collapse-item" href=' . base_url('Hasil_KPI_CRUD') . '>2. Laporan</a>
-                  <a class="collapse-item" href=' . base_url('Hasil_KPI_CRUD/rata') . '>3. Pribadi</a>
+                  <a class="collapse-item" href=' . base_url('Hasil_KPI_CRUD/rata') . '>3. Nilai PA Pribadi</a>
                 </div>
               </div>
             </li>
