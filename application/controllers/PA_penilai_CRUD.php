@@ -123,7 +123,7 @@ class PA_penilai_CRUD extends CI_Controller
         FROM nilai_pa
         LEFT JOIN indi_pa ON indi_pa_id = nilai_pa_indi_pa_id
         LEFT JOIN kompe_pa ON kompe_pa_id = indi_pa_kompe_pa_id
-        WHERE nilai_pa_t_id = $t_id AND nilai_pa_penilai_kr_id = $kr_penilai AND nilai_pa_dinilai_kr_id = $kr_dinilai AND kompe_pa_t_id = $t_id
+        WHERE nilai_pa_t_id = $t_id AND nilai_pa_penilai_kr_id = $kr_penilai AND nilai_pa_dinilai_kr_id = $kr_dinilai AND kompe_pa_t_id = $t_id AND kompe_pa_jabatan_kpi_id = $jabatan_kpi_id
         ORDER BY kompe_pa_id, indi_pa_id"
       )->result_array();
 
