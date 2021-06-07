@@ -56,6 +56,7 @@ class Laporan_KPI_CRUD extends CI_Controller
         FROM lap
         LEFT JOIN jabatan_kpi ON jabatan_kpi_id = lap_jabatan_kpi_dilihat
         WHERE lap_jabatan_kpi_melihat = $jabatan_kpi_id)
+        GROUP BY jabatan_kpi_id
         ORDER BY jabatan_kpi_nama"
       )->result_array();
 
