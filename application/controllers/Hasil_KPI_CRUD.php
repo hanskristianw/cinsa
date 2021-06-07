@@ -37,6 +37,8 @@ class Hasil_KPI_CRUD extends CI_Controller
       WHERE d_jabatan_kpi_kr_id = $kr_id"
     )->result_array();
 
+    $data['kr_id'] = $this->session->userdata('kr_id');
+
     $data['t_all'] = $this->db->query(
       "SELECT *
       FROM t
@@ -70,15 +72,25 @@ class Hasil_KPI_CRUD extends CI_Controller
     if($this->input->post('kr_id', true)){
       $data['title'] = 'Laporan Hasil KPI dan PA';
 
+      // detail penilai
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
+      $data['penilai_kr_id'] = $this->session->userdata('kr_id');
+      $kr_id = $this->session->userdata('kr_id');
+      $data['detail_penilai'] = $this->db->query(
+        "SELECT kr_nama_depan, kr_nama_belakang, kr_gelar_depan, kr_gelar_belakang
+        FROM kr
+        WHERE kr_id = $kr_id"
+      )->row_array();
 
+      //kr id dinilai
       $data['kr_id'] = $this->input->post('kr_id', true);
-      $data['t_id'] = $this->input->post('t_id', true);
 
+      //tahun penilaian
+      $data['t_id'] = $this->input->post('t_id', true);
       $t_id = $this->input->post('t_id', true);
 
+      //jabatan yang dinilai
       $jabatan_kpi_id = $this->input->post('jabatan_kpi_id', true);
-
       $data['jab'] = $this->db->query(
         "SELECT jabatan_kpi_id, jabatan_kpi_nama
         FROM jabatan_kpi

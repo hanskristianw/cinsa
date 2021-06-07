@@ -118,10 +118,23 @@
 
 
   <?php
-    $penilai = detail_penilai_pa($kr_id, $t_id);
-    foreach ($penilai as $pen):
+    //$penilai = detail_penilai_pa($kr_id, $t_id);
+    // echo $kr_id;
+    // echo "<br>";
+    // echo $t_id;
+    // echo "<br>";
+    // echo $penilai_kr_id;
+
       //cari nilai dari penilai dan yang dinilai pada tahun itu
-      $nil_pa = detail_nil_pa($pen['kr_id'], $peg['kr_id'], $t_id);
+      $nil_pa = detail_nil_pa($penilai_kr_id, $peg['kr_id'], $t_id, $jab['jabatan_kpi_id']);
+
+
+
+      // echo $pen['kr_id'];
+      // echo "<br>";
+      // echo $peg['kr_id'];
+      // echo "<br>";
+      // echo $t_id;
       //$nil_kpi = detail_nil_kpi($pen['kr_id'], $peg['kr_id'], $t_id);
 
       //if($nil_pa && $nil_kpi):
@@ -151,7 +164,7 @@
             <td style="vertical-align: top; text-align: left; padding-top:5px;"><?= $jab['jabatan_kpi_nama'] ?></td>
             <td style="vertical-align: top; text-align: left; padding-left:10px; padding-top:5px;"><b>Penilai</b></td>
             <td style="vertical-align: top; text-align: left; padding-top:5px;">:</td>
-            <td style="vertical-align: top; text-align: left; padding-top:5px;"><?= $pen['kr_gelar_depan'].' '.$pen['kr_nama_depan'].' '.$pen['kr_nama_belakang'].' '.$pen['kr_gelar_belakang'] ?></td>
+            <td style="vertical-align: top; text-align: left; padding-top:5px;"><?= $detail_penilai['kr_gelar_depan'].' '.$detail_penilai['kr_nama_depan'].' '.$detail_penilai['kr_nama_belakang'].' '.$detail_penilai['kr_gelar_belakang'] ?></td>
           </tr>
 
         </table>
@@ -216,7 +229,7 @@
           <div style="display: inline-block; text-align: center;">
             <div style="font-weight:550;font-size:13px;">TTD Penilai</div>
             <br><br><br><br><br>
-            <div style="font-weight:700;font-size:13px;"><?= $pen['kr_gelar_depan'].' '.$pen['kr_nama_depan'].' '.$pen['kr_nama_belakang'].' '.$pen['kr_gelar_belakang'] ?></div>
+            <div style="font-weight:700;font-size:13px;"><?= $detail_penilai['kr_gelar_depan'].' '.$detail_penilai['kr_nama_depan'].' '.$detail_penilai['kr_nama_belakang'].' '.$detail_penilai['kr_gelar_belakang'] ?></div>
           </div>
         </div>
         <div style="text-align: right; padding-right:10%;">
@@ -234,7 +247,6 @@
 
   <?php
       endif;
-    endforeach;
   ?>
 
   </div>
