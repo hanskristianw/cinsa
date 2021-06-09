@@ -101,6 +101,21 @@
               <h6 class="collapse-header">Rekap</h6>
               <a class="collapse-item" href=' . base_url('Rekap_PA_jabatan') . '>1. PA - jabatan</a>
               <a class="collapse-item" href=' . base_url('Rekap_PA_karyawan') . '>2. PA - karyawan</a>
+              <a class="collapse-item" href=' . base_url('Hapus_PA') . '>3. Hapus nilai PA</a>
+            </div>
+          </div>
+        </li>
+
+        <div class="sidebar-heading">Hapus</div>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo333" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-trash"></i>
+            <span>Hapus</span>
+          </a>
+          <div id="collapseTwo333" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Hapus</h6>
+              <a class="collapse-item" href=' . base_url('Hapus_PA') . '>1. Hapus nilai PA</a>
             </div>
           </div>
         </li>
