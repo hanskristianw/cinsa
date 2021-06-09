@@ -285,11 +285,23 @@ class Report_CRUD extends CI_Controller
     $data['t_all'] = $this->_t->return_all();
 
     if ($this->session->userdata('kr_jabatan_id') == 5) {
+      //divisi Pendidikan
       $data['sk_all'] = $this->_sk->return_all();
     } elseif ($this->session->userdata('kr_jabatan_id') == 4) {
+      //kurikulum
       $data['sk_all'] = $this->_sk->find_by_id_arr($this->session->userdata('kr_sk_id'));
     } else {
-      if (walkel_menu() > 0) {
+      if (konselor_menu() >= 1) {
+        //jika dia konselor
+        $kr_id = $this->session->userdata('kr_id');
+        $data['sk_all'] = $this->db->query(
+          "SELECT sk_id, sk_nama
+          FROM konselor
+          LEFT JOIN sk ON konselor_sk_id = sk_id
+          WHERE konselor_kr_id = $kr_id"
+        )->result_array();
+      }
+      elseif (walkel_menu() > 0) {
         //jika dia wali kelas
         $kr_id = $this->session->userdata('kr_id');
         $data['sk_all'] = $this->db->query(
@@ -300,7 +312,7 @@ class Report_CRUD extends CI_Controller
           ORDER BY sk_nama"
         )->result_array();
       } elseif (return_menu_kepsek()) {
-        //jika dia wali kelas
+        //jika dia kepsek
         $kr_id = $this->session->userdata('kr_id');
         $data['sk_all'] = $this->db->query(
           "SELECT DISTINCT sk_id, sk_nama
@@ -308,16 +320,7 @@ class Report_CRUD extends CI_Controller
           WHERE sk_kepsek = $kr_id
           ORDER BY sk_nama"
         )->result_array();
-      } elseif (konselor_menu() >= 1) {
-        //jika dia wali kelas
-        $kr_id = $this->session->userdata('kr_id');
-        $data['sk_all'] = $this->db->query(
-          "SELECT sk_id, sk_nama
-          FROM konselor
-          LEFT JOIN sk ON konselor_sk_id = sk_id
-          WHERE konselor_kr_id = $kr_id"
-        )->result_array();
-      } else {
+      }  else {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Access Denied!</div>');
         redirect('Profile');
       }
