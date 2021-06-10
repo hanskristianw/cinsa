@@ -90,6 +90,9 @@ class PA_penilai_CRUD extends CI_Controller
       $kr_dinilai = $this->input->post('kr_id');
       $jabatan_kpi_id = $this->input->post('jabatan_kpi_id');
 
+
+      $data['jabatan_kpi_id'] = $this->input->post('jabatan_kpi_id');
+
       $data['title'] = 'Nilai PA';
       //data karyawan yang sedang login untuk topbar
       $data['kr'] = $this->_kr->find_by_username($this->session->userdata('kr_username'));
@@ -223,7 +226,7 @@ class PA_penilai_CRUD extends CI_Controller
 
 
       if($cek_nilai){
-        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Nilai sudah ada!</div>');
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Nilai sudah ada</div>');
         redirect('PA_penilai_CRUD');
       }
 
@@ -252,12 +255,16 @@ class PA_penilai_CRUD extends CI_Controller
       $nilai_pa_penilai_kr_id = $this->input->post('nilai_pa_penilai_kr_id');
       $nilai_pa_dinilai_kr_id = $this->input->post('nilai_pa_dinilai_kr_id');
 
+
+      $jabatan_kpi_id = $this->input->post('jabatan_kpi_id');
+
       $cek_nilai = $this->db->query(
         "SELECT nilai_pa_id, kompe_pa_nama, indi_pa_nama, nilai_pa_hasil
         FROM nilai_pa
         LEFT JOIN indi_pa ON indi_pa_id = nilai_pa_indi_pa_id
         LEFT JOIN kompe_pa ON kompe_pa_id = indi_pa_kompe_pa_id
-        WHERE nilai_pa_t_id = $t_id AND nilai_pa_penilai_kr_id = $nilai_pa_penilai_kr_id AND nilai_pa_dinilai_kr_id = $nilai_pa_dinilai_kr_id AND kompe_pa_t_id = $t_id
+        WHERE nilai_pa_t_id = $t_id AND nilai_pa_penilai_kr_id = $nilai_pa_penilai_kr_id AND nilai_pa_dinilai_kr_id = $nilai_pa_dinilai_kr_id
+        AND kompe_pa_jabatan_kpi_id = $jabatan_kpi_id
         ORDER BY kompe_pa_id, indi_pa_id"
       )->result_array();
 

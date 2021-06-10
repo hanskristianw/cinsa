@@ -84,6 +84,7 @@
   <div class="box1 mb-4 mt-4">
     <form class="" action="<?= base_url('PA_penilai_CRUD/input_proses'); ?>" method="post">
 
+      <input type="hidden" name="jabatan_kpi_id" value="<?= $jabatan_kpi_id ?>">
       <input type="hidden" name="nilai_pa_penilai_kr_id" value="<?= $kr_penilai['kr_id'] ?>">
       <input type="hidden" name="nilai_pa_dinilai_kr_id" value="<?= $kr_dinilai['kr_id'] ?>">
       <input type="hidden" name="t_id" value="<?= $t_id ?>">
