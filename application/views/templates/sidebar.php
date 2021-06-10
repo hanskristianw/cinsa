@@ -101,7 +101,6 @@
               <h6 class="collapse-header">Rekap</h6>
               <a class="collapse-item" href=' . base_url('Rekap_PA_jabatan') . '>1. PA - jabatan</a>
               <a class="collapse-item" href=' . base_url('Rekap_PA_karyawan') . '>2. PA - karyawan</a>
-              <a class="collapse-item" href=' . base_url('Hapus_PA') . '>3. Hapus nilai PA</a>
             </div>
           </div>
         </li>
@@ -246,6 +245,20 @@
                   <a class="collapse-item" href=' . base_url('laporan_crud/dkn') . '>9. DKN</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/bi') . '>10. Buku Induk</a>
                   <a class="collapse-item" href=' . base_url('laporan_crud/login_siswa_sekolah') . '>11. Login Siswa</a>
+                </div>
+              </div>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo33" aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-trash"></i>
+                <span>Hapus</span>
+              </a>
+              <div id="collapseTwo33" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                  <h6 class="collapse-header">Nilai</h6>
+                  <a class="collapse-item" href=' . base_url('Hapus_Nilai_Mapel/ujian_index') . '>1. Hapus nilai UTS/UAS</a>
+                  <a class="collapse-item" href=' . base_url('Hapus_Nilai_Mapel/topik_index') . '>2. Hapus nilai Topik</a>
                 </div>
               </div>
             </li>
