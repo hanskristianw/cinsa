@@ -18,6 +18,16 @@ class PA_penilai_CRUD extends CI_Controller
       redirect('Profile');
     }
 
+    $cek = $this->db->query(
+      "SELECT *
+      FROM akses_kpi_pa"
+    )->row_array();
+
+    if($cek['akses_pa'] == 0){
+      $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Akses penilaian PA sudah ditutup!</div>');
+      redirect('Profile');
+    }
+
   }
 
   public function index()

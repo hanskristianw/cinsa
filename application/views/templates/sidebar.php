@@ -86,6 +86,7 @@
               <h6 class="collapse-header">Master</h6>
               <a class="collapse-item" href=' . base_url('Jabatan_KPI_CRUD') . '>1. Jabatan</a>
               <a class="collapse-item" href=' . base_url('Persen_KPI_CRUD') . '>2. Persentase</a>
+              <a class="collapse-item" href=' . base_url('Akses_KPI_PA') . '>3. Akses KPI - PA</a>
             </div>
           </div>
         </li>';
