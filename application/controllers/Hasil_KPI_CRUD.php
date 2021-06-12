@@ -190,11 +190,18 @@ class Hasil_KPI_CRUD extends CI_Controller
         FROM jabatan_kpi
         WHERE jabatan_kpi_id = $jabatan_kpi_id")->row_array();
 
+      if(!$penilai){
+        $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">Belum ada penilai untuk jabatan ini!</div>');
+        redirect('Hasil_KPI_CRUD/rata');
+      }
+
       $data['penilai_all'] = $this->db->query(
         "SELECT kr_id, kr_nama_depan, kr_nama_belakang
         FROM kr
         WHERE kr_id IN ($penilai)
         ORDER BY kr_nama_depan")->result_array();
+
+
 
       $this->load->view('templates/header', $data);
       $this->load->view('templates/sidebar', $data);
