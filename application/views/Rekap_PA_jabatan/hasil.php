@@ -102,7 +102,7 @@
               <?php $total=0; $total_penilai=0; foreach ($penilai_all as $p): ?>
               <td style="text-align: center;">
                 <?php
-                  $nil_pa = detail_nil_pa_akhir($p['kr_id'], $d['kr_id'], $t_id);
+                  $nil_pa = detail_nil_pa_akhir($p['kr_id'], $d['kr_id'], $t_id, $jabatan_kpi['jabatan_kpi_id']);
                   if($nil_pa['hasil']){
                     $total += $nil_pa['hasil'];
                     $total_penilai ++;

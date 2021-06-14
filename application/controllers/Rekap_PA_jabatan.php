@@ -65,7 +65,8 @@ class Rekap_PA_jabatan extends CI_Controller
         LEFT JOIN kompe_pa ON kompe_pa_id = indi_pa_kompe_pa_id
         LEFT JOIN jabatan_kpi ON kompe_pa_jabatan_kpi_id = jabatan_kpi_id
         WHERE nilai_pa_t_id = $t_id
-        GROUP BY jabatan_kpi_id"
+        GROUP BY jabatan_kpi_id
+        ORDER BY jabatan_kpi_nama"
       )->result_array();
 
       //data karyawan yang sedang login untuk topbar
