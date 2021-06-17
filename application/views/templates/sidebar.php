@@ -39,23 +39,23 @@
             <hr class="sidebar-divider">';
       }
 
-      if(cek_nilai_kpi_ada()>0 && $this->session->userdata('kr_jabatan_id')){
-        echo '<div class="sidebar-heading">Lihat Penilaian</div>
-            <li class="nav-item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwokpilaporan" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-address-card"></i>
-                <span>PA & KPI</span>
-              </a>
-              <div id="collapseTwokpilaporan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                  <h6 class="collapse-header">Nilai</h6>
-                  <a class="collapse-item" href=' . base_url('Lihat_nilai_kpi') . '>Lihat Nilai</a>
-                </div>
-              </div>
-            </li>
-
-            <hr class="sidebar-divider">';
-      }
+      // if(cek_nilai_kpi_ada()>0 && $this->session->userdata('kr_jabatan_id')){
+      //   echo '<div class="sidebar-heading">Lihat Penilaian</div>
+      //       <li class="nav-item">
+      //         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwokpilaporan" aria-expanded="true" aria-controls="collapseTwo">
+      //           <i class="fas fa-fw fa-address-card"></i>
+      //           <span>PA & KPI</span>
+      //         </a>
+      //         <div id="collapseTwokpilaporan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      //           <div class="bg-white py-2 collapse-inner rounded">
+      //             <h6 class="collapse-header">Nilai</h6>
+      //             <a class="collapse-item" href=' . base_url('Lihat_nilai_kpi') . '>Lihat Nilai</a>
+      //           </div>
+      //         </div>
+      //       </li>
+      //
+      //       <hr class="sidebar-divider">';
+      // }
 
       if ($this->session->userdata('kr_jabatan_id') == 1 && $this->session->userdata('kr_jabatan_id')) {
         //Administrator atau Super Admin
