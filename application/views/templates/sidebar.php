@@ -206,6 +206,7 @@
                   <a class="collapse-item" href=' . base_url('Percent_CRUD') . '>10. Persentase</a>
                   <a class="collapse-item" href=' . base_url('Jadwal_CRUD/pengumuman') . '>11. Pengumuman</a>
                   <a class="collapse-item" href=' . base_url('Kelulusan_CRUD') . '>12. Kelulusan</a>
+                  <a class="collapse-item" href=' . base_url('Tanggal_Rapor') . '>13. Tanggal Rapor</a>
                 </div>
               </div>
             </li>
